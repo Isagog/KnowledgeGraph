@@ -1,0 +1,12 @@
+{
+  "groupId":"com.isagog",
+  "artifactId":"kg-api",
+  "artifactVersion":"0.1.0",
+  "apiPackage": "com.isagog.kg.api",
+  "modelPackage": "com.isagog.kg.model",
+  "developerEmail": "api@isagog.com",
+  "developerName": "Guido Vetere",
+  "developerOrganization": "Isagog Srl",
+  "developerOrganizationUrl": "https://isagog.com",
+  "library":"feign"
+}
