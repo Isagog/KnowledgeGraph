@@ -1,5 +1,6 @@
-package com.isagog.kg;
+package com.isagog.kg.api;
 
+import com.isagog.kg.api.KgApi;
 import org.wso2.msf4j.MicroservicesRunner;
 
 /**
@@ -15,7 +16,7 @@ System.out.println("starting Micro Services");
 //If you have multiple service classes add them in comma separated manner.
 //Ex: .deploy(new PetApi())
         new MicroservicesRunner()
-                .deploy(new PetApi())
+                .deploy(new KgApi())
                 .start();
     }
 }
