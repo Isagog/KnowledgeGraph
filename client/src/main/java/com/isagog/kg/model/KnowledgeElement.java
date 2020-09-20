@@ -1,6 +1,6 @@
 /*
  * Isagog Knowledge Graph Service
- * Isagog Knowledge Service API
+ * Isagog Knowledge Graph Service API
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: ks-api@isagog.com
@@ -32,6 +32,7 @@ import com.isagog.kg.model.Entity;
 import com.isagog.kg.model.EntityStatement;
 import com.isagog.kg.model.Frame;
 import com.isagog.kg.model.KnowledgeAnnotation;
+import com.isagog.kg.model.LinguisticStatement;
 import com.isagog.kg.model.Query;
 import com.isagog.kg.model.Relation;
 import com.isagog.kg.model.RelationalConcept;
@@ -54,7 +55,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   KnowledgeElement.JSON_PROPERTY_ANNOTATIONS
 })
 @JsonTypeName("KnowledgeElement")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-02T11:16:09.263604800+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-20T08:48:02.229570400+02:00[Europe/Berlin]")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "ktype", visible = true)
 @JsonSubTypes({
   @JsonSubTypes.Type(value = AtomicConcept.class, name = "AtomicConcept"),
@@ -66,6 +67,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonSubTypes.Type(value = Entity.class, name = "Entity"),
   @JsonSubTypes.Type(value = EntityStatement.class, name = "EntityStatement"),
   @JsonSubTypes.Type(value = Frame.class, name = "Frame"),
+  @JsonSubTypes.Type(value = LinguisticStatement.class, name = "LinguisticStatement"),
   @JsonSubTypes.Type(value = Query.class, name = "Query"),
   @JsonSubTypes.Type(value = Relation.class, name = "Relation"),
   @JsonSubTypes.Type(value = RelationalConcept.class, name = "RelationalConcept"),

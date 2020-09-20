@@ -3,9 +3,7 @@ package com.isagog.kg.api.impl;
 import com.isagog.kg.api.*;
 import com.isagog.kg.model.*;
 
-import java.io.File;
 import com.isagog.kg.model.KnowledgeElement;
-import com.isagog.kg.model.KnowledgeGraph;
 import com.isagog.kg.model.Statement;
 
 import java.util.List;
@@ -19,24 +17,11 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-02T11:33:37.504057800+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-20T08:47:47.056953700+02:00[Europe/Berlin]")
 public class KgApiServiceImpl extends KgApiService {
     @Override
     public Response assertStatement(String kg
 , Statement statement
- ) throws NotFoundException {
-        // do some magic!
-        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
-    }
-    @Override
-    public Response deleteGraph(String kg
- ) throws NotFoundException {
-        // do some magic!
-        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
-    }
-    @Override
-    public Response getGraph(String kg
-, Boolean content
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();

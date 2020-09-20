@@ -1,4 +1,4 @@
-java -jar D:\Tools\openapi-generator\modules\openapi-generator-cli\target\openapi-generator-cli.jar generate ^
+java -jar D:\Platforms\openapi-generator\modules\openapi-generator-cli\target\openapi-generator-cli.jar generate ^
        -g java ^
        -i D:\Projects\Isagog\KnowledgeGraph\spec\isagog-kg.yaml ^
        -o D:\Projects\Isagog\KnowledgeGraph\client ^

@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-14T18:03:33.813238600+02:00[Europe/Berlin]")
-public interface KnowledgeServiceApi extends ApiClient.Api {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-20T08:48:02.229570400+02:00[Europe/Berlin]")
+public interface KnowledgeGraphServiceApi extends ApiClient.Api {
 
 
   /**

@@ -1,6 +1,6 @@
 /*
  * Isagog Knowledge Graph Service
- * Isagog Knowledge Service API
+ * Isagog Knowledge Graph Service API
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: ks-api@isagog.com
@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   Support.JSON_PROPERTY_CONFIDENCE
 })
 @JsonTypeName("Support")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-02T11:16:09.263604800+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-20T08:48:02.229570400+02:00[Europe/Berlin]")
 public class Support {
   public static final String JSON_PROPERTY_EVIDENCE = "evidence";
   private Double evidence = 0.5d;

@@ -21,7 +21,7 @@ src/main/java/com/isagog/kg/RFC3339DateFormat.java
 src/main/java/com/isagog/kg/ServerConfiguration.java
 src/main/java/com/isagog/kg/ServerVariable.java
 src/main/java/com/isagog/kg/StringUtil.java
-src/main/java/com/isagog/kg/api/KnowledgeServiceApi.java
+src/main/java/com/isagog/kg/api/KnowledgeGraphServiceApi.java
 src/main/java/com/isagog/kg/auth/ApiKeyAuth.java
 src/main/java/com/isagog/kg/auth/HttpBasicAuth.java
 src/main/java/com/isagog/kg/auth/HttpBearerAuth.java
@@ -44,6 +44,7 @@ src/main/java/com/isagog/kg/model/GrammarAnnotation.java
 src/main/java/com/isagog/kg/model/KnowledgeAnnotation.java
 src/main/java/com/isagog/kg/model/KnowledgeElement.java
 src/main/java/com/isagog/kg/model/KnowledgeGraph.java
+src/main/java/com/isagog/kg/model/LinguisticStatement.java
 src/main/java/com/isagog/kg/model/Query.java
 src/main/java/com/isagog/kg/model/QueryResponse.java
 src/main/java/com/isagog/kg/model/QueryResponseHeader.java
@@ -63,3 +64,5 @@ src/main/java/com/isagog/kg/model/SyntaxAnnotation.java
 src/main/java/com/isagog/kg/model/TextAnnotation.java
 src/main/java/com/isagog/kg/model/TextualContent.java
 src/main/java/com/isagog/kg/model/TokenAnnotation.java
+src/test/java/com/isagog/kg/api/KnowledgeGraphServiceApiTest.java
+src/test/java/com/isagog/kg/model/LinguisticStatementTest.java

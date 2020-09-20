@@ -2,7 +2,7 @@ openapi: 3.0.2
 info:
   title: Isagog Knowledge Graph Service
   version: 1.0.0
-  description: Isagog Knowledge Service API
+  description: Isagog Knowledge Graph Service API
   contact:
     email: ks-api@isagog.com
   license:
@@ -16,10 +16,10 @@ servers:
       basePath:
         default: /
 tags:
-  - name: KnowledgeService
+  - name: KnowledgeGraphService
     externalDocs:
-      url: http://isagog.com/ks/docs
-    description: Isagog Knowledge Service
+      url: http://isagog.com/kg/docs
+    description: Isagog Knowledge Graph Service Specification
 paths:
   #
   #  GLOBAL CRUD OPERATIONS
@@ -27,7 +27,7 @@ paths:
   /create:
     post:
       tags:
-        - KnowledgeService
+        - KnowledgeGraphService
       summary: Knowledge graph creation
       description: Creates a Knowledge graph
       operationId: createGraph
@@ -53,7 +53,7 @@ paths:
   /list:
     get:
       tags:
-        - KnowledgeService
+        - KnowledgeGraphService
       summary: Lists Knowledge Graphs
       description: Returns the list of available KGs (id)
       operationId: listGraphs
@@ -83,16 +83,16 @@ paths:
                 items:
                     $ref: '#/components/schemas/KnowledgeGraph'
 
-  /{kg}/get:
+  /get:
     get:
       tags:
-        - KnowledgeService
+        - KnowledgeGraphService
       summary: Retrieves a Knowledge Graph
       description: Returns a Knowledge Graph, either with summary or full content
       operationId: getGraph
       parameters:
         - name: kg
-          in: path
+          in: query
           required: true
           schema:
             type: string
@@ -131,16 +131,16 @@ paths:
     summary: Knowledge Graph
     description: Returns a Knowledge Graph
 
-  /{kg}/delete:
+  /delete:
     get:
       tags:
-        - KnowledgeService
+        - KnowledgeGraphService
       summary: Deletes a Knowledge Graph
       description: Knowledge graph deletion
       operationId: deleteGraph
       parameters:
         - name: kg
-          in: path
+          in: query
           required: true
           schema:
             type: string
@@ -161,7 +161,7 @@ paths:
 
 
 
-  /{kg}/lookup:
+  /{kg}/get:
     get:
       summary: Retrieves an element in a Knowledge Graph
       description: Get the named element, if present
@@ -197,7 +197,7 @@ paths:
         502:
           description: Server error
       tags:
-        - KnowledgeService
+        - KnowledgeGraphService
 
   /{kg}/assert:
     post:
@@ -214,7 +214,6 @@ paths:
       responses:
         200:
           description: Asserted successfully
-
         401:
           description: Unknown graph
         402:
@@ -231,7 +230,7 @@ paths:
         description: Type definition statement
         required: true
       tags:
-        - KnowledgeService
+        - KnowledgeGraphService
 
 
   /{kg}/retract:
@@ -264,7 +263,7 @@ paths:
               $ref: '#/components/schemas/Statement'
         required: true
       tags:
-        - KnowledgeService
+        - KnowledgeGraphService
 
 
   /evaluate:
@@ -324,14 +323,14 @@ paths:
         502:
           description: Server error
       tags:
-        - KnowledgeService
+        - KnowledgeGraphService
 
 
   /search:
     get:
       tags:
-        - KnowledgeService
-      summary: Knowledge general search
+        - KnowledgeGraphService
+      summary: Knowledge search
       description: Search knowledge items
       operationId: search
       parameters:
@@ -404,7 +403,7 @@ paths:
         502:
           description: Server error
       tags:
-        - KnowledgeService
+        - KnowledgeGraphService
       requestBody:
         content:
           application/json:
@@ -456,7 +455,7 @@ paths:
         502:
           description: Server error
       tags:
-        - KnowledgeService
+        - KnowledgeGraphService
       requestBody:
         content:
           application/json:
@@ -844,6 +843,18 @@ components:
             type: string
             format: byte
 
+    LinguisticStatement:
+      description: Natural language statement
+      allOf:
+       - $ref: '#/components/schemas/Statement'
+      type: object
+      required:
+        - utterance
+      properties:
+        utterance:
+          description: Utterance
+          type: string
+          format: byte
 
     Frame:
       description: Frame type

@@ -27,7 +27,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the query API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-02T11:33:37.504057800+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-20T08:47:47.056953700+02:00[Europe/Berlin]")
 public class QueryApi  {
    private final QueryApiService delegate = QueryApiServiceFactory.getQueryApi();
 
@@ -35,7 +35,7 @@ public class QueryApi  {
     
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    @io.swagger.annotations.ApiOperation(value = "Knowledge query", notes = "Queries a Knowledge Graph", response = QueryResponse.class, tags={ "KnowledgeService", })
+    @io.swagger.annotations.ApiOperation(value = "Knowledge query", notes = "Queries a Knowledge Graph", response = QueryResponse.class, tags={ "KnowledgeGraphService", })
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 200, message = "Success", response = QueryResponse.class),
         

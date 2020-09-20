@@ -43,12 +43,13 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * Individual assertion
+ * Natural language statement
  */
-@ApiModel(description = "Individual assertion")
+@ApiModel(description = "Natural language statement")
 @JsonPropertyOrder({
+  LinguisticStatement.JSON_PROPERTY_UTTERANCE
 })
-@JsonTypeName("EntityStatement")
+@JsonTypeName("LinguisticStatement")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-20T08:48:02.229570400+02:00[Europe/Berlin]")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "ktype", visible = true)
 @JsonSubTypes({
@@ -66,7 +67,34 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonSubTypes.Type(value = Situation.class, name = "Situation"),
 })
 
-public class EntityStatement extends Statement {
+public class LinguisticStatement extends Statement {
+  public static final String JSON_PROPERTY_UTTERANCE = "utterance";
+  private byte[] utterance;
+
+
+  public LinguisticStatement utterance(byte[] utterance) {
+    
+    this.utterance = utterance;
+    return this;
+  }
+
+   /**
+   * Utterance
+   * @return utterance
+  **/
+  @ApiModelProperty(required = true, value = "Utterance")
+  @JsonProperty(JSON_PROPERTY_UTTERANCE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public byte[] getUtterance() {
+    return utterance;
+  }
+
+
+  public void setUtterance(byte[] utterance) {
+    this.utterance = utterance;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -76,20 +104,23 @@ public class EntityStatement extends Statement {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return super.equals(o);
+    LinguisticStatement linguisticStatement = (LinguisticStatement) o;
+    return Arrays.equals(this.utterance, linguisticStatement.utterance) &&
+        super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode());
+    return Objects.hash(Arrays.hashCode(utterance), super.hashCode());
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class EntityStatement {\n");
+    sb.append("class LinguisticStatement {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    sb.append("    utterance: ").append(toIndentedString(utterance)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -26,7 +26,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the create API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-02T11:33:37.504057800+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-20T08:47:47.056953700+02:00[Europe/Berlin]")
 public class CreateApi  {
    private final CreateApiService delegate = CreateApiServiceFactory.getCreateApi();
 
@@ -34,7 +34,7 @@ public class CreateApi  {
     
     @Consumes({ "application/json" })
     
-    @io.swagger.annotations.ApiOperation(value = "Knowledge graph creation", notes = "Creates a Knowledge graph", response = Void.class, tags={ "KnowledgeService", })
+    @io.swagger.annotations.ApiOperation(value = "Knowledge graph creation", notes = "Creates a Knowledge graph", response = Void.class, tags={ "KnowledgeGraphService", })
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 200, message = "Success", response = Void.class),
         

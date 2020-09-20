@@ -26,7 +26,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the evaluate API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-02T11:33:37.504057800+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-20T08:47:47.056953700+02:00[Europe/Berlin]")
 public class EvaluateApi  {
    private final EvaluateApiService delegate = EvaluateApiServiceFactory.getEvaluateApi();
 
@@ -34,7 +34,7 @@ public class EvaluateApi  {
     
     
     @Produces({ "application/json" })
-    @io.swagger.annotations.ApiOperation(value = "Entity individual evaluation", notes = "Evaluates the Entity as an instance of the specified concept", response = Classification.class, responseContainer = "List", tags={ "KnowledgeService", })
+    @io.swagger.annotations.ApiOperation(value = "Entity individual evaluation", notes = "Evaluates the Entity as an instance of the specified concept", response = Classification.class, responseContainer = "List", tags={ "KnowledgeGraphService", })
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 200, message = "Success", response = Classification.class, responseContainer = "List"),
         

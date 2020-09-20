@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 README.md
 pom.xml
 src/gen/java/com/isagog/kg/api/AnalyzeApi.java
@@ -9,8 +8,12 @@ src/gen/java/com/isagog/kg/api/ApiResponseMessage.java
 src/gen/java/com/isagog/kg/api/Application.java
 src/gen/java/com/isagog/kg/api/CreateApi.java
 src/gen/java/com/isagog/kg/api/CreateApiService.java
+src/gen/java/com/isagog/kg/api/DeleteApi.java
+src/gen/java/com/isagog/kg/api/DeleteApiService.java
 src/gen/java/com/isagog/kg/api/EvaluateApi.java
 src/gen/java/com/isagog/kg/api/EvaluateApiService.java
+src/gen/java/com/isagog/kg/api/GetApi.java
+src/gen/java/com/isagog/kg/api/GetApiService.java
 src/gen/java/com/isagog/kg/api/JacksonJsonProvider.java
 src/gen/java/com/isagog/kg/api/KgApi.java
 src/gen/java/com/isagog/kg/api/KgApiService.java
@@ -42,6 +45,7 @@ src/gen/java/com/isagog/kg/model/GrammarAnnotation.java
 src/gen/java/com/isagog/kg/model/KnowledgeAnnotation.java
 src/gen/java/com/isagog/kg/model/KnowledgeElement.java
 src/gen/java/com/isagog/kg/model/KnowledgeGraph.java
+src/gen/java/com/isagog/kg/model/LinguisticStatement.java
 src/gen/java/com/isagog/kg/model/Query.java
 src/gen/java/com/isagog/kg/model/QueryResponse.java
 src/gen/java/com/isagog/kg/model/QueryResponseHeader.java
@@ -63,14 +67,18 @@ src/gen/java/com/isagog/kg/model/TextualContent.java
 src/gen/java/com/isagog/kg/model/TokenAnnotation.java
 src/main/java/com/isagog/kg/api/factories/AnalyzeApiServiceFactory.java
 src/main/java/com/isagog/kg/api/factories/CreateApiServiceFactory.java
+src/main/java/com/isagog/kg/api/factories/DeleteApiServiceFactory.java
 src/main/java/com/isagog/kg/api/factories/EvaluateApiServiceFactory.java
+src/main/java/com/isagog/kg/api/factories/GetApiServiceFactory.java
 src/main/java/com/isagog/kg/api/factories/KgApiServiceFactory.java
 src/main/java/com/isagog/kg/api/factories/ListApiServiceFactory.java
 src/main/java/com/isagog/kg/api/factories/QueryApiServiceFactory.java
 src/main/java/com/isagog/kg/api/factories/SearchApiServiceFactory.java
 src/main/java/com/isagog/kg/api/impl/AnalyzeApiServiceImpl.java
 src/main/java/com/isagog/kg/api/impl/CreateApiServiceImpl.java
+src/main/java/com/isagog/kg/api/impl/DeleteApiServiceImpl.java
 src/main/java/com/isagog/kg/api/impl/EvaluateApiServiceImpl.java
+src/main/java/com/isagog/kg/api/impl/GetApiServiceImpl.java
 src/main/java/com/isagog/kg/api/impl/KgApiServiceImpl.java
 src/main/java/com/isagog/kg/api/impl/ListApiServiceImpl.java
 src/main/java/com/isagog/kg/api/impl/QueryApiServiceImpl.java
