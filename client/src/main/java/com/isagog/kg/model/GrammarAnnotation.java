@@ -39,12 +39,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @ApiModel(description = "Token grammar spec")
 @JsonPropertyOrder({
   GrammarAnnotation.JSON_PROPERTY_POS,
-  GrammarAnnotation.JSON_PROPERTY_SPEC,
+  GrammarAnnotation.JSON_PROPERTY_MODIFIER,
   GrammarAnnotation.JSON_PROPERTY_NUMBER,
   GrammarAnnotation.JSON_PROPERTY_PERSON
 })
 @JsonTypeName("GrammarAnnotation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-20T08:48:02.229570400+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-01T15:11:01.505608900+02:00[Europe/Berlin]")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "atype", visible = true)
 @JsonSubTypes({
   @JsonSubTypes.Type(value = DependencyAnnotation.class, name = "DependencyAnnotation"),
@@ -102,20 +102,22 @@ public class GrammarAnnotation extends TokenAnnotation {
   private PosEnum pos;
 
   /**
-   * Gets or Sets spec
+   * Part of speech modifier
    */
-  public enum SpecEnum {
+  public enum ModifierEnum {
     V_MODAL("V-MODAL"),
     
     V_AUXILIAR("V-AUXILIAR"),
     
     N_NAME("N-NAME"),
     
-    QUALIFIER("QUALIFIER");
+    QUALIFIER("QUALIFIER"),
+    
+    NONE("NONE");
 
     private String value;
 
-    SpecEnum(String value) {
+    ModifierEnum(String value) {
       this.value = value;
     }
 
@@ -130,8 +132,8 @@ public class GrammarAnnotation extends TokenAnnotation {
     }
 
     @JsonCreator
-    public static SpecEnum fromValue(String value) {
-      for (SpecEnum b : SpecEnum.values()) {
+    public static ModifierEnum fromValue(String value) {
+      for (ModifierEnum b : ModifierEnum.values()) {
         if (b.value.equals(value)) {
           return b;
         }
@@ -140,18 +142,20 @@ public class GrammarAnnotation extends TokenAnnotation {
     }
   }
 
-  public static final String JSON_PROPERTY_SPEC = "spec";
-  private SpecEnum spec;
+  public static final String JSON_PROPERTY_MODIFIER = "modifier";
+  private ModifierEnum modifier = ModifierEnum.NONE;
 
   /**
-   * Gets or Sets number
+   * Grammatical number
    */
   public enum NumberEnum {
     SINGULAR("SINGULAR"),
     
     PLURAL("PLURAL"),
     
-    DUAL("DUAL");
+    DUAL("DUAL"),
+    
+    NONE("NONE");
 
     private String value;
 
@@ -181,17 +185,19 @@ public class GrammarAnnotation extends TokenAnnotation {
   }
 
   public static final String JSON_PROPERTY_NUMBER = "number";
-  private NumberEnum number;
+  private NumberEnum number = NumberEnum.NONE;
 
   /**
-   * Gets or Sets person
+   * Grammatical person (for VERBS)
    */
   public enum PersonEnum {
     FIRST("FIRST"),
     
     SECOND("SECOND"),
     
-    THIRD("THIRD");
+    THIRD("THIRD"),
+    
+    NONE("NONE");
 
     private String value;
 
@@ -221,7 +227,7 @@ public class GrammarAnnotation extends TokenAnnotation {
   }
 
   public static final String JSON_PROPERTY_PERSON = "person";
-  private PersonEnum person;
+  private PersonEnum person = PersonEnum.NONE;
 
 
   public GrammarAnnotation pos(PosEnum pos) {
@@ -248,28 +254,28 @@ public class GrammarAnnotation extends TokenAnnotation {
   }
 
 
-  public GrammarAnnotation spec(SpecEnum spec) {
+  public GrammarAnnotation modifier(ModifierEnum modifier) {
     
-    this.spec = spec;
+    this.modifier = modifier;
     return this;
   }
 
    /**
-   * Get spec
-   * @return spec
+   * Part of speech modifier
+   * @return modifier
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_SPEC)
+  @ApiModelProperty(value = "Part of speech modifier")
+  @JsonProperty(JSON_PROPERTY_MODIFIER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public SpecEnum getSpec() {
-    return spec;
+  public ModifierEnum getModifier() {
+    return modifier;
   }
 
 
-  public void setSpec(SpecEnum spec) {
-    this.spec = spec;
+  public void setModifier(ModifierEnum modifier) {
+    this.modifier = modifier;
   }
 
 
@@ -280,11 +286,11 @@ public class GrammarAnnotation extends TokenAnnotation {
   }
 
    /**
-   * Get number
+   * Grammatical number
    * @return number
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Grammatical number")
   @JsonProperty(JSON_PROPERTY_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -305,11 +311,11 @@ public class GrammarAnnotation extends TokenAnnotation {
   }
 
    /**
-   * Get person
+   * Grammatical person (for VERBS)
    * @return person
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Grammatical person (for VERBS)")
   @JsonProperty(JSON_PROPERTY_PERSON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -333,7 +339,7 @@ public class GrammarAnnotation extends TokenAnnotation {
     }
     GrammarAnnotation grammarAnnotation = (GrammarAnnotation) o;
     return Objects.equals(this.pos, grammarAnnotation.pos) &&
-        Objects.equals(this.spec, grammarAnnotation.spec) &&
+        Objects.equals(this.modifier, grammarAnnotation.modifier) &&
         Objects.equals(this.number, grammarAnnotation.number) &&
         Objects.equals(this.person, grammarAnnotation.person) &&
         super.equals(o);
@@ -341,7 +347,7 @@ public class GrammarAnnotation extends TokenAnnotation {
 
   @Override
   public int hashCode() {
-    return Objects.hash(pos, spec, number, person, super.hashCode());
+    return Objects.hash(pos, modifier, number, person, super.hashCode());
   }
 
 
@@ -351,7 +357,7 @@ public class GrammarAnnotation extends TokenAnnotation {
     sb.append("class GrammarAnnotation {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    pos: ").append(toIndentedString(pos)).append("\n");
-    sb.append("    spec: ").append(toIndentedString(spec)).append("\n");
+    sb.append("    modifier: ").append(toIndentedString(modifier)).append("\n");
     sb.append("    number: ").append(toIndentedString(number)).append("\n");
     sb.append("    person: ").append(toIndentedString(person)).append("\n");
     sb.append("}");

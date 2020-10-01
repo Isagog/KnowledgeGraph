@@ -1,6 +1,5 @@
 package com.isagog.kg.api;
 
-import com.isagog.kg.api.KgApi;
 import org.wso2.msf4j.MicroservicesRunner;
 
 /**

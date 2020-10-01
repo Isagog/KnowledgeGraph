@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-20T08:48:02.229570400+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-01T15:11:01.505608900+02:00[Europe/Berlin]")
 public interface KnowledgeGraphServiceApi extends ApiClient.Api {
 
 
@@ -27,7 +27,7 @@ public interface KnowledgeGraphServiceApi extends ApiClient.Api {
    * Sentence analysis
    * Provides an annotation of the supplied text object according to available knowledge, including entity recognition, linking and relations (opt)
    * @param kg Analysis context (opt) (optional)
-   * @param task  (optional, default to ENTITIES)
+   * @param task  (optional, default to ANYTHING)
    * @param textualContent  (optional)
    * @return List&lt;TextAnnotation&gt;
    */
@@ -51,7 +51,7 @@ public interface KnowledgeGraphServiceApi extends ApiClient.Api {
    *   <p>The following elements may be specified in the query map:</p>
    *   <ul>
    *   <li>kg - Analysis context (opt) (optional)</li>
-   *   <li>task -  (optional, default to ENTITIES)</li>
+   *   <li>task -  (optional, default to ANYTHING)</li>
    *   </ul>
    * @return List&lt;TextAnnotation&gt;
    */
@@ -81,7 +81,7 @@ public interface KnowledgeGraphServiceApi extends ApiClient.Api {
    * Statement assertion
    * Asserts a statement in a Knowledge Graph
    * @param kg Assertion context (KG id) (required)
-   * @param statement Type definition statement (required)
+   * @param statement Assertion statement (required)
    */
   @RequestLine("POST /{kg}/assert")
   @Headers({
@@ -145,7 +145,7 @@ public interface KnowledgeGraphServiceApi extends ApiClient.Api {
   }
 
   /**
-   * Entity individual evaluation
+   * Entity evaluation
    * Evaluates the Entity as an instance of the specified concept
    * @param id Entity identifier (required)
    * @param concept Concept to be evaluated (required)
@@ -160,7 +160,7 @@ public interface KnowledgeGraphServiceApi extends ApiClient.Api {
   List<Classification> evaluateEntity(@Param("id") String id, @Param("concept") String concept, @Param("kg") String kg, @Param("method") String method);
 
   /**
-   * Entity individual evaluation
+   * Entity evaluation
    * Evaluates the Entity as an instance of the specified concept
    * Note, this is equivalent to the other <code>evaluateEntity</code> method,
    * but with the query parameters collected into a single Map parameter. This
@@ -398,7 +398,7 @@ public interface KnowledgeGraphServiceApi extends ApiClient.Api {
    * Statement retraction
    * Retracts a statement and all the statements depending on it
    * @param kg  (required)
-   * @param statement  (required)
+   * @param statement Retraction statement (required)
    */
   @RequestLine("POST /{kg}/retract")
   @Headers({
@@ -462,4 +462,18 @@ public interface KnowledgeGraphServiceApi extends ApiClient.Api {
       return this;
     }
   }
+
+  /**
+   * Bulk upload
+   * Uploads an RDF resource
+   * @param kg  (required)
+   * @param content Serialized content (required)
+   * @param format Serialization format (optional)
+   */
+  @RequestLine("POST /{kg}/upload")
+  @Headers({
+    "Content-Type: multipart/form-data",
+    "Accept: application/json",
+  })
+  void uploadResource(@Param("kg") String kg, @Param("content") File content, @Param("format") String format);
 }

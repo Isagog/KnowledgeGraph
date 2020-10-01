@@ -15,7 +15,7 @@ import java.util.List;
  * Query frame
  */
 @ApiModel(description = "Query frame")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-20T08:47:47.056953700+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-01T15:11:47.166962200+02:00[Europe/Berlin]")
 public class Query extends Frame  {
   /**
    * Gets or Sets qtype

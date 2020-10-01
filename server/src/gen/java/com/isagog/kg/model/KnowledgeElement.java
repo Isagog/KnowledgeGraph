@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Managed Knowledge Element
+ * Managed knowledge element
  */
-@ApiModel(description = "Managed Knowledge Element")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-20T08:47:47.056953700+02:00[Europe/Berlin]")
+@ApiModel(description = "Managed knowledge element")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-01T15:11:47.166962200+02:00[Europe/Berlin]")
 public class KnowledgeElement   {
   @JsonProperty("id")
   private String id;

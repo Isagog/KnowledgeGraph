@@ -26,8 +26,6 @@ paths:
   #
   /create:
     post:
-      tags:
-        - KnowledgeGraphService
       summary: Knowledge graph creation
       description: Creates a Knowledge graph
       operationId: createGraph
@@ -49,11 +47,11 @@ paths:
               $ref: '#/components/schemas/KnowledgeGraph'
         description: The graph to be created
         required: true
+      tags:
+        - KnowledgeGraphService
 
   /list:
     get:
-      tags:
-        - KnowledgeGraphService
       summary: Lists Knowledge Graphs
       description: Returns the list of available KGs (id)
       operationId: listGraphs
@@ -83,10 +81,10 @@ paths:
                 items:
                     $ref: '#/components/schemas/KnowledgeGraph'
 
-  /get:
-    get:
       tags:
         - KnowledgeGraphService
+  /get:
+    get:
       summary: Retrieves a Knowledge Graph
       description: Returns a Knowledge Graph, either with summary or full content
       operationId: getGraph
@@ -127,14 +125,10 @@ paths:
           description: Service unavailable
         502:
           description: Server error
-
-    summary: Knowledge Graph
-    description: Returns a Knowledge Graph
-
-  /delete:
-    get:
       tags:
         - KnowledgeGraphService
+  /delete:
+    get:
       summary: Deletes a Knowledge Graph
       description: Knowledge graph deletion
       operationId: deleteGraph
@@ -158,6 +152,8 @@ paths:
           description: Service unavailable
         502:
           description: Server error
+      tags:
+        - KnowledgeGraphService
 
 
 
@@ -213,11 +209,13 @@ paths:
       operationId: assertStatement
       responses:
         200:
-          description: Asserted successfully
+          description: Success
         401:
           description: Unknown graph
         402:
-          description: Bad statement
+          description: Malformed statement
+        403:
+          description: Unsupported statement
         501:
           description: Service unavailable
         502:
@@ -227,11 +225,42 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Statement'
-        description: Type definition statement
+        description: Assertion statement
         required: true
       tags:
         - KnowledgeGraphService
 
+  /{kg}/upload:
+    post:
+      summary: Bulk upload
+      description: Uploads an RDF resource
+      parameters:
+        - name: kg
+          in: path
+          required: true
+          schema:
+            type: string
+      operationId: uploadResource
+      responses:
+        200:
+          description: Success
+        401:
+          description: Unknown graph
+        402:
+          description: Malformed document
+        403:
+          description: Unsupported format
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UploadForm'
+      tags:
+        - KnowledgeGraphService
 
   /{kg}/retract:
     post:
@@ -247,11 +276,12 @@ paths:
       responses:
         200:
           description: Success
-
         401:
           description: Unknown graph
         402:
-          description: Bad statement
+          description: Malformed statement
+        403:
+          description: Unsupported statement
         501:
           description: Service unavailable
         502:
@@ -261,6 +291,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Statement'
+        description: Retraction statement
         required: true
       tags:
         - KnowledgeGraphService
@@ -268,7 +299,7 @@ paths:
 
   /evaluate:
     get:
-      summary: Entity individual evaluation
+      summary: Entity evaluation
       description: Evaluates the Entity as an instance of the specified concept
       parameters:
         - name: kg
@@ -432,7 +463,8 @@ paths:
               - ENTITIES
               - CONCEPTS
               - RELATIONS
-            default: ENTITIES
+              - ANYTHING
+            default: ANYTHING
       operationId: analyzeSentence
       responses:
         200:
@@ -623,7 +655,7 @@ components:
           $ref: '#/components/schemas/Support'
 
     KnowledgeElement:
-      description: Managed Knowledge Element
+      description: Managed knowledge element
       type: object
       required:
         - id
@@ -678,7 +710,7 @@ components:
             $ref: '#/components/schemas/ConceptStatement'
 
     RelationalConcept:
-      description: Unary Relational classifier
+      description: Unary relational classifier
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
@@ -716,15 +748,15 @@ components:
         constraint:
           type: string
           enum:
-            - HAS_SOME_VALUE
+            - SOME
             - EQUALS
             - GREATER_THAN
             - SMALLER_THAN
-          default: HAS_SOME_VALUE
+          default: SOME
 
 
     Relation:
-      description: Class of Entity pairs
+      description: Class of entity pairs
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
 
@@ -745,7 +777,7 @@ components:
             $ref: '#/components/schemas/EntityStatement'
 
     Statement:
-      description: Knowledge assertion
+      description: Knowledge statement
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
@@ -1136,25 +1168,34 @@ components:
             - ADVERB
             - PRONOUN
             - NUMERAL
-        spec:
+        modifier:
           type: string
+          description: Part of speech modifier
           enum:
             - V-MODAL
             - V-AUXILIAR
             - N-NAME
             - QUALIFIER
+            - NONE
+          default: NONE
         number:
           type: string
+          description: Grammatical number
           enum:
             - SINGULAR
             - PLURAL
             - DUAL
+            - NONE
+          default: NONE
         person:
           type: string
+          description: Grammatical person (for VERBS)
           enum:
             - FIRST
             - SECOND
             - THIRD
+            - NONE
+          default: NONE
 
     DependencyAnnotation:
         description: Token dependency
@@ -1206,6 +1247,25 @@ components:
             type: string
             description: Ontology relation
             format: id
+
+    UploadForm:
+      description: Upload form
+      type: object
+      required:
+        - content
+      properties:
+        format:
+          description: Serialization format
+          type: string
+          enum:
+            - turtle
+            - rdf-xml
+            - rdf-json
+            - json-ld
+        content:
+          description: Serialized content
+          type: string
+          format: binary
 
 
     Support:

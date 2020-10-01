@@ -15,7 +15,7 @@ import java.util.List;
  * Unary attributive classifier
  */
 @ApiModel(description = "Unary attributive classifier")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-20T08:47:47.056953700+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-01T15:11:47.166962200+02:00[Europe/Berlin]")
 public class AttributiveConcept extends KnowledgeElement  {
   @JsonProperty("attribute")
   private String attribute;
@@ -27,7 +27,7 @@ public class AttributiveConcept extends KnowledgeElement  {
    * Gets or Sets constraint
    */
   public enum ConstraintEnum {
-    HAS_SOME_VALUE("HAS_SOME_VALUE"),
+    SOME("SOME"),
     
     EQUALS("EQUALS"),
     
@@ -59,7 +59,7 @@ public class AttributiveConcept extends KnowledgeElement  {
   }
 
   @JsonProperty("constraint")
-  private ConstraintEnum constraint = ConstraintEnum.HAS_SOME_VALUE;
+  private ConstraintEnum constraint = ConstraintEnum.SOME;
 
   public AttributiveConcept attribute(String attribute) {
     this.attribute = attribute;

@@ -27,7 +27,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the analyze API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-20T08:47:47.056953700+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-01T15:11:47.166962200+02:00[Europe/Berlin]")
 public class AnalyzeApi  {
    private final AnalyzeApiService delegate = AnalyzeApiServiceFactory.getAnalyzeApi();
 
@@ -49,7 +49,7 @@ public class AnalyzeApi  {
         
         @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = TextAnnotation.class, responseContainer = "List") })
     public Response analyzeSentence(@ApiParam(value = "Analysis context (opt)") @QueryParam("kg") String kg
-,@ApiParam(value = "", allowableValues="ENTITIES, CONCEPTS, RELATIONS", defaultValue="ENTITIES") @DefaultValue("ENTITIES") @QueryParam("task") String task
+,@ApiParam(value = "", allowableValues="ENTITIES, CONCEPTS, RELATIONS, ANYTHING", defaultValue="ANYTHING") @DefaultValue("ANYTHING") @QueryParam("task") String task
 ,@ApiParam(value = "" ) TextualContent textualContent
 )
     throws NotFoundException {

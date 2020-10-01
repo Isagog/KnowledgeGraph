@@ -45,16 +45,16 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * Knowledge assertion
+ * Knowledge statement
  */
-@ApiModel(description = "Knowledge assertion")
+@ApiModel(description = "Knowledge statement")
 @JsonPropertyOrder({
   Statement.JSON_PROPERTY_SUBJECT,
   Statement.JSON_PROPERTY_PRIVACY,
   Statement.JSON_PROPERTY_SUPPORT
 })
 @JsonTypeName("Statement")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-20T08:48:02.229570400+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-01T15:11:01.505608900+02:00[Europe/Berlin]")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "ktype", visible = true)
 @JsonSubTypes({
   @JsonSubTypes.Type(value = AtomicConcept.class, name = "AtomicConcept"),

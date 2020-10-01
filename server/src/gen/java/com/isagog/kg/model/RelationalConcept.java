@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Unary Relational classifier
+ * Unary relational classifier
  */
-@ApiModel(description = "Unary Relational classifier")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-20T08:47:47.056953700+02:00[Europe/Berlin]")
+@ApiModel(description = "Unary relational classifier")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-01T15:11:47.166962200+02:00[Europe/Berlin]")
 public class RelationalConcept extends KnowledgeElement  {
   @JsonProperty("relation")
   private String relation;

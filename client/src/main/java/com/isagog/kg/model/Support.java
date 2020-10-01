@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   Support.JSON_PROPERTY_CONFIDENCE
 })
 @JsonTypeName("Support")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-20T08:48:02.229570400+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-01T15:11:01.505608900+02:00[Europe/Berlin]")
 public class Support {
   public static final String JSON_PROPERTY_EVIDENCE = "evidence";
   private Double evidence = 0.5d;

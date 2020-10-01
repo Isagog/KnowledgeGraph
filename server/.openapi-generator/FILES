@@ -65,6 +65,7 @@ src/gen/java/com/isagog/kg/model/SyntaxAnnotation.java
 src/gen/java/com/isagog/kg/model/TextAnnotation.java
 src/gen/java/com/isagog/kg/model/TextualContent.java
 src/gen/java/com/isagog/kg/model/TokenAnnotation.java
+src/gen/java/com/isagog/kg/model/UploadForm.java
 src/main/java/com/isagog/kg/api/factories/AnalyzeApiServiceFactory.java
 src/main/java/com/isagog/kg/api/factories/CreateApiServiceFactory.java
 src/main/java/com/isagog/kg/api/factories/DeleteApiServiceFactory.java

@@ -6,6 +6,7 @@ import com.isagog.kg.model.*;
 import org.wso2.msf4j.formparam.FormDataParam;
 import org.wso2.msf4j.formparam.FileInfo;
 
+import java.io.File;
 import com.isagog.kg.model.KnowledgeElement;
 import com.isagog.kg.model.Statement;
 
@@ -17,7 +18,7 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-20T08:47:47.056953700+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-01T15:11:47.166962200+02:00[Europe/Berlin]")
 public abstract class KgApiService {
     public abstract Response assertStatement(String kg
  ,Statement statement
@@ -27,5 +28,9 @@ public abstract class KgApiService {
  ) throws NotFoundException;
     public abstract Response retractStatement(String kg
  ,Statement statement
+ ) throws NotFoundException;
+    public abstract Response uploadResource(String kg
+ ,InputStream contentInputStream, FileInfo contentDetail
+ ,String format
  ) throws NotFoundException;
 }

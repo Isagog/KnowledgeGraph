@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SlotSentenceMapping.JSON_PROPERTY_END_INDEX
 })
 @JsonTypeName("SlotSentenceMapping")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-20T08:48:02.229570400+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-01T15:11:01.505608900+02:00[Europe/Berlin]")
 public class SlotSentenceMapping {
   public static final String JSON_PROPERTY_START_INDEX = "startIndex";
   private Integer startIndex;

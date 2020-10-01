@@ -52,7 +52,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   AttributiveConcept.JSON_PROPERTY_CONSTRAINT
 })
 @JsonTypeName("AttributiveConcept")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-09-20T08:48:02.229570400+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-01T15:11:01.505608900+02:00[Europe/Berlin]")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "ktype", visible = true)
 @JsonSubTypes({
   @JsonSubTypes.Type(value = AtomicConcept.class, name = "AtomicConcept"),
@@ -80,7 +80,7 @@ public class AttributiveConcept extends KnowledgeElement {
    * Gets or Sets constraint
    */
   public enum ConstraintEnum {
-    HAS_SOME_VALUE("HAS_SOME_VALUE"),
+    SOME("SOME"),
     
     EQUALS("EQUALS"),
     
@@ -116,7 +116,7 @@ public class AttributiveConcept extends KnowledgeElement {
   }
 
   public static final String JSON_PROPERTY_CONSTRAINT = "constraint";
-  private ConstraintEnum constraint = ConstraintEnum.HAS_SOME_VALUE;
+  private ConstraintEnum constraint = ConstraintEnum.SOME;
 
 
   public AttributiveConcept attribute(String attribute) {

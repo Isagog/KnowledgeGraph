@@ -16,7 +16,7 @@ import java.util.List;
  * Individual entity
  */
 @ApiModel(description = "Individual entity")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-20T08:47:47.056953700+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-01T15:11:47.166962200+02:00[Europe/Berlin]")
 public class Entity extends KnowledgeElement  {
   @JsonProperty("statements")
   private List<EntityStatement> statements = null;

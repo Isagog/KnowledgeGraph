@@ -7,6 +7,7 @@ import com.isagog.kg.api.factories.KgApiServiceFactory;
 import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
+import java.io.File;
 import com.isagog.kg.model.KnowledgeElement;
 import com.isagog.kg.model.Statement;
 
@@ -27,7 +28,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the {kg} API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-09-20T08:47:47.056953700+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-01T15:11:47.166962200+02:00[Europe/Berlin]")
 public class KgApi  {
    private final KgApiService delegate = KgApiServiceFactory.getKgApi();
 
@@ -37,17 +38,19 @@ public class KgApi  {
     
     @io.swagger.annotations.ApiOperation(value = "Statement assertion", notes = "Asserts a statement in a Knowledge Graph", response = Void.class, tags={ "KnowledgeGraphService", })
     @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "Asserted successfully", response = Void.class),
+        @io.swagger.annotations.ApiResponse(code = 200, message = "Success", response = Void.class),
         
         @io.swagger.annotations.ApiResponse(code = 401, message = "Unknown graph", response = Void.class),
         
-        @io.swagger.annotations.ApiResponse(code = 402, message = "Bad statement", response = Void.class),
+        @io.swagger.annotations.ApiResponse(code = 402, message = "Malformed statement", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 403, message = "Unsupported statement", response = Void.class),
         
         @io.swagger.annotations.ApiResponse(code = 501, message = "Service unavailable", response = Void.class),
         
         @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = Void.class) })
     public Response assertStatement(@ApiParam(value = "Assertion context (KG id)",required=true) @PathParam("kg") String kg
-,@ApiParam(value = "Type definition statement" ,required=true) Statement statement
+,@ApiParam(value = "Assertion statement" ,required=true) Statement statement
 )
     throws NotFoundException {
         return delegate.assertStatement(kg,statement);
@@ -83,15 +86,43 @@ public class KgApi  {
         
         @io.swagger.annotations.ApiResponse(code = 401, message = "Unknown graph", response = Void.class),
         
-        @io.swagger.annotations.ApiResponse(code = 402, message = "Bad statement", response = Void.class),
+        @io.swagger.annotations.ApiResponse(code = 402, message = "Malformed statement", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 403, message = "Unsupported statement", response = Void.class),
         
         @io.swagger.annotations.ApiResponse(code = 501, message = "Service unavailable", response = Void.class),
         
         @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = Void.class) })
     public Response retractStatement(@ApiParam(value = "",required=true) @PathParam("kg") String kg
-,@ApiParam(value = "" ,required=true) Statement statement
+,@ApiParam(value = "Retraction statement" ,required=true) Statement statement
 )
     throws NotFoundException {
         return delegate.retractStatement(kg,statement);
+    }
+    @POST
+    @Path("/upload")
+    @Consumes({ "multipart/form-data" })
+    
+    @io.swagger.annotations.ApiOperation(value = "Bulk upload", notes = "Uploads an RDF resource", response = Void.class, tags={ "KnowledgeGraphService", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "Success", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 401, message = "Unknown graph", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 402, message = "Malformed document", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 403, message = "Unsupported format", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 501, message = "Service unavailable", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = Void.class) })
+    public Response uploadResource(@ApiParam(value = "",required=true) @PathParam("kg") String kg
+,
+            @FormDataParam("content") InputStream contentInputStream,
+            @FormDataParam("content") FileInfo contentDetail
+,@ApiParam(value = "Serialization format", allowableValues="turtle, rdf-xml, rdf-json, json-ld")@FormDataParam("format")  String format
+)
+    throws NotFoundException {
+        return delegate.uploadResource(kg,contentInputStream, contentDetail,format);
     }
 }
