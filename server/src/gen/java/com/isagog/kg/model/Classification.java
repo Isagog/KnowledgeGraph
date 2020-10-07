@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Knowledge Element classification record
  */
 @ApiModel(description = "Knowledge Element classification record")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-01T15:11:47.166962200+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-07T16:26:29.882986300+02:00[Europe/Berlin]")
 public class Classification   {
   @JsonProperty("classifier")
   private AtomicConcept classifier;

@@ -14,7 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Text annotation
  */
 @ApiModel(description = "Text annotation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-01T15:11:47.166962200+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-07T16:26:29.882986300+02:00[Europe/Berlin]")
 public class TextAnnotation   {
   @JsonProperty("index")
   private Integer index;
@@ -31,7 +31,9 @@ public class TextAnnotation   {
     
     DEPENDENCYANNOTATION("DependencyAnnotation"),
     
-    RELATIONANNOTATION("RelationAnnotation");
+    RELATIONANNOTATION("RelationAnnotation"),
+    
+    CLASSANNOTATION("ClassAnnotation");
 
     private String value;
 

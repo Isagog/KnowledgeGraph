@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-01T15:11:01.505608900+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:26:39.961968100+02:00[Europe/Berlin]")
 public interface KnowledgeGraphServiceApi extends ApiClient.Api {
 
 
@@ -27,7 +27,7 @@ public interface KnowledgeGraphServiceApi extends ApiClient.Api {
    * Sentence analysis
    * Provides an annotation of the supplied text object according to available knowledge, including entity recognition, linking and relations (opt)
    * @param kg Analysis context (opt) (optional)
-   * @param task  (optional, default to ANYTHING)
+   * @param task  (optional, default to FRAMES)
    * @param textualContent  (optional)
    * @return List&lt;TextAnnotation&gt;
    */
@@ -51,7 +51,7 @@ public interface KnowledgeGraphServiceApi extends ApiClient.Api {
    *   <p>The following elements may be specified in the query map:</p>
    *   <ul>
    *   <li>kg - Analysis context (opt) (optional)</li>
-   *   <li>task -  (optional, default to ANYTHING)</li>
+   *   <li>task -  (optional, default to FRAMES)</li>
    *   </ul>
    * @return List&lt;TextAnnotation&gt;
    */

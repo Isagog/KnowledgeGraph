@@ -29,23 +29,21 @@ import com.isagog.kg.model.GrammarAnnotation;
 import com.isagog.kg.model.RelationAnnotation;
 import com.isagog.kg.model.Support;
 import com.isagog.kg.model.SyntaxAnnotation;
-import com.isagog.kg.model.TokenAnnotation;
+import com.isagog.kg.model.TextAnnotation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * Entity classifier and\\or link
+ * Text classification
  */
-@ApiModel(description = "Entity classifier and\\or link")
+@ApiModel(description = "Text classification")
 @JsonPropertyOrder({
-  EntityAnnotation.JSON_PROPERTY_CLASSIFIERS,
-  EntityAnnotation.JSON_PROPERTY_LINKS
+  ClassAnnotation.JSON_PROPERTY_CLASSIFIERS
 })
-@JsonTypeName("EntityAnnotation")
+@JsonTypeName("ClassAnnotation")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:26:39.961968100+02:00[Europe/Berlin]")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "atype", visible = true)
 @JsonSubTypes({
@@ -57,24 +55,18 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonSubTypes.Type(value = SyntaxAnnotation.class, name = "SyntaxAnnotation"),
 })
 
-public class EntityAnnotation extends TokenAnnotation {
+public class ClassAnnotation extends TextAnnotation {
   public static final String JSON_PROPERTY_CLASSIFIERS = "classifiers";
-  private List<String> classifiers = null;
-
-  public static final String JSON_PROPERTY_LINKS = "links";
-  private List<URI> links = null;
+  private List<String> classifiers = new ArrayList<String>();
 
 
-  public EntityAnnotation classifiers(List<String> classifiers) {
+  public ClassAnnotation classifiers(List<String> classifiers) {
     
     this.classifiers = classifiers;
     return this;
   }
 
-  public EntityAnnotation addClassifiersItem(String classifiersItem) {
-    if (this.classifiers == null) {
-      this.classifiers = new ArrayList<String>();
-    }
+  public ClassAnnotation addClassifiersItem(String classifiersItem) {
     this.classifiers.add(classifiersItem);
     return this;
   }
@@ -83,10 +75,9 @@ public class EntityAnnotation extends TokenAnnotation {
    * Get classifiers
    * @return classifiers
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CLASSIFIERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<String> getClassifiers() {
     return classifiers;
@@ -98,39 +89,6 @@ public class EntityAnnotation extends TokenAnnotation {
   }
 
 
-  public EntityAnnotation links(List<URI> links) {
-    
-    this.links = links;
-    return this;
-  }
-
-  public EntityAnnotation addLinksItem(URI linksItem) {
-    if (this.links == null) {
-      this.links = new ArrayList<URI>();
-    }
-    this.links.add(linksItem);
-    return this;
-  }
-
-   /**
-   * Get links
-   * @return links
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_LINKS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<URI> getLinks() {
-    return links;
-  }
-
-
-  public void setLinks(List<URI> links) {
-    this.links = links;
-  }
-
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -139,25 +97,23 @@ public class EntityAnnotation extends TokenAnnotation {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EntityAnnotation entityAnnotation = (EntityAnnotation) o;
-    return Objects.equals(this.classifiers, entityAnnotation.classifiers) &&
-        Objects.equals(this.links, entityAnnotation.links) &&
+    ClassAnnotation classAnnotation = (ClassAnnotation) o;
+    return Objects.equals(this.classifiers, classAnnotation.classifiers) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(classifiers, links, super.hashCode());
+    return Objects.hash(classifiers, super.hashCode());
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class EntityAnnotation {\n");
+    sb.append("class ClassAnnotation {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    classifiers: ").append(toIndentedString(classifiers)).append("\n");
-    sb.append("    links: ").append(toIndentedString(links)).append("\n");
     sb.append("}");
     return sb.toString();
   }

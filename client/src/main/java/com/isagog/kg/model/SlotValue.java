@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SlotValue.JSON_PROPERTY_SUPPORT
 })
 @JsonTypeName("SlotValue")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-01T15:11:01.505608900+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:26:39.961968100+02:00[Europe/Berlin]")
 public class SlotValue {
   public static final String JSON_PROPERTY_SLOT_TYPE_ID = "slotTypeId";
   private String slotTypeId;

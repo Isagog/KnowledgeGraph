@@ -463,8 +463,8 @@ paths:
               - ENTITIES
               - CONCEPTS
               - RELATIONS
-              - ANYTHING
-            default: ANYTHING
+              - FRAMES
+            default: FRAMES
       operationId: analyzeSentence
       responses:
         200:
@@ -1103,6 +1103,7 @@ components:
             - SyntaxAnnotation
             - DependencyAnnotation
             - RelationAnnotation
+            - ClassAnnotation
         support:
               $ref: '#/components/schemas/Support'
       discriminator:
@@ -1113,6 +1114,7 @@ components:
           SyntaxAnnotation: '#/components/schemas/SyntaxAnnotation'
           DependencyAnnotation: '#/components/schemas/DependencyAnnotation'
           RelationAnnotation: '#/components/schemas/RelationAnnotation'
+          ClassAnnotation: '#/components/schemas/ClassAnnotation'
 
     TokenAnnotation:
       description: Token annotation
@@ -1129,6 +1131,19 @@ components:
         end:
           type: integer
           format: int32
+
+    ClassAnnotation:
+      description: Text classification
+      allOf:
+        - $ref: '#/components/schemas/TextAnnotation'
+      type: object
+      required:
+        - classifiers
+      properties:
+        classifiers:
+          type: array
+          items:
+            type: string
 
 
     EntityAnnotation:

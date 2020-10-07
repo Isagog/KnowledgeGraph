@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   QueryResponseItem.JSON_PROPERTY_SUPPORT
 })
 @JsonTypeName("QueryResponseItem")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-01T15:11:01.505608900+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:26:39.961968100+02:00[Europe/Berlin]")
 public class QueryResponseItem {
   public static final String JSON_PROPERTY_ROW = "row";
   private List<String> row = new ArrayList<String>();
