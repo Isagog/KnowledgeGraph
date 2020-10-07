@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   QueryResponseHeader.JSON_PROPERTY_DTYPE
 })
 @JsonTypeName("QueryResponseHeader")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:26:39.961968100+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:45:57.251979+02:00[Europe/Berlin]")
 public class QueryResponseHeader {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;

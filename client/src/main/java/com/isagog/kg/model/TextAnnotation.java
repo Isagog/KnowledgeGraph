@@ -35,16 +35,15 @@ import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * Text annotation
+ * Text annotation (should be abstract)
  */
-@ApiModel(description = "Text annotation")
+@ApiModel(description = "Text annotation (should be abstract)")
 @JsonPropertyOrder({
-  TextAnnotation.JSON_PROPERTY_INDEX,
   TextAnnotation.JSON_PROPERTY_ATYPE,
   TextAnnotation.JSON_PROPERTY_SUPPORT
 })
 @JsonTypeName("TextAnnotation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:26:39.961968100+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:45:57.251979+02:00[Europe/Berlin]")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "atype", visible = true)
 @JsonSubTypes({
   @JsonSubTypes.Type(value = ClassAnnotation.class, name = "ClassAnnotation"),
@@ -57,11 +56,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 
 public class TextAnnotation {
-  public static final String JSON_PROPERTY_INDEX = "index";
-  private Integer index;
-
   /**
-   * Gets or Sets atype
+   * Annotation type
    */
   public enum AtypeEnum {
     ENTITYANNOTATION("EntityAnnotation"),
@@ -110,30 +106,6 @@ public class TextAnnotation {
   private Support support;
 
 
-  public TextAnnotation index(Integer index) {
-    
-    this.index = index;
-    return this;
-  }
-
-   /**
-   * Annotation array index, should be consistent with the container&#39;s one
-   * @return index
-  **/
-  @ApiModelProperty(required = true, value = "Annotation array index, should be consistent with the container's one")
-  @JsonProperty(JSON_PROPERTY_INDEX)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Integer getIndex() {
-    return index;
-  }
-
-
-  public void setIndex(Integer index) {
-    this.index = index;
-  }
-
-
   public TextAnnotation atype(AtypeEnum atype) {
     
     this.atype = atype;
@@ -141,10 +113,10 @@ public class TextAnnotation {
   }
 
    /**
-   * Get atype
+   * Annotation type
    * @return atype
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Annotation type")
   @JsonProperty(JSON_PROPERTY_ATYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -192,14 +164,13 @@ public class TextAnnotation {
       return false;
     }
     TextAnnotation textAnnotation = (TextAnnotation) o;
-    return Objects.equals(this.index, textAnnotation.index) &&
-        Objects.equals(this.atype, textAnnotation.atype) &&
+    return Objects.equals(this.atype, textAnnotation.atype) &&
         Objects.equals(this.support, textAnnotation.support);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(index, atype, support);
+    return Objects.hash(atype, support);
   }
 
 
@@ -207,7 +178,6 @@ public class TextAnnotation {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TextAnnotation {\n");
-    sb.append("    index: ").append(toIndentedString(index)).append("\n");
     sb.append("    atype: ").append(toIndentedString(atype)).append("\n");
     sb.append("    support: ").append(toIndentedString(support)).append("\n");
     sb.append("}");

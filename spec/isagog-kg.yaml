@@ -1085,18 +1085,15 @@ components:
 
 
     TextAnnotation:
-      description: Text annotation
+      description: Text annotation (should be abstract)
       type: object
+      x-abstract: true
       required:
-        - index
         - atype
       properties:
-        index:
-          description: Annotation array index, should be consistent with the container's one
-          type: integer
-          format: int32
         atype:
           type: string
+          description: Annotation type
           enum:
             - EntityAnnotation
             - GrammarAnnotation
@@ -1105,7 +1102,7 @@ components:
             - RelationAnnotation
             - ClassAnnotation
         support:
-              $ref: '#/components/schemas/Support'
+            $ref: '#/components/schemas/Support'
       discriminator:
         propertyName: atype
         mapping:

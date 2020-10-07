@@ -15,7 +15,7 @@ import java.util.List;
  * Set of statements about conceptualized entities
  */
 @ApiModel(description = "Set of statements about conceptualized entities")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-07T16:26:29.882986300+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-07T16:45:39.881731200+02:00[Europe/Berlin]")
 public class KnowledgeGraph   {
   @JsonProperty("id")
   private String id;

@@ -16,7 +16,7 @@ import java.util.List;
  * Unary atomic classifier
  */
 @ApiModel(description = "Unary atomic classifier")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-07T16:26:29.882986300+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-07T16:45:39.881731200+02:00[Europe/Berlin]")
 public class AtomicConcept extends KnowledgeElement  {
   @JsonProperty("statements")
   private List<ConceptStatement> statements = null;

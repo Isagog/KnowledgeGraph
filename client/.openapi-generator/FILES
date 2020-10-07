@@ -66,4 +66,3 @@ src/main/java/com/isagog/kg/model/TextAnnotation.java
 src/main/java/com/isagog/kg/model/TextualContent.java
 src/main/java/com/isagog/kg/model/TokenAnnotation.java
 src/main/java/com/isagog/kg/model/UploadForm.java
-src/test/java/com/isagog/kg/model/ClassAnnotationTest.java

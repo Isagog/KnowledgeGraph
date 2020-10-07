@@ -11,16 +11,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Text annotation
+ * Text annotation (should be abstract)
  */
-@ApiModel(description = "Text annotation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-07T16:26:29.882986300+02:00[Europe/Berlin]")
+@ApiModel(description = "Text annotation (should be abstract)")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-10-07T16:45:39.881731200+02:00[Europe/Berlin]")
 public class TextAnnotation   {
-  @JsonProperty("index")
-  private Integer index;
-
   /**
-   * Gets or Sets atype
+   * Annotation type
    */
   public enum AtypeEnum {
     ENTITYANNOTATION("EntityAnnotation"),
@@ -64,34 +61,16 @@ public class TextAnnotation   {
   @JsonProperty("support")
   private Support support;
 
-  public TextAnnotation index(Integer index) {
-    this.index = index;
-    return this;
-  }
-
-   /**
-   * Annotation array index, should be consistent with the container's one
-   * @return index
-  **/
-  @ApiModelProperty(required = true, value = "Annotation array index, should be consistent with the container's one")
-  public Integer getIndex() {
-    return index;
-  }
-
-  public void setIndex(Integer index) {
-    this.index = index;
-  }
-
   public TextAnnotation atype(AtypeEnum atype) {
     this.atype = atype;
     return this;
   }
 
    /**
-   * Get atype
+   * Annotation type
    * @return atype
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Annotation type")
   public AtypeEnum getAtype() {
     return atype;
   }
@@ -128,14 +107,13 @@ public class TextAnnotation   {
       return false;
     }
     TextAnnotation textAnnotation = (TextAnnotation) o;
-    return Objects.equals(this.index, textAnnotation.index) &&
-        Objects.equals(this.atype, textAnnotation.atype) &&
+    return Objects.equals(this.atype, textAnnotation.atype) &&
         Objects.equals(this.support, textAnnotation.support);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(index, atype, support);
+    return Objects.hash(atype, support);
   }
 
   @Override
@@ -143,7 +121,6 @@ public class TextAnnotation   {
     StringBuilder sb = new StringBuilder();
     sb.append("class TextAnnotation {\n");
     
-    sb.append("    index: ").append(toIndentedString(index)).append("\n");
     sb.append("    atype: ").append(toIndentedString(atype)).append("\n");
     sb.append("    support: ").append(toIndentedString(support)).append("\n");
     sb.append("}");
