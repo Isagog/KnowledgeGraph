@@ -22,31 +22,29 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.isagog.kg.model.ClassAnnotation;
 import com.isagog.kg.model.DependencyAnnotation;
 import com.isagog.kg.model.EntityAnnotation;
 import com.isagog.kg.model.GrammarAnnotation;
 import com.isagog.kg.model.RelationAnnotation;
-import com.isagog.kg.model.Support;
 import com.isagog.kg.model.SyntaxAnnotation;
-import com.isagog.kg.model.TextAnnotation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * Token annotation
+ * Token annotation (should be abstract)
  */
-@ApiModel(description = "Token annotation")
+@ApiModel(description = "Token annotation (should be abstract)")
 @JsonPropertyOrder({
+  TokenAnnotation.JSON_PROPERTY_ATYPE,
+  TokenAnnotation.JSON_PROPERTY_TOKEN,
   TokenAnnotation.JSON_PROPERTY_START,
   TokenAnnotation.JSON_PROPERTY_END
 })
 @JsonTypeName("TokenAnnotation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:45:57.251979+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-08T12:36:17.061150100+02:00[Europe/Berlin]")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "atype", visible = true)
 @JsonSubTypes({
-  @JsonSubTypes.Type(value = ClassAnnotation.class, name = "ClassAnnotation"),
   @JsonSubTypes.Type(value = DependencyAnnotation.class, name = "DependencyAnnotation"),
   @JsonSubTypes.Type(value = EntityAnnotation.class, name = "EntityAnnotation"),
   @JsonSubTypes.Type(value = GrammarAnnotation.class, name = "GrammarAnnotation"),
@@ -54,12 +52,109 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonSubTypes.Type(value = SyntaxAnnotation.class, name = "SyntaxAnnotation"),
 })
 
-public class TokenAnnotation extends TextAnnotation {
+public class TokenAnnotation {
+  /**
+   * Annotation type
+   */
+  public enum AtypeEnum {
+    ENTITYANNOTATION("EntityAnnotation"),
+    
+    GRAMMARANNOTATION("GrammarAnnotation"),
+    
+    SYNTAXANNOTATION("SyntaxAnnotation"),
+    
+    DEPENDENCYANNOTATION("DependencyAnnotation"),
+    
+    RELATIONANNOTATION("RelationAnnotation"),
+    
+    CLASSANNOTATION("ClassAnnotation");
+
+    private String value;
+
+    AtypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static AtypeEnum fromValue(String value) {
+      for (AtypeEnum b : AtypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_ATYPE = "atype";
+  protected AtypeEnum atype;
+
+  public static final String JSON_PROPERTY_TOKEN = "token";
+  private String token;
+
   public static final String JSON_PROPERTY_START = "start";
   private Integer start;
 
   public static final String JSON_PROPERTY_END = "end";
   private Integer end;
+
+
+  public TokenAnnotation atype(AtypeEnum atype) {
+    
+    this.atype = atype;
+    return this;
+  }
+
+   /**
+   * Annotation type
+   * @return atype
+  **/
+  @ApiModelProperty(required = true, value = "Annotation type")
+  @JsonProperty(JSON_PROPERTY_ATYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public AtypeEnum getAtype() {
+    return atype;
+  }
+
+
+  public void setAtype(AtypeEnum atype) {
+    this.atype = atype;
+  }
+
+
+  public TokenAnnotation token(String token) {
+    
+    this.token = token;
+    return this;
+  }
+
+   /**
+   * Get token
+   * @return token
+  **/
+  @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_TOKEN)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getToken() {
+    return token;
+  }
+
+
+  public void setToken(String token) {
+    this.token = token;
+  }
 
 
   public TokenAnnotation start(Integer start) {
@@ -119,14 +214,15 @@ public class TokenAnnotation extends TextAnnotation {
       return false;
     }
     TokenAnnotation tokenAnnotation = (TokenAnnotation) o;
-    return Objects.equals(this.start, tokenAnnotation.start) &&
-        Objects.equals(this.end, tokenAnnotation.end) &&
-        super.equals(o);
+    return Objects.equals(this.atype, tokenAnnotation.atype) &&
+        Objects.equals(this.token, tokenAnnotation.token) &&
+        Objects.equals(this.start, tokenAnnotation.start) &&
+        Objects.equals(this.end, tokenAnnotation.end);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(start, end, super.hashCode());
+    return Objects.hash(atype, token, start, end);
   }
 
 
@@ -134,7 +230,8 @@ public class TokenAnnotation extends TextAnnotation {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TokenAnnotation {\n");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    sb.append("    atype: ").append(toIndentedString(atype)).append("\n");
+    sb.append("    token: ").append(toIndentedString(token)).append("\n");
     sb.append("    start: ").append(toIndentedString(start)).append("\n");
     sb.append("    end: ").append(toIndentedString(end)).append("\n");
     sb.append("}");

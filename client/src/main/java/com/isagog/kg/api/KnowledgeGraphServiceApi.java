@@ -10,8 +10,8 @@ import com.isagog.kg.model.KnowledgeGraph;
 import com.isagog.kg.model.Query;
 import com.isagog.kg.model.QueryResponse;
 import com.isagog.kg.model.Statement;
-import com.isagog.kg.model.TextAnnotation;
 import com.isagog.kg.model.TextualContent;
+import com.isagog.kg.model.TokenAnnotation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:45:57.251979+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-08T12:36:17.061150100+02:00[Europe/Berlin]")
 public interface KnowledgeGraphServiceApi extends ApiClient.Api {
 
 
@@ -29,14 +29,14 @@ public interface KnowledgeGraphServiceApi extends ApiClient.Api {
    * @param kg Analysis context (opt) (optional)
    * @param task  (optional, default to FRAMES)
    * @param textualContent  (optional)
-   * @return List&lt;TextAnnotation&gt;
+   * @return List&lt;TokenAnnotation&gt;
    */
   @RequestLine("POST /analyze?kg={kg}&task={task}")
   @Headers({
     "Content-Type: application/json",
     "Accept: application/json",
   })
-  List<TextAnnotation> analyzeSentence(@Param("kg") String kg, @Param("task") String task, TextualContent textualContent);
+  List<TokenAnnotation> analyzeSentence(@Param("kg") String kg, @Param("task") String task, TextualContent textualContent);
 
   /**
    * Sentence analysis
@@ -53,14 +53,14 @@ public interface KnowledgeGraphServiceApi extends ApiClient.Api {
    *   <li>kg - Analysis context (opt) (optional)</li>
    *   <li>task -  (optional, default to FRAMES)</li>
    *   </ul>
-   * @return List&lt;TextAnnotation&gt;
+   * @return List&lt;TokenAnnotation&gt;
    */
   @RequestLine("POST /analyze?kg={kg}&task={task}")
   @Headers({
   "Content-Type: application/json",
   "Accept: application/json",
   })
-  List<TextAnnotation> analyzeSentence(TextualContent textualContent, @QueryMap(encoded=true) Map<String, Object> queryParams);
+  List<TokenAnnotation> analyzeSentence(TextualContent textualContent, @QueryMap(encoded=true) Map<String, Object> queryParams);
 
   /**
    * A convenience class for generating query parameters for the

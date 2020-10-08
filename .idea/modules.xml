@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KnowledgeGraph.iml" filepath="$PROJECT_DIR$/KnowledgeGraph.iml" />
       <module fileurl="file://$PROJECT_DIR$/client/kg-api.iml" filepath="$PROJECT_DIR$/client/kg-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/kg-service.iml" filepath="$PROJECT_DIR$/server/kg-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spago/spago.iml" filepath="$PROJECT_DIR$/spago/spago.iml" />
     </modules>
   </component>
 </project>

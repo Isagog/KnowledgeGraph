@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   FrameInstance.JSON_PROPERTY_SLOT_VALUES
 })
 @JsonTypeName("FrameInstance")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:45:57.251979+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-08T12:36:17.061150100+02:00[Europe/Berlin]")
 public class FrameInstance {
   public static final String JSON_PROPERTY_FTYPE = "ftype";
   private String ftype;

@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   AttributiveSlot.JSON_PROPERTY_COMPARATION
 })
 @JsonTypeName("AttributiveSlot")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:45:57.251979+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-08T12:36:17.061150100+02:00[Europe/Berlin]")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "stype", visible = true)
 @JsonSubTypes({
   @JsonSubTypes.Type(value = AttributiveSlot.class, name = "AttributiveSlot"),

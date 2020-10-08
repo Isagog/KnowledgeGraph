@@ -30,7 +30,6 @@ src/main/java/com/isagog/kg/model/Attribute.java
 src/main/java/com/isagog/kg/model/AttributiveConcept.java
 src/main/java/com/isagog/kg/model/AttributiveSlot.java
 src/main/java/com/isagog/kg/model/AttributiveStatement.java
-src/main/java/com/isagog/kg/model/ClassAnnotation.java
 src/main/java/com/isagog/kg/model/Classification.java
 src/main/java/com/isagog/kg/model/ClassificationStatement.java
 src/main/java/com/isagog/kg/model/ConceptStatement.java

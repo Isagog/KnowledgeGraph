@@ -18,115 +18,59 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.isagog.kg.model.ClassAnnotation;
-import com.isagog.kg.model.DependencyAnnotation;
-import com.isagog.kg.model.EntityAnnotation;
-import com.isagog.kg.model.GrammarAnnotation;
-import com.isagog.kg.model.RelationAnnotation;
 import com.isagog.kg.model.Support;
-import com.isagog.kg.model.SyntaxAnnotation;
-import com.isagog.kg.model.TokenAnnotation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * Text annotation (should be abstract)
+ * Text annotation
  */
-@ApiModel(description = "Text annotation (should be abstract)")
+@ApiModel(description = "Text annotation")
 @JsonPropertyOrder({
-  TextAnnotation.JSON_PROPERTY_ATYPE,
+  TextAnnotation.JSON_PROPERTY_CLASSIFIERS,
   TextAnnotation.JSON_PROPERTY_SUPPORT
 })
 @JsonTypeName("TextAnnotation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:45:57.251979+02:00[Europe/Berlin]")
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "atype", visible = true)
-@JsonSubTypes({
-  @JsonSubTypes.Type(value = ClassAnnotation.class, name = "ClassAnnotation"),
-  @JsonSubTypes.Type(value = DependencyAnnotation.class, name = "DependencyAnnotation"),
-  @JsonSubTypes.Type(value = EntityAnnotation.class, name = "EntityAnnotation"),
-  @JsonSubTypes.Type(value = GrammarAnnotation.class, name = "GrammarAnnotation"),
-  @JsonSubTypes.Type(value = RelationAnnotation.class, name = "RelationAnnotation"),
-  @JsonSubTypes.Type(value = SyntaxAnnotation.class, name = "SyntaxAnnotation"),
-  @JsonSubTypes.Type(value = TokenAnnotation.class, name = "TokenAnnotation"),
-})
-
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-08T12:36:17.061150100+02:00[Europe/Berlin]")
 public class TextAnnotation {
-  /**
-   * Annotation type
-   */
-  public enum AtypeEnum {
-    ENTITYANNOTATION("EntityAnnotation"),
-    
-    GRAMMARANNOTATION("GrammarAnnotation"),
-    
-    SYNTAXANNOTATION("SyntaxAnnotation"),
-    
-    DEPENDENCYANNOTATION("DependencyAnnotation"),
-    
-    RELATIONANNOTATION("RelationAnnotation"),
-    
-    CLASSANNOTATION("ClassAnnotation");
-
-    private String value;
-
-    AtypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static AtypeEnum fromValue(String value) {
-      for (AtypeEnum b : AtypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_ATYPE = "atype";
-  protected AtypeEnum atype;
+  public static final String JSON_PROPERTY_CLASSIFIERS = "classifiers";
+  private List<String> classifiers = new ArrayList<String>();
 
   public static final String JSON_PROPERTY_SUPPORT = "support";
   private Support support;
 
 
-  public TextAnnotation atype(AtypeEnum atype) {
+  public TextAnnotation classifiers(List<String> classifiers) {
     
-    this.atype = atype;
+    this.classifiers = classifiers;
+    return this;
+  }
+
+  public TextAnnotation addClassifiersItem(String classifiersItem) {
+    this.classifiers.add(classifiersItem);
     return this;
   }
 
    /**
-   * Annotation type
-   * @return atype
+   * Get classifiers
+   * @return classifiers
   **/
-  @ApiModelProperty(required = true, value = "Annotation type")
-  @JsonProperty(JSON_PROPERTY_ATYPE)
+  @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_CLASSIFIERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public AtypeEnum getAtype() {
-    return atype;
+  public List<String> getClassifiers() {
+    return classifiers;
   }
 
 
-  public void setAtype(AtypeEnum atype) {
-    this.atype = atype;
+  public void setClassifiers(List<String> classifiers) {
+    this.classifiers = classifiers;
   }
 
 
@@ -164,13 +108,13 @@ public class TextAnnotation {
       return false;
     }
     TextAnnotation textAnnotation = (TextAnnotation) o;
-    return Objects.equals(this.atype, textAnnotation.atype) &&
+    return Objects.equals(this.classifiers, textAnnotation.classifiers) &&
         Objects.equals(this.support, textAnnotation.support);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(atype, support);
+    return Objects.hash(classifiers, support);
   }
 
 
@@ -178,7 +122,7 @@ public class TextAnnotation {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TextAnnotation {\n");
-    sb.append("    atype: ").append(toIndentedString(atype)).append("\n");
+    sb.append("    classifiers: ").append(toIndentedString(classifiers)).append("\n");
     sb.append("    support: ").append(toIndentedString(support)).append("\n");
     sb.append("}");
     return sb.toString();

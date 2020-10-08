@@ -22,12 +22,10 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.isagog.kg.model.ClassAnnotation;
 import com.isagog.kg.model.DependencyAnnotation;
 import com.isagog.kg.model.EntityAnnotation;
 import com.isagog.kg.model.GrammarAnnotation;
 import com.isagog.kg.model.RelationAnnotation;
-import com.isagog.kg.model.Support;
 import com.isagog.kg.model.SyntaxAnnotation;
 import com.isagog.kg.model.TokenAnnotation;
 import io.swagger.annotations.ApiModel;
@@ -46,10 +44,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   EntityAnnotation.JSON_PROPERTY_LINKS
 })
 @JsonTypeName("EntityAnnotation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-07T16:45:57.251979+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-10-08T12:36:17.061150100+02:00[Europe/Berlin]")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "atype", visible = true)
 @JsonSubTypes({
-  @JsonSubTypes.Type(value = ClassAnnotation.class, name = "ClassAnnotation"),
   @JsonSubTypes.Type(value = DependencyAnnotation.class, name = "DependencyAnnotation"),
   @JsonSubTypes.Type(value = EntityAnnotation.class, name = "EntityAnnotation"),
   @JsonSubTypes.Type(value = GrammarAnnotation.class, name = "GrammarAnnotation"),

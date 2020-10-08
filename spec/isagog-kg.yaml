@@ -464,7 +464,7 @@ paths:
               - CONCEPTS
               - RELATIONS
               - FRAMES
-            default: FRAMES
+            default:
       operationId: analyzeSentence
       responses:
         200:
@@ -472,9 +472,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TextAnnotation'
+                $ref: '#/components/schemas/SentenceAnnotation'
 
         401:
           description: Unknown graph
@@ -499,7 +497,6 @@ externalDocs:
   url: https://isagog.com/knowledge/asyncapi.html
 components:
   schemas:
-
     KnowledgeGraph:
       description: Set of statements about conceptualized entities
       required:
@@ -1085,11 +1082,38 @@ components:
 
 
     TextAnnotation:
-      description: Text annotation (should be abstract)
+      description: Text annotation
       type: object
-      x-abstract: true
+      required:
+        - classifiers
+      properties:
+        classifier:
+           type: string
+        support:
+            $ref: '#/components/schemas/Support'
+
+
+    SentenceAnnotation:
+      description: Sentence annotation
+      type: object
+      properties:
+        sentence:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextAnnotation'
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenAnnotation'
+
+    TokenAnnotation:
+      description: Token annotation (should be abstract)
+      type: object
       required:
         - atype
+        - token
+        - start
+        - end
       properties:
         atype:
           type: string
@@ -1101,46 +1125,22 @@ components:
             - DependencyAnnotation
             - RelationAnnotation
             - ClassAnnotation
-        support:
-            $ref: '#/components/schemas/Support'
-      discriminator:
-        propertyName: atype
-        mapping:
-          EntityAnnotation: '#/components/schemas/EntityAnnotation'
-          GrammarAnnotation: '#/components/schemas/GrammarAnnotation'
-          SyntaxAnnotation: '#/components/schemas/SyntaxAnnotation'
-          DependencyAnnotation: '#/components/schemas/DependencyAnnotation'
-          RelationAnnotation: '#/components/schemas/RelationAnnotation'
-          ClassAnnotation: '#/components/schemas/ClassAnnotation'
-
-    TokenAnnotation:
-      description: Token annotation
-      allOf:
-        - $ref: '#/components/schemas/TextAnnotation'
-      type: object
-      required:
-        - start
-        - end
-      properties:
+        token:
+          type: string
         start:
           type: integer
           format: int32
         end:
           type: integer
           format: int32
-
-    ClassAnnotation:
-      description: Text classification
-      allOf:
-        - $ref: '#/components/schemas/TextAnnotation'
-      type: object
-      required:
-        - classifiers
-      properties:
-        classifiers:
-          type: array
-          items:
-            type: string
+      discriminator:
+          propertyName: atype
+          mapping:
+            EntityAnnotation: '#/components/schemas/EntityAnnotation'
+            GrammarAnnotation: '#/components/schemas/GrammarAnnotation'
+            SyntaxAnnotation: '#/components/schemas/SyntaxAnnotation'
+            DependencyAnnotation: '#/components/schemas/DependencyAnnotation'
+            RelationAnnotation: '#/components/schemas/RelationAnnotation'
 
 
     EntityAnnotation:
@@ -1212,7 +1212,7 @@ components:
     DependencyAnnotation:
         description: Token dependency
         allOf:
-          - $ref: '#/components/schemas/TextAnnotation'
+          - $ref: '#/components/schemas/TokenAnnotation'
         type: object
         required:
           - governor
