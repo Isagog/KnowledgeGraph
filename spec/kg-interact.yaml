@@ -1,0 +1,137 @@
+openapi: 3.0.2
+info:
+  title: Isagog Knowledge Graph Interaction Service
+  version: 1.0.0
+  description: Isagog Knowledge Graph Interacrion endpoint
+  contact:
+    email: ks-api@isagog.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: http://localhost
+    variables:
+      port:
+        default: '3200'
+      basePath:
+        default: /
+tags:
+  - name: InteractionService
+
+paths:
+
+
+
+  /interact/tell:
+    post:
+      summary: User utterance
+      description: Asserts a statement in a Knowledge Graph
+      parameters:
+        - name: kg
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Utterance context (KG id)
+        - name: lang
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - en
+              - it
+              - de
+              - fr
+              - es
+            default: en
+      operationId: userUtterance
+      responses:
+        200:
+          description: Query response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: kg-data.yaml#/components/schemas/QueryResponse
+        201:
+          description: Frame validation
+          content:
+            application/json:
+              schema:
+                  $ref: kg-knowledge.yaml#/components/schemas/Frame
+        203:
+          description: Acknowledge messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        401:
+          description: Unknown graph
+        402:
+          description: Illegal utterance character
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              format: UTF-8
+        description: Utterance
+        required: true
+      tags:
+        - InteractionService
+
+  /interact/send:
+    post:
+      summary: Send user frame
+      description: Send a user frame, e.g. a form
+      parameters:
+        - name: kg
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Upload context (KG id)
+      operationId: sendFrame
+      responses:
+        200:
+          description: Query response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: kg-data.yaml#/components/schemas/QueryResponse
+        203:
+          description: Acknowledge messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        401:
+          description: Unknown graph
+        402:
+          description: Malformed frame
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: kg-knowledge.yaml#/components/schemas/Frame
+        description: Frame
+        required: true
+      tags:
+        - InteractionService
+

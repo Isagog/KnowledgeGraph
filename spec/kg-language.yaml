@@ -1,0 +1,298 @@
+openapi: 3.0.2
+info:
+  title: Isagog Knowledge Graph Language Service
+  version: 1.0.0
+  description: Isagog Knowledge Graph Language endpoint
+  contact:
+    email: ks-api@isagog.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: http://localhost
+    variables:
+      port:
+        default: '3201'
+      basePath:
+        default: /
+tags:
+
+  - name: LinguisticService
+    description: NLP analitic functionalities
+
+paths:
+
+  /language/analyze:
+    post:
+      summary: Sentence analysis
+      description: Provides an annotation of the supplied text object according to available knowledge, including entity recognition, linking and relations (opt)
+      parameters:
+        - name: kg
+          in: query
+          required: false
+          description: Analysis context (opt)
+          schema:
+            type: string
+        - name: task
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - ENTITIES
+              - CONCEPTS
+              - RELATIONS
+              - FRAMES
+            default:
+      operationId: analyzeSentence
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SentenceAnnotation'
+
+        401:
+          description: Unknown graph
+        402:
+          description: Invalid sentence
+        403:
+          description: Unsupported task
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextualContent'
+      tags:
+        - LinguisticService
+
+
+components:
+  schemas:
+
+    LinguisticStatement:
+      description: Natural language statement
+      allOf:
+        - $ref: kg-knowledge.yaml#/components/schemas/Statement
+      type: object
+      required:
+        - utterance
+      properties:
+        utterance:
+          description: Utterance
+          type: string
+          format: byte
+
+
+
+    TextualContent:
+      type: object
+      required:
+        - text
+      properties:
+        lang:
+          description: Language
+          type: string
+          enum:
+            - en
+            - es
+            - fr
+            - it
+            - de
+        text:
+          description: Textual content
+          type: string
+          format: byte
+        context:
+          description: Textual context
+          type: string
+          format: byte
+
+
+
+
+    TextAnnotation:
+        description: Text annotation
+        type: object
+        required:
+          - classifiers
+        properties:
+          classifier:
+            type: string
+          support:
+            $ref: kg-knowledge.yaml#/components/schemas/Support
+
+
+    SentenceAnnotation:
+        description: Sentence annotation
+        type: object
+        properties:
+          sentence:
+            type: array
+            items:
+              $ref: '#/components/schemas/TextAnnotation'
+          tokens:
+            type: array
+            items:
+              $ref: '#/components/schemas/TokenAnnotation'
+
+    TokenAnnotation:
+        description: Token annotation (should be abstract)
+        type: object
+        required:
+          - atype
+          - token
+          - start
+          - end
+        properties:
+          atype:
+            type: string
+            description: Annotation type
+            enum:
+              - EntityAnnotation
+              - GrammarAnnotation
+              - SyntaxAnnotation
+              - DependencyAnnotation
+              - RelationAnnotation
+              - ClassAnnotation
+          token:
+            type: string
+          start:
+            type: integer
+            format: int32
+          end:
+            type: integer
+            format: int32
+        discriminator:
+          propertyName: atype
+          mapping:
+            EntityAnnotation: '#/components/schemas/EntityAnnotation'
+            GrammarAnnotation: '#/components/schemas/GrammarAnnotation'
+            SyntaxAnnotation: '#/components/schemas/SyntaxAnnotation'
+            DependencyAnnotation: '#/components/schemas/DependencyAnnotation'
+            RelationAnnotation: '#/components/schemas/RelationAnnotation'
+
+
+    EntityAnnotation:
+        description: Entity classifier and\or link
+        allOf:
+          - $ref: '#/components/schemas/TokenAnnotation'
+        type: object
+        required:
+          - classifier
+        properties:
+          classifiers:
+            type: array
+            items:
+              type: string
+              format: id
+          links:
+            type: array
+            items:
+              type: string
+              format: uri
+
+    GrammarAnnotation:
+        description: Token grammar spec
+        allOf:
+          - $ref: '#/components/schemas/TokenAnnotation'
+        type: object
+        required:
+          - pos
+        properties:
+          pos:
+            type: string
+            description: Part of speech
+            enum:
+              - NOUN
+              - VERB
+              - ADJECTIVE
+              - ADVERB
+              - PRONOUN
+              - NUMERAL
+          modifier:
+            type: string
+            description: Part of speech modifier
+            enum:
+              - V-MODAL
+              - V-AUXILIAR
+              - N-NAME
+              - QUALIFIER
+              - NONE
+            default: NONE
+          number:
+            type: string
+            description: Grammatical number
+            enum:
+              - SINGULAR
+              - PLURAL
+              - DUAL
+              - NONE
+            default: NONE
+          person:
+            type: string
+            description: Grammatical person (for VERBS)
+            enum:
+              - FIRST
+              - SECOND
+              - THIRD
+              - NONE
+            default: NONE
+
+    DependencyAnnotation:
+        description: Token dependency
+        allOf:
+          - $ref: '#/components/schemas/TokenAnnotation'
+        type: object
+        required:
+          - governor
+          - dependent
+        properties:
+          governor:
+            description: Index of the governor token annotation
+            type: integer
+            format: int32
+          dependent:
+            description: Index of the dependent token annotation
+            type: integer
+            format: int32
+
+
+    SyntaxAnnotation:
+        description: Token syntactic dependency
+        allOf:
+          - $ref: '#/components/schemas/DependencyAnnotation'
+        type: object
+        required:
+          - syntax
+        properties:
+          syntax:
+            type: string
+            enum:
+              - OBJECT
+              - SUBJECT
+              - COMPLEMENT
+              - ADJUNCT
+              - COORDINATE
+              #TO CONTINUE
+
+
+    RelationAnnotation:
+        description: Token semantic dependency
+        allOf:
+          - $ref: '#/components/schemas/DependencyAnnotation'
+        type: object
+        required:
+          - relation
+        properties:
+          relation:
+            type: string
+            description: Ontology relation
+            format: id
+
+
