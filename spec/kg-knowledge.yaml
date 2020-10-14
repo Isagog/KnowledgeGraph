@@ -14,7 +14,7 @@ servers:
       port:
         default: '3200'
       basePath:
-        default: /kg_know
+        default: /kg
 tags:
 
   - name: KnowledgeService
@@ -115,15 +115,22 @@ paths:
 
   /knowledge/frame:
     post:
-      summary: Frame building
-      description: Builds frames upon an annotated text
+      summary: Frame extraction
+      description: Extract frames from an annotated text
       parameters:
+        - name: source
+          in: query
+          schema:
+            type: string
+            enum:
+              - json
+              - rdf
         - name: limit
           in: query
           required: false
           schema:
             type: integer
-      operationId: buildFrames
+      operationId: extractFrames
       responses:
         200:
           description: Success
@@ -143,9 +150,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: kg-language.yaml#/components/schemas/TextAnnotation
-        description: Annotated text
-        required: true
+              type: string
+              format: UTF-8
       tags:
         - KnowledgeService
 
@@ -179,7 +185,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: kg-knowledge.yaml#/components/schemas/Statement
+              $ref: '#/components/schemas/Statement'
         description: Assertion statement
         required: true
       tags:
@@ -214,7 +220,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: kg-knowledge.yaml#/components/schemas/Statement
+                $ref: '#/components/schemas/Statement'
           description: Retraction statement
           required: true
         tags:

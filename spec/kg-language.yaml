@@ -14,7 +14,7 @@ servers:
       port:
         default: '3201'
       basePath:
-        default: /
+        default: /kg
 tags:
 
   - name: LinguisticService

@@ -14,11 +14,11 @@ servers:
       port:
         default: '3200'
       basePath:
-        default: /kg_data
+        default: /kg
 tags:
 
   - name: DataService
-    description: CRUD and query functionalities
+    description: CRUD and queries over the data layer
 
 paths:
 
@@ -98,8 +98,7 @@ paths:
 
       responses:
         200:
-          description: Success, json content
-
+          description: Success
         401:
           description: Unknown Graph
         402:
@@ -129,16 +128,14 @@ paths:
             type: string
             format: id
 
-      operationId: getKnowledgeElement
+      operationId: getEntity
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: kg-knowledge.yaml#/components/schemas/Entity
+                 $ref: kg-knowledge.yaml#/components/schemas/Entity
         401:
           description: Unknown graph
         402:
@@ -179,7 +176,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: kg-knowledge.yaml#/components/schemas/Statement
+              $ref: kg-knowledge.yaml#/components/schemas/EntityStatement
         description: Assertion statement
         required: true
       tags:
@@ -214,7 +211,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: kg-knowledge.yaml#/components/schemas/Statement
+              $ref: kg-knowledge.yaml#/components/schemas/EntityStatement
         description: Retraction statement
         required: true
       tags:
@@ -255,7 +252,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: kg-knowledge.yaml#/components/schemas/KnowledgeElement
+                  $ref: kg-knowledge.yaml#/components/schemas/Entity
         201:
           description: No results
         401:

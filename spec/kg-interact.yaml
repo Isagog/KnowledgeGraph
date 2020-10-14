@@ -14,7 +14,7 @@ servers:
       port:
         default: '3200'
       basePath:
-        default: /
+        default: /kg
 tags:
   - name: InteractionService
 

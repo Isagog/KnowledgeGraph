@@ -12,9 +12,9 @@ servers:
   - url: http://localhost
     variables:
       port:
-        default: '3205'
+        default: '3200'
       basePath:
-        default: /
+        default: /kg
 tags:
   - name: IngestionService
     description: Bulk upload functionalities
@@ -23,7 +23,7 @@ paths:
   /ingest/upload:
     post:
       summary: Bulk upload
-      description: Uploads an RDF resource
+      description: Uploads a resource
       parameters:
         - name: kg
           in: query
@@ -71,6 +71,8 @@ components:
             - rdf-xml
             - rdf-json
             - json-ld
+            - txt
+            - csv
         content:
           description: Serialized content
           type: string
