@@ -16,12 +16,13 @@ Here is a high-level picture of the platform's architecture, as it unfolds in th
 
 ![User interaction](doc/kg-user-interact.PNG)
 
-This picture shows how a user utterance should be processed, and is indeed processed in the reference implementation.
+This picture shows how a user utterance should be processed.
 1. The utterance (raw text) is received by the interaction service and, if it is worth processing, is sent to the language service.
-2. The language service responds with an annotation structure, or a rebuttal message.
+2. The language service responds with an annotation structure over the given sentence, or a rebuttal message.
 3. The interaction service sends the annotated sentence to the knowledge service, which tries to build a conceptual frame upon it.
-4. Based on its type, i.e. Query or Update, the frame is dispatched to the data service.
-5. The data service result flows to the interaction service and then to the user.
+4. The conceptual frame may be sent to the user for reviewing, then sent back to the interaction service.
+5. The interaction service dispatches the frame to the data service, based on its type, i.e. Query or Update.
+6. The data service result flows to the interaction service and then to the user.
 
 
 
