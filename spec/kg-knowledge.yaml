@@ -18,7 +18,7 @@ servers:
 tags:
 
   - name: KnowledgeService
-    description: Ontology and inference functionalities
+    description: Ontology (read-only) and inference functionalities
 
 paths:
 
@@ -35,6 +35,20 @@ paths:
           explode: false
           schema:
             type: string
+        - name: etype
+          in: query
+          description: Narrow search to the supplied type
+          required: false
+          schema:
+            type: string
+            enum:
+              - CONCEPT
+              - PROPERTY
+              - ATTRIBUTE
+              - ENTITY
+              - ANY
+            default:
+              - ANY
         - name: details
           in: query
           description: 'Details to be returned: full=full hierarchy, summary=direct super\subordinates, none=id only'
@@ -53,10 +67,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/KnowledgeElement'
-        201:
-          description: No results
         401:
-          description: Unknown graph
+          description: No results
         402:
           description: Invalid key
         501:
@@ -115,7 +127,7 @@ paths:
 
   /knowledge/frame:
     post:
-      summary: Frame extraction
+      summary: Frame construction
       description: Extract frames from an annotated text or csv data
       parameters:
         - name: source
@@ -138,7 +150,7 @@ paths:
       operationId: extractFrames
       responses:
         200:
-          description: Single frame ranking
+          description: Single sound frame ranking
           content:
             application/json:
               schema:
@@ -146,7 +158,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/FrameInstance'
         201:
-          description: Multiple valid frames
+          description: Multiple sound frames
           content:
             application/json:
               schema:
@@ -154,7 +166,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/FrameInstance'
         402:
-          description: Invalid data
+          description: Insufficient data mapping
         501:
           description: Service unavailable
         502:
@@ -170,77 +182,6 @@ paths:
               format: UTF-8
       tags:
         - KnowledgeService
-
-
-  /knowledge/assert:
-    post:
-      summary: Statement assertion
-      description: Asserts a statement in a Knowledge Graph
-      parameters:
-        - name: kg
-          in: query
-          required: true
-          schema:
-            type: string
-          description: Assertion context (KG id)
-      operationId: assertStatement
-      responses:
-        200:
-          description: Success
-        401:
-          description: Unknown graph
-        402:
-          description: Malformed statement
-        403:
-          description: Unsupported statement
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Statement'
-        description: Assertion statement
-        required: true
-      tags:
-        - KnowledgeService
-
-
-  /knowledge/retract:
-      post:
-        summary: Statement retraction
-        description: Retracts a statement and all the statements depending on it
-        parameters:
-          - name: kg
-            in: query
-            required: true
-            schema:
-              type: string
-        operationId: retractStatement
-        responses:
-          200:
-            description: Success
-          401:
-            description: Unknown graph
-          402:
-            description: Malformed statement
-          403:
-            description: Unsupported statement
-          501:
-            description: Service unavailable
-          502:
-            description: Server error
-        requestBody:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Statement'
-          description: Retraction statement
-          required: true
-        tags:
-          - KnowledgeService
 
 
 components:
@@ -584,34 +525,42 @@ components:
 
 
     Frame:
-      description: Type of conceptual construction, e.g. a query or a form
+      description: Conceptual pattern, e.g. a query or a form
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
       required:
         - id
+        - root
         - slots
       properties:
         id:
-          description: Slot identifier, must be univoque in the frame
+          description: Frame identifier, must be univoque in the frame
           type: string
           format: id
+        concept:
+           $ref: '#/components/schemas/ConceptualSlot'
         slots:
-          description: List of conceptual elements
+          description: Conceptual elements
           type: array
           items:
             $ref: '#/components/schemas/Slot'
 
 
     Slot:
-      description: Element in a frame
+      description: Framed conceptual element
       type: object
       required:
         - id
+        - fid
         - stype
       properties:
         id:
           description: Slot identifier, must be univoque in the frame
+          type: string
+          format: id
+        fid:
+          description: Owner frame id
           type: string
           format: id
         stype:
@@ -666,16 +615,22 @@ components:
         - $ref: '#/components/schemas/Slot'
       type: object
       properties:
-        subject:
-          description: Slot's subject binding, must be a valid slot id in the frame
+        subjectBinding:
+          description: Slot's subject binding, must be a valid slot id in the frame.
+                       If the bound slot is a relational one, the binding means 'same subject as'.
           type: string
           format: id
-        object:
-          description: Slot's object binding, must be a valid slot id in the frame
+        objectBinding:
+          description: Slot's object binding, must be a valid slot id in the frame.
+                       If the bound slot is a relational one, the binding means 'same object as'.
           type: string
           format: id
-      required:
-        - subject
+        chain:
+          description: Slot chaining, must be a valid relational slot id.
+                       Chaining means that the object of the bound slot must be the subject of this slot.
+          type: string
+          format: id
+
 
 
     AttributiveSlot:
