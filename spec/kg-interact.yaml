@@ -22,7 +22,7 @@ paths:
 
 
 
-  /interact/tell:
+  /interact/utter:
     post:
       summary: User utterance
       description: Asserts a statement in a Knowledge Graph
@@ -62,17 +62,19 @@ paths:
               schema:
                   $ref: kg-knowledge.yaml#/components/schemas/Frame
         203:
-          description: Acknowledge messages
+          description: Message
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: string
+                  $ref: '#/components/schemas/SystemMessage'
         401:
           description: Unknown graph
         402:
-          description: Illegal utterance character
+          description: Illegal utterance format
+        403:
+          description: Meaningless utterance
         501:
           description: Service unavailable
         502:
@@ -88,10 +90,10 @@ paths:
       tags:
         - InteractionService
 
-  /interact/send:
+  /interact/pull:
     post:
-      summary: Send user frame
-      description: Send a user frame, e.g. a form
+      summary: Pulls a frame
+      description: Sends a frame, e.g. a user query form, to the systems
       parameters:
         - name: kg
           in: query
@@ -99,7 +101,7 @@ paths:
           schema:
             type: string
           description: Upload context (KG id)
-      operationId: sendFrame
+      operationId: pullFrame
       responses:
         200:
           description: Query response
@@ -134,4 +136,19 @@ paths:
         required: true
       tags:
         - InteractionService
+
+components:
+  schemas:
+
+    SystemMessage:
+      type: object
+      properties:
+        mtype:
+          type: string
+          enum:
+            - ACK
+            - WARN
+            - ERR
+        message:
+          type: string
 

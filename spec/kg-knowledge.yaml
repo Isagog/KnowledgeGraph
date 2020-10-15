@@ -92,7 +92,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/KnowledgeRanking'
+                  $ref: '#/components/schemas/EntityRanking'
         401:
           description: Not found
         402:
@@ -116,32 +116,45 @@ paths:
   /knowledge/frame:
     post:
       summary: Frame extraction
-      description: Extract frames from an annotated text
+      description: Extract frames from an annotated text or csv data
       parameters:
         - name: source
           in: query
+          required: true
+          description: Source kind, i.e. annotated text or structured data
           schema:
             type: string
             enum:
-              - json
-              - rdf
+              - sentence
+              - data
         - name: limit
           in: query
           required: false
+          description: Limits the number of returned frame candidates to the supplied value
           schema:
             type: integer
+            minimum: 1
+            maximum: 100
       operationId: extractFrames
       responses:
         200:
-          description: Success
+          description: Single frame ranking
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/KnowledgeRanking'
-        403:
-          description: Invalid arguments
+                  $ref: '#/components/schemas/FrameInstance'
+        201:
+          description: Multiple valid frames
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FrameInstance'
+        402:
+          description: Invalid data
         501:
           description: Service unavailable
         502:
@@ -149,6 +162,9 @@ paths:
       requestBody:
         content:
           application/json:
+            schema:
+              $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
+          text/csv:
             schema:
               type: string
               format: UTF-8
@@ -229,509 +245,493 @@ paths:
 
 components:
   schemas:
-        KnowledgeGraph:
-          description: Set of statements about conceptualized entities
-          required:
-            - id
-          type: object
-          properties:
-            id:
-              description: Knowledge Graph id
-              type: string
-              format: id
-            sources:
-              description: KG sources
-              type: array
-              items:
-                type: string
-                format: uri
-            description:
-              description: KG description
-              type: string
-            size:
-              description: Statement number
-              type: integer
-              format: int32
-            ontologies:
-              description: Ontologies where concepts and relations are defined (URIs)
-              type: array
-              items:
-                type: string
-                format: uri
-            context:
-              description: Other graphs providing contextual knowledge
-              type: array
-              items:
-                type: string
-                format: id
-            content:
-              description: KG content (statements)
-              type: array
-              items:
-                $ref: '#/components/schemas/EntityStatement'
-            annotations:
-              description: KG annotation (application specific)
-              type: array
-              items:
-                $ref: '#/components/schemas/KnowledgeAnnotation'
+
+    Support:
+      type: object
+      description: Knowledge support score
+      required:
+        - evidence
+      properties:
+        evidence:
+          description: Evidence score [1=Positive evidence, 0=Negative evidence]
+          type: number
+          format: double
+          default: 0.5
+        confidence:
+          description: Confidence score [1=Full confidence, 0=No confidence]
+          type: number
+          format: double
+          default: 0.5
+
+    KnowledgeGraph:
+      description: Set of statements about conceptualized entities
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          description: Knowledge Graph id
+          type: string
+          format: id
+        sources:
+          description: KG sources
+          type: array
+          items:
+            type: string
+            format: uri
+        description:
+          description: KG description
+          type: string
+        size:
+          description: Statement number
+          type: integer
+          format: int32
+        ontologies:
+          description: Ontologies where concepts and relations are defined (URIs)
+          type: array
+          items:
+            type: string
+            format: uri
+        context:
+          description: Other graphs providing contextual knowledge
+          type: array
+          items:
+            type: string
+            format: id
+        content:
+          description: KG content (statements)
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityStatement'
+        annotations:
+          description: KG annotation (application specific)
+          type: array
+          items:
+            $ref: '#/components/schemas/KnowledgeAnnotation'
 
 
 
 
-        KnowledgeAnnotation:
-          description: Annotation
-          required:
-            - property
-            - value
-          type: object
-          properties:
-            property:
-              description: The annotation property
-              type: string
-            value:
-              description: The annotation
-              type: string
-              format: byte
+    KnowledgeAnnotation:
+      description: Annotation
+      required:
+        - property
+        - value
+      type: object
+      properties:
+        property:
+          description: The annotation property
+          type: string
+        value:
+          description: The annotation
+          type: string
+          format: byte
 
 
-        KnowledgeRanking:
-          description: Knowledge Element ranking record
-          type: object
-          required:
-            - element
-          properties:
-            element:
-              $ref: '#/components/schemas/KnowledgeElement'
-            rank:
-              type: integer
-            support:
-              $ref: '#/components/schemas/Support'
+    EntityRanking:
+      description: Entity ranking record
+      type: object
+      required:
+        - element
+      properties:
+        element:
+          $ref: '#/components/schemas/Entity'
+        support:
+          $ref: '#/components/schemas/Support'
 
 
-        KnowledgeElement:
-          description: Managed knowledge element (should be abstract)
-          type: object
-          required:
-            - ktype
-          properties:
-            ktype:
-              type: string
-              enum:
-                - AtomicConcept
-                - RelationalConcept
-                - AttributiveConcept
-                - Relation
-                - Entity
-                - ConceptStatement
-                - EntityStatement
-                - ClassificationStatement
-                - RelationalStatement
-                - AttributiveStatement
-                - Frame
-            annotations:
-              type: array
-              items:
-                $ref: '#/components/schemas/KnowledgeAnnotation'
-          discriminator:
-            propertyName: ktype
-            mapping:
-              AtomicConcept: '#/components/schemas/AtomicConcept'
-              RelationalConcept: '#/components/schemas/RelationalConcept'
-              AttributiveConcept: '#/components/schemas/AttributiveConcept'
-              Relation: '#/components/schemas/Relation'
-              Attribute: '#/components/schemas/Attribute'
-              Entity: '#/components/schemas/Entity'
-              ConceptStatement: '#/components/schemas/ConceptStatement'
-              EntityStatement: '#/components/schemas/EntityStatement'
-              ClassificationStatement: '#/components/schemas/ClassificationStatement'
-              RelationalStatement: '#/components/schemas/RelationalStatement'
-              AttributiveStatement: '#/components/schemas/AttributiveStatement'
-              Frame: '#/components/schemas/Frame'
+    KnowledgeElement:
+      description: Managed knowledge element (should be abstract)
+      type: object
+      required:
+        - ktype
+      properties:
+        ktype:
+          type: string
+          enum:
+            - AtomicConcept
+            - RelationalConcept
+            - AttributiveConcept
+            - Relation
+            - Entity
+            - ConceptStatement
+            - EntityStatement
+            - ClassificationStatement
+            - RelationalStatement
+            - AttributiveStatement
+            - Frame
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/KnowledgeAnnotation'
+      discriminator:
+        propertyName: ktype
+        mapping:
+          AtomicConcept: '#/components/schemas/AtomicConcept'
+          RelationalConcept: '#/components/schemas/RelationalConcept'
+          AttributiveConcept: '#/components/schemas/AttributiveConcept'
+          Relation: '#/components/schemas/Relation'
+          Attribute: '#/components/schemas/Attribute'
+          Entity: '#/components/schemas/Entity'
+          ConceptStatement: '#/components/schemas/ConceptStatement'
+          EntityStatement: '#/components/schemas/EntityStatement'
+          ClassificationStatement: '#/components/schemas/ClassificationStatement'
+          RelationalStatement: '#/components/schemas/RelationalStatement'
+          AttributiveStatement: '#/components/schemas/AttributiveStatement'
+          Frame: '#/components/schemas/Frame'
 
-        AtomicConcept:
-          description: Unary atomic classifier
-          allOf:
-            - $ref: '#/components/schemas/KnowledgeElement'
-          type: object
-          required:
-            - id
-          properties:
-            id:
-              type: string
-              format: id
+    AtomicConcept:
+      description: Unary atomic classifier
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeElement'
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: id
 
-            statements:
-              type: array
-              items:
-                $ref: '#/components/schemas/ConceptStatement'
+        statements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConceptStatement'
 
-        RelationalConcept:
-          description: Unary relational classifier
-          allOf:
-            - $ref: '#/components/schemas/KnowledgeElement'
-          type: object
-          required:
-            - relation
-            - quantifier
-          properties:
-            relation:
-              type: string
-              format: id
-            restriction:
-              type: string
-            quantifier:
-              type: string
-              enum:
-                - SOME
-                - ALL
-                - ATLEAST1
-                - ATMOST1
+    RelationalConcept:
+      description: Unary relational classifier
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeElement'
+      type: object
+      required:
+        - relation
+        - quantifier
+      properties:
+        relation:
+          type: string
+          format: id
+        restriction:
+          type: string
+        quantifier:
+          type: string
+          enum:
+            - SOME
+            - ALL
+            - ATLEAST1
+            - ATMOST1
 
-        AttributiveConcept:
-          description: Unary attributive classifier
-          allOf:
-            - $ref: '#/components/schemas/KnowledgeElement'
-          type: object
-          required:
-            - attribute
-          properties:
-            attribute:
-              type: string
-              format: id
-            value:
-              type: string
-              format: byte
-            constraint:
-              type: string
-              enum:
-                - SOME
-                - EQUALS
-                - GREATER_THAN
-                - SMALLER_THAN
-              default: SOME
-
-
-        Relation:
-          description: Class of entity pairs
-          allOf:
-            - $ref: '#/components/schemas/KnowledgeElement'
-          required:
-            - id
-          properties:
-            id:
-              type: string
-              format: id
+    AttributiveConcept:
+      description: Unary attributive classifier
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeElement'
+      type: object
+      required:
+        - attribute
+      properties:
+        attribute:
+          type: string
+          format: id
+        value:
+          type: string
+          format: byte
+        constraint:
+          type: string
+          enum:
+            - SOME
+            - EQUALS
+            - GREATER_THAN
+            - SMALLER_THAN
+          default: SOME
 
 
-        Attribute:
-          description: Class of Entity-value pairs
-          allOf:
-            - $ref: '#/components/schemas/KnowledgeElement'
-          required:
-            - id
-          properties:
-            id:
-              type: string
-              format: id
+    Relation:
+      description: Class of entity pairs
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeElement'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: id
 
 
-        Entity:
-          description: Individual entity
-          allOf:
-            - $ref: '#/components/schemas/KnowledgeElement'
-          type: object
-          required:
-            - id
-          properties:
-            id:
-              type: string
-              format: id
-            statements:
-              type: array
-              items:
-                $ref: '#/components/schemas/EntityStatement'
-
-        Statement:
-          description: Knowledge statement
-          allOf:
-            - $ref: '#/components/schemas/KnowledgeElement'
-          type: object
-          required:
-            - subject
-          properties:
-            subject:
-              type: string
-              format: id
-            privacy:
-              type: string
-              enum:
-                - OWNER
-                - TRUSTED
-                - CONTACTS
-                - PUBLIC
-              default: OWNER
-            support:
-              $ref: '#/components/schemas/Support'
-
-        ConceptStatement:
-          description: Conceptual assertion
-          allOf:
-            - $ref: '#/components/schemas/Statement'
-          type: object
-          required:
-            - object
-            - predicate
-          properties:
-            object:
-              type: string
-              format: id
-            predicate:
-              type: string
-              enum:
-                - INCLUSION
-                - DISJUNCTION
-                - EQUIVALENCE
+    Attribute:
+      description: Class of Entity-value pairs
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeElement'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: id
 
 
-        EntityStatement:
-          description: Individual assertion
-          allOf:
-            - $ref: '#/components/schemas/Statement'
+    Entity:
+      description: Individual entity
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeElement'
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: id
+        statements:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityStatement'
+
+    Statement:
+      description: Knowledge statement
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeElement'
+      type: object
+      required:
+        - subject
+      properties:
+        subject:
+          type: string
+          format: id
+        privacy:
+          type: string
+          enum:
+            - OWNER
+            - TRUSTED
+            - CONTACTS
+            - PUBLIC
+          default: OWNER
+        support:
+          $ref: '#/components/schemas/Support'
+
+    ConceptStatement:
+      description: Conceptual assertion
+      allOf:
+        - $ref: '#/components/schemas/Statement'
+      type: object
+      required:
+        - object
+        - predicate
+      properties:
+        object:
+          type: string
+          format: id
+        predicate:
+          type: string
+          enum:
+            - INCLUSION
+            - DISJUNCTION
+            - EQUIVALENCE
 
 
-        ClassificationStatement:
-          description: Entity classification
-          allOf:
-            - $ref: '#/components/schemas/EntityStatement'
-          type: object
-          required:
-            - concept
-          properties:
-            concept:
-              type: string
-              format: id
-
-        RelationalStatement:
-          description: Entity relatedness
-          allOf:
-            - $ref: '#/components/schemas/EntityStatement'
-          type: object
-          required:
-            - relation
-            - entity
-          properties:
-            relation:
-              description: Ontology relation
-              type: string
-              format: id
-            entity:
-              description: Related entity
-              type: string
-              format: id
+    EntityStatement:
+      description: Individual assertion
+      allOf:
+        - $ref: '#/components/schemas/Statement'
 
 
-        AttributiveStatement:
-          description: Entity attribute
-          allOf:
-            - $ref: '#/components/schemas/EntityStatement'
-          type: object
-          required:
-            - attribute
-            - values
-          properties:
-            attribute:
-              description: Ontology attribute
-              type: string
-              format: id
-            values:
-              description: Attribute values
-              type: array
-              items:
-                type: string
-                format: byte
+    ClassificationStatement:
+      description: Entity classification
+      allOf:
+        - $ref: '#/components/schemas/EntityStatement'
+      type: object
+      required:
+        - concept
+      properties:
+        concept:
+          type: string
+          format: id
+
+    RelationalStatement:
+      description: Entity relatedness
+      allOf:
+        - $ref: '#/components/schemas/EntityStatement'
+      type: object
+      required:
+        - relation
+        - entity
+      properties:
+        relation:
+          description: Ontology relation
+          type: string
+          format: id
+        entity:
+          description: Related entity
+          type: string
+          format: id
 
 
-        Frame:
+    AttributiveStatement:
+      description: Entity attribute
+      allOf:
+        - $ref: '#/components/schemas/EntityStatement'
+      type: object
+      required:
+        - attribute
+        - values
+      properties:
+        attribute:
+          description: Ontology attribute
+          type: string
+          format: id
+        values:
+          description: Attribute values
+          type: array
+          items:
+            type: string
+            format: byte
+
+
+    Frame:
+      description: Type of conceptual construction, e.g. a query or a form
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeElement'
+      type: object
+      required:
+        - id
+        - slots
+      properties:
+        id:
+          description: Slot identifier, must be univoque in the frame
+          type: string
+          format: id
+        slots:
+          description: List of conceptual elements
+          type: array
+          items:
+            $ref: '#/components/schemas/Slot'
+
+
+    Slot:
+      description: Element in a frame
+      type: object
+      required:
+        - id
+        - stype
+      properties:
+        id:
+          description: Slot identifier, must be univoque in the frame
+          type: string
+          format: id
+        stype:
+          type: string
+          enum:
+            - ConceptualSlot
+            - RelationalSlot
+            - AttributiveSlot
+        predicate:
+          description: Corresponding ontology predicate
+          type: string
+          format: id
+        features:
+          type: array
+          items:
+            type: string
+            enum:
+              - DISTINGUISHED
+              - INFORMATIVE
+              - MANDATORY
+      discriminator:
+        propertyName: stype
+        mapping:
+          ConceptualSlot: '#/components/schemas/ConceptualSlot'
+          RelationalSlot: '#/components/schemas/RelationalSlot'
+          AttributiveSlot: '#/components/schemas/AttributiveSlot'
+
+    FrameInstance:
+      description: Frame instance
+      type: object
+      required:
+        - ftype
+      properties:
+        ftype:
           description: Frame type
-          allOf:
-            - $ref: '#/components/schemas/KnowledgeElement'
-          type: object
-          required:
-            - slots
-          properties:
-            slots:
-              description: List of conceptual elements
-              type: array
-              items:
-                $ref: '#/components/schemas/Slot'
+          type: string
+          format: id
+        slotValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotValue'
+        support:
+          $ref: '#/components/schemas/Support'
 
 
-        Slot:
-          description: Framed conceptual element
-          type: object
-          required:
-            - id
-            - stype
-            - ontologyReference
-            - mandatory
-            - distinguished
-            - lexicalAnnotations
-            - values
-          properties:
-            id:
-              description: Slot identifier, must be univoque in the frame
-              type: string
-            stype:
-              type: string
-              enum:
-                - ConceptualSlot
-                - RelationalSlot
-                - AttributiveSlot
-            mandatory:
-              description: A slot that must be instantiated
-              type: boolean
-              default: false
-            distinguished:
-              description: A slot that has a specific pragmatic role
-              type: boolean
-              default: false
-            informative:
-              description: A slot that must be presented to consumers
-              type: boolean
-              default: false
-            ontologyReference:
-              description: Ontology element linked to the slot
-              type: string
-              format: id
-          discriminator:
-            propertyName: stype
-            mapping:
-              ConceptualSlot: '#/components/schemas/ConceptualSlot'
-              RelationalSlot: '#/components/schemas/RelationalSlot'
-              AttributiveSlot: '#/components/schemas/AttributiveSlot'
+    ConceptualSlot:
+      allOf:
+        - $ref: '#/components/schemas/Slot'
 
-        FrameInstance:
-          description: Frame instance
-          type: object
-          required:
-            - ftype
-          properties:
-            ftype:
-              description: Frame type identifier
-              type: string
-              format: id
-            slotValues:
-              type: array
-              items:
-                $ref: '#/components/schemas/SlotValue'
-
-        SlotSentenceMapping:
-          type: object
-          required:
-            - startIndex
-            - endIndex
-          properties:
-            startIndex:
-              type: integer
-              format: int32
-            endIndex:
-              type: integer
-              format: int32
-
-        ConceptualSlot:
-          allOf:
-            - $ref: '#/components/schemas/Slot'
-
-        RelationalSlot:
-          allOf:
-            - $ref: '#/components/schemas/Slot'
-          type: object
-          properties:
-            subjectBinding:
-              description: The id of the slot representing the Attribute's subject
-              type: string
-            objectBinding:
-              type: string
-              format: id
-          required:
-            - subjectBinding
-
-        AttributiveSlot:
-          allOf:
-            - $ref: '#/components/schemas/Slot'
-          type: object
-          description: A slot bound to an Attribute (data property)
-          properties:
-            subjectBinding:
-              description: The id of the slot representing the Attribute's subject
-              type: string
-              format: id
-            valueType:
-              description: Semantics of the Attribute's value
-              type: string
-              enum:
-                - STRING
-                - NUMBER
-                - TEXT
-                - DATE
-                - MONEY
-                - LOCATION
-                - NAME
-                - ANY
-              default: ANY
-            comparation:
-              description: The comparison operator when instantiated
-              type: string
-              enum:
-                - EQUAL
-                - GREATER
-                - SMALLER
-                - SIMILAR
-                - UNDEFINED
-              default: UNDEFINED
-          required:
-            - subjectBinding
-
-        SlotValue:
-          description: Slot value instance
-          type: object
-          required:
-            - slotTypeId
-            - value
-          properties:
-            slotTypeId:
-              description: Slot type's identifier
-              type: string
-              format: id
-            sourceType:
-              description: The value provenance
-              type: string
-              enum:
-                - USER_INPUT
-                - KNOWLEGDE_BASE
-                - UNDEFINED
-              default: UNDEFINED
-            value:
-              type: string
-              format: byte
-            support:
-              $ref: '#/components/schemas/Support'
+    RelationalSlot:
+      allOf:
+        - $ref: '#/components/schemas/Slot'
+      type: object
+      properties:
+        subject:
+          description: Slot's subject binding, must be a valid slot id in the frame
+          type: string
+          format: id
+        object:
+          description: Slot's object binding, must be a valid slot id in the frame
+          type: string
+          format: id
+      required:
+        - subject
 
 
-        Support:
-          type: object
-          description: Knowledge support score
-          required:
-            - evidence
-            - confidence
-          properties:
-            evidence:
-              description: Evidence score [1=Positive evidence, 0=Negative evidence]
-              type: number
-              format: double
-              default: 0.5
-            confidence:
-              description: Confidence score [1=Full confidence, 0=No confidence]
-              type: number
-              format: double
-              default: 0.5
+    AttributiveSlot:
+      allOf:
+        - $ref: '#/components/schemas/Slot'
+      type: object
+      description: A slot bound to an Attribute (data property)
+      properties:
+        subject:
+          description: Slot's subject binding, must be a valid slot id in the frame
+          type: string
+          format: id
+        valueType:
+          description: Type of the Attribute's value
+          type: string
+          enum:
+            - STRING
+            - NUMBER
+            - TEXT
+            - PERIOD
+            - AMOUNT
+            - LOCATION
+            - IDENTIFIER
+          default: STRING
+        comparation:
+          description: Comparative constraint
+          type: string
+          enum:
+            - EQUAL
+            - GREATER
+            - SMALLER
+            - SIMILAR
+      required:
+        - subject
+
+    SlotValue:
+      description: Slot value instance
+      type: object
+      required:
+        - stype
+        - value
+      properties:
+        stype:
+          description: Slot type's identifier, must be a valid slot id in the frame instance's type
+          type: string
+          format: id
+        source:
+          description: The value provenance
+          type: string
+          enum:
+            - USER_INPUT
+            - KNOWLEGDE_BASE
+            - UNDEFINED
+          default: UNDEFINED
+        value:
+          type: string
+          format: byte
+        support:
+          $ref: '#/components/schemas/Support'

@@ -311,11 +311,12 @@ components:
     Query:
       description: Query frame
       allOf:
-        - $ref: kg-knowledge.yaml#/components/schemas/Frame
+        - $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
       type: object
       properties:
         qtype:
           type: string
+          description: Query type
           enum:
             - IndividuationQuery
             - CardinalityQuery
@@ -372,3 +373,10 @@ components:
             type: string
         support:
           $ref: kg-knowledge.yaml#/components/schemas/Support
+
+    Update:
+      description: Update frame
+      allOf:
+        - $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
+      type: object
+
