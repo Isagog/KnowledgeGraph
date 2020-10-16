@@ -46,7 +46,7 @@ paths:
           description: Server error
       requestBody:
         content:
-          multipart/form-data:
+          application/json:
             schema:
               $ref: '#/components/schemas/UploadForm'
       tags:
@@ -55,8 +55,6 @@ paths:
 
 components:
   schemas:
-
-
     UploadForm:
       description: Upload form
       type: object

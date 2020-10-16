@@ -48,7 +48,7 @@ paths:
               - ENTITY
               - ANY
             default:
-              - ANY
+               ANY
         - name: details
           in: query
           description: 'Details to be returned: full=full hierarchy, summary=direct super\subordinates, none=id only'
@@ -531,15 +531,12 @@ components:
       type: object
       required:
         - id
-        - root
         - slots
       properties:
         id:
           description: Frame identifier, must be univoque in the frame
           type: string
           format: id
-        concept:
-           $ref: '#/components/schemas/ConceptualSlot'
         slots:
           description: Conceptual elements
           type: array
@@ -552,15 +549,10 @@ components:
       type: object
       required:
         - id
-        - fid
         - stype
       properties:
         id:
           description: Slot identifier, must be univoque in the frame
-          type: string
-          format: id
-        fid:
-          description: Owner frame id
           type: string
           format: id
         stype:
@@ -573,14 +565,7 @@ components:
           description: Corresponding ontology predicate
           type: string
           format: id
-        features:
-          type: array
-          items:
-            type: string
-            enum:
-              - DISTINGUISHED
-              - INFORMATIVE
-              - MANDATORY
+
       discriminator:
         propertyName: stype
         mapping:
@@ -609,6 +594,15 @@ components:
     ConceptualSlot:
       allOf:
         - $ref: '#/components/schemas/Slot'
+      properties:
+       features:
+        type: array
+        items:
+          type: string
+          enum:
+            - DISTINGUISHED
+            - INFORMATIVE
+            - MANDATORY
 
     RelationalSlot:
       allOf:
@@ -625,11 +619,14 @@ components:
                        If the bound slot is a relational one, the binding means 'same object as'.
           type: string
           format: id
-        chain:
+        chainBinding:
           description: Slot chaining, must be a valid relational slot id.
                        Chaining means that the object of the bound slot must be the subject of this slot.
           type: string
           format: id
+      required:
+        - subjectBinding
+
 
 
 
@@ -639,7 +636,7 @@ components:
       type: object
       description: A slot bound to an Attribute (data property)
       properties:
-        subject:
+        subjectBinding:
           description: Slot's subject binding, must be a valid slot id in the frame
           type: string
           format: id
@@ -664,7 +661,7 @@ components:
             - SMALLER
             - SIMILAR
       required:
-        - subject
+        - subjectBinding
 
     SlotValue:
       description: Slot value instance
