@@ -60,6 +60,8 @@ paths:
           content:
             application/json:
               schema:
+                type: array
+                items:
                   $ref: kg-knowledge.yaml#/components/schemas/Frame
         203:
           description: Message

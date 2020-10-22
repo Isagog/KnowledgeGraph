@@ -238,9 +238,16 @@ paths:
           explode: false
           schema:
             type: string
+        - name: concept
+          in: query
+          description: Concept to search by (opt)
+          required: false
+          schema:
+            type: string
+            format: id
         - name: attribute
           in: query
-          description: The attribute to search by (opt)
+          description: Attribute to search by (opt)
           required: false
           schema:
             type: string
@@ -304,6 +311,37 @@ paths:
       tags:
         - DataService
 
+  /data/upload:
+    post:
+      summary: Bulk upload
+      description: Uploads a resource
+      parameters:
+        - name: kg
+          in: query
+          required: true
+          schema:
+            type: string
+      operationId: uploadResource
+      responses:
+        200:
+          description: Success
+        401:
+          description: Unknown graph
+        402:
+          description: Malformed document
+        403:
+          description: Unsupported format
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadForm'
+      tags:
+        - IngestionService
 
 components:
   schemas:
@@ -372,7 +410,10 @@ components:
           items:
             type: string
         support:
-          $ref: kg-knowledge.yaml#/components/schemas/Support
+          type: number
+          format: double
+          minimum: 0.0
+          maximum: 1.0
 
     Update:
       description: Update frame
@@ -380,3 +421,23 @@ components:
         - $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
       type: object
 
+    UploadForm:
+      description: Upload form
+      type: object
+      required:
+        - content
+      properties:
+        format:
+          description: Serialization format
+          type: string
+          enum:
+            - turtle
+            - rdf-xml
+            - rdf-json
+            - json-ld
+            - txt
+            - csv
+        content:
+          description: Serialized content
+          type: string
+          format: binary

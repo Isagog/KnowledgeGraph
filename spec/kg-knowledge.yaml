@@ -82,7 +82,9 @@ paths:
   /knowledge/evaluate:
     post:
       summary: Entity evaluation
-      description: Evaluates an entity as an instance of known concepts
+      description: Evaluates an entity as an instance of known concepts.
+                   Deductive evaluation should return asserted and implied entity classes.
+                   Abductive evaluation should return a ranking of the most plausible entity classes.
       parameters:
         - name: method
           in: query
@@ -104,13 +106,15 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/EntityRanking'
+                  $ref: '#/components/schemas/ConceptRanking'
         401:
           description: Not found
         402:
           description: Unknown graph
         403:
           description: Invalid arguments
+        405:
+          description: Unsupported method
         501:
           description: Service unavailable
         502:
@@ -125,20 +129,21 @@ paths:
       tags:
         - KnowledgeService
 
-  /knowledge/frame:
+  /knowledge/frameText:
     post:
-      summary: Frame construction
+      summary: Frame extraction from annotated text
       description: Extract frames from an annotated text or csv data
       parameters:
-        - name: source
+        - name: response
           in: query
-          required: true
-          description: Source kind, i.e. annotated text or structured data
+          required: false
+          description: Kind of analysis (RANKING = single frame ranking, SPAN = multiple frame span)
           schema:
             type: string
             enum:
-              - sentence
-              - data
+              - RANKING
+              - SPAN
+            default: SPAN
         - name: limit
           in: query
           required: false
@@ -146,11 +151,11 @@ paths:
           schema:
             type: integer
             minimum: 1
-            maximum: 100
-      operationId: extractFrames
+            maximum: 1000
+      operationId: frameText
       responses:
         200:
-          description: Single sound frame ranking
+          description: Single frame ranking
           content:
             application/json:
               schema:
@@ -158,7 +163,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/FrameInstance'
         201:
-          description: Multiple sound frames
+          description: Multiple frame span
           content:
             application/json:
               schema:
@@ -175,34 +180,67 @@ paths:
         content:
           application/json:
             schema:
-              $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
+              $ref: kg-language.yaml#/components/schemas/TextAnnotation
+      tags:
+        - KnowledgeService
+
+  /knowledge/frameData:
+    post:
+      summary: Frame extraction from data
+      description: Extract frames from an annotated text or csv data
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          description: Limits the number of returned frame candidates to the supplied value
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 10000
+      operationId: frameData
+      responses:
+        200:
+          description: Successfully extracted frames
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FrameInstance'
+        402:
+          description: Insufficient data mapping
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+      requestBody:
+        content:
           text/csv:
             schema:
               type: string
               format: UTF-8
       tags:
-        - KnowledgeService
-
+      - KnowledgeService
 
 components:
   schemas:
 
-    Support:
-      type: object
-      description: Knowledge support score
-      required:
-        - evidence
-      properties:
-        evidence:
-          description: Evidence score [1=Positive evidence, 0=Negative evidence]
-          type: number
-          format: double
-          default: 0.5
-        confidence:
-          description: Confidence score [1=Full confidence, 0=No confidence]
-          type: number
-          format: double
-          default: 0.5
+#    Support:
+#      type: object
+#      description: Knowledge support score
+#      required:
+#        - evidence
+#      properties:
+#        evidence:
+#          description: Evidence score [1=Positive evidence, 0=Negative evidence]
+#          type: number
+#          format: double
+#          default: 0.5
+#        confidence:
+#          description: Confidence score [1=Full confidence, 0=No confidence]
+#          type: number
+#          format: double
+#          default: 0.5
 
     KnowledgeGraph:
       description: Set of statements about conceptualized entities
@@ -248,37 +286,40 @@ components:
           description: KG annotation (application specific)
           type: array
           items:
-            $ref: '#/components/schemas/KnowledgeAnnotation'
+            type: string
 
 
 
 
-    KnowledgeAnnotation:
-      description: Annotation
-      required:
-        - property
-        - value
-      type: object
-      properties:
-        property:
-          description: The annotation property
-          type: string
-        value:
-          description: The annotation
-          type: string
-          format: byte
+#    KnowledgeAnnotation:
+#      description: Annotation
+#      required:
+#        - property
+#        - value
+#      type: object
+#      properties:
+#        property:
+#          description: The annotation property
+#          type: string
+#        value:
+#          description: The annotation
+#          type: string
+#          format: byte
 
 
-    EntityRanking:
-      description: Entity ranking record
+    ConceptRanking:
+      description: Conceptual ranking record
       type: object
       required:
         - element
       properties:
         element:
-          $ref: '#/components/schemas/Entity'
+          $ref: '#/components/schemas/AtomicConcept'
         support:
-          $ref: '#/components/schemas/Support'
+          type: number
+          format: double
+          minimum: 0.0
+          maximum: 1.0
 
 
     KnowledgeElement:
@@ -301,10 +342,14 @@ components:
             - RelationalStatement
             - AttributiveStatement
             - Frame
-        annotations:
+            - FrameInstance
+            - Slot
+            - SlotInstance
+        linguisticNotes:
+          description: Linguistic annotations
           type: array
           items:
-            $ref: '#/components/schemas/KnowledgeAnnotation'
+            $ref: kg-language.yaml#/components/schemas/LinguisticAnnotation
       discriminator:
         propertyName: ktype
         mapping:
@@ -320,6 +365,9 @@ components:
           RelationalStatement: '#/components/schemas/RelationalStatement'
           AttributiveStatement: '#/components/schemas/AttributiveStatement'
           Frame: '#/components/schemas/Frame'
+          FrameInstance: '#/components/schemas/FrameInstance'
+          Slot: '#/components/schemas/Slot'
+          SlotInstance: '#/components/schemas/SlotInstance'
 
     AtomicConcept:
       description: Unary atomic classifier
@@ -444,7 +492,10 @@ components:
             - PUBLIC
           default: OWNER
         support:
-          $ref: '#/components/schemas/Support'
+          type: number
+          format: double
+          minimum: 0.0
+          maximum: 1.0
 
     ConceptStatement:
       description: Conceptual assertion
@@ -534,11 +585,11 @@ components:
         - slots
       properties:
         id:
-          description: Frame identifier, must be univoque in the frame
+          description: Frame identifier, must be system-wide unique
           type: string
           format: id
         slots:
-          description: Conceptual elements
+          description: Conceptual elements, up to 128
           type: array
           items:
             $ref: '#/components/schemas/Slot'
@@ -546,23 +597,30 @@ components:
 
     Slot:
       description: Framed conceptual element
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeElement'
       type: object
       required:
         - id
         - stype
       properties:
         id:
-          description: Slot identifier, must be univoque in the frame
-          type: string
-          format: id
+          description: Slot identifier, must be frame-wide unique
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 128
         stype:
           type: string
           enum:
             - ConceptualSlot
             - RelationalSlot
             - AttributiveSlot
+        label:
+          description: User-fiendly ientifier (opt), should be frame-wide unique
+          type: string
         predicate:
-          description: Corresponding ontology predicate
+          description: Ontology predicate mapping
           type: string
           format: id
 
@@ -576,19 +634,38 @@ components:
     FrameInstance:
       description: Frame instance
       type: object
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeElement'
       required:
-        - ftype
+        - frameType
       properties:
-        ftype:
-          description: Frame type
+        id:
+          description: Instance handle, should be univoque in the session
+          type: integer
+          format: int64
+        frameType:
+          description: Frame type identifier, should be system-wide unique
           type: string
           format: id
-        slotValues:
+        slots:
+          description: Slot values
           type: array
           items:
-            $ref: '#/components/schemas/SlotValue'
+            $ref: '#/components/schemas/SlotInstance'
         support:
-          $ref: '#/components/schemas/Support'
+          type: number
+          format: double
+          minimum: 0.0
+          maximum: 1.0
+        provenance:
+          description: The values provenance (opt)
+          type: string
+          enum:
+            - USER_INPUT
+            - KNOWLEGDE_BASE
+            - DOCUMENT
+            - UNDEFINED
+          default: UNDEFINED
 
 
     ConceptualSlot:
@@ -612,18 +689,18 @@ components:
         subjectBinding:
           description: Slot's subject binding, must be a valid slot id in the frame.
                        If the bound slot is a relational one, the binding means 'same subject as'.
-          type: string
-          format: id
+          type: integer
+          format: int32
         objectBinding:
           description: Slot's object binding, must be a valid slot id in the frame.
                        If the bound slot is a relational one, the binding means 'same object as'.
-          type: string
-          format: id
+          type: integer
+          format: int32
         chainBinding:
           description: Slot chaining, must be a valid relational slot id.
                        Chaining means that the object of the bound slot must be the subject of this slot.
-          type: string
-          format: id
+          type: integer
+          format: int32
       required:
         - subjectBinding
 
@@ -638,8 +715,8 @@ components:
       properties:
         subjectBinding:
           description: Slot's subject binding, must be a valid slot id in the frame
-          type: string
-          format: id
+          type: integer
+          format: int32
         valueType:
           description: Type of the Attribute's value
           type: string
@@ -652,38 +729,80 @@ components:
             - LOCATION
             - IDENTIFIER
           default: STRING
+
+      required:
+        - subjectBinding
+
+    SlotInstance:
+      description: Slot value instance (should be abstract)
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeElement'
+      required:
+        - itype
+        - typeid
+      properties:
+        itype:
+          type: string
+          enum:
+            - ConceptualInstance
+            - RelationalInstance
+            - AttributiveInstance
+
+        frameInstance:
+          description: Frame owner instance's handle
+          type: integer
+          format: int64
+
+        slotType:
+          description: Slot type's identifier, must be a valid slot id in the owner frame instance
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 128
+
+
+      discriminator:
+          propertyName: itype
+          mapping:
+            ConceptualInstance: '#/components/schemas/ConceptualInstance'
+            RelationalInstance: '#/components/schemas/RelationalInstance'
+            AttributiveInstace: '#/components/schemas/AttributiveInstance'
+
+    ConceptualInstance:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/SlotInstance'
+      properties:
+        entity:
+          type: string
+
+    RelationalInstance:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/SlotInstance'
+      properties:
+        subject:
+          type: string
+        object:
+          type: string
+
+    AttributiveInstance:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/SlotInstance'
+      properties:
+        subject:
+          type: string
+        value:
+          type: string
+          format: byte
         comparation:
-          description: Comparative constraint
+          description: Comparation
           type: string
           enum:
             - EQUAL
             - GREATER
             - SMALLER
             - SIMILAR
-      required:
-        - subjectBinding
-
-    SlotValue:
-      description: Slot value instance
-      type: object
-      required:
-        - stype
-        - value
-      properties:
-        stype:
-          description: Slot type's identifier, must be a valid slot id in the frame instance's type
-          type: string
-          format: id
-        source:
-          description: The value provenance
-          type: string
-          enum:
-            - USER_INPUT
-            - KNOWLEGDE_BASE
-            - UNDEFINED
-          default: UNDEFINED
-        value:
-          type: string
-          format: byte
-        support:
-          $ref: '#/components/schemas/Support'
+          default: EQUAL

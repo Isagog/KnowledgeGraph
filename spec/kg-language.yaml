@@ -51,7 +51,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SentenceAnnotation'
+                $ref: '#/components/schemas/TextAnnotation'
 
         401:
           description: Unknown graph
@@ -75,18 +75,18 @@ paths:
 components:
   schemas:
 
-    LinguisticStatement:
-      description: Natural language statement
-      allOf:
-        - $ref: kg-knowledge.yaml#/components/schemas/Statement
-      type: object
-      required:
-        - utterance
-      properties:
-        utterance:
-          description: Utterance
-          type: string
-          format: byte
+#    LinguisticStatement:
+#      description: Natural language statement
+#      allOf:
+#        - $ref: kg-knowledge.yaml#/components/schemas/Statement
+#      type: object
+#      required:
+#        - verbatim
+#      properties:
+#        verbatim:
+#          description: String textual rendering
+#          type: string
+#          format: byte
 
 
 
@@ -104,39 +104,44 @@ components:
             - fr
             - it
             - de
-        text:
+        verbatim:
           description: Textual content
           type: string
           format: byte
         context:
-          description: Textual context
+          description: Textual context (opt)
           type: string
           format: byte
 
 
-
-
-    TextAnnotation:
+    TextClassification:
         description: Text annotation
         type: object
         required:
-          - classifiers
+          - classifier
         properties:
           classifier:
             type: string
           support:
-            $ref: kg-knowledge.yaml#/components/schemas/Support
+            type: number
+            format: double
+            minimum: 0.0
+            maximum: 1.0
 
 
-    SentenceAnnotation:
-        description: Sentence annotation
+    TextAnnotation:
+        description: Text annotation
+        allOf:
+          - $ref: '#/components/schemas/TextualContent'
         type: object
         properties:
-          sentence:
+          classification:
+            description: Text classification
             type: array
             items:
-              $ref: '#/components/schemas/TextAnnotation'
-          tokens:
+              $ref:  '#/components/schemas/TextClassification'
+          tokenAnnotation:
+            description: Token-wise annotation
             type: array
             items:
               $ref: '#/components/schemas/TokenAnnotation'
@@ -158,8 +163,7 @@ components:
               - GrammarAnnotation
               - SyntaxAnnotation
               - DependencyAnnotation
-              - RelationAnnotation
-              - ClassAnnotation
+              - PredicateAnnotation
           token:
             type: string
           start:
@@ -175,7 +179,7 @@ components:
             GrammarAnnotation: '#/components/schemas/GrammarAnnotation'
             SyntaxAnnotation: '#/components/schemas/SyntaxAnnotation'
             DependencyAnnotation: '#/components/schemas/DependencyAnnotation'
-            RelationAnnotation: '#/components/schemas/RelationAnnotation'
+            ConceptualAnnotation: '#/components/schemas/ConceptualAnnotation'
 
 
     EntityAnnotation:
@@ -282,17 +286,37 @@ components:
               #TO CONTINUE
 
 
-    RelationAnnotation:
-        description: Token semantic dependency
+    ConceptualAnnotation:
+        description: Token conceptual annotation (ontology predicate plus predicative role)
         allOf:
-          - $ref: '#/components/schemas/DependencyAnnotation'
+          - $ref: '#/components/schemas/TokenAnnotation'
         type: object
         required:
-          - relation
+          - predicate
         properties:
-          relation:
+          predicate:
             type: string
-            description: Ontology relation
+            description: Ontology predicate (concept, relation, or attribute)
             format: id
+          role:
+            type: string
+            description: Predicative role (predicate, subject, or object)
+            enum:
+              - PREDICATE
+              - SUBJECT
+              - OBJECT
+            default: PREDICATE
+
+
+    LinguisticAnnotation:
+      description: Linguistic attachment to knowledge elements
+      properties:
+        pos:
+          type: string
+        root:
+          type: string
+        regex:
+          type: string
+
 
 
