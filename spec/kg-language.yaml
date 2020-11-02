@@ -115,7 +115,7 @@ components:
 
 
     TextClassification:
-        description: Text annotation
+        description: Text general classification (e.g. intent or sentiment)
         type: object
         required:
           - classifier
@@ -163,7 +163,8 @@ components:
               - GrammarAnnotation
               - SyntaxAnnotation
               - DependencyAnnotation
-              - PredicateAnnotation
+              - ConceptualAnnotation
+              - Lemmatization
           token:
             type: string
           start:
@@ -180,6 +181,7 @@ components:
             SyntaxAnnotation: '#/components/schemas/SyntaxAnnotation'
             DependencyAnnotation: '#/components/schemas/DependencyAnnotation'
             ConceptualAnnotation: '#/components/schemas/ConceptualAnnotation'
+            Lemmatization: '#/components/schemas/Lemmatization'
 
 
     EntityAnnotation:
@@ -270,11 +272,19 @@ components:
     SyntaxAnnotation:
         description: Token syntactic dependency
         allOf:
-          - $ref: '#/components/schemas/DependencyAnnotation'
+          - $ref: '#/components/schemas/TokenAnnotation'
         type: object
         required:
           - syntax
         properties:
+          governor:
+            description: Index of the governor token annotation
+            type: integer
+            format: int32
+          dependent:
+            description: Index of the dependent token annotation
+            type: integer
+            format: int32
           syntax:
             type: string
             enum:
@@ -307,16 +317,63 @@ components:
               - OBJECT
             default: PREDICATE
 
+    Lemmatization:
+      description: Token's lemma annotation
+      required:
+        - form
+      allOf:
+        - $ref: '#/components/schemas/TokenAnnotation'
+      properties:
+        pos:
+          $ref: '#/components/schemas/PoS'
+        form:
+          type: string
+
 
     LinguisticAnnotation:
       description: Linguistic attachment to knowledge elements
+      required:
+        - pos
       properties:
         pos:
-          type: string
-        root:
+          $ref: '#/components/schemas/PoS'
+        form:
+          description: Basic realization form
           type: string
         regex:
+          description: Regular expression to match occurrences (opt)
           type: string
+
+
+    PoS:
+      description: Lexeme's grammatical category (part of speech)
+      required:
+        - tag
+      properties:
+        tag:
+          description: PoS tag
+          type: string
+          enum:
+            - ADJ #adjective
+            - ADP #adposition
+            - ADV #adverb
+            - AUX #auxiliary
+            - CCONJ #coordinating conjunction
+            - DET #determiner
+            - INTJ #interjection
+            - NOUN #noun
+            - NUM #numeral
+            - PART #particle
+            - PRON #pronoun
+            - PROPN #proper noun
+            - PUNCT #punctuation
+            - SCONJ #subordinating conjunction
+            - SYM #symbol
+            - VERB #verb
+            - X #other
+
+
+
 
 
 

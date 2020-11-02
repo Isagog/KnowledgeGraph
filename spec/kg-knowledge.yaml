@@ -37,7 +37,7 @@ paths:
             type: string
         - name: etype
           in: query
-          description: Narrow search to the supplied type
+          description: Narrow search to a specific element type
           required: false
           schema:
             type: string
@@ -47,17 +47,18 @@ paths:
               - ATTRIBUTE
               - ENTITY
               - ANY
-            default:
-               ANY
+            default: ANY
         - name: details
           in: query
-          description: 'Details to be returned: full=full hierarchy, summary=direct super\subordinates, none=id only'
+          description: 'Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\subordinates, IDENTIFIER=id only'
+          required: false
           schema:
             type: string
             enum:
-              - full
-              - summary
-              - none
+              - FULL
+              - SUMMARY
+              - IDENTIFIER
+            default: IDENTIFIER
       responses:
         200:
           description: Successful operation
@@ -66,7 +67,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/KnowledgeElement'
+                  $ref: '#/components/schemas/ElementRanking'
         401:
           description: No results
         402:
@@ -106,7 +107,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ConceptRanking'
+                  $ref: '#/components/schemas/ElementRanking'
         401:
           description: Not found
         402:
@@ -129,7 +130,112 @@ paths:
       tags:
         - KnowledgeService
 
-  /knowledge/frameText:
+  /knowledge/create:
+    post:
+      summary: Element creation
+      description: Creates a new KnowledgeElement
+      operationId: createElement
+      responses:
+        200:
+          description: Success
+        403:
+          description: Invalid element
+        405:
+          description: Unsupported element
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+      parameters:
+        - name: overwrite
+          in: query
+          schema:
+            type: boolean
+            default: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KnowledgeElement'
+        description: Element specification
+        required: true
+      tags:
+        - KnowledgeService
+
+  /knowledge/delete:
+    get:
+      summary: Element deletion
+      description: Deletes a KnowledgeElement
+      operationId: deleteElement
+      responses:
+        200:
+          description: Success
+        401:
+          description: Element not found
+        402:
+          description: Not authorized
+        403:
+          description: Invalid element
+        405:
+          description: Protected element
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+            format: id
+      tags:
+        - KnowledgeService
+
+  /knowledge/get:
+    get:
+      summary: Element access
+      description: Returns a KnowledgeElement
+      operationId: getElement
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeElement'
+        401:
+          description: Element not found
+        402:
+          description: Not authorized
+        403:
+          description: Invalid element
+        405:
+          description: Protected element
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+            format: id
+        - name: details
+          in: query
+          schema:
+            type: string
+            enum:
+              - FULL
+              - SUMMARY
+              - NONE
+            default: NONE
+      tags:
+        - KnowledgeService
+
+
+
+  /knowledge/frame:
     post:
       summary: Frame extraction from annotated text
       description: Extract frames from an annotated text or csv data
@@ -155,15 +261,15 @@ paths:
       operationId: frameText
       responses:
         200:
-          description: Single frame ranking
+          description: Frame ranking
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/FrameInstance'
+                  $ref: '#/components/schemas/ElementRanking'
         201:
-          description: Multiple frame span
+          description: Rrame span
           content:
             application/json:
               schema:
@@ -184,43 +290,43 @@ paths:
       tags:
         - KnowledgeService
 
-  /knowledge/frameData:
-    post:
-      summary: Frame extraction from data
-      description: Extract frames from an annotated text or csv data
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          description: Limits the number of returned frame candidates to the supplied value
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 10000
-      operationId: frameData
-      responses:
-        200:
-          description: Successfully extracted frames
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/FrameInstance'
-        402:
-          description: Insufficient data mapping
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-      requestBody:
-        content:
-          text/csv:
-            schema:
-              type: string
-              format: UTF-8
-      tags:
-      - KnowledgeService
+#  /knowledge/frameData:
+#    post:
+#      summary: Frame extraction from data
+#      description: Extract frames from an annotated text or csv data
+#      parameters:
+#        - name: limit
+#          in: query
+#          required: false
+#          description: Limits the number of returned frame candidates to the supplied value
+#          schema:
+#            type: integer
+#            minimum: 1
+#            maximum: 10000
+#      operationId: frameData
+#      responses:
+#        200:
+#          description: Successfully extracted frames
+#          content:
+#            application/json:
+#              schema:
+#                type: array
+#                items:
+#                  $ref: '#/components/schemas/FrameInstance'
+#        402:
+#          description: Insufficient data mapping
+#        501:
+#          description: Service unavailable
+#        502:
+#          description: Server error
+#      requestBody:
+#        content:
+#          text/csv:
+#            schema:
+#              type: string
+#              format: UTF-8
+#      tags:
+#      - KnowledgeService
 
 components:
   schemas:
@@ -307,14 +413,14 @@ components:
 #          format: byte
 
 
-    ConceptRanking:
+    ElementRanking:
       description: Conceptual ranking record
       type: object
       required:
         - element
       properties:
         element:
-          $ref: '#/components/schemas/AtomicConcept'
+          $ref: '#/components/schemas/KnowledgeElement'
         support:
           type: number
           format: double
@@ -353,7 +459,7 @@ components:
       discriminator:
         propertyName: ktype
         mapping:
-          AtomicConcept: '#/components/schemas/AtomicConcept'
+          Concept: '#/components/schemas/Concept'
           RelationalConcept: '#/components/schemas/RelationalConcept'
           AttributiveConcept: '#/components/schemas/AttributiveConcept'
           Relation: '#/components/schemas/Relation'
@@ -369,7 +475,7 @@ components:
           Slot: '#/components/schemas/Slot'
           SlotInstance: '#/components/schemas/SlotInstance'
 
-    AtomicConcept:
+    Concept:
       description: Unary atomic classifier
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
@@ -380,26 +486,25 @@ components:
         id:
           type: string
           format: id
-
         statements:
           type: array
           items:
             $ref: '#/components/schemas/ConceptStatement'
 
+
     RelationalConcept:
       description: Unary relational classifier
       allOf:
-        - $ref: '#/components/schemas/KnowledgeElement'
+        - $ref: '#/components/schemas/Concept'
       type: object
       required:
         - relation
         - quantifier
       properties:
         relation:
-          type: string
-          format: id
+          $ref: '#/components/schemas/Relation'
         restriction:
-          type: string
+          $ref: '#/components/schemas/Concept'
         quantifier:
           type: string
           enum:
@@ -411,14 +516,13 @@ components:
     AttributiveConcept:
       description: Unary attributive classifier
       allOf:
-        - $ref: '#/components/schemas/KnowledgeElement'
+        - $ref: '#/components/schemas/Concept'
       type: object
       required:
         - attribute
       properties:
         attribute:
-          type: string
-          format: id
+          $ref: '#/components/schemas/Attribute'
         value:
           type: string
           format: byte
@@ -426,6 +530,7 @@ components:
           type: string
           enum:
             - SOME
+            - ALL
             - EQUALS
             - GREATER_THAN
             - SMALLER_THAN
@@ -442,6 +547,10 @@ components:
         id:
           type: string
           format: id
+        domain:
+          $ref: '#/components/schemas/Concept'
+        range:
+          $ref: '#/components/schemas/Concept'
 
 
     Attribute:
@@ -454,6 +563,20 @@ components:
         id:
           type: string
           format: id
+        domain:
+          $ref: '#/components/schemas/Concept'
+        range:
+          type: string
+          enum:
+            - STRING
+            - TEXT
+            - INTEGER
+            - DOUBLE
+            - REFERENCE
+            - TIME
+            - MONEY
+            - PLACE
+          default: STRING
 
 
     Entity:
