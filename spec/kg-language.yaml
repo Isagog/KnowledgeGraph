@@ -27,23 +27,15 @@ paths:
       summary: Sentence analysis
       description: Provides an annotation of the supplied text object according to available knowledge, including entity recognition, linking and relations (opt)
       parameters:
-        - name: kg
-          in: query
-          required: false
-          description: Analysis context (opt)
-          schema:
-            type: string
         - name: task
           in: query
           required: false
           schema:
-            type: string
-            enum:
-              - ENTITIES
-              - CONCEPTS
-              - RELATIONS
-              - FRAMES
-            default:
+              type: string
+              enum:
+               - TOKENIZATION
+               - ENTITY_ANALISYS
+               - RELATION_ANALYSIS
       operationId: analyzeSentence
       responses:
         200:
@@ -51,7 +43,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TextAnnotation'
+                $ref: '#/components/schemas/SentenceAnnotation'
 
         401:
           description: Unknown graph
@@ -67,7 +59,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TextualContent'
+              $ref: '#/components/schemas/Sentence'
       tags:
         - LinguisticService
 
@@ -75,25 +67,11 @@ paths:
 components:
   schemas:
 
-#    LinguisticStatement:
-#      description: Natural language statement
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/Statement
-#      type: object
-#      required:
-#        - verbatim
-#      properties:
-#        verbatim:
-#          description: String textual rendering
-#          type: string
-#          format: byte
-
-
-
-    TextualContent:
+    Sentence:
+      description: A single sentence
       type: object
       required:
-        - text
+        - verbatim
       properties:
         lang:
           description: Language
@@ -107,14 +85,12 @@ components:
         verbatim:
           description: Textual content
           type: string
-          format: byte
         context:
           description: Textual context (opt)
           type: string
-          format: byte
 
 
-    TextClassification:
+    Classification:
         description: Text general classification (e.g. intent or sentiment)
         type: object
         required:
@@ -129,59 +105,90 @@ components:
             maximum: 1.0
 
 
-    TextAnnotation:
+    SentenceAnnotation:
         description: Text annotation
         allOf:
-          - $ref: '#/components/schemas/TextualContent'
+          - $ref: '#/components/schemas/Sentence'
         type: object
         properties:
-          classification:
+          classes:
             description: Text classification
             type: array
             items:
-              $ref:  '#/components/schemas/TextClassification'
-          tokenAnnotation:
-            description: Token-wise annotation
+              $ref: '#/components/schemas/Classification'
+          tokens:
+            description: Basic token annotation
             type: array
             items:
-              $ref: '#/components/schemas/TokenAnnotation'
+              $ref: '#/components/schemas/BasicAnnotation'
+          entities:
+            description: Entity annotation
+            type: array
+            items:
+              $ref: '#/components/schemas/EntityAnnotation'
+          dependencies:
+            description: Dependencies
+            type: array
+            items:
+              $ref: '#/components/schemas/DependencyAnnotation'
+
 
     TokenAnnotation:
-        description: Token annotation (should be abstract)
+      description: Base class for token annotations, should be abstract
+      type: object
+      required:
+        - token
+        - offset
+      properties:
+        token:
+          type: string
+        offset:
+          description: Head character offset
+          type: integer
+          format: int32
+          minimum: 0
+        support:
+          type: number
+          format: double
+
+    BasicAnnotation:
+        description: Pos and lemma annotation
         type: object
         required:
-          - atype
-          - token
-          - start
-          - end
+          - pos
+          - lemma
+        allOf:
+          - $ref: '#/components/schemas/TokenAnnotation'
         properties:
-          atype:
+          pos:
+            description: Part of speech
             type: string
-            description: Annotation type
             enum:
-              - EntityAnnotation
-              - GrammarAnnotation
-              - SyntaxAnnotation
-              - DependencyAnnotation
-              - ConceptualAnnotation
-              - Lemmatization
-          token:
+              - ADJ #adjective
+              - ADP #adposition
+              - ADV #adverb
+              - AUX #auxiliary
+              - CCONJ #coordinating conjunction
+              - DET #determiner
+              - INTJ #interjection
+              - NOUN #noun
+              - NUM #numeral
+              - PART #particle
+              - PRON #pronoun
+              - PROPN #proper noun
+              - PUNCT #punctuation
+              - SCONJ #subordinating conjunction
+              - SYM #symbol
+              - VERB #verb
+              - X #other
+          features:
+            description: Grammatical features
+            type: array
+            items:
+              $ref: '#/components/schemas/GrammarFeature'
+          lemma:
+            description: Base form
             type: string
-          start:
-            type: integer
-            format: int32
-          end:
-            type: integer
-            format: int32
-        discriminator:
-          propertyName: atype
-          mapping:
-            EntityAnnotation: '#/components/schemas/EntityAnnotation'
-            GrammarAnnotation: '#/components/schemas/GrammarAnnotation'
-            SyntaxAnnotation: '#/components/schemas/SyntaxAnnotation'
-            DependencyAnnotation: '#/components/schemas/DependencyAnnotation'
-            ConceptualAnnotation: '#/components/schemas/ConceptualAnnotation'
-            Lemmatization: '#/components/schemas/Lemmatization'
 
 
     EntityAnnotation:
@@ -189,66 +196,18 @@ components:
         allOf:
           - $ref: '#/components/schemas/TokenAnnotation'
         type: object
-        required:
-          - classifier
         properties:
-          classifiers:
+          classes:
+            description: Text classification
             type: array
             items:
-              type: string
-              format: id
+              $ref: '#/components/schemas/Classification'
           links:
             type: array
             items:
               type: string
               format: uri
 
-    GrammarAnnotation:
-        description: Token grammar spec
-        allOf:
-          - $ref: '#/components/schemas/TokenAnnotation'
-        type: object
-        required:
-          - pos
-        properties:
-          pos:
-            type: string
-            description: Part of speech
-            enum:
-              - NOUN
-              - VERB
-              - ADJECTIVE
-              - ADVERB
-              - PRONOUN
-              - NUMERAL
-          modifier:
-            type: string
-            description: Part of speech modifier
-            enum:
-              - V-MODAL
-              - V-AUXILIAR
-              - N-NAME
-              - QUALIFIER
-              - NONE
-            default: NONE
-          number:
-            type: string
-            description: Grammatical number
-            enum:
-              - SINGULAR
-              - PLURAL
-              - DUAL
-              - NONE
-            default: NONE
-          person:
-            type: string
-            description: Grammatical person (for VERBS)
-            enum:
-              - FIRST
-              - SECOND
-              - THIRD
-              - NONE
-            default: NONE
 
     DependencyAnnotation:
         description: Token dependency
@@ -257,123 +216,94 @@ components:
         type: object
         required:
           - governor
-          - dependent
         properties:
           governor:
-            description: Index of the governor token annotation
+            description: Head index of the governor's token
             type: integer
             format: int32
-          dependent:
-            description: Index of the dependent token annotation
-            type: integer
-            format: int32
-
-
-    SyntaxAnnotation:
-        description: Token syntactic dependency
-        allOf:
-          - $ref: '#/components/schemas/TokenAnnotation'
-        type: object
-        required:
-          - syntax
-        properties:
-          governor:
-            description: Index of the governor token annotation
-            type: integer
-            format: int32
-          dependent:
-            description: Index of the dependent token annotation
-            type: integer
-            format: int32
+            minimum: 0
           syntax:
+            description: Governor's syntactic role
             type: string
             enum:
-              - OBJECT
-              - SUBJECT
-              - COMPLEMENT
-              - ADJUNCT
-              - COORDINATE
-              #TO CONTINUE
+              - acl	    # clausal modifier of noun (adjectival clause)
+              - advcl	# adverbial clause modifier
+              - advmod	# adverbial modifier
+              - amod	# adjectival modifier
+              - appos	# appositional modifier
+              - aux	    # auxiliary
+              - case	# case marking
+              - cc	    # coordinating conjunction
+              - ccomp	# clausal complement
+              - clf	    # classifier
+              - compound	# compound
+              - conj	# conjunct
+              - cop	    # copula
+              - csubj	# clausal subject
+              - dep	    # unspecified dependency
+              - det	    # determiner
+              - discourse	# discourse element
+              - dislocated	# dislocated elements
+              - expl	# expletive
+              - fixed	# fixed multiword expression
+              - flat	# flat multiword expression
+              - goeswith	# goes with
+              - iobj	# indirect object
+              - list	# list
+              - mark	# marker
+              - nmod	# nominal modifier
+              - nsubj	# nominal subject
+              - nummod	# numeric modifier
+              - obj  	# object
+              - obl	    # oblique nominal
+              - orphan	# orphan
+              - parataxis	# parataxis
+              - punct	# punctuation
+              - reparandum	# overridden disfluency
+              - root	# root
+              - vocative	# vocative
+              - xcomp	# open clausal complement
+
+          semantics:
+            $ref: '#/components/schemas/SemanticRelation'
 
 
-    ConceptualAnnotation:
-        description: Token conceptual annotation (ontology predicate plus predicative role)
-        allOf:
-          - $ref: '#/components/schemas/TokenAnnotation'
-        type: object
-        required:
+    SemanticRelation:
+      description: Governor's semantic role
+      type: object
+      required:
           - predicate
-        properties:
+          - role
+      properties:
           predicate:
+            description: Ontology predicate (relation or attribute)
             type: string
-            description: Ontology predicate (concept, relation, or attribute)
             format: id
           role:
+            description: Governor's predicative role (subject or object)
             type: string
-            description: Predicative role (predicate, subject, or object)
             enum:
-              - PREDICATE
               - SUBJECT
               - OBJECT
-            default: PREDICATE
 
-    Lemmatization:
-      description: Token's lemma annotation
-      required:
-        - form
-      allOf:
-        - $ref: '#/components/schemas/TokenAnnotation'
+    GrammarFeature:
+      description: Grammatic feature
+      type: object
       properties:
-        pos:
-          $ref: '#/components/schemas/PoS'
-        form:
-          type: string
-
-
-    LinguisticAnnotation:
-      description: Linguistic attachment to knowledge elements
-      required:
-        - pos
-      properties:
-        pos:
-          $ref: '#/components/schemas/PoS'
-        form:
-          description: Basic realization form
-          type: string
-        regex:
-          description: Regular expression to match occurrences (opt)
-          type: string
-
-
-    PoS:
-      description: Lexeme's grammatical category (part of speech)
-      required:
-        - tag
-      properties:
-        tag:
-          description: PoS tag
+        attribute:
           type: string
           enum:
-            - ADJ #adjective
-            - ADP #adposition
-            - ADV #adverb
-            - AUX #auxiliary
-            - CCONJ #coordinating conjunction
-            - DET #determiner
-            - INTJ #interjection
-            - NOUN #noun
-            - NUM #numeral
-            - PART #particle
-            - PRON #pronoun
-            - PROPN #proper noun
-            - PUNCT #punctuation
-            - SCONJ #subordinating conjunction
-            - SYM #symbol
-            - VERB #verb
+            - NUMBER
+            - PERSON
+            - TENSE
+            - MODE
+            - NOUN-TYPE
+            - VERB-TYPE
+            - ADV-TYPE
+            - ADJ-TYPE
             - X #other
-
-
-
+        value:
+          type: string
 
 
 

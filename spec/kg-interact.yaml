@@ -22,17 +22,11 @@ paths:
 
 
 
-  /interact/utter:
+  /interact/input:
     post:
-      summary: User utterance
-      description: Asserts a statement in a Knowledge Graph
+      summary: User input
+      description: Processes the user input
       parameters:
-        - name: kg
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Utterance context (KG id)
         - name: lang
           in: query
           required: false
@@ -45,7 +39,7 @@ paths:
               - fr
               - es
             default: en
-      operationId: userUtterance
+      operationId: userInput
       responses:
         200:
           description: Query response
@@ -54,47 +48,53 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: kg-data.yaml#/components/schemas/QueryResponse
+                  $ref: '#/components/schemas/QueryResponse'
         201:
-          description: Frame validation
+          description: Frame instantiation
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: kg-knowledge.yaml#/components/schemas/Frame
+                  $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
+        202:
+          description: Sentence analysis
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
         203:
-          description: Message
+          description: Acknowledge message
           content:
-            application/json:
+            text/plain:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SystemMessage'
+                type: string
         401:
           description: Unknown graph
         402:
-          description: Illegal utterance format
+          description: Illegal input format
         403:
-          description: Meaningless utterance
+          description: Meaningless input
         501:
           description: Service unavailable
         502:
           description: Server error
       requestBody:
         content:
-          application/json:
+          text/plain:
             schema:
               type: string
               format: UTF-8
-        description: Utterance
+        description: User input
         required: true
       tags:
         - InteractionService
 
   /interact/pull:
     post:
-      summary: Pulls a frame
+      summary: Pulls a frame for processing
       description: Sends a frame, e.g. a user query form, to the systems
       parameters:
         - name: kg
@@ -112,15 +112,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: kg-data.yaml#/components/schemas/QueryResponse
+                  $ref: '#/components/schemas/QueryResponse'
         203:
-          description: Acknowledge messages
+          description: Acknowledge message
           content:
-            application/json:
+            text/plain:
               schema:
-                type: array
-                items:
-                  type: string
+                type: string
         401:
           description: Unknown graph
         402:
@@ -133,24 +131,109 @@ paths:
         content:
           application/json:
             schema:
-              $ref: kg-knowledge.yaml#/components/schemas/Frame
-        description: Frame
+              $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
+        description: Frame instance
         required: true
       tags:
         - InteractionService
 
 components:
   schemas:
-
-    SystemMessage:
+    Query:
+      description: Query frame
+      allOf:
+        - $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
       type: object
       properties:
-        mtype:
+        qtype:
+          type: string
+          description: Query type
+          enum:
+            - IndividuationQuery
+            - CardinalityQuery
+            - ExtensionQuery
+
+
+    QueryResponse:
+      description: Query result set
+      type: object
+      required:
+        - header
+        - rows
+        - report
+        - query
+      properties:
+        query:
+          type: string
+        header:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryResponseHeader'
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryResponseItem'
+
+    QueryResponseHeader:
+      description: Query result set header
+      type: object
+      required:
+        - name
+        - dtype
+      properties:
+        name:
+          type: string
+        dtype:
           type: string
           enum:
-            - ACK
-            - WARN
-            - ERR
-        message:
+            - Uri
+            - Boolean
+            - Integer
+            - Double
+            - String
+
+    QueryResponseItem:
+      description: Query result set row
+      type: object
+      required:
+        - row
+      properties:
+        row:
+          type: array
+          items:
+            type: string
+        support:
+          type: number
+          format: double
+          minimum: 0.0
+          maximum: 1.0
+
+    Update:
+      description: Update frame
+      allOf:
+        - $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
+      type: object
+
+    UploadForm:
+      description: Upload form
+      type: object
+      required:
+        - content
+      properties:
+        format:
+          description: Serialization format
           type: string
+          enum:
+            - turtle
+            - rdf-xml
+            - rdf-json
+            - json-ld
+            - txt
+            - csv
+        content:
+          description: Serialized content
+          type: string
+          format: binary
+
+
 

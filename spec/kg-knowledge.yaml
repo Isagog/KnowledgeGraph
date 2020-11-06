@@ -46,6 +46,7 @@ paths:
               - PROPERTY
               - ATTRIBUTE
               - ENTITY
+              - FRAME
               - ANY
             default: ANY
         - name: details
@@ -59,6 +60,12 @@ paths:
               - SUMMARY
               - IDENTIFIER
             default: IDENTIFIER
+        - name: attribute
+          in: query
+          description: Attribute to search by (e.g. rdfs:label)
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: Successful operation
@@ -71,7 +78,9 @@ paths:
         401:
           description: No results
         402:
-          description: Invalid key
+          description: Invalid query
+        403:
+          description: Invalid attribute
         501:
           description: Service unavailable
         502:
@@ -269,7 +278,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ElementRanking'
         201:
-          description: Rrame span
+          description: Frame span
           content:
             application/json:
               schema:
@@ -286,68 +295,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: kg-language.yaml#/components/schemas/TextAnnotation
+              $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
       tags:
         - KnowledgeService
 
-#  /knowledge/frameData:
-#    post:
-#      summary: Frame extraction from data
-#      description: Extract frames from an annotated text or csv data
-#      parameters:
-#        - name: limit
-#          in: query
-#          required: false
-#          description: Limits the number of returned frame candidates to the supplied value
-#          schema:
-#            type: integer
-#            minimum: 1
-#            maximum: 10000
-#      operationId: frameData
-#      responses:
-#        200:
-#          description: Successfully extracted frames
-#          content:
-#            application/json:
-#              schema:
-#                type: array
-#                items:
-#                  $ref: '#/components/schemas/FrameInstance'
-#        402:
-#          description: Insufficient data mapping
-#        501:
-#          description: Service unavailable
-#        502:
-#          description: Server error
-#      requestBody:
-#        content:
-#          text/csv:
-#            schema:
-#              type: string
-#              format: UTF-8
-#      tags:
-#      - KnowledgeService
-
 components:
   schemas:
-
-#    Support:
-#      type: object
-#      description: Knowledge support score
-#      required:
-#        - evidence
-#      properties:
-#        evidence:
-#          description: Evidence score [1=Positive evidence, 0=Negative evidence]
-#          type: number
-#          format: double
-#          default: 0.5
-#        confidence:
-#          description: Confidence score [1=Full confidence, 0=No confidence]
-#          type: number
-#          format: double
-#          default: 0.5
-
     KnowledgeGraph:
       description: Set of statements about conceptualized entities
       required:
@@ -394,25 +347,6 @@ components:
           items:
             type: string
 
-
-
-
-#    KnowledgeAnnotation:
-#      description: Annotation
-#      required:
-#        - property
-#        - value
-#      type: object
-#      properties:
-#        property:
-#          description: The annotation property
-#          type: string
-#        value:
-#          description: The annotation
-#          type: string
-#          format: byte
-
-
     ElementRanking:
       description: Conceptual ranking record
       type: object
@@ -437,16 +371,13 @@ components:
         ktype:
           type: string
           enum:
-            - AtomicConcept
+            - Concept
             - RelationalConcept
             - AttributiveConcept
             - Relation
             - Entity
-            - ConceptStatement
             - EntityStatement
-            - ClassificationStatement
-            - RelationalStatement
-            - AttributiveStatement
+            - PredicateStatement
             - Frame
             - FrameInstance
             - Slot
@@ -455,7 +386,7 @@ components:
           description: Linguistic annotations
           type: array
           items:
-            $ref: kg-language.yaml#/components/schemas/LinguisticAnnotation
+            $ref: '#/components/schemas/LinguisticAnnotation'
       discriminator:
         propertyName: ktype
         mapping:
@@ -465,15 +396,35 @@ components:
           Relation: '#/components/schemas/Relation'
           Attribute: '#/components/schemas/Attribute'
           Entity: '#/components/schemas/Entity'
-          ConceptStatement: '#/components/schemas/ConceptStatement'
+          PredicateStatement: '#/components/schemas/PredicateStatement'
           EntityStatement: '#/components/schemas/EntityStatement'
-          ClassificationStatement: '#/components/schemas/ClassificationStatement'
-          RelationalStatement: '#/components/schemas/RelationalStatement'
-          AttributiveStatement: '#/components/schemas/AttributiveStatement'
           Frame: '#/components/schemas/Frame'
           FrameInstance: '#/components/schemas/FrameInstance'
           Slot: '#/components/schemas/Slot'
           SlotInstance: '#/components/schemas/SlotInstance'
+
+    LinguisticAnnotation:
+      description: Linguistic attachment to knowledge elements
+      required:
+        - pos
+      properties:
+        pos:
+          description: Part of speech
+          type: string
+          enum:
+            - ADJ #adjective
+            - ADV #adverb
+            - NOUN #noun
+            - NUM #numeral
+            - VERB #verb
+            - PHRASE
+
+        form:
+          description: Basic realization form
+          type: string
+        regex:
+          description: Regular expression to match occurrences (opt)
+          type: string
 
     Concept:
       description: Unary atomic classifier
@@ -482,14 +433,28 @@ components:
       type: object
       required:
         - id
+        - ctype
       properties:
+        ctype:
+          type: string
+          enum:
+            - RelationalConcept
+            - AttributiveConcept
+            - AtomicConcept
         id:
           type: string
           format: id
         statements:
           type: array
           items:
-            $ref: '#/components/schemas/ConceptStatement'
+            $ref: '#/components/schemas/PredicateStatement'
+      discriminator:
+        propertyName: ctype
+        mapping:
+          RelationalConcept: '#/components/schemas/RelationalConcept'
+          AttributiveConcept: '#/components/schemas/AttributiveConcept'
+          AtomicConcept: '#/components/schemas/Concept'
+
 
 
     RelationalConcept:
@@ -602,7 +567,13 @@ components:
       type: object
       required:
         - subject
+        - stype
       properties:
+        stype:
+          type: string
+          enum:
+            - PredicateStatement
+            - EntityStatement
         subject:
           type: string
           format: id
@@ -619,9 +590,14 @@ components:
           format: double
           minimum: 0.0
           maximum: 1.0
+      discriminator:
+        propertyName: stype
+        mapping:
+          EntityStatement: '#/components/schemas/EntityStatement'
+          PredicateStatement: '#/components/schemas/PredicateStatement'
 
-    ConceptStatement:
-      description: Conceptual assertion
+    PredicateStatement:
+      description: Statement whose subject is a predicate (conceptual assertion)
       allOf:
         - $ref: '#/components/schemas/Statement'
       type: object
@@ -641,62 +617,25 @@ components:
 
 
     EntityStatement:
-      description: Individual assertion
+      description: Statement whose subject is an individual (individual assertion)
       allOf:
         - $ref: '#/components/schemas/Statement'
-
-
-    ClassificationStatement:
-      description: Entity classification
-      allOf:
-        - $ref: '#/components/schemas/EntityStatement'
       type: object
       required:
-        - concept
+        - predicate
       properties:
-        concept:
+        predicate:
+          description: Ontology relation or attribute
           type: string
           format: id
-
-    RelationalStatement:
-      description: Entity relatedness
-      allOf:
-        - $ref: '#/components/schemas/EntityStatement'
-      type: object
-      required:
-        - relation
-        - entity
-      properties:
-        relation:
-          description: Ontology relation
+        object:
+          description: Ontology concept
           type: string
           format: id
-        entity:
-          description: Related entity
+        value:
+          description: Attribute value
           type: string
-          format: id
-
-
-    AttributiveStatement:
-      description: Entity attribute
-      allOf:
-        - $ref: '#/components/schemas/EntityStatement'
-      type: object
-      required:
-        - attribute
-        - values
-      properties:
-        attribute:
-          description: Ontology attribute
-          type: string
-          format: id
-        values:
-          description: Attribute values
-          type: array
-          items:
-            type: string
-            format: byte
-
+          format: byte
 
     Frame:
       description: Conceptual pattern, e.g. a query or a form
@@ -724,9 +663,14 @@ components:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
       required:
+        - fid
         - id
         - stype
       properties:
+        fid:
+          description: Frame id
+          type: string
+          format: id
         id:
           description: Slot identifier, must be frame-wide unique
           type: integer
@@ -746,7 +690,6 @@ components:
           description: Ontology predicate mapping
           type: string
           format: id
-
       discriminator:
         propertyName: stype
         mapping:
@@ -810,24 +753,31 @@ components:
       type: object
       properties:
         subjectBinding:
-          description: Slot's subject binding, must be a valid slot id in the frame.
+          description: Slot's subject binding, must be some slot in the same frame.
                        If the bound slot is a relational one, the binding means 'same subject as'.
-          type: integer
-          format: int32
+          type: array
+          items:
+              type: integer
+              minimum: 0
+              maximum: 128
         objectBinding:
-          description: Slot's object binding, must be a valid slot id in the frame.
-                       If the bound slot is a relational one, the binding means 'same object as'.
-          type: integer
-          format: int32
+          description: Slot's object binding, must be some relational slot in the same frame.
+                       The binding means 'same object as'.
+          type: array
+          items:
+            type: integer
+            minimum: 0
+            maximum: 128
         chainBinding:
-          description: Slot chaining, must be a valid relational slot id.
+          description: Slot chaining, must be some relational slot in the same frame.
                        Chaining means that the object of the bound slot must be the subject of this slot.
-          type: integer
-          format: int32
+          type: array
+          items:
+            type: integer
+            minimum: 0
+            maximum: 128
       required:
         - subjectBinding
-
-
 
 
     AttributiveSlot:
@@ -837,9 +787,13 @@ components:
       description: A slot bound to an Attribute (data property)
       properties:
         subjectBinding:
-          description: Slot's subject binding, must be a valid slot id in the frame
-          type: integer
-          format: int32
+          description: Slot's subject binding, must be some slot in the same frame.
+            If the bound slot is a relational one, the binding means 'same subject as'.
+          type: array
+          items:
+            type: integer
+            minimum: 0
+            maximum: 128
         valueType:
           description: Type of the Attribute's value
           type: string
@@ -863,7 +817,7 @@ components:
         - $ref: '#/components/schemas/KnowledgeElement'
       required:
         - itype
-        - typeid
+        - slot
       properties:
         itype:
           type: string
@@ -871,20 +825,8 @@ components:
             - ConceptualInstance
             - RelationalInstance
             - AttributiveInstance
-
-        frameInstance:
-          description: Frame owner instance's handle
-          type: integer
-          format: int64
-
-        slotType:
-          description: Slot type's identifier, must be a valid slot id in the owner frame instance
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 128
-
-
+        slot:
+          $ref: '#/components/schemas/Slot'
       discriminator:
           propertyName: itype
           mapping:
@@ -896,7 +838,11 @@ components:
       type: object
       allOf:
         - $ref: '#/components/schemas/SlotInstance'
+      required:
+        - slot
       properties:
+        slot:
+          $ref: '#/components/schemas/ConceptualSlot'
         entity:
           type: string
 
@@ -904,7 +850,11 @@ components:
       type: object
       allOf:
         - $ref: '#/components/schemas/SlotInstance'
+      required:
+        - slot
       properties:
+        slot:
+          $ref: '#/components/schemas/RelationalSlot'
         subject:
           type: string
         object:
@@ -914,7 +864,11 @@ components:
       type: object
       allOf:
         - $ref: '#/components/schemas/SlotInstance'
+      required:
+        - slot
       properties:
+        slot:
+          $ref: '#/components/schemas/AttributiveSlot'
         subject:
           type: string
         value:
