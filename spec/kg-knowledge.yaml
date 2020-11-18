@@ -22,282 +22,6 @@ tags:
 
 paths:
 
-  /knowledge/search:
-    get:
-      summary: Knowledge search
-      description: Search knowledge items
-      operationId: search
-      parameters:
-        - name: query
-          in: query
-          description: The query to search by
-          required: true
-          explode: false
-          schema:
-            type: string
-        - name: etype
-          in: query
-          description: Narrow search to a specific element type
-          required: false
-          schema:
-            type: string
-            enum:
-              - CONCEPT
-              - PROPERTY
-              - ATTRIBUTE
-              - ENTITY
-              - FRAME
-              - ANY
-            default: ANY
-        - name: details
-          in: query
-          description: 'Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\subordinates, IDENTIFIER=id only'
-          required: false
-          schema:
-            type: string
-            enum:
-              - FULL
-              - SUMMARY
-              - IDENTIFIER
-            default: IDENTIFIER
-        - name: attribute
-          in: query
-          description: Attribute to search by (e.g. rdfs:label)
-          required: false
-          schema:
-            type: string
-      responses:
-        200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ElementRanking'
-        401:
-          description: No results
-        402:
-          description: Invalid query
-        403:
-          description: Invalid attribute
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-      tags:
-        - KnowledgeService
-
-
-  /knowledge/evaluate:
-    post:
-      summary: Entity evaluation
-      description: Evaluates an entity as an instance of known concepts.
-                   Deductive evaluation should return asserted and implied entity classes.
-                   Abductive evaluation should return a ranking of the most plausible entity classes.
-      parameters:
-        - name: method
-          in: query
-          required: false
-          schema:
-            type: string
-            enum:
-              - DEDUCTION
-              - ABDUCTION
-            default: DEDUCTION
-          description: Inference method to be used
-          allowEmptyValue: true
-      operationId: evaluateEntity
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ElementRanking'
-        401:
-          description: Not found
-        402:
-          description: Unknown graph
-        403:
-          description: Invalid arguments
-        405:
-          description: Unsupported method
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-      requestBody:
-        content:
-          application/json:
-            schema:
-               $ref: '#/components/schemas/Entity'
-        description: Entity specification
-        required: true
-      tags:
-        - KnowledgeService
-
-  /knowledge/create:
-    post:
-      summary: Element creation
-      description: Creates a new KnowledgeElement
-      operationId: createElement
-      responses:
-        200:
-          description: Success
-        403:
-          description: Invalid element
-        405:
-          description: Unsupported element
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-      parameters:
-        - name: overwrite
-          in: query
-          schema:
-            type: boolean
-            default: false
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/KnowledgeElement'
-        description: Element specification
-        required: true
-      tags:
-        - KnowledgeService
-
-  /knowledge/delete:
-    get:
-      summary: Element deletion
-      description: Deletes a KnowledgeElement
-      operationId: deleteElement
-      responses:
-        200:
-          description: Success
-        401:
-          description: Element not found
-        402:
-          description: Not authorized
-        403:
-          description: Invalid element
-        405:
-          description: Protected element
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-      parameters:
-        - name: id
-          in: query
-          schema:
-            type: string
-            format: id
-      tags:
-        - KnowledgeService
-
-  /knowledge/get:
-    get:
-      summary: Element access
-      description: Returns a KnowledgeElement
-      operationId: getElement
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/KnowledgeElement'
-        401:
-          description: Element not found
-        402:
-          description: Not authorized
-        403:
-          description: Invalid element
-        405:
-          description: Protected element
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-      parameters:
-        - name: id
-          in: query
-          schema:
-            type: string
-            format: id
-        - name: details
-          in: query
-          schema:
-            type: string
-            enum:
-              - FULL
-              - SUMMARY
-              - NONE
-            default: NONE
-      tags:
-        - KnowledgeService
-
-
-
-  /knowledge/frame:
-    post:
-      summary: Frame extraction from annotated text
-      description: Extract frames from an annotated text or csv data
-      parameters:
-        - name: response
-          in: query
-          required: false
-          description: Kind of analysis (RANKING = single frame ranking, SPAN = multiple frame span)
-          schema:
-            type: string
-            enum:
-              - RANKING
-              - SPAN
-            default: SPAN
-        - name: limit
-          in: query
-          required: false
-          description: Limits the number of returned frame candidates to the supplied value
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 1000
-      operationId: frameText
-      responses:
-        200:
-          description: Frame ranking
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ElementRanking'
-        201:
-          description: Frame span
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/FrameInstance'
-        402:
-          description: Insufficient data mapping
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
-      tags:
-        - KnowledgeService
 
 components:
   schemas:
@@ -370,18 +94,6 @@ components:
       properties:
         ktype:
           type: string
-          enum:
-            - Concept
-            - RelationalConcept
-            - AttributiveConcept
-            - Relation
-            - Entity
-            - EntityStatement
-            - PredicateStatement
-            - Frame
-            - FrameInstance
-            - Slot
-            - SlotInstance
         linguisticNotes:
           description: Linguistic annotations
           type: array
@@ -402,6 +114,8 @@ components:
           FrameInstance: '#/components/schemas/FrameInstance'
           Slot: '#/components/schemas/Slot'
           SlotInstance: '#/components/schemas/SlotInstance'
+
+
 
     LinguisticAnnotation:
       description: Linguistic attachment to knowledge elements
@@ -435,12 +149,6 @@ components:
         - id
         - ctype
       properties:
-        ctype:
-          type: string
-          enum:
-            - RelationalConcept
-            - AttributiveConcept
-            - AtomicConcept
         id:
           type: string
           format: id
@@ -448,13 +156,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PredicateStatement'
-      discriminator:
-        propertyName: ctype
-        mapping:
-          RelationalConcept: '#/components/schemas/RelationalConcept'
-          AttributiveConcept: '#/components/schemas/AttributiveConcept'
-          AtomicConcept: '#/components/schemas/Concept'
-
 
 
     RelationalConcept:
@@ -571,9 +272,6 @@ components:
       properties:
         stype:
           type: string
-          enum:
-            - PredicateStatement
-            - EntityStatement
         subject:
           type: string
           format: id
@@ -679,10 +377,6 @@ components:
           maximum: 128
         stype:
           type: string
-          enum:
-            - ConceptualSlot
-            - RelationalSlot
-            - AttributiveSlot
         label:
           description: User-fiendly ientifier (opt), should be frame-wide unique
           type: string
@@ -821,10 +515,6 @@ components:
       properties:
         itype:
           type: string
-          enum:
-            - ConceptualInstance
-            - RelationalInstance
-            - AttributiveInstance
         slot:
           $ref: '#/components/schemas/Slot'
       discriminator:

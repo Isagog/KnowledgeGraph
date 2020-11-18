@@ -20,123 +20,6 @@ tags:
 
 paths:
 
-
-
-  /interact/input:
-    post:
-      summary: User input
-      description: Processes the user input
-      parameters:
-        - name: lang
-          in: query
-          required: false
-          schema:
-            type: string
-            enum:
-              - en
-              - it
-              - de
-              - fr
-              - es
-            default: en
-      operationId: userInput
-      responses:
-        200:
-          description: Query response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/QueryResponse'
-        201:
-          description: Frame instantiation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
-        202:
-          description: Sentence analysis
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
-        203:
-          description: Acknowledge message
-          content:
-            text/plain:
-              schema:
-                type: string
-        401:
-          description: Unknown graph
-        402:
-          description: Illegal input format
-        403:
-          description: Meaningless input
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-      requestBody:
-        content:
-          text/plain:
-            schema:
-              type: string
-              format: UTF-8
-        description: User input
-        required: true
-      tags:
-        - InteractionService
-
-  /interact/pull:
-    post:
-      summary: Pulls a frame for processing
-      description: Sends a frame, e.g. a user query form, to the systems
-      parameters:
-        - name: kg
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Upload context (KG id)
-      operationId: pullFrame
-      responses:
-        200:
-          description: Query response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/QueryResponse'
-        203:
-          description: Acknowledge message
-          content:
-            text/plain:
-              schema:
-                type: string
-        401:
-          description: Unknown graph
-        402:
-          description: Malformed frame
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
-        description: Frame instance
-        required: true
-      tags:
-        - InteractionService
-
 components:
   schemas:
     Query:
@@ -147,11 +30,11 @@ components:
       properties:
         qtype:
           type: string
-          description: Query type
+          description: Query type, where (INDIVIDUATION = single entity, CARDINALITY = entity count, LIST = list of entities)
           enum:
-            - IndividuationQuery
-            - CardinalityQuery
-            - ExtensionQuery
+            - INDIVIDUATION
+            - CARDINALITY
+            - LIST
 
 
     QueryResponse:

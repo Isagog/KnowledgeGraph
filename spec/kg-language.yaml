@@ -22,48 +22,6 @@ tags:
 
 paths:
 
-  /language/analyze:
-    post:
-      summary: Sentence analysis
-      description: Provides an annotation of the supplied text object according to available knowledge, including entity recognition, linking and relations (opt)
-      parameters:
-        - name: task
-          in: query
-          required: false
-          schema:
-              type: string
-              enum:
-               - TOKENIZATION
-               - ENTITY_ANALISYS
-               - RELATION_ANALYSIS
-      operationId: analyzeSentence
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SentenceAnnotation'
-
-        401:
-          description: Unknown graph
-        402:
-          description: Invalid sentence
-        403:
-          description: Unsupported task
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Sentence'
-      tags:
-        - LinguisticService
-
-
 components:
   schemas:
 
