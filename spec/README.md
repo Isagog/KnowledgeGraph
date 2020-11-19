@@ -1,10 +1,12 @@
 # Isagog Knowledge Graph
-Isagog Knowledge Graph OpenAPI specification
+Isagog Knowledge Graph OpenAPI specification.
 
-Please refer to kg-spec/isagog-kg.yaml to find the current specification (0.1)
+The specification is modularized as follows:
 
-This specification is still evolving and subject to changes
+- kg-openapi.yaml: main file (contains the full endpoint set)
+- kg-knowledge.yaml: knowledge representation model
+- kg-language.yaml: language representation model
+- kg-interact.yaml: interaction model
 
-The generated java client requires [feign](https://github.com/OpenFeign/feign) support
+The code generation can be obtained via Maven (mvn compile) or by manually launching the [openapi generator](https://github.com/OpenAPITools) on kg-openapi.yaml
 
-The generated server stub requires [java-msf4j](https://www.baeldung.com/msf4j) microservices 
