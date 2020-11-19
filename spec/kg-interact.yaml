@@ -2,8 +2,9 @@ openapi: 3.0.2
 info:
   title: Isagog Knowledge Graph Interaction Service
   version: 1.0.0
-  description: Isagog Knowledge Graph Interaction endpoint
+  description: Isagog Knowledge Graph Interaction module
   contact:
+    name: Isagog Srl
     email: ks-api@isagog.com
   license:
     name: Apache 2.0
@@ -37,7 +38,7 @@ components:
       properties:
         qtype:
           type: string
-          description: Query type, where (INDIVIDUATION = single entity, CARDINALITY = entity count, LIST = list of entities)
+          description: Query type, where (INDIVIDUATION = single entity, CARDINALITY = entity count, LIST = list of entity n-tuples)
           enum:
             - INDIVIDUATION
             - CARDINALITY

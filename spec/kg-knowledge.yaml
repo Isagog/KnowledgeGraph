@@ -2,8 +2,9 @@ openapi: 3.0.2
 info:
   title: Isagog Knowledge Graph Knowledge Service
   version: 1.0.0
-  description: Isagog Knowledge Graph Knowledge endpoint
+  description: Isagog Knowledge Graph Knowledge module
   contact:
+    name: Isagog Srl
     email: ks-api@isagog.com
   license:
     name: Apache 2.0

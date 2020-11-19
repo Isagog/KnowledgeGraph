@@ -4,6 +4,7 @@ info:
   version: 1.0.0
   description: Isagog Knowledge Graph endpoint
   contact:
+    name: Isagog Srl
     email: ks-api@isagog.com
   license:
     name: Apache 2.0
