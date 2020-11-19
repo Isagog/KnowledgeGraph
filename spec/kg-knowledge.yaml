@@ -1,8 +1,8 @@
 openapi: 3.0.2
 info:
-  title: Isagog Knowledge Graph Service
+  title: Isagog Knowledge Graph Knowledge Service
   version: 1.0.0
-  description: Isagog Knowledge Graph endpoint
+  description: Isagog Knowledge Graph Knowledge endpoint
   contact:
     email: ks-api@isagog.com
   license:
@@ -12,15 +12,34 @@ servers:
   - url: http://localhost
     variables:
       port:
-        default: '3200'
+        default: 3200
       basePath:
-        default: /kg
+        default: /
 tags:
 
   - name: KnowledgeService
     description: Ontology (read-only) and inference functionalities
 
 paths:
+
+  /knowledge/search:
+    $ref: kg-openapi.yaml#/knowledge/search
+
+  /knowledge/evaluate:
+    $ref: kg-openapi.yaml#/knowledge/evaluate
+
+  /knowledge/create:
+    $ref: kg-openapi.yaml#/knowledge/create
+
+  /knowledge/delete:
+    $ref: kg-openapi.yaml#/knowledge/delete
+
+  /knowledge/get:
+    $ref: kg-openapi.yaml#/knowledge/get
+
+  /knowledge/frame:
+    $ref: kg-openapi.yaml#/knowledge/frame
+
 
 
 components:

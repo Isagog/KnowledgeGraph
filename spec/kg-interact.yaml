@@ -2,7 +2,7 @@ openapi: 3.0.2
 info:
   title: Isagog Knowledge Graph Interaction Service
   version: 1.0.0
-  description: Isagog Knowledge Graph Interacrion endpoint
+  description: Isagog Knowledge Graph Interaction endpoint
   contact:
     email: ks-api@isagog.com
   license:
@@ -12,13 +12,20 @@ servers:
   - url: http://localhost
     variables:
       port:
-        default: '3200'
+        default: 3200
       basePath:
-        default: /kg
+        default: /
 tags:
   - name: InteractionService
 
 paths:
+
+  /interact/input:
+    $ref: kg-openapi.yaml#/interact/input
+
+  /interact/issue:
+    $ref: kg-openapi.yaml#/interact/issue
+
 
 components:
   schemas:
@@ -91,11 +98,28 @@ components:
           minimum: 0.0
           maximum: 1.0
 
-    Update:
-      description: Update frame
-      allOf:
-        - $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
+
+    UpdateResponse:
+      description: Update response
       type: object
+      required:
+        - report
+      properties:
+        report:
+          description: Report
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                  - OK
+                  - WARN
+                  - ERROR
+              message:
+                type: string
+
 
     UploadForm:
       description: Upload form

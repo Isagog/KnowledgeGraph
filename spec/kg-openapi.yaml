@@ -24,6 +24,8 @@ tags:
     description: NLP analitic functionalities
   - name: InteractionService
     description: Interaction functionalities
+  - name: DataService
+    description: Data graph functionalities
 
 paths:
 
@@ -51,14 +53,18 @@ paths:
       operationId: userInput
       responses:
         200:
+          description: Acknowledge message
+          content:
+            text/plain:
+              schema:
+                type: string
+        201:
           description: Query response
           content:
             application/json:
               schema:
-                type: array
-                items:
                   $ref: kg-interact.yaml#/components/schemas/QueryResponse
-        201:
+        202:
           description: Frame instantiation
           content:
             application/json:
@@ -66,20 +72,13 @@ paths:
                 type: array
                 items:
                   $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
-        202:
+        203:
           description: Sentence analysis
           content:
             application/json:
               schema:
-                type: array
-                items:
                   $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
-        203:
-          description: Acknowledge message
-          content:
-            text/plain:
-              schema:
-                type: string
+
         401:
           description: Unknown graph
         402:
@@ -101,9 +100,9 @@ paths:
       tags:
         - InteractionService
 
-  /interact/pull:
+  /interact/issue:
      post:
-        summary: Pulls a frame for processing
+        summary: Sends a frame instance for processing
         description: Sends a frame, e.g. a user query form, to the systems
         parameters:
           - name: kg
@@ -112,22 +111,26 @@ paths:
             schema:
               type: string
             description: Upload context (KG id)
-        operationId: pullFrame
+        operationId: userIssue
         responses:
           200:
-            description: Query response
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    $ref: kg-interact.yaml#/components/schemas/QueryResponse
-          203:
-            description: Acknowledge message
+            description: Generic success message
             content:
               text/plain:
                 schema:
                   type: string
+          201:
+            description: Query response
+            content:
+              application/json:
+                schema:
+                    $ref: kg-interact.yaml#/components/schemas/QueryResponse
+          202:
+            description: Update response
+            content:
+              application/json:
+                schema:
+                    $ref: kg-interact.yaml#/components/schemas/UpdateResponse
           401:
             description: Unknown graph
           402:
@@ -380,7 +383,7 @@ paths:
         - name: task
           in: query
           required: false
-          description: Kind of analysis (RANKING = single frame ranking, SPAN = multiple frame span)
+          description: Kind of analysis (RANKING = single frame ranking, SPAN = non overlapping frame spans)
           schema:
             type: string
             enum:
@@ -395,7 +398,7 @@ paths:
             type: integer
             minimum: 1
             maximum: 1000
-      operationId: frameText
+      operationId: getFrames
       responses:
         200:
           description: Frame ranking
@@ -472,934 +475,138 @@ paths:
       tags:
         - LinguisticService
 
-#components:
-#  schemas:
-#
-#    # --------------------
-#    #  Interaction
-#    # --------------------
-#
-#
-#    Query:
-#      description: Query frame
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
-#      type: object
-#      properties:
-#        qtype:
-#          type: string
-#          description: Query type
-#          enum:
-#            - IndividuationQuery
-#            - CardinalityQuery
-#            - ExtensionQuery
-#
-#
-#    QueryResponse:
-#      description: Query result set
-#      type: object
-#      required:
-#        - header
-#        - rows
-#        - report
-#        - query
-#      properties:
-#        query:
-#          type: string
-#        header:
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/QueryResponseHeader'
-#        rows:
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/QueryResponseItem'
-#
-#    QueryResponseHeader:
-#      description: Query result set header
-#      type: object
-#      required:
-#        - name
-#        - dtype
-#      properties:
-#        name:
-#          type: string
-#        dtype:
-#          type: string
-#          enum:
-#            - Uri
-#            - Boolean
-#            - Integer
-#            - Double
-#            - String
-#
-#    QueryResponseItem:
-#      description: Query result set row
-#      type: object
-#      required:
-#        - row
-#      properties:
-#        row:
-#          type: array
-#          items:
-#            type: string
-#        support:
-#          type: number
-#          format: double
-#          minimum: 0.0
-#          maximum: 1.0
-#
-#    Update:
-#      description: Update frame
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
-#      type: object
-#
-#    UploadForm:
-#      description: Upload form
-#      type: object
-#      required:
-#        - content
-#      properties:
-#        format:
-#          description: Serialization format
-#          type: string
-#          enum:
-#            - turtle
-#            - rdf-xml
-#            - rdf-json
-#            - json-ld
-#            - txt
-#            - csv
-#        content:
-#          description: Serialized content
-#          type: string
-#          format: binary
-#
-#    # --------------------
-#    #  Knowledge
-#    # --------------------
-#
-#    KnowledgeGraph:
-#      description: Set of statements about conceptualized entities
-#      required:
-#        - id
-#      type: object
-#      properties:
-#        id:
-#          description: Knowledge Graph id
-#          type: string
-#          format: id
-#        sources:
-#          description: KG sources
-#          type: array
-#          items:
-#            type: string
-#            format: uri
-#        description:
-#          description: KG description
-#          type: string
-#        size:
-#          description: Statement number
-#          type: integer
-#          format: int32
-#        ontologies:
-#          description: Ontologies where concepts and relations are defined (URIs)
-#          type: array
-#          items:
-#            type: string
-#            format: uri
-#        context:
-#          description: Other graphs providing contextual knowledge
-#          type: array
-#          items:
-#            type: string
-#            format: id
-#        content:
-#          description: KG content (statements)
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/EntityStatement'
-#        annotations:
-#          description: KG annotation (application specific)
-#          type: array
-#          items:
-#            type: string
-#
-#    ElementRanking:
-#      description: Conceptual ranking record
-#      type: object
-#      required:
-#        - element
-#      properties:
-#        element:
-#          $ref: kg-knowledge.yaml#/components/schemas/KnowledgeElement
-#        support:
-#          type: number
-#          format: double
-#          minimum: 0.0
-#          maximum: 1.0
-#
-#
-#    KnowledgeElement:
-#      description: Managed knowledge element (should be abstract)
-#      type: object
-#      required:
-#        - ktype
-#      properties:
-#        ktype:
-#          type: string
-#          enum:
-#            - Concept
-#            - RelationalConcept
-#            - AttributiveConcept
-#            - Relation
-#            - Entity
-#            - EntityStatement
-#            - PredicateStatement
-#            - Frame
-#            - FrameInstance
-#            - Slot
-#            - SlotInstance
-#        linguisticNotes:
-#          description: Linguistic annotations
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/LinguisticAnnotation'
-#      discriminator:
-#        propertyName: ktype
-#        mapping:
-#          Concept: '#/components/schemas/Concept'
-#          RelationalConcept: kg-knowledge.yaml#/components/schemas/RelationalConcept
-#          AttributiveConcept: kg-knowledge.yaml#/components/schemas/AttributiveConcept
-#          Relation: kg-knowledge.yaml#/components/schemas/Relation'
-#          Attribute: '#/components/schemas/Attribute'
-#          Entity: kg-knowledge.yaml#/components/schemas/Entity
-#          PredicateStatement: kg-knowledge.yaml#/components/schemas/PredicateStatement
-#          EntityStatement: '#/components/schemas/EntityStatement'
-#          Frame: '#/components/schemas/Frame'
-#          FrameInstance: '#/components/schemas/FrameInstance'
-#          Slot: '#/components/schemas/Slot'
-#          SlotInstance: '#/components/schemas/SlotInstance'
-#
-#    LinguisticAnnotation:
-#      description: Linguistic attachment to knowledge elements
-#      required:
-#        - pos
-#      properties:
-#        pos:
-#          description: Part of speech
-#          type: string
-#          enum:
-#            - ADJ #adjective
-#            - ADV #adverb
-#            - NOUN #noun
-#            - NUM #numeral
-#            - VERB #verb
-#            - PHRASE
-#
-#        form:
-#          description: Basic realization form
-#          type: string
-#        regex:
-#          description: Regular expression to match occurrences (opt)
-#          type: string
-#
-#    Concept:
-#      description: Unary atomic classifier
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/KnowledgeElement
-#      type: object
-#      required:
-#        - id
-#        - ctype
-#      properties:
-#        ctype:
-#          type: string
-#          enum:
-#            - RelationalConcept
-#            - AttributiveConcept
-#            - AtomicConcept
-#        id:
-#          type: string
-#          format: id
-#        statements:
-#          type: array
-#          items:
-#            $ref: kg-knowledge.yaml#/components/schemas/PredicateStatement
-#      discriminator:
-#        propertyName: ctype
-#        mapping:
-#          RelationalConcept: kg-knowledge.yaml#/components/schemas/RelationalConcept
-#          AttributiveConcept: kg-knowledge.yaml#/components/schemas/AttributiveConcept
-#          AtomicConcept: '#/components/schemas/Concept'
-#
-#
-#
-#    RelationalConcept:
-#      description: Unary relational classifier
-#      allOf:
-#        - $ref: '#/components/schemas/Concept'
-#      type: object
-#      required:
-#        - relation
-#        - quantifier
-#      properties:
-#        relation:
-#          $ref: kg-knowledge.yaml#/components/schemas/Relation'
-#        restriction:
-#          $ref: '#/components/schemas/Concept'
-#        quantifier:
-#          type: string
-#          enum:
-#            - SOME
-#            - ALL
-#            - ATLEAST1
-#            - ATMOST1
-#
-#    AttributiveConcept:
-#      description: Unary attributive classifier
-#      allOf:
-#        - $ref: '#/components/schemas/Concept'
-#      type: object
-#      required:
-#        - attribute
-#      properties:
-#        attribute:
-#          $ref: '#/components/schemas/Attribute'
-#        value:
-#          type: string
-#          format: byte
-#        constraint:
-#          type: string
-#          enum:
-#            - SOME
-#            - ALL
-#            - EQUALS
-#            - GREATER_THAN
-#            - SMALLER_THAN
-#          default: SOME
-#
-#
-#    Relation:
-#      description: Class of entity pairs
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/KnowledgeElement
-#      required:
-#        - id
-#      properties:
-#        id:
-#          type: string
-#          format: id
-#        domain:
-#          $ref: '#/components/schemas/Concept'
-#        range:
-#          $ref: '#/components/schemas/Concept'
-#
-#
-#    Attribute:
-#      description: Class of Entity-value pairs
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/KnowledgeElement
-#      required:
-#        - id
-#      properties:
-#        id:
-#          type: string
-#          format: id
-#        domain:
-#          $ref: '#/components/schemas/Concept'
-#        range:
-#          type: string
-#          enum:
-#            - STRING
-#            - TEXT
-#            - INTEGER
-#            - DOUBLE
-#            - REFERENCE
-#            - TIME
-#            - MONEY
-#            - PLACE
-#          default: STRING
-#
-#
-#    Entity:
-#      description: Individual entity
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/KnowledgeElement
-#      type: object
-#      required:
-#        - id
-#      properties:
-#        id:
-#          type: string
-#          format: id
-#        statements:
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/EntityStatement'
-#
-#    Statement:
-#      description: Knowledge statement
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/KnowledgeElement
-#      type: object
-#      required:
-#        - subject
-#        - stype
-#      properties:
-#        stype:
-#          type: string
-#          enum:
-#            - PredicateStatement
-#            - EntityStatement
-#        subject:
-#          type: string
-#          format: id
-#        privacy:
-#          type: string
-#          enum:
-#            - OWNER
-#            - TRUSTED
-#            - CONTACTS
-#            - PUBLIC
-#          default: OWNER
-#        support:
-#          type: number
-#          format: double
-#          minimum: 0.0
-#          maximum: 1.0
-#      discriminator:
-#        propertyName: stype
-#        mapping:
-#          EntityStatement: '#/components/schemas/EntityStatement'
-#          PredicateStatement: kg-knowledge.yaml#/components/schemas/PredicateStatement
-#
-#    PredicateStatement:
-#      description: Statement whose subject is a predicate (conceptual assertion)
-#      allOf:
-#        - $ref: '#/components/schemas/Statement'
-#      type: object
-#      required:
-#        - object
-#        - predicate
-#      properties:
-#        object:
-#          type: string
-#          format: id
-#        predicate:
-#          type: string
-#          enum:
-#            - INCLUSION
-#            - DISJUNCTION
-#            - EQUIVALENCE
-#
-#
-#    EntityStatement:
-#      description: Statement whose subject is an individual (individual assertion)
-#      allOf:
-#        - $ref: '#/components/schemas/Statement'
-#      type: object
-#      required:
-#        - predicate
-#      properties:
-#        predicate:
-#          description: Ontology relation or attribute
-#          type: string
-#          format: id
-#        object:
-#          description: Ontology concept
-#          type: string
-#          format: id
-#        value:
-#          description: Attribute value
-#          type: string
-#          format: byte
-#
-#    Frame:
-#      description: Conceptual pattern, e.g. a query or a form
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/KnowledgeElement
-#      type: object
-#      required:
-#        - id
-#        - slots
-#      properties:
-#        id:
-#          description: Frame identifier, must be system-wide unique
-#          type: string
-#          format: id
-#        slots:
-#          description: Conceptual elements, up to 128
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/Slot'
-#
-#
-#    Slot:
-#      description: Framed conceptual element
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/KnowledgeElement
-#      type: object
-#      required:
-#        - fid
-#        - id
-#        - stype
-#      properties:
-#        fid:
-#          description: Frame id
-#          type: string
-#          format: id
-#        id:
-#          description: Slot identifier, must be frame-wide unique
-#          type: integer
-#          format: int32
-#          minimum: 0
-#          maximum: 128
-#        stype:
-#          type: string
-#          enum:
-#            - ConceptualSlot
-#            - RelationalSlot
-#            - AttributiveSlot
-#        label:
-#          description: User-fiendly ientifier (opt), should be frame-wide unique
-#          type: string
-#        predicate:
-#          description: Ontology predicate mapping
-#          type: string
-#          format: id
-#      discriminator:
-#        propertyName: stype
-#        mapping:
-#          ConceptualSlot: '#/components/schemas/ConceptualSlot'
-#          RelationalSlot: kg-knowledge.yaml#/components/schemas/RelationalSlot'
-#          AttributiveSlot: '#/components/schemas/AttributiveSlot'
-#
-#    FrameInstance:
-#      description: Frame instance
-#      type: object
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/KnowledgeElement
-#      required:
-#        - frameType
-#      properties:
-#        id:
-#          description: Instance handle, should be univoque in the session
-#          type: integer
-#          format: int64
-#        frameType:
-#          description: Frame type identifier, should be system-wide unique
-#          type: string
-#          format: id
-#        slots:
-#          description: Slot values
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/SlotInstance'
-#        support:
-#          type: number
-#          format: double
-#          minimum: 0.0
-#          maximum: 1.0
-#        provenance:
-#          description: The values provenance (opt)
-#          type: string
-#          enum:
-#            - USER_INPUT
-#            - KNOWLEGDE_BASE
-#            - DOCUMENT
-#            - UNDEFINED
-#          default: UNDEFINED
-#
-#
-#    ConceptualSlot:
-#      allOf:
-#        - $ref: '#/components/schemas/Slot'
-#      properties:
-#        features:
-#          type: array
-#          items:
-#            type: string
-#            enum:
-#              - DISTINGUISHED
-#              - INFORMATIVE
-#              - MANDATORY
-#
-#    RelationalSlot:
-#      allOf:
-#        - $ref: '#/components/schemas/Slot'
-#      type: object
-#      properties:
-#        subjectBinding:
-#          description: Slot's subject binding, must be some slot in the same frame.
-#            If the bound slot is a relational one, the binding means 'same subject as'.
-#          type: array
-#          items:
-#            type: integer
-#            minimum: 0
-#            maximum: 128
-#        objectBinding:
-#          description: Slot's object binding, must be some relational slot in the same frame.
-#            The binding means 'same object as'.
-#          type: array
-#          items:
-#            type: integer
-#            minimum: 0
-#            maximum: 128
-#        chainBinding:
-#          description: Slot chaining, must be some relational slot in the same frame.
-#            Chaining means that the object of the bound slot must be the subject of this slot.
-#          type: array
-#          items:
-#            type: integer
-#            minimum: 0
-#            maximum: 128
-#      required:
-#        - subjectBinding
-#
-#
-#    AttributiveSlot:
-#      allOf:
-#        - $ref: '#/components/schemas/Slot'
-#      type: object
-#      description: A slot bound to an Attribute (data property)
-#      properties:
-#        subjectBinding:
-#          description: Slot's subject binding, must be some slot in the same frame.
-#            If the bound slot is a relational one, the binding means 'same subject as'.
-#          type: array
-#          items:
-#            type: integer
-#            minimum: 0
-#            maximum: 128
-#        valueType:
-#          description: Type of the Attribute's value
-#          type: string
-#          enum:
-#            - STRING
-#            - NUMBER
-#            - TEXT
-#            - PERIOD
-#            - AMOUNT
-#            - LOCATION
-#            - IDENTIFIER
-#          default: STRING
-#
-#      required:
-#        - subjectBinding
-#
-#    SlotInstance:
-#      description: Slot value instance (should be abstract)
-#      type: object
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/KnowledgeElement
-#      required:
-#        - itype
-#        - slot
-#      properties:
-#        itype:
-#          type: string
-#          enum:
-#            - ConceptualInstance
-#            - RelationalInstance
-#            - AttributiveInstance
-#        slot:
-#          $ref: kg-knowledge.yaml#/components/schemas/Slot
-#      discriminator:
-#        propertyName: itype
-#        mapping:
-#          ConceptualInstance: kg-knowledge.yaml#/components/schemas/ConceptualInstance
-#          RelationalInstance: kg-knowledge.yaml#/components/schemas/RelationalInstance
-#          AttributiveInstace: kg-knowledge.yaml#/components/schemas/AttributiveInstance
-#
-#    ConceptualInstance:
-#      type: object
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/SlotInstance
-#      required:
-#        - slot
-#      properties:
-#        slot:
-#          $ref: kg-knowledge.yaml#/components/schemas/ConceptualSlot
-#        entity:
-#          type: string
-#
-#    RelationalInstance:
-#      type: object
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/SlotInstance
-#      required:
-#        - slot
-#      properties:
-#        slot:
-#          $ref: kg-knowledge.yaml#/components/schemas/RelationalSlot
-#        subject:
-#          type: string
-#        object:
-#          type: string
-#
-#    AttributiveInstance:
-#      type: object
-#      allOf:
-#        - $ref: kg-knowledge.yaml#/components/schemas/SlotInstance
-#      required:
-#        - slot
-#      properties:
-#        slot:
-#          $ref: kg-knowledge.yaml#/components/schemas/AttributiveSlot
-#        subject:
-#          type: string
-#        value:
-#          type: string
-#          format: byte
-#        comparation:
-#          description: Comparation
-#          type: string
-#          enum:
-#            - EQUAL
-#            - GREATER
-#            - SMALLER
-#            - SIMILAR
-#          default: EQUAL
-#
-## -------------
-## Language
-## -------------
-#    Sentence:
-#      description: A single sentence
-#      type: object
-#      required:
-#        - verbatim
-#      properties:
-#        lang:
-#          description: Language
-#          type: string
-#          enum:
-#            - en
-#            - es
-#            - fr
-#            - it
-#            - de
-#        verbatim:
-#          description: Textual content
-#          type: string
-#        context:
-#          description: Textual context (opt)
-#          type: string
-#
-#
-#    Classification:
-#      description: Text general classification (e.g. intent or sentiment)
-#      type: object
-#      required:
-#        - classifier
-#      properties:
-#        classifier:
-#          type: string
-#        support:
-#          type: number
-#          format: double
-#          minimum: 0.0
-#          maximum: 1.0
-#
-#
-#    SentenceAnnotation:
-#      description: Text annotation
-#      allOf:
-#        - $ref: kg-language.yaml#/components/schemas/Sentence
-#      type: object
-#      properties:
-#        classes:
-#          description: Text classification
-#          type: array
-#          items:
-#            $ref: kg-language.yaml#/components/schemas/Classification
-#        tokens:
-#          description: Basic token annotation
-#          type: array
-#          items:
-#            $ref: kg-language.yaml#/components/schemas/BasicAnnotation
-#        entities:
-#          description: Entity annotation
-#          type: array
-#          items:
-#            $ref: kg-language.yaml#/components/schemas/EntityAnnotation
-#        dependencies:
-#          description: Dependencies
-#          type: array
-#          items:
-#            $ref: kg-language.yaml#/components/schemas/DependencyAnnotation
-#
-#
-#    TokenAnnotation:
-#      description: Base class for token annotations, should be abstract
-#      type: object
-#      required:
-#        - token
-#        - offset
-#      properties:
-#        token:
-#          type: string
-#        offset:
-#          description: Head character offset
-#          type: integer
-#          format: int32
-#          minimum: 0
-#        support:
-#          type: number
-#          format: double
-#
-#    BasicAnnotation:
-#      description: Pos and lemma annotation
-#      type: object
-#      required:
-#        - pos
-#        - lemma
-#      allOf:
-#        - $ref: kg-language.yaml#/components/schemas/TokenAnnotation
-#      properties:
-#        pos:
-#          description: Part of speech
-#          type: string
-#          enum:
-#            - ADJ #adjective
-#            - ADP #adposition
-#            - ADV #adverb
-#            - AUX #auxiliary
-#            - CCONJ #coordinating conjunction
-#            - DET #determiner
-#            - INTJ #interjection
-#            - NOUN #noun
-#            - NUM #numeral
-#            - PART #particle
-#            - PRON #pronoun
-#            - PROPN #proper noun
-#            - PUNCT #punctuation
-#            - SCONJ #subordinating conjunction
-#            - SYM #symbol
-#            - VERB #verb
-#            - X #other
-#        features:
-#          description: Grammatical features
-#          type: array
-#          items:
-#            $ref: kg-language.yaml#/components/schemas/GrammarFeature
-#        lemma:
-#          description: Base form
-#          type: string
-#
-#
-#    EntityAnnotation:
-#      description: Entity classifier and\or link
-#      allOf:
-#        - $ref: kg-language.yaml#/components/schemas/TokenAnnotation
-#      type: object
-#      properties:
-#        classes:
-#          description: Text classification
-#          type: array
-#          items:
-#            $ref: kg-language.yaml#/components/schemas/Classification
-#        links:
-#          type: array
-#          items:
-#            type: string
-#            format: uri
-#
-#
-#    DependencyAnnotation:
-#      description: Token dependency
-#      allOf:
-#        - $ref: kg-language.yaml#/components/schemas/TokenAnnotation
-#      type: object
-#      required:
-#        - governor
-#      properties:
-#        governor:
-#          description: Head index of the governor's token
-#          type: integer
-#          format: int32
-#          minimum: 0
-#        syntax:
-#          description: Governor's syntactic role
-#          type: string
-#          enum:
-#            - acl	    # clausal modifier of noun (adjectival clause)
-#            - advcl	# adverbial clause modifier
-#            - advmod	# adverbial modifier
-#            - amod	# adjectival modifier
-#            - appos	# appositional modifier
-#            - aux	    # auxiliary
-#            - case	# case marking
-#            - cc	    # coordinating conjunction
-#            - ccomp	# clausal complement
-#            - clf	    # classifier
-#            - compound	# compound
-#            - conj	# conjunct
-#            - cop	    # copula
-#            - csubj	# clausal subject
-#            - dep	    # unspecified dependency
-#            - det	    # determiner
-#            - discourse	# discourse element
-#            - dislocated	# dislocated elements
-#            - expl	# expletive
-#            - fixed	# fixed multiword expression
-#            - flat	# flat multiword expression
-#            - goeswith	# goes with
-#            - iobj	# indirect object
-#            - list	# list
-#            - mark	# marker
-#            - nmod	# nominal modifier
-#            - nsubj	# nominal subject
-#            - nummod	# numeric modifier
-#            - obj  	# object
-#            - obl	    # oblique nominal
-#            - orphan	# orphan
-#            - parataxis	# parataxis
-#            - punct	# punctuation
-#            - reparandum	# overridden disfluency
-#            - root	# root
-#            - vocative	# vocative
-#            - xcomp	# open clausal complement
-#
-#        semantics:
-#          $ref: kg-language.yaml#/components/schemas/SemanticRelation
-#
-#
-#    SemanticRelation:
-#      description: Governor's semantic role
-#      type: object
-#      required:
-#        - predicate
-#        - role
-#      properties:
-#        predicate:
-#          description: Ontology predicate (relation or attribute)
-#          type: string
-#          format: id
-#        role:
-#          description: Governor's predicative role (subject or object)
-#          type: string
-#          enum:
-#            - SUBJECT
-#            - OBJECT
-#
-#    GrammarFeature:
-#      description: Grammatic feature
-#      type: object
-#      properties:
-#        attribute:
-#          type: string
-#          enum:
-#            - NUMBER
-#            - PERSON
-#            - TENSE
-#            - MODE
-#            - NOUN-TYPE
-#            - VERB-TYPE
-#            - ADV-TYPE
-#            - ADJ-TYPE
-#            - X #other
-#        value:
-#          type: string
+  # --------------------
+  #  Data
+  # --------------------
+
+  /data/query:
+    post:
+      summary: Knowledge query
+      description: Queries a Knowledge Graph
+      parameters:
+        - name: kg
+          in: query
+          required: false
+          schema:
+            type: string
+            format: id
+          description: Query context (opt)
+      operationId: query
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: kg-interact.yaml#/components/schemas/QueryResponse
+        401:
+          description: Unsupported language
+        402:
+          description: Invalid query
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lang:
+                  type: string
+                  enum:
+                    - SPARQL
+                    - GRAPHQL
+                query:
+                  type: string
+        description: The query
+        required: true
+      tags:
+        - DataService
+
+  /data/search:
+    post:
+      summary: String search
+      description: Issues a string query over the data graph
+      parameters:
+       - name: kg
+         in: query
+         required: false
+         schema:
+            type: string
+            format: id
+            description: Query context (opt)
+      responses:
+        200:
+          description: Sentence ranking
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: kg-language.yaml#/components/schemas/SentenceRanking
+        201:
+          description: Element ranking
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: kg-knowledge.yaml#/components/schemas/ElementRanking
+
+      requestBody:
+          content:
+            text/plain:
+              schema:
+                type: string
+                format: UTF-8
+          description: String query
+          required: true
+
+
+  /data/upload:
+      post:
+        summary: Bulk upload
+        description: Uploads a resource
+        parameters:
+          - name: kg
+            in: query
+            required: true
+            schema:
+              type: string
+        operationId: uploadResource
+        responses:
+          200:
+            description: Success
+          401:
+            description: Unknown graph
+          402:
+            description: Malformed document
+          403:
+            description: Unsupported format
+          501:
+            description: Service unavailable
+          502:
+            description: Server error
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  format:
+                    type: string
+                    enum:
+                      - XML
+                      - TURTLE
+                      - N3
+                      - CSV
+                      - JSON
+                  content:
+                    type: string
+                    format: byte
+
+        tags:
+          - DataService
+

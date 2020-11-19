@@ -12,15 +12,18 @@ servers:
   - url: http://localhost
     variables:
       port:
-        default: '3201'
+        default: 3200
       basePath:
-        default: /kg
+        default: /
 tags:
 
   - name: LinguisticService
     description: NLP analitic functionalities
 
 paths:
+
+ /language/analyze:
+   $ref: kg-openapi.yaml#/language/analyze
 
 components:
   schemas:
@@ -262,6 +265,20 @@ components:
             - X #other
         value:
           type: string
+
+    SentenceRanking:
+      description: Sentence ranking record
+      type: object
+      required:
+        - sentence
+      properties:
+        sentence:
+          $ref: '#/components/schemas/Sentence'
+        support:
+          type: number
+          format: double
+          minimum: 0.0
+          maximum: 1.0
 
 
 
