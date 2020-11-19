@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.isagog</groupId>
-    <artifactId>kg-client</artifactId>
+    <artifactId>kg-java-client</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <description>Isagog Knowledge Graph Java Open API</description>
@@ -54,7 +54,7 @@
                         </goals>
                         <configuration>
                             <inputSpec>../spec/kg-openapi.yaml</inputSpec>
-                            <generatorName>java</generatorName>
+                            <generatorName>${generator-language}</generatorName>
                             <configOptions>
                                 <sourceFolder>src</sourceFolder>
                             </configOptions>
@@ -224,7 +224,7 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.8.6</version>
+            <version>${gson-version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
@@ -279,15 +279,12 @@
             <artifactId>swagger-annotations</artifactId>
             <version>${swagger-core-version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>2.1.5</version>
-        </dependency>
+
 
     </dependencies>
 
     <properties>
+        <generator-language>java</generator-language>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
