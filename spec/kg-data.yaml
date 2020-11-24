@@ -1,0 +1,154 @@
+openapi: 3.0.2
+info:
+  title: Isagog Knowledge Graph Data Service
+  version: 1.0.0
+  description: Isagog Knowledge Graph Data module
+  contact:
+    name: Isagog Srl
+    email: ks-api@isagog.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: http://localhost
+    variables:
+      port:
+        default: 3200
+      basePath:
+        default: /
+tags:
+  - name: DataService
+
+paths:
+
+  /data/query:
+    $ref: kg-openapi.yaml#/data/query
+
+  /data/search:
+    $ref: kg-openapi.yaml#/data/search
+
+  /data/upload:
+    $ref: kg-openapi.yaml#/data/upload
+
+components:
+  schemas:
+    Query:
+      description: Data query
+      type: object
+      properties:
+        lang:
+          type: string
+          enum:
+            - SPARQL
+            - GRAPHQL
+        query:
+          type: string
+
+
+    QueryFrame:
+      description: Query frame
+      allOf:
+        - $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
+      type: object
+      properties:
+        qtype:
+          type: string
+          description: Query type, where (INDIVIDUATION = single entity, CARDINALITY = entity count, LIST = list of entity n-tuples)
+          enum:
+            - INDIVIDUATION
+            - CARDINALITY
+            - LIST
+
+
+    QueryResponse:
+      description: Query result set
+      type: object
+      required:
+        - header
+        - rows
+        - report
+        - query
+      properties:
+        query:
+          type: string
+        header:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryResponseHeader'
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryResponseItem'
+
+    QueryResponseHeader:
+      description: Query result set header
+      type: object
+      required:
+        - name
+        - dtype
+      properties:
+        name:
+          type: string
+        dtype:
+          type: string
+          enum:
+            - Uri
+            - Boolean
+            - Integer
+            - Double
+            - String
+
+    QueryResponseItem:
+      description: Query result set row
+      type: object
+      required:
+        - row
+      properties:
+        row:
+          type: array
+          items:
+            type: string
+        support:
+          type: number
+          format: double
+          minimum: 0.0
+          maximum: 1.0
+
+
+    UpdateResponse:
+      description: Update response
+      type: object
+      required:
+        - report
+      properties:
+        report:
+          description: Report
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                  - OK
+                  - WARN
+                  - ERROR
+              message:
+                type: string
+
+
+
+    Upload:
+      type: object
+      properties:
+        format:
+          type: string
+          enum:
+            - XML
+            - TURTLE
+            - N3
+            - CSV
+            - JSON
+        content:
+          type: string
+          format: byte

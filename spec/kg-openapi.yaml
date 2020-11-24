@@ -64,7 +64,7 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: kg-interact.yaml#/components/schemas/QueryResponse
+                  $ref: kg-data.yaml#/components/schemas/QueryResponse
         202:
           description: Frame instantiation
           content:
@@ -125,13 +125,13 @@ paths:
             content:
               application/json:
                 schema:
-                    $ref: kg-interact.yaml#/components/schemas/QueryResponse
+                    $ref: kg-data.yaml#/components/schemas/QueryResponse
           202:
             description: Update response
             content:
               application/json:
                 schema:
-                    $ref: kg-interact.yaml#/components/schemas/UpdateResponse
+                    $ref: kg-data.yaml#/components/schemas/UpdateResponse
           401:
             description: Unknown graph
           402:
@@ -499,7 +499,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: kg-interact.yaml#/components/schemas/QueryResponse
+                $ref: kg-data.yaml#/components/schemas/QueryResponse
         401:
           description: Unsupported language
         402:
@@ -512,15 +512,8 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                lang:
-                  type: string
-                  enum:
-                    - SPARQL
-                    - GRAPHQL
-                query:
-                  type: string
+              $ref: kg-data.yaml#/components/schemas/Query
+
         description: The query
         required: true
       tags:
@@ -594,19 +587,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  format:
-                    type: string
-                    enum:
-                      - XML
-                      - TURTLE
-                      - N3
-                      - CSV
-                      - JSON
-                  content:
-                    type: string
-                    format: byte
+                $ref: kg-data.yaml#/components/schemas/Upload
 
         tags:
           - DataService
