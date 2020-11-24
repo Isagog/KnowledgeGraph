@@ -531,6 +531,7 @@ paths:
             type: string
             format: id
             description: Query context (opt)
+      operationId: search
       responses:
         200:
           description: Sentence ranking
