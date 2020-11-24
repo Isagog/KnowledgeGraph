@@ -534,22 +534,6 @@ paths:
       operationId: retrieve
       responses:
         200:
-          description: Sentence ranking
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: kg-language.yaml#/components/schemas/SentenceRanking
-        201:
-          description: Element ranking
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: kg-knowledge.yaml#/components/schemas/ElementRanking
-        202:
           description: Flat results
           content:
             application/json:
@@ -558,6 +542,10 @@ paths:
                 items:
                   type: string
                   format: UTF-8
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
 
       requestBody:
           content:
