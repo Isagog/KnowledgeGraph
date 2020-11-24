@@ -188,43 +188,43 @@ components:
             description: Governor's syntactic role
             type: string
             enum:
-              - acl	    # clausal modifier of noun (adjectival clause)
-              - advcl	# adverbial clause modifier
-              - advmod	# adverbial modifier
-              - amod	# adjectival modifier
-              - appos	# appositional modifier
-              - aux	    # auxiliary
-              - case	# case marking
-              - cc	    # coordinating conjunction
-              - ccomp	# clausal complement
-              - clf	    # classifier
-              - compound	# compound
-              - conj	# conjunct
-              - cop	    # copula
-              - csubj	# clausal subject
-              - dep	    # unspecified dependency
-              - det	    # determiner
-              - discourse	# discourse element
-              - dislocated	# dislocated elements
-              - expl	# expletive
-              - fixed	# fixed multiword expression
-              - flat	# flat multiword expression
-              - goeswith	# goes with
-              - iobj	# indirect object
-              - list	# list
-              - mark	# marker
-              - nmod	# nominal modifier
-              - nsubj	# nominal subject
-              - nummod	# numeric modifier
-              - obj  	# object
-              - obl	    # oblique nominal
-              - orphan	# orphan
-              - parataxis	# parataxis
-              - punct	# punctuation
-              - reparandum	# overridden disfluency
-              - root	# root
-              - vocative	# vocative
-              - xcomp	# open clausal complement
+              - ACL	        # clausal modifier of noun (adjectival clause)
+              - ADVCL	    # adverbial clause modifier
+              - ADVMOD	    # adverbial modifier
+              - AMOD	    # adjectival modifier
+              - APPOS	    # appositional modifier
+              - AUX	        # auxiliary
+              - CASE	    # case marking
+              - CC	        # coordinating conjunction
+              - CCOMP	    # clausal complement
+              - CLF	        # classifier
+              - COMPOUND    # compound
+              - CONJ	    # conjunct
+              - COP	        # copula
+              - CSUBJ	    # clausal subject
+              - DEP	        # unspecified dependency
+              - DET	        # determiner
+              - DISCOURSE   # discourse element
+              - DISLOCATED	# dislocated elements
+              - EXPL	    # expletive
+              - FIXED	    # fixed multiword expression
+              - FLAT	    # flat multiword expression
+              - GOESWITH	# goes with
+              - IOBJ	    # indirect object
+              - LIST	    # list
+              - MARK	    # marker
+              - NMOD	    # nominal modifier
+              - NSUBJ	    # nominal subject
+              - NUMMOD	    # numeric modifier
+              - OBJ  	    # object
+              - OBL	        # oblique nominal
+              - ORPHAN	    # orphan
+              - PARATAXIS	# parataxis
+              - PUNCT	    # punctuation
+              - REPARANDUM	# overridden disfluency
+              - ROOT	    # root
+              - VOCATIVE	# vocative
+              - XCOMP	    # open clausal complement
 
           semantics:
             $ref: '#/components/schemas/SemanticRelation'
