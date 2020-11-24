@@ -557,7 +557,8 @@ paths:
                 format: UTF-8
           description: String query
           required: true
-
+      tags:
+        - DataService
 
   /data/upload:
       post:
