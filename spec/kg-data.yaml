@@ -35,29 +35,52 @@ components:
     Query:
       description: Data query
       type: object
+      required:
+        - qtype
+      properties:
+        qtype:
+          type: string
+      discriminator:
+        propertyName: qtype
+        mapping:
+          QueryFrame: '#/components/schemas/QueryFrame'
+          QueryString: '#/components/schemas/QueryString'
+
+    QueryString:
+      description: Query string
+      allOf:
+        - $ref: '#/components/schemas/Query'
+      type: object
+      required:
+        - lang
+        - body
       properties:
         lang:
           type: string
           enum:
             - SPARQL
             - GRAPHQL
-        query:
+        body:
           type: string
-
 
     QueryFrame:
       description: Query frame
       allOf:
-        - $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
+        - $ref: '#/components/schemas/Query'
       type: object
+      required:
+        - qkind
+        - frame
       properties:
-        qtype:
+        qkind:
           type: string
-          description: Query type, where (INDIVIDUATION = single entity, CARDINALITY = entity count, LIST = list of entity n-tuples)
+          description: Query kind, where (INDIVIDUATION = single entity, CARDINALITY = entity count, LIST = list of entity n-tuples)
           enum:
             - INDIVIDUATION
             - CARDINALITY
             - LIST
+        frame:
+          $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
 
 
     QueryResponse:
