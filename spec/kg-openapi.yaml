@@ -519,10 +519,10 @@ paths:
       tags:
         - DataService
 
-  /data/search:
+  /data/retrieve:
     post:
-      summary: String search
-      description: Issues a string query over the data graph
+      summary: String retrieval
+      description: Issues a string query over the data layer
       parameters:
        - name: kg
          in: query
@@ -531,7 +531,7 @@ paths:
             type: string
             format: id
             description: Query context (opt)
-      operationId: search
+      operationId: retrieve
       responses:
         200:
           description: Sentence ranking
@@ -549,6 +549,15 @@ paths:
                 type: array
                 items:
                   $ref: kg-knowledge.yaml#/components/schemas/ElementRanking
+        202:
+          description: Flat results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: UTF-8
 
       requestBody:
           content:
