@@ -90,6 +90,8 @@ paths:
           description: Service unavailable
         502:
           description: Server error
+        503:
+          description: Missing implementation
       requestBody:
         content:
           text/plain:
@@ -140,6 +142,8 @@ paths:
             description: Service unavailable
           502:
             description: Server error
+          503:
+            description: Missing implementation
         requestBody:
           content:
             application/json:
@@ -217,6 +221,8 @@ paths:
           description: Service unavailable
         502:
           description: Server error
+        503:
+          description: Missing implementation
       tags:
         - KnowledgeService
 
@@ -261,6 +267,8 @@ paths:
           description: Service unavailable
         502:
           description: Server error
+        503:
+          description: Missing implementation
       requestBody:
         content:
           application/json:
@@ -287,6 +295,8 @@ paths:
           description: Service unavailable
         502:
           description: Server error
+        503:
+          description: Missing implementation
       parameters:
         - name: overwrite
           in: query
@@ -323,6 +333,8 @@ paths:
           description: Service unavailable
         502:
           description: Server error
+        503:
+          description: Missing implementation
       parameters:
         - name: id
           in: query
@@ -356,6 +368,8 @@ paths:
           description: Service unavailable
         502:
           description: Server error
+        503:
+          description: Missing implementation
       parameters:
         - name: id
           in: query
@@ -423,6 +437,8 @@ paths:
           description: Service unavailable
         502:
           description: Server error
+        503:
+          description: Missing implementation
       requestBody:
         content:
           application/json:
@@ -468,6 +484,8 @@ paths:
           description: Service unavailable
         502:
           description: Server error
+        503:
+          description: Missing implementation
       requestBody:
         content:
           application/json:
@@ -508,6 +526,8 @@ paths:
           description: Service unavailable
         502:
           description: Server error
+        503:
+          description: Missing implementation
       requestBody:
         content:
           application/json:
@@ -546,6 +566,8 @@ paths:
           description: Service unavailable
         502:
           description: Server error
+        503:
+          description: Missing implementation
       requestBody:
           content:
             text/plain:
@@ -567,7 +589,7 @@ paths:
             required: true
             schema:
               type: string
-        operationId: uploadResource
+        operationId: upload
         responses:
           200:
             description: Success
@@ -581,6 +603,8 @@ paths:
             description: Service unavailable
           502:
             description: Server error
+          503:
+            description: Missing implementation
         requestBody:
           content:
             application/json:
