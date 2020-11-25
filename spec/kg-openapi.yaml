@@ -546,7 +546,6 @@ paths:
           description: Service unavailable
         502:
           description: Server error
-
       requestBody:
           content:
             text/plain:

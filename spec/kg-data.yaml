@@ -24,8 +24,8 @@ paths:
   /data/query:
     $ref: kg-openapi.yaml#/data/query
 
-  /data/search:
-    $ref: kg-openapi.yaml#/data/search
+  /data/retrieve:
+    $ref: kg-openapi.yaml#/data/retrieve
 
   /data/upload:
     $ref: kg-openapi.yaml#/data/upload
