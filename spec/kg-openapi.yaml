@@ -39,19 +39,13 @@ paths:
       summary: User input
       description: Processes the user input
       parameters:
-        - name: lang
-          in: query
-          required: false
-          schema:
-            type: string
-            enum:
-              - en
-              - it
-              - de
-              - fr
-              - es
-            default: en
-      operationId: userInput
+            - name: kg
+              in: query
+              required: false
+              schema:
+                type: string
+              description: Upload context (KG id)
+      operationId: input
       responses:
         200:
           description: Acknowledge message
@@ -94,10 +88,9 @@ paths:
           description: Missing implementation
       requestBody:
         content:
-          text/plain:
+          application/json:
             schema:
-              type: string
-              format: UTF-8
+              $ref: kg-language.yaml#/components/schemas/Sentence
         description: User input
         required: true
       tags:
@@ -114,14 +107,16 @@ paths:
             schema:
               type: string
             description: Upload context (KG id)
-        operationId: userIssue
+        operationId: issue
         responses:
           200:
-            description: Generic success message
+            description: Generic success messages
             content:
-              text/plain:
+              application/json:
                 schema:
-                  type: string
+                  type: array
+                  items:
+                    type: string
           201:
             description: Query response
             content:
@@ -153,6 +148,43 @@ paths:
           required: true
         tags:
           - InteractionService
+
+  /interact/complete:
+    get:
+      summary: Suggets completions
+      description: Provides a list of candidate completions of the provided one
+      parameters:
+        - name: hook
+          in: query
+          required: true
+          schema:
+            type: string
+            format: UTF-8
+      operationId: complete
+      responses:
+        200:
+          description: Suitable completions
+          content:
+            application/json:
+                schema:
+                  type: array
+                  items:
+                    type: string
+                    format: UTF-8
+        402:
+            description: Illegal hook
+        501:
+            description: Service unavailable
+        502:
+            description: Server error
+        503:
+            description: Missing implementation
+      tags:
+          - InteractionService
+
+
+
+
 
   # --------------------
   #  Knowledge
@@ -551,6 +583,17 @@ paths:
             type: string
             format: id
             description: Query context (opt)
+       - name: op
+         in: query
+         required: false
+         schema:
+           type: string
+           enum:
+             - OR
+             - AND
+             - EXCEPT
+           default: OR
+           description: The search operator; OR = at least one match, AND = complete match, EXCEPT = match the first value but not the others
       operationId: retrieve
       responses:
         200:
@@ -570,11 +613,13 @@ paths:
           description: Missing implementation
       requestBody:
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                format: UTF-8
-          description: String query
+                type: array
+                items:
+                  type: string
+                  format: UTF-8
+          description: Array of string queries, SHOULD be evaluated according to the supplied operator (op)
           required: true
       tags:
         - DataService

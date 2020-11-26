@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/client/kg-client.iml" filepath="$PROJECT_DIR$/client/kg-client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/server/kg-server.iml" filepath="$PROJECT_DIR$/server/kg-server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spec/kg-spec.iml" filepath="$PROJECT_DIR$/spec/kg-spec.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spago/spago.iml" filepath="$PROJECT_DIR$/spago/spago.iml" />
+      <module fileurl="file://$PROJECT_DIR$/client/java-client.iml" filepath="$PROJECT_DIR$/client/java-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spec/spec.iml" filepath="$PROJECT_DIR$/spec/spec.iml" />
     </modules>
   </component>
 </project>
