@@ -44,10 +44,11 @@ components:
         propertyName: qtype
         mapping:
           QueryFrame: '#/components/schemas/QueryFrame'
-          QueryString: '#/components/schemas/QueryString'
+          QueryExpression: '#/components/schemas/QueryExpression'
+          QueryKeywords: '#/components/schemas/QueryKeywords'
 
-    QueryString:
-      description: Query string
+    QueryExpression:
+      description: Query structured string
       allOf:
         - $ref: '#/components/schemas/Query'
       type: object
@@ -60,8 +61,11 @@ components:
           enum:
             - SPARQL
             - GRAPHQL
-        body:
+          description: Query language
+        query:
           type: string
+          format: UTF-8
+          description: Query string
 
     QueryFrame:
       description: Query frame
@@ -82,26 +86,56 @@ components:
         frame:
           $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
 
+    QueryKeywords:
+      description: Keyword-based search
+      allOf:
+        - $ref: '#/components/schemas/Query'
+      type: object
+      required:
+        - keys
+      properties:
+        keys:
+          type: array
+          items:
+            type: string
+            format: UFT-8
+        op:
+          type: string
+          enum:
+            - OR
+            - AND
+            - EXCEPT
+          default: OR
+          description: The search operator; OR = at least one match, AND = complete match, EXCEPT = match the first value but not the others
+
+
 
     QueryResponse:
       description: Query result set
       type: object
       required:
+        - handle
+        - size
         - header
-        - rows
-        - report
-        - query
       properties:
-        query:
-          type: string
+        handle:
+          type: integer
+          format: int64
+          description: Handle to the query result, may be used to fetch results
+        size:
+          type: integer
+          format: int32
+          description: Total availabe results
         header:
           type: array
           items:
             $ref: '#/components/schemas/QueryResponseHeader'
-        rows:
+          description: Result set description
+        items:
           type: array
           items:
             $ref: '#/components/schemas/QueryResponseItem'
+          description: Result items
 
     QueryResponseHeader:
       description: Query result set header
@@ -131,6 +165,7 @@ components:
           type: array
           items:
             type: string
+            format: UTF-8
         support:
           type: number
           format: double

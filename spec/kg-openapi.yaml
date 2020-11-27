@@ -571,58 +571,41 @@ paths:
       tags:
         - DataService
 
-  /data/retrieve:
-    post:
-      summary: String retrieval
-      description: Issues a string query over the data layer
-      parameters:
-       - name: kg
-         in: query
-         required: false
-         schema:
-            type: string
-            format: id
-            description: Query context (opt)
-       - name: op
-         in: query
-         required: false
-         schema:
-           type: string
-           enum:
-             - OR
-             - AND
-             - EXCEPT
-           default: OR
-           description: The search operator; OR = at least one match, AND = complete match, EXCEPT = match the first value but not the others
-      operationId: retrieve
-      responses:
-        200:
-          description: Flat results
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: string
-                  format: UTF-8
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-        503:
-          description: Missing implementation
-      requestBody:
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: string
-                  format: UTF-8
-          description: Array of string queries, SHOULD be evaluated according to the supplied operator (op)
-          required: true
-      tags:
-        - DataService
+#  /data/retrieve:
+#    post:
+#      summary: String retrieval
+#      description: Issues a string query over the data layer
+#      parameters:
+#       - name: kg
+#         in: query
+#         required: false
+#         schema:
+#            type: string
+#            format: id
+#            description: Query context (opt)
+#      operationId: retrieve
+#      responses:
+#        200:
+#          description: Flat results
+#          content:
+#            application/json:
+#              schema:
+#                type: array
+#                items:
+#                  type: string
+#                  format: UTF-8
+#        501:
+#          description: Service unavailable
+#        502:
+#          description: Server error
+#        503:
+#          description: Missing implementation
+#      requestBody:
+#          content:
+#            application/json:
+#
+#      tags:
+#        - DataService
 
   /data/upload:
       post:
