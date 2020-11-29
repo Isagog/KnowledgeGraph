@@ -10,22 +10,165 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-  - url: http://localhost
+  - url: http://api.isagog.com
     variables:
       port:
-        default: 3200
+        default: '8030'
       basePath:
-        default: /
+        default: /interact
 tags:
   - name: InteractionService
 
 paths:
 
-  /interact/input:
-    $ref: kg-openapi.yaml#/interact/input
+  /input:
+    post:
+      summary: User input
+      description: Processes the user input
+      parameters:
+        - name: kg
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Upload context (KG id)
+      operationId: input
+      responses:
+        200:
+          description: Acknowledge message
+          content:
+            text/plain:
+              schema:
+                type: string
+        201:
+          description: Query response
+          content:
+            application/json:
+              schema:
+                $ref: kg-data.yaml#/components/schemas/QueryResponse
+        202:
+          description: Frame instantiation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
+        203:
+          description: Sentence analysis
+          content:
+            application/json:
+              schema:
+                $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
 
-  /interact/issue:
-    $ref: kg-openapi.yaml#/interact/issue
+        401:
+          description: Unknown graph
+        402:
+          description: Illegal input format
+        403:
+          description: Meaningless input
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: kg-language.yaml#/components/schemas/Sentence
+        description: User input
+        required: true
+      tags:
+        - InteractionService
+
+  /issue:
+      post:
+        summary: Sends a frame instance for processing
+        description: Sends a frame, e.g. a user query form, to the systems
+        parameters:
+          - name: kg
+            in: query
+            required: false
+            schema:
+              type: string
+            description: Upload context (KG id)
+        operationId: issue
+        responses:
+          200:
+            description: Generic success messages
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: string
+          201:
+            description: Query response
+            content:
+              application/json:
+                schema:
+                  $ref: kg-data.yaml#/components/schemas/QueryResponse
+          202:
+            description: Update response
+            content:
+              application/json:
+                schema:
+                  $ref: kg-data.yaml#/components/schemas/UpdateResponse
+          401:
+            description: Unknown graph
+          402:
+            description: Malformed frame
+          501:
+            description: Service unavailable
+          502:
+            description: Server error
+          503:
+            description: Missing implementation
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
+          description: Frame instance
+          required: true
+        tags:
+          - InteractionService
+
+  /complete:
+      get:
+        summary: Suggets completions
+        description: Provides a list of candidate completions of the provided one
+        parameters:
+          - name: hook
+            in: query
+            required: true
+            schema:
+              type: string
+              format: utf8
+        operationId: complete
+        responses:
+          200:
+            description: Suitable completions
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: string
+                    format: utf8
+          402:
+            description: Illegal hook
+          501:
+            description: Service unavailable
+          502:
+            description: Server error
+          503:
+            description: Missing implementation
+        tags:
+          - InteractionService
+
 
 
 components:

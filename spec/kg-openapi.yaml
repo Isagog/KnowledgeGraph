@@ -159,7 +159,7 @@ paths:
           required: true
           schema:
             type: string
-            format: UTF-8
+            format: utf8
       operationId: complete
       responses:
         200:
@@ -170,7 +170,7 @@ paths:
                   type: array
                   items:
                     type: string
-                    format: UTF-8
+                    format: utf8
         402:
             description: Illegal hook
         501:
@@ -593,7 +593,7 @@ paths:
 #                type: array
 #                items:
 #                  type: string
-#                  format: UTF-8
+#                  format: utf8
 #        501:
 #          description: Service unavailable
 #        502:

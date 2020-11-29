@@ -10,21 +10,110 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-  - url: http://localhost
+  - url: http://api.isagog.com
     variables:
       port:
-        default: 3200
+        default: '8030'
       basePath:
-        default: /
-tags:
+        default: /language
 
+tags:
   - name: LinguisticService
     description: NLP analitic functionalities
 
 paths:
 
- /language/analyze:
-   $ref: kg-openapi.yaml#/language/analyze
+  /analyze:
+    post:
+      summary: Sentence analysis
+      description: Provides an annotation of the supplied text object according to available knowledge, including entity recognition, linking and relations (opt)
+      parameters:
+        - name: task
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - TOKENIZATION
+              - ENTITY_ANALISYS
+              - RELATION_ANALYSIS
+      operationId: analyze
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SentenceAnnotation'
+
+        401:
+          description: Unknown graph
+        402:
+          description: Invalid sentence
+        403:
+          description: Unsupported task
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sentence'
+      tags:
+        - LinguisticService
+
+  /extract:
+    post:
+      summary: Sentence extraction
+      description: Extract sentences from a text
+      parameters:
+        - name: task
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+                - SUMMARIZATION
+                - RETRIEVAL
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+
+      operationId: extract
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sentence'
+        401:
+          description: Unknown graph
+        402:
+          description: Invalid document
+        403:
+          description: Unsupported task
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Document'
+      tags:
+        - LinguisticService
 
 components:
   schemas:
@@ -283,3 +372,17 @@ components:
 
 
 
+    Document:
+      description: Textual object
+      type: object
+      required:
+        - body
+      properties:
+        title:
+          description: Document title
+          type: string
+          format: utf8
+        body:
+          description: Document body
+          type: string
+          format: byte

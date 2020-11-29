@@ -10,25 +10,93 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-  - url: http://localhost
+  - url: http://api.isagog.com
     variables:
       port:
-        default: 3200
+        default: '8030'
       basePath:
-        default: /
+        default: /data
+
 tags:
   - name: DataService
 
 paths:
 
-  /data/query:
-    $ref: kg-openapi.yaml#/data/query
+  /query:
+    post:
+      summary: Knowledge query
+      description: Queries a Knowledge Graph
+      parameters:
+        - name: kg
+          in: query
+          required: false
+          schema:
+            type: string
+            format: id
+          description: Query context (opt)
+      operationId: query
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        401:
+          description: Unsupported language
+        402:
+          description: Invalid query
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Query'
 
-  /data/retrieve:
-    $ref: kg-openapi.yaml#/data/retrieve
+        description: The query
+        required: true
+      tags:
+        - DataService
 
-  /data/upload:
-    $ref: kg-openapi.yaml#/data/upload
+  /upload:
+    post:
+      summary: Bulk upload
+      description: Uploads a resource
+      parameters:
+        - name: kg
+          in: query
+          required: true
+          schema:
+            type: string
+      operationId: upload
+      responses:
+        200:
+          description: Success
+        401:
+          description: Unknown graph
+        402:
+          description: Malformed document
+        403:
+          description: Unsupported format
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Upload'
+
+      tags:
+        - DataService
 
 components:
   schemas:
@@ -40,12 +108,17 @@ components:
       properties:
         qtype:
           type: string
+#          enum:
+#            - QFRAME
+#            - QEXPRESSION
+#            - QKEYWORDS
+#          NOT SUPPORTED YET
       discriminator:
         propertyName: qtype
         mapping:
-          QueryFrame: '#/components/schemas/QueryFrame'
-          QueryExpression: '#/components/schemas/QueryExpression'
-          QueryKeywords: '#/components/schemas/QueryKeywords'
+          QFRAME: '#/components/schemas/QueryFrame'
+          QEXPRESSION: '#/components/schemas/QueryExpression'
+          QKEYWORDS: '#/components/schemas/QueryKeywords'
 
     QueryExpression:
       description: Query structured string
@@ -64,7 +137,7 @@ components:
           description: Query language
         query:
           type: string
-          format: UTF-8
+          format: utf8
           description: Query string
 
     QueryFrame:
@@ -165,7 +238,7 @@ components:
           type: array
           items:
             type: string
-            format: UTF-8
+            format: utf8
         support:
           type: number
           format: double

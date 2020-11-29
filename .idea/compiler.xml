@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="java-client" />
+        <module name="java-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="java-client" target="1.8" />
+      <module name="java-server" target="1.8" />
       <module name="kg-client" target="1.8" />
       <module name="kg-server" target="1.8" />
       <module name="kg-service" target="1.7" />
@@ -20,6 +22,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="java-client" options="-Xlint:all -J-Xss4m" />
+      <module name="java-server" options="-Xlint:all -J-Xss4m" />
       <module name="kg-client" options="-Xlint:all -J-Xss4m" />
       <module name="kg-service" options="-Xlint:all -J-Xss4m" />
     </option>

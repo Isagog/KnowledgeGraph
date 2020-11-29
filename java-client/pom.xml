@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.isagog</groupId>
-    <artifactId>kg-java-client</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>${artifact.id}</artifactId>
+    <version>${artifact.ver}</version>
+    <packaging>jar</packaging>
+
 
     <description>Isagog Knowledge Graph Java Open API</description>
     <scm>
@@ -49,11 +51,12 @@
                 <!-- /RELEASE_VERSION -->
                 <executions>
                     <execution>
+                        <id>data</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>../spec/kg-openapi.yaml</inputSpec>
+                            <inputSpec>../spec/kg-data.yaml</inputSpec>
                             <generatorName>${generator-language}</generatorName>
                             <configOptions>
                                 <sourceFolder>src</sourceFolder>
@@ -61,13 +64,74 @@
                             <output>${project.build.directory}</output>
                             <apiPackage>com.isagog.kg</apiPackage>
                             <groupId>com.isagog</groupId>
-                            <artifactId>kg-service</artifactId>
-                            <artifactVersion>0.1.0</artifactVersion>
+                            <artifactId>${artifact.id}</artifactId>
+                            <artifactVersion>${artifact.ver}</artifactVersion>
+                            <apiPackage>com.isagog.kg.api</apiPackage>
+                            <modelPackage>com.isagog.kg.model</modelPackage>
+
+                        </configuration>
+
+                    </execution>
+                    <execution>
+                        <id>language</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>../spec/kg-language.yaml</inputSpec>
+                            <generatorName>${generator-language}</generatorName>
+                            <configOptions>
+                                <sourceFolder>src</sourceFolder>
+                            </configOptions>
+                            <output>${project.build.directory}</output>
+                            <apiPackage>com.isagog.kg</apiPackage>
+                            <groupId>com.isagog</groupId>
+                            <artifactId>${artifact.id}</artifactId>
+                            <artifactVersion>${artifact.ver}</artifactVersion>
                             <apiPackage>com.isagog.kg.api</apiPackage>
                             <modelPackage>com.isagog.kg.model</modelPackage>
                         </configuration>
                     </execution>
-
+                    <execution>
+                        <id>knowledge</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>../spec/kg-knowledge.yaml</inputSpec>
+                            <generatorName>${generator-language}</generatorName>
+                            <configOptions>
+                                <sourceFolder>src</sourceFolder>
+                            </configOptions>
+                            <output>${project.build.directory}</output>
+                            <apiPackage>com.isagog.kg</apiPackage>
+                            <groupId>com.isagog</groupId>
+                            <artifactId>${artifact.id}</artifactId>
+                            <artifactVersion>${artifact.ver}</artifactVersion>
+                            <apiPackage>com.isagog.kg.api</apiPackage>
+                            <modelPackage>com.isagog.kg.model</modelPackage>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>interact</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>../spec/kg-interact.yaml</inputSpec>
+                            <generatorName>${generator-language}</generatorName>
+                            <configOptions>
+                                <sourceFolder>src</sourceFolder>
+                            </configOptions>
+                            <output>${project.build.directory}</output>
+                            <apiPackage>com.isagog.kg</apiPackage>
+                            <groupId>com.isagog</groupId>
+                            <artifactId>${artifact.id}</artifactId>
+                            <artifactVersion>${artifact.ver}</artifactVersion>
+                            <apiPackage>com.isagog.kg.api</apiPackage>
+                            <modelPackage>com.isagog.kg.model</modelPackage>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -284,6 +348,8 @@
     </dependencies>
 
     <properties>
+        <artifact.id>kg-service-api</artifact.id>
+        <artifact.ver>1.0.0-SNAPSHOT</artifact.ver>
         <generator-language>java</generator-language>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -296,7 +362,7 @@
         <threetenbp-version>1.4.3</threetenbp-version>
         <javax-annotation-version>1.3.2</javax-annotation-version>
         <junit-version>4.13.1</junit-version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>utf8</project.build.sourceEncoding>
     </properties>
 
 </project>
