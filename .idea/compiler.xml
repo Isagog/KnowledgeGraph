@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="java-client" />
         <module name="java-server" />
+        <module name="kg-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -15,7 +16,7 @@
       <module name="java-server" target="1.8" />
       <module name="kg-client" target="1.8" />
       <module name="kg-server" target="1.8" />
-      <module name="kg-service" target="1.7" />
+      <module name="kg-service" target="1.8" />
       <module name="KnowledgeGraph" target="1.5" />
     </bytecodeTargetLevel>
   </component>

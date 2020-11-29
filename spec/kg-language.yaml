@@ -158,8 +158,6 @@ components:
 
     SentenceAnnotation:
         description: Text annotation
-        allOf:
-          - $ref: '#/components/schemas/Sentence'
         type: object
         properties:
           classes:
@@ -182,15 +180,25 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/DependencyAnnotation'
+          sentence:
+              $ref: '#/components/schemas/Sentence'
 
 
     TokenAnnotation:
       description: Base class for token annotations, should be abstract
       type: object
       required:
+        - ttype
         - token
         - offset
       properties:
+        ttype:
+          description: Token type
+          type: string
+#          enum:
+#            - BASIC
+#            - ENTITY
+#            - DEPEND
         token:
           type: string
         offset:
@@ -201,6 +209,12 @@ components:
         support:
           type: number
           format: double
+      discriminator:
+          propertyName: ttype
+          mapping:
+            BASIC:  '#/components/schemas/BasicAnnotation'
+            ENTITY: '#/components/schemas/EntityAnnotation'
+            DEPEND: '#/components/schemas/DependencyAnnotation'
 
     BasicAnnotation:
         description: Pos and lemma annotation

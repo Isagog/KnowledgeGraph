@@ -82,11 +82,9 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <!-- RELEASE_VERSION -->
                 <version>5.0.0-SNAPSHOT</version>
-                <!-- /RELEASE_VERSION -->
                 <executions>
-                    <!--
+                    <!-- openapi generation -->
                     <execution>
                         <id>data</id>
                         <goals>
@@ -173,7 +171,7 @@
                             <modelPackage>com.isagog.kg.model</modelPackage>
                         </configuration>
                     </execution>
-                    -->
+                    <!-- end openapi generation -->
                 </executions>
             </plugin>
 
@@ -187,7 +185,7 @@
                     <maxmem>512m</maxmem>
                     <compilerArgs>
                         <arg>-Xlint:all</arg>
-                        <arg>-J-Xss4m</arg><!-- Compiling the generated JSON.java file may require larger stack size. -->
+                        <arg>-J-Xss4m</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>

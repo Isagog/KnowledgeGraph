@@ -384,6 +384,7 @@ components:
         - ktype
       properties:
         ktype:
+          description: Knowledge element type
           type: string
         linguisticNotes:
           description: Linguistic annotations
