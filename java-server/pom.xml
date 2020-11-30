@@ -84,7 +84,7 @@
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>5.0.0-SNAPSHOT</version>
                 <executions>
-                    <!-- openapi generation -->
+                    <!-- openapi generation
                     <execution>
                         <id>data</id>
                         <goals>
@@ -171,7 +171,7 @@
                             <modelPackage>com.isagog.kg.model</modelPackage>
                         </configuration>
                     </execution>
-                     <!-- end openapi generation -->
+                      end openapi generation -->
                 </executions>
             </plugin>
 

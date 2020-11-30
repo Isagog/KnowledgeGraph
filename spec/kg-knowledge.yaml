@@ -144,39 +144,63 @@ paths:
       tags:
         - KnowledgeService
 
- /create:
-    post:
-      summary: Element creation
-      description: Creates a new KnowledgeElement
-      operationId: createElement
-      responses:
-        200:
-          description: Success
-        403:
-          description: Invalid element
-        405:
-          description: Unsupported element
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-        503:
-          description: Missing implementation
-      parameters:
-        - name: overwrite
-          in: query
-          schema:
-            type: boolean
-            default: false
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/KnowledgeElement'
-        description: Element specification
-        required: true
-      tags:
-        - KnowledgeService
+ /create/entity:
+   post:
+     summary: Entity creation
+     description: Creates a new Entity
+     operationId: createEntity
+     responses:
+       200:
+         description: Success
+       403:
+         description: Invalid element
+       405:
+         description: Unsupported element
+       501:
+         description: Service unavailable
+       502:
+         description: Server error
+       503:
+         description: Missing implementation
+     requestBody:
+       content:
+         application/json:
+           schema:
+             $ref: '#/components/schemas/Entity'
+       description: Statement specification
+       required: true
+     tags:
+       - KnowledgeService
+
+
+ /create/statement:
+   post:
+     summary: Entity statement creation
+     description: Creates a new Statement
+     operationId: createStatement
+     responses:
+       200:
+         description: Success
+       403:
+         description: Invalid element
+       405:
+         description: Unsupported element
+       501:
+         description: Service unavailable
+       502:
+         description: Server error
+       503:
+         description: Missing implementation
+     requestBody:
+       content:
+         application/json:
+           schema:
+             $ref: '#/components/schemas/EntityStatement'
+       description: Statement specification
+       required: true
+     tags:
+       - KnowledgeService
+
 
  /delete:
     get:
@@ -209,18 +233,18 @@ paths:
       tags:
         - KnowledgeService
 
- /get:
+ /get/entity:
     get:
       summary: Element access
       description: Returns a KnowledgeElement
-      operationId: getElement
+      operationId: getEntity
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/KnowledgeElement'
+                $ref: '#/components/schemas/Entity'
         401:
           description: Element not found
         402:
@@ -375,7 +399,6 @@ components:
           format: double
           minimum: 0.0
           maximum: 1.0
-
 
     KnowledgeElement:
       description: Managed knowledge element (should be abstract)
@@ -613,19 +636,19 @@ components:
       type: object
       required:
         - predicate
+        - object
       properties:
         predicate:
           description: Ontology relation or attribute
           type: string
           format: id
+        relational:
+          type: boolean
+          default: false
         object:
-          description: Ontology concept
+          description: Statement's object, i.e. an id or a value
           type: string
-          format: id
-        value:
-          description: Attribute value
-          type: string
-          format: byte
+          format: utf8
 
     Frame:
       description: Conceptual pattern, e.g. a query or a form
