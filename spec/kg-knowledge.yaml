@@ -394,18 +394,18 @@ components:
       discriminator:
         propertyName: ktype
         mapping:
-          CONCEPT:            '#/components/schemas/Concept'
-          RELATIONALCONCEPT:  '#/components/schemas/RelationalConcept'
-          ATTRIBUTIVECONCEPT: '#/components/schemas/AttributiveConcept'
-          RELATION:           '#/components/schemas/Relation'
-          ATTRIBUTE:          '#/components/schemas/Attribute'
-          ENTITY:             '#/components/schemas/Entity'
-          PREDICATESTATEMENT: '#/components/schemas/PredicateStatement'
-          ENTITYSTATEMENT:    '#/components/schemas/EntityStatement'
-          FRAME:              '#/components/schemas/Frame'
-          FRAMEINSTANCE:      '#/components/schemas/FrameInstance'
-          SLOT:               '#/components/schemas/Slot'
-          SLOTINSTANCE:       '#/components/schemas/SlotInstance'
+          Concept:             '#/components/schemas/Concept'
+          RelationalConcept:   '#/components/schemas/RelationalConcept'
+          AttributiveConcept:  '#/components/schemas/AttributiveConcept'
+          Relation:            '#/components/schemas/Relation'
+          Attribute:           '#/components/schemas/Attribute'
+          Entity:              '#/components/schemas/Entity'
+          PredicateStatement:  '#/components/schemas/PredicateStatement'
+          EntityStatement:     '#/components/schemas/EntityStatement'
+          Frame:               '#/components/schemas/Frame'
+          FrameInstance:       '#/components/schemas/FrameInstance'
+          Slot:                '#/components/schemas/Slot'
+          SlotInstance:        '#/components/schemas/SlotInstance'
 
 
 
@@ -583,8 +583,8 @@ components:
       discriminator:
         propertyName: stype
         mapping:
-          ENTITYSTATEMENT:    '#/components/schemas/EntityStatement'
-          PREDICATESTATEMENT: '#/components/schemas/PredicateStatement'
+          EntityStatement:    '#/components/schemas/EntityStatement'
+          PredicateStatement: '#/components/schemas/PredicateStatement'
 
     PredicateStatement:
       description: Statement whose subject is a predicate (conceptual assertion)
@@ -679,9 +679,9 @@ components:
       discriminator:
         propertyName: stype
         mapping:
-          CONCEPTUALSLOT:  '#/components/schemas/ConceptualSlot'
-          RELATIONALSLOT:  '#/components/schemas/RelationalSlot'
-          ATTRIBUTIVESLOT: '#/components/schemas/AttributiveSlot'
+          ConceptualSlot:  '#/components/schemas/ConceptualSlot'
+          RelationalSlot:  '#/components/schemas/RelationalSlot'
+          AttributiveSlot: '#/components/schemas/AttributiveSlot'
 
     FrameInstance:
       description: Frame instance
@@ -812,9 +812,9 @@ components:
       discriminator:
           propertyName: itype
           mapping:
-            CONCEPTUALINSTANCE: '#/components/schemas/ConceptualInstance'
-            RELATIONALINSTANCE: '#/components/schemas/RelationalInstance'
-            ATTRIBUTIVEINSTACE: '#/components/schemas/AttributiveInstance'
+            ConceptualInstance: '#/components/schemas/ConceptualInstance'
+            RelationalInstance: '#/components/schemas/RelationalInstance'
+            AttributiveInstance: '#/components/schemas/AttributiveInstance'
 
     ConceptualInstance:
       type: object

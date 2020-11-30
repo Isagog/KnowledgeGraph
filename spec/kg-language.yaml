@@ -195,10 +195,6 @@ components:
         ttype:
           description: Token type
           type: string
-#          enum:
-#            - BASIC
-#            - ENTITY
-#            - DEPEND
         token:
           type: string
         offset:
@@ -212,9 +208,9 @@ components:
       discriminator:
           propertyName: ttype
           mapping:
-            BASIC:  '#/components/schemas/BasicAnnotation'
-            ENTITY: '#/components/schemas/EntityAnnotation'
-            DEPEND: '#/components/schemas/DependencyAnnotation'
+            BasicAnnotation:  '#/components/schemas/BasicAnnotation'
+            EntityAnnotation: '#/components/schemas/EntityAnnotation'
+            DependencyAnnotation: '#/components/schemas/DependencyAnnotation'
 
     BasicAnnotation:
         description: Pos and lemma annotation

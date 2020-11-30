@@ -108,17 +108,12 @@ components:
       properties:
         qtype:
           type: string
-#          enum:
-#            - QFRAME
-#            - QEXPRESSION
-#            - QKEYWORDS
-#          NOT SUPPORTED YET
       discriminator:
         propertyName: qtype
         mapping:
-          QFRAME: '#/components/schemas/QueryFrame'
-          QEXPRESSION: '#/components/schemas/QueryExpression'
-          QKEYWORDS: '#/components/schemas/QueryKeywords'
+          QueryFrame: '#/components/schemas/QueryFrame'
+          QueryExpression: '#/components/schemas/QueryExpression'
+          QueryKeywords: '#/components/schemas/QueryKeywords'
 
     QueryExpression:
       description: Query structured string
