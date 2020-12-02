@@ -18,12 +18,157 @@ servers:
         default: /knowledge
 tags:
   - name: KnowledgeService
-    description: Ontology and reasoning functionalities
+    description: Ontology and reasoning functionalities (read-only)
 
 paths:
 
- /search:
-  get:
+  /get/concept:
+    get:
+      summary: Gets a concept
+      description: Gets a concept
+      operationId: getConcept
+      parameters:
+        - name: id
+          in: query
+          description: The concept's id
+          schema:
+            type: string
+            format: id
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Concept'
+        401:
+          description: No results
+        402:
+          description: Invalid query
+        403:
+          description: Invalid attribute
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+        - KnowledgeService
+
+  /get/relation:
+    get:
+      summary: Gets a relation
+      description: Gets a relation
+      operationId: getRelation
+      parameters:
+        - name: id
+          in: query
+          description: The relation's id
+          schema:
+            type: string
+            format: id
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Relation'
+        401:
+          description: No results
+        402:
+          description: Invalid query
+        403:
+          description: Invalid attribute
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+        - KnowledgeService
+
+  /get/attribute:
+    get:
+      summary: Gets an attribute
+      description: Gets an attirbute
+      operationId: getAttribute
+      parameters:
+        - name: id
+          in: query
+          description: The attribute's id
+          schema:
+            type: string
+            format: id
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Attribute'
+        401:
+          description: No results
+        402:
+          description: Invalid query
+        403:
+          description: Invalid attribute
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+        - KnowledgeService
+
+  /get/frame:
+    get:
+      summary: Gets a frame
+      description: Gets a frame
+      operationId: getFrame
+      parameters:
+        - name: id
+          in: query
+          description: The frame's id
+          schema:
+            type: string
+            format: id
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Frame'
+        401:
+          description: No results
+        402:
+          description: Invalid query
+        403:
+          description: Invalid attribute
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+        - KnowledgeService
+
+
+  /search:
+   get:
     summary: Knowledge search
     description: Search knowledge items
     operationId: search
@@ -32,7 +177,6 @@ paths:
         in: query
         description: The query to search by
         required: true
-        explode: false
         schema:
           type: string
       - name: etype
@@ -92,7 +236,7 @@ paths:
       - KnowledgeService
 
 
- /evaluate:
+  /evaluate:
     post:
       summary: Entity evaluation
       description: Evaluates an entity as an instance of known concepts.
@@ -144,142 +288,9 @@ paths:
       tags:
         - KnowledgeService
 
- /create/entity:
-   post:
-     summary: Entity creation
-     description: Creates a new Entity
-     operationId: createEntity
-     responses:
-       200:
-         description: Success
-       403:
-         description: Invalid element
-       405:
-         description: Unsupported element
-       501:
-         description: Service unavailable
-       502:
-         description: Server error
-       503:
-         description: Missing implementation
-     requestBody:
-       content:
-         application/json:
-           schema:
-             $ref: '#/components/schemas/Entity'
-       description: Statement specification
-       required: true
-     tags:
-       - KnowledgeService
 
 
- /create/statement:
-   post:
-     summary: Entity statement creation
-     description: Creates a new Statement
-     operationId: createStatement
-     responses:
-       200:
-         description: Success
-       403:
-         description: Invalid element
-       405:
-         description: Unsupported element
-       501:
-         description: Service unavailable
-       502:
-         description: Server error
-       503:
-         description: Missing implementation
-     requestBody:
-       content:
-         application/json:
-           schema:
-             $ref: '#/components/schemas/EntityStatement'
-       description: Statement specification
-       required: true
-     tags:
-       - KnowledgeService
-
-
- /delete:
-    get:
-      summary: Element deletion
-      description: Deletes a KnowledgeElement
-      operationId: deleteElement
-      responses:
-        200:
-          description: Success
-        401:
-          description: Element not found
-        402:
-          description: Not authorized
-        403:
-          description: Invalid element
-        405:
-          description: Protected element
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-        503:
-          description: Missing implementation
-      parameters:
-        - name: id
-          in: query
-          schema:
-            type: string
-            format: id
-      tags:
-        - KnowledgeService
-
- /get/entity:
-    get:
-      summary: Element access
-      description: Returns a KnowledgeElement
-      operationId: getEntity
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Entity'
-        401:
-          description: Element not found
-        402:
-          description: Not authorized
-        403:
-          description: Invalid element
-        405:
-          description: Protected element
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-        503:
-          description: Missing implementation
-      parameters:
-        - name: id
-          in: query
-          schema:
-            type: string
-            format: id
-        - name: details
-          in: query
-          schema:
-            type: string
-            enum:
-              - FULL
-              - SUMMARY
-              - NONE
-            default: NONE
-      tags:
-        - KnowledgeService
-
-
-
- /frame:
+  /frame:
     post:
       summary: Frame extraction from annotated text
       description: Extract frames from an annotated text or csv data
@@ -301,7 +312,7 @@ paths:
           schema:
             type: integer
             minimum: 1
-            maximum: 1000
+            maximum: 100
       operationId: getFrames
       responses:
         200:
@@ -335,8 +346,6 @@ paths:
               $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
       tags:
         - KnowledgeService
-
-
 
 components:
   schemas:
@@ -387,13 +396,13 @@ components:
             type: string
 
     ElementRanking:
-      description: Conceptual ranking record
+      description: Ranking record
       type: object
       required:
         - element
       properties:
         element:
-          $ref: '#/components/schemas/KnowledgeElement'
+           $ref: '#/components/schemas/KnowledgeElement'
         support:
           type: number
           format: double
