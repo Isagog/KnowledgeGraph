@@ -21,16 +21,138 @@ tags:
     description: Ontology and reasoning functionalities (read-only)
 
 paths:
+  /concepts:
+    summary: Represents the concepts of the Knowledge Graph T-BOX
+    description: >
+      This resource represents an individual concept in the Knowledge Graph T-BOX.
+    get:
+      summary: Get all the concepts in the Knowledge Graph
+      description: Get all the concepts in the Knowledge Graph
+      operationId: getAllConcepts
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Concept'
+        401:
+          description: No results
+        402:
+          description: Invalid query
+        403:
+          description: Invalid attribute
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+      - KnowledgeService
 
-  /get/concept:
+  /relations:
+    get:
+      summary: Gets all the relations in the Knowledge Graph
+      description: Gets a relation
+      operationId: getAllRelations
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Relation'
+        401:
+          description: No results
+        402:
+          description: Invalid query
+        403:
+          description: Invalid attribute
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+        - KnowledgeService
+        
+  /attributes:
+    get:
+      summary: Gets all attributes in the Knowledge Graph
+      description: Gets an attirbute
+      operationId: getAllAttributes
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Attribute'
+        401:
+          description: No results
+        402:
+          description: Invalid query
+        403:
+          description: Invalid attribute
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+        - KnowledgeService    
+        
+  /frames:
+    get:
+      summary: Gets all the frames in the Knowledge Graph
+      description: Gets a frame
+      operationId: getAllFrames
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Frame'
+        401:
+          description: No results
+        402:
+          description: Invalid query
+        403:
+          description: Invalid attribute
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+        - KnowledgeService
+        
+  /concepts/{id}:
+    summary: Represents a concept
+    description: >
+      This resource represents an individual concept in the Knowledge Graph T-BOX. Each concept is identified by a unique string `id`.
     get:
       summary: Gets a concept
       description: Gets a concept
       operationId: getConcept
       parameters:
         - name: id
-          in: query
+          in: path
           description: The concept's id
+          required: true
           schema:
             type: string
             format: id
@@ -57,15 +179,16 @@ paths:
           description: Missing implementation
       tags:
         - KnowledgeService
-
-  /get/relation:
+        
+  /relations/{id}:
     get:
       summary: Gets a relation
       description: Gets a relation
       operationId: getRelation
       parameters:
         - name: id
-          in: query
+          in: path
+          required: true
           description: The relation's id
           schema:
             type: string
@@ -93,51 +216,55 @@ paths:
           description: Missing implementation
       tags:
         - KnowledgeService
+        
+  /attributes/{id}:
+      get:
+        summary: Gets an attribute
+        description: Gets an attirbute
+        operationId: getAttribute
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: The attribute's id
+            schema:
+              type: string
+              format: id
+        responses:
+          200:
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Attribute'
+          401:
+            description: No results
+          402:
+            description: Invalid query
+          403:
+            description: Invalid attribute
+          501:
+            description: Service unavailable
+          502:
+            description: Server error
+          503:
+            description: Missing implementation
+        tags:
+          - KnowledgeService
+          
 
-  /get/attribute:
-    get:
-      summary: Gets an attribute
-      description: Gets an attirbute
-      operationId: getAttribute
-      parameters:
-        - name: id
-          in: query
-          description: The attribute's id
-          schema:
-            type: string
-            format: id
-      responses:
-        200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Attribute'
-        401:
-          description: No results
-        402:
-          description: Invalid query
-        403:
-          description: Invalid attribute
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-        503:
-          description: Missing implementation
-      tags:
-        - KnowledgeService
-
-  /get/frame:
+    
+  /frames/{id}:
     get:
       summary: Gets a frame
       description: Gets a frame
       operationId: getFrame
       parameters:
         - name: id
-          in: query
+          in: path
+          required: true
           description: The frame's id
           schema:
             type: string
@@ -165,7 +292,63 @@ paths:
           description: Missing implementation
       tags:
         - KnowledgeService
-
+        
+  /frames/instance:
+    post:
+      summary: Frame extraction from annotated text
+      description: Extract frames from an annotated text or csv data
+      parameters:
+        - name: task
+          in: query
+          required: false
+          description: Kind of analysis (RANKING = single frame ranking, SPAN = non overlapping frame spans)
+          schema:
+            type: string
+            enum:
+              - RANKING
+              - SPAN
+            default: SPAN
+        - name: limit
+          in: query
+          required: false
+          description: Limits the number of returned frame candidates to the supplied value
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+      operationId: getFrames
+      responses:
+        200:
+          description: Frame ranking
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ElementRanking'
+        201:
+          description: Frame span
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FrameInstance'
+        402:
+          description: Insufficient data mapping
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
+      tags:
+        - KnowledgeService
 
   /search:
    get:
@@ -285,65 +468,6 @@ paths:
               $ref: '#/components/schemas/Entity'
         description: Entity specification
         required: true
-      tags:
-        - KnowledgeService
-
-
-
-  /frame:
-    post:
-      summary: Frame extraction from annotated text
-      description: Extract frames from an annotated text or csv data
-      parameters:
-        - name: task
-          in: query
-          required: false
-          description: Kind of analysis (RANKING = single frame ranking, SPAN = non overlapping frame spans)
-          schema:
-            type: string
-            enum:
-              - RANKING
-              - SPAN
-            default: SPAN
-        - name: limit
-          in: query
-          required: false
-          description: Limits the number of returned frame candidates to the supplied value
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 100
-      operationId: getFrames
-      responses:
-        200:
-          description: Frame ranking
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ElementRanking'
-        201:
-          description: Frame span
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/FrameInstance'
-        402:
-          description: Insufficient data mapping
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-        503:
-          description: Missing implementation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
       tags:
         - KnowledgeService
 

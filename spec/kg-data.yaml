@@ -22,7 +22,7 @@ tags:
 
 paths:
 
-  /create/entity:
+  /entities:
     post:
       summary: Entity creation
       description: Creates a new entity uri and related statements
@@ -50,8 +50,82 @@ paths:
       tags:
         - DataService
 
+  /entities/{id}:
+    get:
+        summary: Element access
+        description: Returns a KnowledgeElement
+        operationId: getEntity
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: string
+              format: id
+          - name: details
+            in: query
+            schema:
+              type: string
+              enum:
+                - FULL
+                - SUMMARY
+                - NONE
+              default: NONE
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: kg-knowledge.yaml#/components/schemas/Entity
+          401:
+            description: Element not found
+          402:
+            description: Not authorized
+          403:
+            description: Invalid element
+          405:
+            description: Protected element
+          501:
+            description: Service unavailable
+          502:
+            description: Server error
+          503:
+            description: Missing implementation
+        tags:
+          - DataService
+    delete:
+      summary: Entity deletion
+      description: Deletes an entity and related statements
+      operationId: deleteEntity
+      responses:
+        200:
+          description: Success
+        401:
+          description: Element not found
+        402:
+          description: Not authorized
+        403:
+          description: Invalid element
+        405:
+          description: Protected element
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: id
+      tags:
+        - DataService
 
-  /create/statement:
+  /statements:
     post:
       summary: Entity statement creation
       description: Creates a new entity statement
@@ -79,40 +153,7 @@ paths:
       tags:
         - DataService
 
-  /delete/entity:
-    get:
-      summary: Entity deletion
-      description: Deletes an entity and related statements
-      operationId: deleteEntity
-      responses:
-        200:
-          description: Success
-        401:
-          description: Element not found
-        402:
-          description: Not authorized
-        403:
-          description: Invalid element
-        405:
-          description: Protected element
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-        503:
-          description: Missing implementation
-      parameters:
-        - name: id
-          in: query
-          required: true
-          schema:
-            type: string
-            format: id
-      tags:
-        - DataService
-
-  /delete/statement:
-    post:
+    delete:
       summary: Statement deletion
       description: Deletes a Statement
       operationId: deleteStatement
@@ -143,52 +184,6 @@ paths:
       tags:
         - DataService
 
-
-
-  /get/entity:
-    get:
-      summary: Element access
-      description: Returns a KnowledgeElement
-      operationId: getEntity
-      parameters:
-        - name: id
-          in: query
-          required: true
-          schema:
-            type: string
-            format: id
-        - name: details
-          in: query
-          schema:
-            type: string
-            enum:
-              - FULL
-              - SUMMARY
-              - NONE
-            default: NONE
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: kg-knowledge.yaml#/components/schemas/Entity
-        401:
-          description: Element not found
-        402:
-          description: Not authorized
-        403:
-          description: Invalid element
-        405:
-          description: Protected element
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-        503:
-          description: Missing implementation
-      tags:
-        - DataService
 
   /query/expression:
     post:
@@ -510,8 +505,6 @@ components:
                   - ERROR
               message:
                 type: string
-
-
 
     Upload:
       type: object
