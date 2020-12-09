@@ -276,62 +276,83 @@ components:
           - $ref: '#/components/schemas/TokenAnnotation'
         type: object
         required:
+          - dtype
           - governor
         properties:
+          dtype:
+            type: string
           governor:
             description: Head index of the governor's token
             type: integer
             format: int32
             minimum: 0
-          syntax:
-            description: Governor's syntactic role
-            type: string
-            enum:
-              - ACL	        # clausal modifier of noun (adjectival clause)
-              - ADVCL	    # adverbial clause modifier
-              - ADVMOD	    # adverbial modifier
-              - AMOD	    # adjectival modifier
-              - APPOS	    # appositional modifier
-              - AUX	        # auxiliary
-              - CASE	    # case marking
-              - CC	        # coordinating conjunction
-              - CCOMP	    # clausal complement
-              - CLF	        # classifier
-              - COMPOUND    # compound
-              - CONJ	    # conjunct
-              - COP	        # copula
-              - CSUBJ	    # clausal subject
-              - DEP	        # unspecified dependency
-              - DET	        # determiner
-              - DISCOURSE   # discourse element
-              - DISLOCATED	# dislocated elements
-              - EXPL	    # expletive
-              - FIXED	    # fixed multiword expression
-              - FLAT	    # flat multiword expression
-              - GOESWITH	# goes with
-              - IOBJ	    # indirect object
-              - LIST	    # list
-              - MARK	    # marker
-              - NMOD	    # nominal modifier
-              - NSUBJ	    # nominal subject
-              - NUMMOD	    # numeric modifier
-              - OBJ  	    # object
-              - OBL	        # oblique nominal
-              - ORPHAN	    # orphan
-              - PARATAXIS	# parataxis
-              - PUNCT	    # punctuation
-              - REPARANDUM	# overridden disfluency
-              - ROOT	    # root
-              - VOCATIVE	# vocative
-              - XCOMP	    # open clausal complement
+        discriminator:
+          propertyName: dtype
+          mapping:
+            SyntacticRelation: '#/components/schemas/SyntacticRelation'
+            SemanticRelation: '#/components/schemas/SemanticRelation'
 
-          semantics:
-            $ref: '#/components/schemas/SemanticRelation'
+
+    SyntacticRelation:
+      description: Governor's syntactin role
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/DependencyAnnotation'
+      required:
+        - tag
+      properties:
+        tag:
+          description: Governor's syntactic role (Universal Dependencies)
+          type: string
+          enum:
+            - ACL            # clausal modifier of noun (adjectival clause)
+            - ADVCL        # adverbial clause modifier
+            - ADVMOD        # adverbial modifier
+            - AMOD        # adjectival modifier
+            - APPOS        # appositional modifier
+            - AUX            # auxiliary
+            - CASE        # case marking
+            - CC            # coordinating conjunction
+            - CCOMP        # clausal complement
+            - CLF            # classifier
+            - COMPOUND    # compound
+            - CONJ        # conjunct
+            - COP            # copula
+            - CSUBJ        # clausal subject
+            - DEP            # unspecified dependency
+            - DET            # determiner
+            - DISCOURSE   # discourse element
+            - DISLOCATED    # dislocated elements
+            - EXPL        # expletive
+            - FIXED        # fixed multiword expression
+            - FLAT        # flat multiword expression
+            - GOESWITH    # goes with
+            - IOBJ        # indirect object
+            - LIST        # list
+            - MARK        # marker
+            - NMOD        # nominal modifier
+            - NSUBJ        # nominal subject
+            - NUMMOD        # numeric modifier
+            - OBJ        # object
+            - OBL            # oblique nominal
+            - ORPHAN        # orphan
+            - PARATAXIS    # parataxis
+            - PUNCT        # punctuation
+            - REPARANDUM    # overridden disfluency
+            - ROOT        # root
+            - VOCATIVE    # vocative
+            - XCOMP        # open clausal complement
+            - OTHER
+        extension:
+          description: Further details or non UD tag
+          type: string
 
 
     SemanticRelation:
       description: Governor's semantic role
       type: object
+      allOf:
+        - $ref: '#/components/schemas/DependencyAnnotation'
       required:
           - predicate
           - role
