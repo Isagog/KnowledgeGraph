@@ -293,21 +293,11 @@ paths:
       tags:
         - KnowledgeService
         
-  /frames/instance:
+  /frames/extract:
     post:
-      summary: Frame extraction from annotated text
-      description: Extract frames from an annotated text or csv data
+      summary: Frame extraction from sentences
+      description: Extract frames from an annotated sentence
       parameters:
-        - name: task
-          in: query
-          required: false
-          description: Kind of analysis (RANKING = single frame ranking, SPAN = non overlapping frame spans)
-          schema:
-            type: string
-            enum:
-              - RANKING
-              - SPAN
-            default: SPAN
         - name: limit
           in: query
           required: false
@@ -316,17 +306,9 @@ paths:
             type: integer
             minimum: 1
             maximum: 100
-      operationId: getFrames
+      operationId: extractFrames
       responses:
         200:
-          description: Frame ranking
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ElementRanking'
-        201:
           description: Frame span
           content:
             application/json:
@@ -801,6 +783,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Slot'
+        categories:
+          description: Meta-categories
+          type: array
+          items:
+            type: string
+
 
 
     Slot:
@@ -880,14 +868,14 @@ components:
       allOf:
         - $ref: '#/components/schemas/Slot'
       properties:
-       features:
-        type: array
-        items:
-          type: string
-          enum:
-            - DISTINGUISHED
-            - INFORMATIVE
-            - MANDATORY
+       informative:
+         description: Values should be returned to caller
+         type: boolean
+         default: false
+       mandatory:
+         description: Values should be instantiated
+         type: boolean
+         default: false
 
     RelationalSlot:
       allOf:
