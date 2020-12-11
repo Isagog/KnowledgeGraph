@@ -898,14 +898,7 @@ components:
             type: integer
             minimum: 0
             maximum: 128
-        chainBinding:
-          description: Slot chaining, must be some relational slot in the same frame.
-                       Chaining means that the object of the bound slot must be the subject of this slot.
-          type: array
-          items:
-            type: integer
-            minimum: 0
-            maximum: 128
+
       required:
         - subjectBinding
 
@@ -924,8 +917,16 @@ components:
             type: integer
             minimum: 0
             maximum: 128
+        objectBinding:
+          description: Slot's object binding, must be some relational slot in the same frame.
+            The binding means 'same object as'.
+          type: array
+          items:
+            type: integer
+            minimum: 0
+            maximum: 128
         valueType:
-          description: Type of the Attribute's value
+          description: Meta-type of the Attribute's value
           type: string
           enum:
             - STRING
