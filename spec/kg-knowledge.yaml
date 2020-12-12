@@ -524,6 +524,11 @@ components:
         ktype:
           description: Knowledge element type
           type: string
+        meta:
+          description: Meta-categories
+          type: array
+          items:
+            type: string
         linguisticNotes:
           description: Linguistic annotations
           type: array
@@ -775,7 +780,7 @@ components:
         - slots
       properties:
         id:
-          description: Frame identifier, must be system-wide unique
+          description: Frame identifier
           type: string
           format: id
         slots:
@@ -783,11 +788,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Slot'
-        categories:
-          description: Meta-categories
-          type: array
-          items:
-            type: string
+
 
 
 
@@ -797,27 +798,19 @@ components:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
       required:
-        - fid
         - id
         - stype
       properties:
-        fid:
-          description: Frame id
-          type: string
-          format: id
         id:
-          description: Slot identifier, must be frame-wide unique
+          description: Slot identifier, must be frame-unique
           type: integer
           format: int32
           minimum: 0
           maximum: 128
         stype:
           type: string
-        label:
-          description: User-fiendly ientifier (opt), should be frame-wide unique
-          type: string
         predicate:
-          description: Ontology predicate mapping
+          description: Predicate identifier, should be a valid uri in a managed ontology
           type: string
           format: id
       discriminator:
@@ -883,22 +876,15 @@ components:
       type: object
       properties:
         subjectBinding:
-          description: Slot's subject binding, must be some slot in the same frame.
-                       If the bound slot is a relational one, the binding means 'same subject as'.
-          type: array
-          items:
-              type: integer
-              minimum: 0
-              maximum: 128
+          description: Slot's subject binding, must be a ConceptualSlot in the same frame.
+          type: integer
+          minimum: 0
+          maximum: 128
         objectBinding:
-          description: Slot's object binding, must be some relational slot in the same frame.
-                       The binding means 'same object as'.
-          type: array
-          items:
-            type: integer
-            minimum: 0
-            maximum: 128
-
+          description: Slot's object binding, must be a ConceptualSlot in the same frame.
+          type: integer
+          minimum: 0
+          maximum: 128
       required:
         - subjectBinding
 
@@ -910,36 +896,13 @@ components:
       description: A slot bound to an Attribute (data property)
       properties:
         subjectBinding:
-          description: Slot's subject binding, must be some slot in the same frame.
-            If the bound slot is a relational one, the binding means 'same subject as'.
-          type: array
-          items:
-            type: integer
-            minimum: 0
-            maximum: 128
-        objectBinding:
-          description: Slot's object binding, must be some relational slot in the same frame.
-            The binding means 'same object as'.
-          type: array
-          items:
-            type: integer
-            minimum: 0
-            maximum: 128
-        valueType:
-          description: Meta-type of the Attribute's value
-          type: string
-          enum:
-            - STRING
-            - NUMBER
-            - TEXT
-            - PERIOD
-            - AMOUNT
-            - LOCATION
-            - IDENTIFIER
-          default: STRING
-
+          description: Slot's subject binding, must be a ConceptualSlot slot in the same frame.
+          type: integer
+          minimum: 0
+          maximum: 128
       required:
         - subjectBinding
+
 
     SlotInstance:
       description: Slot value instance (should be abstract)
@@ -949,58 +912,20 @@ components:
       required:
         - itype
         - slot
+        - value
       properties:
         itype:
           type: string
+          enum:
+            - ENTITYVARIABLE
+            - ENTITY
+            - VALUEVARIABLE
+            - VALUE
         slot:
-          $ref: '#/components/schemas/Slot'
-      discriminator:
-          propertyName: itype
-          mapping:
-            ConceptualInstance: '#/components/schemas/ConceptualInstance'
-            RelationalInstance: '#/components/schemas/RelationalInstance'
-            AttributiveInstance: '#/components/schemas/AttributiveInstance'
-
-    ConceptualInstance:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/SlotInstance'
-      required:
-        - slot
-      properties:
-        slot:
-          $ref: '#/components/schemas/ConceptualSlot'
-        entity:
-          type: string
-
-    RelationalInstance:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/SlotInstance'
-      required:
-        - slot
-      properties:
-        slot:
-          $ref: '#/components/schemas/RelationalSlot'
-        subject:
-          type: string
-        object:
-          type: string
-
-    AttributiveInstance:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/SlotInstance'
-      required:
-        - slot
-      properties:
-        slot:
-          $ref: '#/components/schemas/AttributiveSlot'
-        subject:
-          type: string
+          $ref: '#/components/schemas/SlotReference'
         value:
           type: string
-          format: byte
+          format: utf8
         comparation:
           description: Comparation
           type: string
@@ -1010,3 +935,71 @@ components:
             - SMALLER
             - SIMILAR
           default: EQUAL
+#      discriminator:
+#          propertyName: itype
+#          mapping:
+#            ConceptualInstance: '#/components/schemas/ConceptualInstance'
+#            RelationalInstance: '#/components/schemas/RelationalInstance'
+#            AttributiveInstance: '#/components/schemas/AttributiveInstance'
+
+    SlotReference:
+      description: Reference to a frame slot
+      type: object
+      required:
+        - frameid
+        - slotid
+      properties:
+        frameid:
+          type: string
+          format: id
+        slotid:
+          type: integer
+          minimum: 0
+          maximum: 128
+
+
+#    ConceptualInstance:
+#      type: object
+#      allOf:
+#        - $ref: '#/components/schemas/SlotInstance'
+#      required:
+#        - slot
+#      properties:
+#        entity:
+#          type: string
+#
+#    RelationalInstance:
+#      type: object
+#      allOf:
+#        - $ref: '#/components/schemas/SlotInstance'
+#      required:
+#        - slot
+#      properties:
+#        subject:
+#          type: string
+#        object:
+#          type: string
+#
+#    AttributiveInstance:
+#      type: object
+#      allOf:
+#        - $ref: '#/components/schemas/SlotInstance'
+#      required:
+#        - slot
+#      properties:
+#        slot:
+#          $ref: '#/components/schemas/AttributiveSlot'
+#        subject:
+#          type: string
+#        value:
+#          type: string
+#          format: byte
+#        comparation:
+#          description: Comparation
+#          type: string
+#          enum:
+#            - EQUAL
+#            - GREATER
+#            - SMALLER
+#            - SIMILAR
+#          default: EQUAL
