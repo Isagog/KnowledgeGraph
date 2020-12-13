@@ -799,7 +799,6 @@ components:
       type: object
       required:
         - id
-        - stype
       properties:
         id:
           description: Slot identifier, must be frame-unique
@@ -814,7 +813,7 @@ components:
           type: string
           format: id
       discriminator:
-        propertyName: stype
+        propertyName: ktype
         mapping:
           ConceptualSlot:  '#/components/schemas/ConceptualSlot'
           RelationalSlot:  '#/components/schemas/RelationalSlot'
@@ -935,12 +934,7 @@ components:
             - SMALLER
             - SIMILAR
           default: EQUAL
-#      discriminator:
-#          propertyName: itype
-#          mapping:
-#            ConceptualInstance: '#/components/schemas/ConceptualInstance'
-#            RelationalInstance: '#/components/schemas/RelationalInstance'
-#            AttributiveInstance: '#/components/schemas/AttributiveInstance'
+
 
     SlotReference:
       description: Reference to a frame slot
@@ -957,49 +951,3 @@ components:
           minimum: 0
           maximum: 128
 
-
-#    ConceptualInstance:
-#      type: object
-#      allOf:
-#        - $ref: '#/components/schemas/SlotInstance'
-#      required:
-#        - slot
-#      properties:
-#        entity:
-#          type: string
-#
-#    RelationalInstance:
-#      type: object
-#      allOf:
-#        - $ref: '#/components/schemas/SlotInstance'
-#      required:
-#        - slot
-#      properties:
-#        subject:
-#          type: string
-#        object:
-#          type: string
-#
-#    AttributiveInstance:
-#      type: object
-#      allOf:
-#        - $ref: '#/components/schemas/SlotInstance'
-#      required:
-#        - slot
-#      properties:
-#        slot:
-#          $ref: '#/components/schemas/AttributiveSlot'
-#        subject:
-#          type: string
-#        value:
-#          type: string
-#          format: byte
-#        comparation:
-#          description: Comparation
-#          type: string
-#          enum:
-#            - EQUAL
-#            - GREATER
-#            - SMALLER
-#            - SIMILAR
-#          default: EQUAL
