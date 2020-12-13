@@ -707,8 +707,6 @@ components:
         - subject
         - stype
       properties:
-        stype:
-          type: string
         subject:
           type: string
           format: id
@@ -726,7 +724,7 @@ components:
           minimum: 0.0
           maximum: 1.0
       discriminator:
-        propertyName: stype
+        propertyName: ktype
         mapping:
           EntityStatement:    '#/components/schemas/EntityStatement'
           PredicateStatement: '#/components/schemas/PredicateStatement'
