@@ -547,7 +547,9 @@ components:
           EntityStatement:     '#/components/schemas/EntityStatement'
           Frame:               '#/components/schemas/Frame'
           FrameInstance:       '#/components/schemas/FrameInstance'
-          Slot:                '#/components/schemas/Slot'
+          ConceptualSlot:      '#/components/schemas/ConceptualSlot'
+          RelationalSlot:      '#/components/schemas/RelationalSlot'
+          AttributiveSlot:     '#/components/schemas/AttributiveSlot'
           SlotInstance:        '#/components/schemas/SlotInstance'
 
 
