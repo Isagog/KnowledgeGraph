@@ -806,8 +806,6 @@ components:
           format: int32
           minimum: 0
           maximum: 128
-        stype:
-          type: string
         predicate:
           description: Predicate identifier, should be a valid uri in a managed ontology
           type: string
