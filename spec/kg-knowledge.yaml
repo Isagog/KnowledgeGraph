@@ -816,6 +816,7 @@ components:
           ConceptualSlot:  '#/components/schemas/ConceptualSlot'
           RelationalSlot:  '#/components/schemas/RelationalSlot'
           AttributiveSlot: '#/components/schemas/AttributiveSlot'
+          ValueSlot:       '#/components/schemas/ValueSlot'
 
     FrameInstance:
       description: Frame instance
@@ -855,19 +856,18 @@ components:
 
 
     ConceptualSlot:
+      description: A slot boud to a concept
       allOf:
         - $ref: '#/components/schemas/Slot'
       properties:
-       informative:
-         description: Values should be returned to caller
-         type: boolean
-         default: false
-       mandatory:
-         description: Values should be instantiated
-         type: boolean
-         default: false
+       value:
+        description: Constant Entity reference (opt)
+        type: string
+        format: id
+
 
     RelationalSlot:
+      description: A slot bound to a relation (property)
       allOf:
         - $ref: '#/components/schemas/Slot'
       type: object
@@ -893,12 +893,30 @@ components:
       description: A slot bound to an Attribute (data property)
       properties:
         subjectBinding:
-          description: Slot's subject binding, must be a ConceptualSlot slot in the same frame.
+          description: Slot's subject binding, must be a ConceptualSlot in the same frame.
+          type: integer
+          minimum: 0
+          maximum: 128
+        objectBinding:
+          description: Slot's object binding, must be a ValueSlot in the same frame.
           type: integer
           minimum: 0
           maximum: 128
       required:
         - subjectBinding
+        - objectBinding
+
+    ValueSlot:
+      allOf:
+        - $ref: '#/components/schemas/Slot'
+      type: object
+      description: A slot bound to a data item
+      properties:
+          value:
+            description: Constant data value (opt)
+            type: string
+            format: utf8
+
 
 
     SlotInstance:
