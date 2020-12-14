@@ -590,9 +590,13 @@ components:
             - ADJ #adjective
             - ADV #adverb
             - NOUN #noun
+            - PRON #pronoun
+            - PROPN #proper noun
             - NUM #numeral
             - VERB #verb
-            - PHRASE
+            - NP #noun phrase
+            - VP #verb phrase
+            - X #other
         form:
           description: Linguistic rendering (base form)
           type: string
