@@ -524,16 +524,11 @@ components:
         ktype:
           description: Knowledge element type
           type: string
-        meta:
-          description: Meta-categories
+        annotations:
+          description: Knowledge annotations
           type: array
           items:
-            type: string
-        linguisticNotes:
-          description: Linguistic annotations
-          type: array
-          items:
-            $ref: '#/components/schemas/LinguisticAnnotation'
+            $ref: '#/components/schemas/KnowledgeAnnotation'
       discriminator:
         propertyName: ktype
         mapping:
@@ -553,14 +548,43 @@ components:
           SlotInstance:        '#/components/schemas/SlotInstance'
 
 
+    KnowledgeAnnotation:
+      description: Base class for knowledge annotations
+      required:
+        - atype
+      properties:
+        atype:
+          description: Annotation type
+          type: string
+        label:
+          description: Annotation label (opt)
+          type: string
+      discriminator:
+        propertyName: atype
+        mapping:
+          LinguisticAnnotation: '#/components/schemas/LinguisticAnnotation'
+          MetaclassAnnotation: '#/components/schemas/MetaclassAnnotation'
+
 
     LinguisticAnnotation:
       description: Linguistic attachment to knowledge elements
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeAnnotation'
       required:
-        - pos
+        - lang
+        - form
       properties:
+        lang:
+          type: string
+          enum:
+            - en
+            - es
+            - de
+            - fr
+            - it
+
         pos:
-          description: Part of speech
+          description: Part of speech (opt)
           type: string
           enum:
             - ADJ #adjective
@@ -569,13 +593,20 @@ components:
             - NUM #numeral
             - VERB #verb
             - PHRASE
-
         form:
-          description: Basic realization form
+          description: Linguistic rendering (base form)
           type: string
         regex:
           description: Regular expression to match occurrences (opt)
           type: string
+
+    MetaclassAnnotation:
+      description: Metaclass annotation
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeAnnotation'
+      required:
+        - label
+
 
     Concept:
       description: Unary atomic classifier
@@ -884,6 +915,7 @@ components:
           maximum: 128
       required:
         - subjectBinding
+        - objectBinding
 
 
     AttributiveSlot:
@@ -942,7 +974,7 @@ components:
           type: string
           format: utf8
         comparation:
-          description: Comparation
+          description: Comparation operator for data values
           type: string
           enum:
             - EQUAL
