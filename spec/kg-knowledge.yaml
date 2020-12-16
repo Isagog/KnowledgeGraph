@@ -315,7 +315,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/FrameInstance'
+                  $ref: '#/components/schemas/Frame'
         402:
           description: Insufficient data mapping
         501:
@@ -541,11 +541,11 @@ components:
           PredicateStatement:  '#/components/schemas/PredicateStatement'
           EntityStatement:     '#/components/schemas/EntityStatement'
           Frame:               '#/components/schemas/Frame'
-          FrameInstance:       '#/components/schemas/FrameInstance'
+ #         FrameInstance:       '#/components/schemas/FrameInstance'
           ConceptualSlot:      '#/components/schemas/ConceptualSlot'
           RelationalSlot:      '#/components/schemas/RelationalSlot'
           AttributiveSlot:     '#/components/schemas/AttributiveSlot'
-          SlotInstance:        '#/components/schemas/SlotInstance'
+  #        SlotInstance:        '#/components/schemas/SlotInstance'
 
 
     KnowledgeAnnotation:
@@ -562,8 +562,9 @@ components:
       discriminator:
         propertyName: atype
         mapping:
-          LinguisticAnnotation: '#/components/schemas/LinguisticAnnotation'
-          MetaclassAnnotation: '#/components/schemas/MetaclassAnnotation'
+          LinguisticAnnotation:  '#/components/schemas/LinguisticAnnotation'
+          MetalevelAnnotation:   '#/components/schemas/MetalevelAnnotation'
+          InformativeAnnotation: '#/components/schemas/InformativeAnnotation'
 
 
     LinguisticAnnotation:
@@ -604,13 +605,19 @@ components:
           description: Regular expression to match occurrences (opt)
           type: string
 
-    MetaclassAnnotation:
+    MetalevelAnnotation:
       description: Metaclass annotation
       allOf:
         - $ref: '#/components/schemas/KnowledgeAnnotation'
       required:
         - label
 
+    InformativeAnnotation:
+      description: Informative annotation
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeAnnotation'
+      required:
+        - label
 
     Concept:
       description: Unary atomic classifier
@@ -818,14 +825,26 @@ components:
           description: Frame identifier
           type: string
           format: id
-        slots:
+        conceptualSlots:
           description: Conceptual elements, up to 128
           type: array
           items:
-            $ref: '#/components/schemas/Slot'
-
-
-
+             $ref: '#/components/schemas/ConceptualSlot'
+        relationalSlots:
+          description: Relational elements, up to 128
+          type: array
+          items:
+            $ref: '#/components/schemas/RelationalSlot'
+        attributiveSlots:
+          description: Attributive elements, up to 128
+          type: array
+          items:
+            $ref: '#/components/schemas/AttributiveSlot'
+        valueSlots:
+          description: Value elements, up to 128
+          type: array
+          items:
+            $ref: '#/components/schemas/ValueSlot'
 
     Slot:
       description: Framed conceptual element
@@ -842,9 +861,17 @@ components:
           minimum: 0
           maximum: 128
         predicate:
-          description: Predicate identifier, should be a valid uri in a managed ontology
+          description: Predicate identifier, should be a valid id in a known ontology
           type: string
           format: id
+        required:
+          description: Tells if the slot must be instantiated in order for the frame to make sense
+          type: boolean
+          default: false
+        informative:
+          description: Tells whether slot's values contribute to frame's meaning
+          type: boolean
+          default: false
       discriminator:
         propertyName: ktype
         mapping:
@@ -852,43 +879,6 @@ components:
           RelationalSlot:  '#/components/schemas/RelationalSlot'
           AttributiveSlot: '#/components/schemas/AttributiveSlot'
           ValueSlot:       '#/components/schemas/ValueSlot'
-
-    FrameInstance:
-      description: Frame instance
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/KnowledgeElement'
-      required:
-        - frameType
-      properties:
-        id:
-          description: Instance handle, should be univoque in the session
-          type: integer
-          format: int64
-        frameType:
-          description: Frame type identifier, should be system-wide unique
-          type: string
-          format: id
-        slots:
-          description: Slot values
-          type: array
-          items:
-            $ref: '#/components/schemas/SlotInstance'
-        support:
-          type: number
-          format: double
-          minimum: 0.0
-          maximum: 1.0
-        provenance:
-          description: The values provenance (opt)
-          type: string
-          enum:
-            - USER_INPUT
-            - KNOWLEGDE_BASE
-            - DOCUMENT
-            - UNDEFINED
-          default: UNDEFINED
-
 
     ConceptualSlot:
       description: A slot boud to a concept
@@ -917,6 +907,9 @@ components:
           type: integer
           minimum: 0
           maximum: 128
+        required:
+          type: boolean
+          default: false
       required:
         - subjectBinding
         - objectBinding
@@ -938,6 +931,16 @@ components:
           type: integer
           minimum: 0
           maximum: 128
+        comparation:
+          description: Comparation operator for data values (opt)
+          type: string
+          enum:
+           - EQUAL
+           - GREATER
+           - SMALLER
+           - SIMILAR
+          default: EQUAL
+
       required:
         - subjectBinding
         - objectBinding
@@ -953,40 +956,75 @@ components:
             type: string
             format: utf8
 
+#    FrameInstance:
+#      description: Frame instance
+#      type: object
+#      allOf:
+#        - $ref: '#/components/schemas/KnowledgeElement'
+#      required:
+#        - frameType
+#      properties:
+#        id:
+#          description: Instance handle, should be univoque in the session
+#          type: integer
+#          format: int64
+#        frameType:
+#          description: Frame type identifier, should be system-wide unique
+#          type: string
+#          format: id
+#        slots:
+#          description: Slot values
+#          type: array
+#          items:
+#            $ref: '#/components/schemas/SlotInstance'
+#        support:
+#          type: number
+#          format: double
+#          minimum: 0.0
+#          maximum: 1.0
+#        provenance:
+#          description: The values provenance (opt)
+#          type: string
+#          enum:
+#            - USER_INPUT
+#            - KNOWLEGDE_BASE
+#            - DOCUMENT
+#            - UNDEFINED
+#          default: UNDEFINED
 
 
-    SlotInstance:
-      description: Slot value instance (should be abstract)
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/KnowledgeElement'
-      required:
-        - itype
-        - slot
-        - value
-      properties:
-        itype:
-          type: string
-          enum:
-            - ENTITYVARIABLE
-            - ENTITY
-            - VALUEVARIABLE
-            - VALUE
-        slot:
-          $ref: '#/components/schemas/SlotReference'
-        value:
-          type: string
-          format: utf8
-        comparation:
-          description: Comparation operator for data values
-          type: string
-          enum:
-            - EQUAL
-            - GREATER
-            - SMALLER
-            - SIMILAR
-          default: EQUAL
-
+#    SlotInstance:
+#      description: Slot value instance (should be abstract)
+#      type: object
+#      allOf:
+#        - $ref: '#/components/schemas/KnowledgeElement'
+#      required:
+#        - itype
+#        - slot
+#        - value
+#      properties:
+#        itype:
+#          type: string
+#          enum:
+#            - ENTITYVARIABLE
+#            - ENTITY
+#            - VALUEVARIABLE
+#            - VALUE
+#        slot:
+#          $ref: '#/components/schemas/SlotReference'
+#        value:
+#          type: string
+#          format: utf8
+#        comparation:
+#          description: Comparation operator for data values
+#          type: string
+#          enum:
+#            - EQUAL
+#            - GREATER
+#            - SMALLER
+#            - SIMILAR
+#          default: EQUAL
+#
 
     SlotReference:
       description: Reference to a frame slot

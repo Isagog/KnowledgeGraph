@@ -53,7 +53,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
+                  $ref: kg-knowledge.yaml#/components/schemas/Frame
         203:
           description: Sentence analysis
           content:
@@ -97,7 +97,7 @@ paths:
         operationId: issue
         responses:
           200:
-            description: Generic success messages
+            description: Success acknowledge
             content:
               application/json:
                 schema:
@@ -130,7 +130,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: kg-knowledge.yaml#/components/schemas/FrameInstance
+                $ref: kg-knowledge.yaml#/components/schemas/Frame
           description: Frame instance
           required: true
         tags:
