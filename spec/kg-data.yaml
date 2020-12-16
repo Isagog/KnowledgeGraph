@@ -184,167 +184,168 @@ paths:
       tags:
         - DataService
 
-  /query:
-      post:
-        summary: Knowledge query
-        description: Queries a Knowledge Graph
-        parameters:
-          - name: kg
-            in: query
-            required: false
-            schema:
-              type: string
-              format: id
-            description: Query context (opt)
-        operationId: query
-        responses:
-          200:
-            description: Success
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/QueryResponse'
-          401:
-            description: Unsupported language
-          402:
-            description: Invalid query
-          501:
-            description: Service unavailable
-          502:
-            description: Server error
-          503:
-            description: Missing implementation
-        requestBody:
+#  DONT EVEN TRY TO USE POLYMORPHISM HERE
+#  /query:
+#      post:
+#        summary: Knowledge query
+#        description: Queries a Knowledge Graph
+#        parameters:
+#          - name: kg
+#            in: query
+#            required: false
+#            schema:
+#              type: string
+#              format: id
+#            description: Query context (opt)
+#        operationId: query
+#        responses:
+#          200:
+#            description: Success
+#            content:
+#              application/json:
+#                schema:
+#                  $ref: '#/components/schemas/QueryResponse'
+#          401:
+#            description: Unsupported language
+#          402:
+#            description: Invalid query
+#          501:
+#            description: Service unavailable
+#          502:
+#            description: Server error
+#          503:
+#            description: Missing implementation
+#        requestBody:
+#          content:
+#            application/json:
+#              schema:
+#                 $ref: '#/components/schemas/Query'
+#          description: The query
+#          required: true
+#        tags:
+#          - DataService
+
+
+  /query/expression:
+    post:
+      summary: Knowledge query
+      description: Queries a Knowledge Graph
+      parameters:
+        - name: kg
+          in: query
+          required: false
+          schema:
+            type: string
+            format: id
+          description: Query context (opt)
+      operationId: queryExpression
+      responses:
+        200:
+          description: Success
           content:
             application/json:
               schema:
-                 $ref: '#/components/schemas/Query'
-          description: The query
-          required: true
-        tags:
-          - DataService
+                $ref: '#/components/schemas/QueryResponse'
+        401:
+          description: Unsupported language
+        402:
+          description: Invalid query
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: '#/components/schemas/QueryExpression'
+        description: The query
+        required: true
+      tags:
+        - DataService
 
 
-#  /query/expression:
-#    post:
-#      summary: Knowledge query
-#      description: Queries a Knowledge Graph
-#      parameters:
-#        - name: kg
-#          in: query
-#          required: false
-#          schema:
-#            type: string
-#            format: id
-#          description: Query context (opt)
-#      operationId: queryExpression
-#      responses:
-#        200:
-#          description: Success
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/QueryResponse'
-#        401:
-#          description: Unsupported language
-#        402:
-#          description: Invalid query
-#        501:
-#          description: Service unavailable
-#        502:
-#          description: Server error
-#        503:
-#          description: Missing implementation
-#      requestBody:
-#        content:
-#          application/json:
-#            schema:
-#               $ref: '#/components/schemas/QueryExpression'
-#        description: The query
-#        required: true
-#      tags:
-#        - DataService
-#
-#
-#  /query/frame:
-#    post:
-#      summary: Knowledge query
-#      description: Queries a Knowledge Graph
-#      parameters:
-#        - name: kg
-#          in: query
-#          required: false
-#          schema:
-#            type: string
-#            format: id
-#          description: Query context (opt)
-#      operationId: queryFrame
-#      responses:
-#        200:
-#          description: Success
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/QueryResponse'
-#        401:
-#          description: Unsupported language
-#        402:
-#          description: Invalid query
-#        501:
-#          description: Service unavailable
-#        502:
-#          description: Server error
-#        503:
-#          description: Missing implementation
-#      requestBody:
-#        content:
-#          application/json:
-#            schema:
-#              $ref: '#/components/schemas/QueryFrame'
-#        description: The query
-#        required: true
-#      tags:
-#        - DataService
-#
-#  /query/keywords:
-#    post:
-#      summary: Knowledge query
-#      description: Queries a Knowledge Graph
-#      parameters:
-#        - name: kg
-#          in: query
-#          required: false
-#          schema:
-#            type: string
-#            format: id
-#          description: Query context (opt)
-#      operationId: queryKeywords
-#      responses:
-#        200:
-#          description: Success
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/QueryResponse'
-#        401:
-#          description: Unsupported language
-#        402:
-#          description: Invalid query
-#        501:
-#          description: Service unavailable
-#        502:
-#          description: Server error
-#        503:
-#          description: Missing implementation
-#      requestBody:
-#        content:
-#          application/json:
-#            schema:
-#              $ref: '#/components/schemas/QueryKeywords'
-#        description: The query
-#        required: true
-#      tags:
-#        - DataService
+  /query/frame:
+    post:
+      summary: Knowledge query
+      description: Queries a Knowledge Graph
+      parameters:
+        - name: kg
+          in: query
+          required: false
+          schema:
+            type: string
+            format: id
+          description: Query context (opt)
+      operationId: queryFrame
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        401:
+          description: Unsupported language
+        402:
+          description: Invalid query
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryFrame'
+        description: The query
+        required: true
+      tags:
+        - DataService
+
+  /query/keywords:
+    post:
+      summary: Knowledge query
+      description: Queries a Knowledge Graph
+      parameters:
+        - name: kg
+          in: query
+          required: false
+          schema:
+            type: string
+            format: id
+          description: Query context (opt)
+      operationId: queryKeywords
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        401:
+          description: Unsupported language
+        402:
+          description: Invalid query
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryKeywords'
+        description: The query
+        required: true
+      tags:
+        - DataService
 
 
   /upload:
