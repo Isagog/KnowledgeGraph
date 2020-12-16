@@ -907,9 +907,6 @@ components:
           type: integer
           minimum: 0
           maximum: 128
-        required:
-          type: boolean
-          default: false
       required:
         - subjectBinding
         - objectBinding
@@ -940,7 +937,6 @@ components:
            - SMALLER
            - SIMILAR
           default: EQUAL
-
       required:
         - subjectBinding
         - objectBinding
