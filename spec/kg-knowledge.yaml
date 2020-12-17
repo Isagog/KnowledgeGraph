@@ -22,12 +22,12 @@ tags:
 
 paths:
   /concepts:
-    summary: Represents the concepts of the Knowledge Graph T-BOX
+    summary: Represents the atomic concepts of the Knowledge Graph T-BOX
     description: >
       This resource represents an individual concept in the Knowledge Graph T-BOX.
     get:
-      summary: Get all the concepts in the Knowledge Graph
-      description: Get all the concepts in the Knowledge Graph
+      summary: Get all the atomic concepts in the Knowledge Graph
+      description: Get all the atomic concepts in the Knowledge Graph
       operationId: getAllConcepts
       responses:
         200:
