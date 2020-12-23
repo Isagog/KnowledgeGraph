@@ -155,7 +155,7 @@ paths:
           required: true
           schema:
             type: string
-            format: uri
+            format: id
       responses:
         200:
           description: Successful operation
@@ -190,7 +190,7 @@ paths:
           description: The relation's id
           schema:
             type: string
-            format: uri
+            format: id
       responses:
         200:
           description: Successful operation
@@ -225,7 +225,7 @@ paths:
             description: The attribute's id
             schema:
               type: string
-              format: uri
+              format: id
         responses:
           200:
             description: Successful operation
@@ -262,7 +262,7 @@ paths:
           description: The frame's id
           schema:
             type: string
-            format: uri
+            format: id
       responses:
         200:
           description: Successful operation
@@ -576,7 +576,7 @@ components:
         id:
           description: Concept identifier (uri)
           type: string
-          format: uri
+          format: id
         statements:
           type: array
           items:
@@ -595,11 +595,11 @@ components:
         relation:
           description: Relation identifier
           type: string
-          format: uri
+          format: id
         restriction:
           description: Restriction identifier
           type: string
-          format: uri
+          format: id
         quantifier:
           type: string
           enum:
@@ -618,7 +618,7 @@ components:
       properties:
         attribute:
           type: string
-          format: uri
+          format: id
         value:
           type: string
           format: byte
@@ -641,15 +641,15 @@ components:
       properties:
         id:
           type: string
-          format: uri
+          format: id
         domain:
           description: Domain restriction
           type: string
-          format: uri
+          format: id
         range:
           description: Range restriction
           type: string
-          format: uri
+          format: id
 
 
     Attribute:
@@ -661,11 +661,11 @@ components:
       properties:
         id:
           type: string
-          format: uri
+          format: id
         domain:
           description: Domain restriction
           type: string
-          format: uri
+          format: id
         range:
           type: string
           enum:
@@ -686,7 +686,7 @@ components:
       properties:
         id:
           type: string
-          format: uri
+          format: id
         statements:
           type: array
           items:
@@ -703,7 +703,7 @@ components:
         subject:
           description: The predicate's subject id, may be omitted when the statement is contained in a structure
           type: string
-          format: uri
+          format: id
         privacy:
           type: string
           enum:
@@ -734,7 +734,7 @@ components:
       properties:
         object:
           type: string
-          format: uri
+          format: id
         predicate:
           type: string
           enum:
@@ -755,7 +755,7 @@ components:
         predicate:
           description: Ontology relation or attribute
           type: string
-          format: uri
+          format: id
         relational:
           type: boolean
           default: false
@@ -776,7 +776,7 @@ components:
         id:
           description: Frame identifier
           type: string
-          format: uri
+          format: id
         conceptualSlots:
           description: Conceptual elements, up to 128
           type: array
@@ -818,7 +818,7 @@ components:
         predicate:
           description: Predicate identifier, should be a valid id in a known ontology
           type: string
-          format: uri
+          format: id
         required:
           description: Tells if the slot must be instantiated in order for the frame to make sense
           type: boolean
@@ -843,7 +843,7 @@ components:
        value:
         description: Constant Entity reference (opt)
         type: string
-        format: uri
+        format: id
 
 
     RelationalSlot:
@@ -922,7 +922,7 @@ components:
 #        frameType:
 #          description: Frame type identifier, should be system-wide unique
 #          type: string
-#          format: uri
+#          format: id
 #        slots:
 #          description: Slot values
 #          type: array
@@ -986,7 +986,7 @@ components:
       properties:
         frameid:
           type: string
-          format: uri
+          format: id
         slotid:
           type: integer
           minimum: 0

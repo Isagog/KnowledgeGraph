@@ -7,7 +7,7 @@ Unary classifier
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **URI** | Concept identifier (uri) | 
+**id** | **String** | Concept identifier (uri) | 
 **statements** | [**List&lt;PredicateStatement&gt;**](PredicateStatement.md) |  |  [optional]
 
 

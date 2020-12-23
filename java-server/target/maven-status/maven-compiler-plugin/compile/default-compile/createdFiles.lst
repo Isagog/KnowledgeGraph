@@ -62,6 +62,7 @@ com\isagog\kg\api\factories\KnowledgeServiceApiServiceFactory.class
 com\isagog\kg\model\UploadForm$FormatEnum.class
 com\isagog\kg\model\ValueSlot.class
 com\isagog\kg\model\UpdateResponseReport.class
+com\isagog\kg\api\Application.class
 com\isagog\kg\model\ConceptualSlot.class
 com\isagog\kg\model\SemanticRelation.class
 com\isagog\kg\model\SemanticRelation$RoleEnum.class
@@ -74,7 +75,6 @@ com\isagog\kg\model\QueryKeywords$OpEnum.class
 com\isagog\kg\model\Statement$PrivacyEnum.class
 com\isagog\kg\api\DataServiceApiService.class
 com\isagog\kg\model\Classification.class
-com\isagog\kg\Application.class
 com\isagog\kg\model\LinguisticAnnotation.class
 com\isagog\kg\model\RelationalConcept.class
 com\isagog\kg\model\Statement.class

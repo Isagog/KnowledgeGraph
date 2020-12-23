@@ -7,7 +7,7 @@ Unary attributive classifier
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attribute** | **URI** |  | 
+**attribute** | **String** |  | 
 **value** | **byte[]** |  |  [optional]
 **constraint** | [**ConstraintEnum**](#ConstraintEnum) |  |  [optional]
 

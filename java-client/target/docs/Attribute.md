@@ -7,8 +7,8 @@ Class of Entity-value pairs
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **URI** |  | 
-**domain** | **URI** | Domain restriction |  [optional]
+**id** | **String** |  | 
+**domain** | **String** | Domain restriction |  [optional]
 **range** | [**RangeEnum**](#RangeEnum) |  |  [optional]
 
 

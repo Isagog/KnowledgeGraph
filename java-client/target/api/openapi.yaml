@@ -286,8 +286,8 @@ components:
       description: Conceptual pattern, e.g. a query or a form
       example:
         conceptualSlots:
-        - value: https://openapi-generator.tech
-        - value: https://openapi-generator.tech
+        - value: value
+        - value: value
         relationalSlots:
         - objectBinding: 77
           subjectBinding: 10
@@ -303,11 +303,11 @@ components:
         valueSlots:
         - value: value
         - value: value
-        id: https://openapi-generator.tech
+        id: id
       properties:
         id:
           description: Frame identifier
-          format: uri
+          format: id
           type: string
         conceptualSlots:
           description: Conceptual elements, up to 128
@@ -432,7 +432,7 @@ components:
       properties:
         id:
           description: Concept identifier (uri)
-          format: uri
+          format: id
           type: string
         statements:
           items:
@@ -447,7 +447,7 @@ components:
       description: Statement whose subject is a predicate
       properties:
         object:
-          format: uri
+          format: id
           type: string
         predicate:
           enum:
@@ -472,7 +472,7 @@ components:
         subject:
           description: The predicate's subject id, may be omitted when the statement
             is contained in a structure
-          format: uri
+          format: id
           type: string
         privacy:
           default: OWNER
@@ -497,7 +497,7 @@ components:
       properties:
         predicate:
           description: Ontology relation or attribute
-          format: uri
+          format: id
           type: string
         relational:
           default: false
@@ -516,15 +516,15 @@ components:
       description: Class of entity pairs
       properties:
         id:
-          format: uri
+          format: id
           type: string
         domain:
           description: Domain restriction
-          format: uri
+          format: id
           type: string
         range:
           description: Range restriction
-          format: uri
+          format: id
           type: string
       required:
       - id
@@ -534,11 +534,11 @@ components:
       description: Class of Entity-value pairs
       properties:
         id:
-          format: uri
+          format: id
           type: string
         domain:
           description: Domain restriction
-          format: uri
+          format: id
           type: string
         range:
           default: STRING
@@ -556,7 +556,7 @@ components:
       description: Individual entity
       properties:
         id:
-          format: uri
+          format: id
           type: string
         statements:
           items:
@@ -570,11 +570,11 @@ components:
       - $ref: '#/components/schemas/Slot'
       description: A slot boud to a concept
       example:
-        value: https://openapi-generator.tech
+        value: value
       properties:
         value:
           description: Constant Entity reference (opt)
-          format: uri
+          format: id
           type: string
     Slot:
       allOf:
@@ -599,7 +599,7 @@ components:
           type: string
         predicate:
           description: Predicate identifier, should be a valid id in a known ontology
-          format: uri
+          format: id
           type: string
         required:
           default: false

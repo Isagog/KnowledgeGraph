@@ -7,7 +7,7 @@ Statement whose subject is a predicate
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_object** | **URI** |  | 
+**_object** | **String** |  | 
 **predicate** | [**PredicateEnum**](#PredicateEnum) |  | 
 
 

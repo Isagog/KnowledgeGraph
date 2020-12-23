@@ -435,7 +435,7 @@ public class Example {
     defaultClient.setBasePath("http://api.isagog.com");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
-    URI id = new URI(); // URI | The attribute's id
+    String id = "id_example"; // String | The attribute's id
     try {
       Attribute result = apiInstance.getAttribute(id);
       System.out.println(result);
@@ -454,7 +454,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **URI**| The attribute&#39;s id |
+ **id** | **String**| The attribute&#39;s id |
 
 ### Return type
 
@@ -503,7 +503,7 @@ public class Example {
     defaultClient.setBasePath("http://api.isagog.com");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
-    URI id = new URI(); // URI | The concept's id
+    String id = "id_example"; // String | The concept's id
     try {
       Concept result = apiInstance.getConcept(id);
       System.out.println(result);
@@ -522,7 +522,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **URI**| The concept&#39;s id |
+ **id** | **String**| The concept&#39;s id |
 
 ### Return type
 
@@ -571,7 +571,7 @@ public class Example {
     defaultClient.setBasePath("http://api.isagog.com");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
-    URI id = new URI(); // URI | The frame's id
+    String id = "id_example"; // String | The frame's id
     try {
       Frame result = apiInstance.getFrame(id);
       System.out.println(result);
@@ -590,7 +590,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **URI**| The frame&#39;s id |
+ **id** | **String**| The frame&#39;s id |
 
 ### Return type
 
@@ -639,7 +639,7 @@ public class Example {
     defaultClient.setBasePath("http://api.isagog.com");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
-    URI id = new URI(); // URI | The relation's id
+    String id = "id_example"; // String | The relation's id
     try {
       Relation result = apiInstance.getRelation(id);
       System.out.println(result);
@@ -658,7 +658,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **URI**| The relation&#39;s id |
+ **id** | **String**| The relation&#39;s id |
 
 ### Return type
 

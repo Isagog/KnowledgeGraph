@@ -7,7 +7,7 @@ A slot boud to a concept
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **URI** | Constant Entity reference (opt) |  [optional]
+**value** | **String** | Constant Entity reference (opt) |  [optional]
 
 
 

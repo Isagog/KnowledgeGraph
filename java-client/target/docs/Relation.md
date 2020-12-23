@@ -7,9 +7,9 @@ Class of entity pairs
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **URI** |  | 
-**domain** | **URI** | Domain restriction |  [optional]
-**range** | **URI** | Range restriction |  [optional]
+**id** | **String** |  | 
+**domain** | **String** | Domain restriction |  [optional]
+**range** | **String** | Range restriction |  [optional]
 
 
 

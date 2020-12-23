@@ -7,8 +7,8 @@ Unary relational classifier
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**relation** | **URI** | Relation identifier | 
-**restriction** | **URI** | Restriction identifier |  [optional]
+**relation** | **String** | Relation identifier | 
+**restriction** | **String** | Restriction identifier |  [optional]
 **quantifier** | [**QuantifierEnum**](#QuantifierEnum) |  | 
 
 

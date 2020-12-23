@@ -7,7 +7,7 @@ Individual entity
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **URI** |  | 
+**id** | **String** |  | 
 **statements** | [**List&lt;EntityStatement&gt;**](EntityStatement.md) |  |  [optional]
 
 

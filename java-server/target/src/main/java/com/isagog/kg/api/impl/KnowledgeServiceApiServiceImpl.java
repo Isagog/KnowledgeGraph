@@ -10,7 +10,6 @@ import com.isagog.kg.model.Entity;
 import com.isagog.kg.model.Frame;
 import com.isagog.kg.model.Relation;
 import com.isagog.kg.model.SentenceAnnotation;
-import java.net.URI;
 
 import java.util.List;
 import com.isagog.kg.api.NotFoundException;
@@ -23,7 +22,7 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-12-23T10:06:51.795+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-12-23T16:51:10.787+01:00[Europe/Berlin]")
 public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
     @Override
     public Response evaluateEntity(Entity entity
@@ -60,25 +59,25 @@ public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
-    public Response getAttribute(URI id
+    public Response getAttribute(String id
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
-    public Response getConcept(URI id
+    public Response getConcept(String id
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
-    public Response getFrame(URI id
+    public Response getFrame(String id
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
-    public Response getRelation(URI id
+    public Response getRelation(String id
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();

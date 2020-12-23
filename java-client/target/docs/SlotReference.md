@@ -7,7 +7,7 @@ Reference to a frame slot
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**frameid** | **URI** |  | 
+**frameid** | **String** |  | 
 **slotid** | **Integer** |  | 
 
 
