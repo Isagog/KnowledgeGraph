@@ -7,11 +7,12 @@ com\isagog\kg\model\BasicAnnotation.class
 com\isagog\kg\model\RelationalConcept$QuantifierEnum.class
 com\isagog\kg\model\Sentence.class
 com\isagog\kg\model\Query.class
+com\isagog\kg\model\ResponseRow.class
 com\isagog\kg\model\QueryFrame$QkindEnum.class
 com\isagog\kg\model\Relation.class
 com\isagog\kg\model\Frame.class
-com\isagog\kg\model\QueryResponseHeader$DtypeEnum.class
 com\isagog\kg\model\SyntacticRelation$TagEnum.class
+com\isagog\kg\model\ResponseHeader.class
 com\isagog\kg\model\Attribute.class
 com\isagog\kg\model\SyntacticRelation.class
 com\isagog\kg\model\AttributiveConcept$ConstraintEnum.class
@@ -23,9 +24,9 @@ com\isagog\kg\api\KnowledgeServiceApiService.class
 com\isagog\kg\model\QueryKeywords.class
 com\isagog\kg\model\InformativeAnnotation.class
 com\isagog\kg\model\UpdateResponseReport$CodeEnum.class
-com\isagog\kg\model\QueryResponseHeader.class
 com\isagog\kg\model\Attribute$RangeEnum.class
 com\isagog\kg\model\EntityAnnotation.class
+com\isagog\kg\model\ResponseHeader$DtypeEnum.class
 com\isagog\kg\model\SentenceRanking.class
 com\isagog\kg\model\UploadForm.class
 com\isagog\kg\model\DependencyAnnotation.class
@@ -40,7 +41,6 @@ com\isagog\kg\model\Sentence$LangEnum.class
 com\isagog\kg\model\Concept.class
 com\isagog\kg\api\impl\InteractionServiceApiServiceImpl.class
 com\isagog\kg\api\LinguisticServiceApi.class
-com\isagog\kg\model\QueryResponseItem.class
 com\isagog\kg\api\ApiOriginFilter.class
 com\isagog\kg\model\AttributiveConcept.class
 com\isagog\kg\api\LinguisticServiceApiService.class

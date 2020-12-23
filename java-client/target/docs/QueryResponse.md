@@ -7,10 +7,10 @@ Query result set
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**handle** | **Long** | Handle to the query result, may be used to fetch results | 
-**size** | **Integer** | Total availabe results | 
-**header** | [**List&lt;QueryResponseHeader&gt;**](QueryResponseHeader.md) | Result set description | 
-**items** | [**List&lt;QueryResponseItem&gt;**](QueryResponseItem.md) | Result items |  [optional]
+**handle** | **Long** | Handle to the query result for paging (opt) |  [optional]
+**size** | **Integer** | Total availabe results |  [optional]
+**header** | [**List&lt;ResponseHeader&gt;**](ResponseHeader.md) | Result set description | 
+**rows** | [**List&lt;ResponseRow&gt;**](ResponseRow.md) | Result items |  [optional]
 
 
 

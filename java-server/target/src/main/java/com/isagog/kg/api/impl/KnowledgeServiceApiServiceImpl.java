@@ -22,7 +22,7 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-12-23T16:51:10.787+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-12-23T17:39:54.764+01:00[Europe/Berlin]")
 public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
     @Override
     public Response evaluateEntity(Entity entity

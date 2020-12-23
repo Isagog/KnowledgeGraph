@@ -467,14 +467,12 @@ components:
       description: Query result set
       type: object
       required:
-        - handle
-        - size
         - header
       properties:
         handle:
           type: integer
           format: int64
-          description: Handle to the query result, may be used to fetch results
+          description: Handle to the query result for paging (opt)
         size:
           type: integer
           format: int32
@@ -482,20 +480,19 @@ components:
         header:
           type: array
           items:
-            $ref: '#/components/schemas/QueryResponseHeader'
+            $ref: '#/components/schemas/ResponseHeader'
           description: Result set description
-        items:
+        rows:
           type: array
           items:
-            $ref: '#/components/schemas/QueryResponseItem'
+            $ref: '#/components/schemas/ResponseRow'
           description: Result items
 
-    QueryResponseHeader:
+    ResponseHeader:
       description: Query result set header
       type: object
       required:
         - name
-        - dtype
       properties:
         name:
           type: string
@@ -508,13 +505,13 @@ components:
             - DOUBLE
             - STRING
 
-    QueryResponseItem:
+    ResponseRow:
       description: Query result set row
       type: object
       required:
-        - row
+        - values
       properties:
-        row:
+        values:
           type: array
           items:
             type: string
@@ -524,6 +521,7 @@ components:
           format: double
           minimum: 0.0
           maximum: 1.0
+          default: 1.0
 
 
     UpdateResponse:

@@ -2,7 +2,7 @@
 
 Isagog Knowledge Graph Interaction Service
 - API version: 1.0.0
-  - Build date: 2020-12-23T16:49:28.077+01:00[Europe/Berlin]
+  - Build date: 2020-12-23T17:38:54.163+01:00[Europe/Berlin]
 
 Isagog Knowledge Graph Interaction module
 
@@ -133,10 +133,10 @@ Class | Method | HTTP request | Description
  - [MetaclassAnnotation](docs/MetaclassAnnotation.md)
  - [PredicateStatement](docs/PredicateStatement.md)
  - [QueryResponse](docs/QueryResponse.md)
- - [QueryResponseHeader](docs/QueryResponseHeader.md)
- - [QueryResponseItem](docs/QueryResponseItem.md)
  - [Relation](docs/Relation.md)
  - [RelationalSlot](docs/RelationalSlot.md)
+ - [ResponseHeader](docs/ResponseHeader.md)
+ - [ResponseRow](docs/ResponseRow.md)
  - [SemanticRelation](docs/SemanticRelation.md)
  - [Sentence](docs/Sentence.md)
  - [SentenceAnnotation](docs/SentenceAnnotation.md)

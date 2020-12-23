@@ -24,10 +24,10 @@ docs/LinguisticAnnotation.md
 docs/MetaclassAnnotation.md
 docs/PredicateStatement.md
 docs/QueryResponse.md
-docs/QueryResponseHeader.md
-docs/QueryResponseItem.md
 docs/Relation.md
 docs/RelationalSlot.md
+docs/ResponseHeader.md
+docs/ResponseRow.md
 docs/SemanticRelation.md
 docs/Sentence.md
 docs/SentenceAnnotation.md
@@ -85,10 +85,10 @@ src/main/java/com/isagog/kg/model/LinguisticAnnotation.java
 src/main/java/com/isagog/kg/model/MetaclassAnnotation.java
 src/main/java/com/isagog/kg/model/PredicateStatement.java
 src/main/java/com/isagog/kg/model/QueryResponse.java
-src/main/java/com/isagog/kg/model/QueryResponseHeader.java
-src/main/java/com/isagog/kg/model/QueryResponseItem.java
 src/main/java/com/isagog/kg/model/Relation.java
 src/main/java/com/isagog/kg/model/RelationalSlot.java
+src/main/java/com/isagog/kg/model/ResponseHeader.java
+src/main/java/com/isagog/kg/model/ResponseRow.java
 src/main/java/com/isagog/kg/model/SemanticRelation.java
 src/main/java/com/isagog/kg/model/Sentence.java
 src/main/java/com/isagog/kg/model/SentenceAnnotation.java

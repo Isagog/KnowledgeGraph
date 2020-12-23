@@ -4,7 +4,6 @@ D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\AttributiveSlot.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\ValueSlot.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\factories\InteractionServiceApiServiceFactory.java
-D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\QueryResponseHeader.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Relation.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\SlotReference.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\KnowledgeServiceApi.java
@@ -27,7 +26,6 @@ D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Slot.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\Application.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\QueryResponse.java
-D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\QueryResponseItem.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\QueryKeywords.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Document.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\impl\KnowledgeServiceApiServiceImpl.java
@@ -44,6 +42,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\MetaclassAnnotation.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\NotFoundException.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\KnowledgeAnnotation.java
+D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\ResponseRow.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\QueryFrame.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Concept.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\QueryExpression.java
@@ -60,6 +59,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\JacksonJsonProvider.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Query.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Sentence.java
+D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\ResponseHeader.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\StringUtil.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\EntityStatement.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\ApiResponseMessage.java

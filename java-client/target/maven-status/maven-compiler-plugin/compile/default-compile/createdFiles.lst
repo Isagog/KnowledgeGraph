@@ -12,6 +12,7 @@ com\isagog\kg\model\Sentence.class
 com\isagog\kg\model\Query.class
 com\isagog\kg\JSON$19.class
 com\isagog\kg\api\KnowledgeServiceApi$22.class
+com\isagog\kg\model\ResponseRow.class
 com\isagog\kg\api\LinguisticServiceApi$3.class
 com\isagog\kg\model\QueryFrame$QkindEnum.class
 com\isagog\kg\JSON$16.class
@@ -27,6 +28,7 @@ com\isagog\kg\api\KnowledgeServiceApi$3.class
 com\isagog\kg\JSON$11.class
 com\isagog\kg\model\AttributiveConcept$ConstraintEnum.class
 com\isagog\kg\api\DataServiceApi$5.class
+com\isagog\kg\model\ResponseHeader$DtypeEnum$Adapter.class
 com\isagog\kg\model\SentenceAnnotation.class
 com\isagog\kg\model\GrammarFeature$AttributeEnum.class
 com\isagog\kg\GzipRequestInterceptor$2.class
@@ -38,6 +40,7 @@ com\isagog\kg\model\Attribute$RangeEnum.class
 com\isagog\kg\api\DataServiceApi$2.class
 com\isagog\kg\model\UploadForm$FormatEnum$Adapter.class
 com\isagog\kg\model\EntityAnnotation.class
+com\isagog\kg\model\ResponseHeader$DtypeEnum.class
 com\isagog\kg\model\UploadForm.class
 com\isagog\kg\api\KnowledgeServiceApi$6.class
 com\isagog\kg\model\DependencyAnnotation.class
@@ -111,6 +114,7 @@ com\isagog\kg\model\GrammarFeature$AttributeEnum$Adapter.class
 com\isagog\kg\model\Relation.class
 com\isagog\kg\auth\HttpBasicAuth.class
 com\isagog\kg\model\BasicAnnotation$PosEnum$Adapter.class
+com\isagog\kg\model\ResponseHeader.class
 com\isagog\kg\api\InteractionServiceApi$4.class
 com\isagog\kg\api\KnowledgeServiceApi$2.class
 com\isagog\kg\JSON$SqlDateTypeAdapter.class
