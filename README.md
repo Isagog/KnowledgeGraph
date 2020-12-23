@@ -11,9 +11,12 @@ The Isagog platform for Knowledge Graphs consists in the following logical modul
 
 Each module is tagged and features a specific root path.
 
-The supplied [maven pom file](client/pom.xml) produces a java client and may be adapted to generate a variety of other clients or server stubs by [openapi tools](https://github.com/OpenAPITools/openapi-generator)
+The supplied [maven pom file](java-client/pom.xml) produces a java client and may be modified to generate any resource by [openapi tools](https://github.com/OpenAPITools/openapi-generator)
 
-Here is a high-level picture of the platform's architecture, as it unfolds in the two main use cases:
+The supplied [maven pom file](java-server/pom.xml) produces a java server stub and may be modified to generate any resource by [openapi tools](https://github.com/OpenAPITools/openapi-generator)
+
+
+Here is a high-level sketch of the platform's architecture featuring two main use cases:
 
 ![User interaction](doc/kg-user-interact.PNG)
 

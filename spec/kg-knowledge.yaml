@@ -22,7 +22,7 @@ tags:
 
 paths:
   /concepts:
-    summary: Represents the atomic concepts of the Knowledge Graph T-BOX
+    summary: Represents the atomic concepts of the Knowledge Graph ontology
     description: >
       This resource represents an individual concept in the Knowledge Graph T-BOX.
     get:
@@ -55,7 +55,7 @@ paths:
 
   /relations:
     get:
-      summary: Gets all the relations in the Knowledge Graph
+      summary: Gets all the relations in the Knowledge Graph ontology
       description: Gets a relation
       operationId: getAllRelations
       responses:
@@ -84,7 +84,7 @@ paths:
         
   /attributes:
     get:
-      summary: Gets all attributes in the Knowledge Graph
+      summary: Gets all attributes in the Knowledge Graph ontology
       description: Gets an attirbute
       operationId: getAllAttributes
       responses:
@@ -113,7 +113,7 @@ paths:
         
   /frames:
     get:
-      summary: Gets all the frames in the Knowledge Graph
+      summary: Gets all the frames in the Knowledge Graph ontology
       description: Gets a frame
       operationId: getAllFrames
       responses:
@@ -141,9 +141,9 @@ paths:
         - KnowledgeService
         
   /concepts/{id}:
-    summary: Represents a concept
+    summary: Gets a concept
     description: >
-      This resource represents an individual concept in the Knowledge Graph T-BOX. Each concept is identified by a unique string `id`.
+      This resource represents an individual concept in the Knowledge Graph ontology. Each concept is identified by a unique string `id`.
     get:
       summary: Gets a concept
       description: Gets a concept
@@ -155,16 +155,14 @@ paths:
           required: true
           schema:
             type: string
-            format: id
+            format: uri
       responses:
         200:
           description: Successful operation
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Concept'
+                $ref: '#/components/schemas/Concept'
         401:
           description: No results
         402:
@@ -192,16 +190,14 @@ paths:
           description: The relation's id
           schema:
             type: string
-            format: id
+            format: uri
       responses:
         200:
           description: Successful operation
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Relation'
+                 $ref: '#/components/schemas/Relation'
         401:
           description: No results
         402:
@@ -229,16 +225,14 @@ paths:
             description: The attribute's id
             schema:
               type: string
-              format: id
+              format: uri
         responses:
           200:
             description: Successful operation
             content:
               application/json:
                 schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Attribute'
+                   $ref: '#/components/schemas/Attribute'
           401:
             description: No results
           402:
@@ -268,16 +262,14 @@ paths:
           description: The frame's id
           schema:
             type: string
-            format: id
+            format: uri
       responses:
         200:
           description: Successful operation
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Frame'
+                 $ref: '#/components/schemas/Frame'
         401:
           description: No results
         402:
@@ -455,51 +447,6 @@ paths:
 
 components:
   schemas:
-    KnowledgeGraph:
-      description: Set of statements about conceptualized entities
-      required:
-        - id
-      type: object
-      properties:
-        id:
-          description: Knowledge Graph id
-          type: string
-          format: id
-        sources:
-          description: KG sources
-          type: array
-          items:
-            type: string
-            format: uri
-        description:
-          description: KG description
-          type: string
-        size:
-          description: Statement number
-          type: integer
-          format: int32
-        ontologies:
-          description: Ontologies where concepts and relations are defined (URIs)
-          type: array
-          items:
-            type: string
-            format: uri
-        context:
-          description: Other graphs providing contextual knowledge
-          type: array
-          items:
-            type: string
-            format: id
-        content:
-          description: KG content (statements)
-          type: array
-          items:
-            $ref: '#/components/schemas/EntityStatement'
-        annotations:
-          description: KG annotation (application specific)
-          type: array
-          items:
-            type: string
 
     ElementRanking:
       description: Ranking record
@@ -533,19 +480,18 @@ components:
         propertyName: ktype
         mapping:
           Concept:             '#/components/schemas/Concept'
-          RelationalConcept:   '#/components/schemas/RelationalConcept'
-          AttributiveConcept:  '#/components/schemas/AttributiveConcept'
+#          RelationalConcept:   '#/components/schemas/RelationalConcept'
+#          AttributiveConcept:  '#/components/schemas/AttributiveConcept'
           Relation:            '#/components/schemas/Relation'
           Attribute:           '#/components/schemas/Attribute'
           Entity:              '#/components/schemas/Entity'
           PredicateStatement:  '#/components/schemas/PredicateStatement'
           EntityStatement:     '#/components/schemas/EntityStatement'
           Frame:               '#/components/schemas/Frame'
- #         FrameInstance:       '#/components/schemas/FrameInstance'
           ConceptualSlot:      '#/components/schemas/ConceptualSlot'
           RelationalSlot:      '#/components/schemas/RelationalSlot'
           AttributiveSlot:     '#/components/schemas/AttributiveSlot'
-  #        SlotInstance:        '#/components/schemas/SlotInstance'
+
 
 
     KnowledgeAnnotation:
@@ -563,7 +509,7 @@ components:
         propertyName: atype
         mapping:
           LinguisticAnnotation:  '#/components/schemas/LinguisticAnnotation'
-          MetalevelAnnotation:   '#/components/schemas/MetalevelAnnotation'
+          MetaclassAnnotation:   '#/components/schemas/MetaclassAnnotation'
           InformativeAnnotation: '#/components/schemas/InformativeAnnotation'
 
 
@@ -605,7 +551,7 @@ components:
           description: Regular expression to match occurrences (opt)
           type: string
 
-    MetalevelAnnotation:
+    MetaclassAnnotation:
       description: Metaclass annotation
       allOf:
         - $ref: '#/components/schemas/KnowledgeAnnotation'
@@ -620,17 +566,17 @@ components:
         - label
 
     Concept:
-      description: Unary atomic classifier
+      description: Unary classifier
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
       required:
         - id
-        - ctype
       properties:
         id:
+          description: Concept identifier (uri)
           type: string
-          format: id
+          format: uri
         statements:
           type: array
           items:
@@ -647,9 +593,13 @@ components:
         - quantifier
       properties:
         relation:
-          $ref: '#/components/schemas/Relation'
+          description: Relation identifier
+          type: string
+          format: uri
         restriction:
-          $ref: '#/components/schemas/Concept'
+          description: Restriction identifier
+          type: string
+          format: uri
         quantifier:
           type: string
           enum:
@@ -667,19 +617,19 @@ components:
         - attribute
       properties:
         attribute:
-          $ref: '#/components/schemas/Attribute'
+          type: string
+          format: uri
         value:
           type: string
           format: byte
         constraint:
           type: string
           enum:
-            - SOME
-            - ALL
-            - EQUALS
+            - EQUAL
             - GREATER_THAN
             - SMALLER_THAN
-          default: SOME
+            - SIMILAR
+          default: EQUAL
 
 
     Relation:
@@ -691,11 +641,15 @@ components:
       properties:
         id:
           type: string
-          format: id
+          format: uri
         domain:
-          $ref: '#/components/schemas/Concept'
+          description: Domain restriction
+          type: string
+          format: uri
         range:
-          $ref: '#/components/schemas/Concept'
+          description: Range restriction
+          type: string
+          format: uri
 
 
     Attribute:
@@ -707,9 +661,11 @@ components:
       properties:
         id:
           type: string
-          format: id
+          format: uri
         domain:
-          $ref: '#/components/schemas/Concept'
+          description: Domain restriction
+          type: string
+          format: uri
         range:
           type: string
           enum:
@@ -717,10 +673,6 @@ components:
             - TEXT
             - INTEGER
             - DOUBLE
-            - REFERENCE
-            - TIME
-            - MONEY
-            - PLACE
           default: STRING
 
 
@@ -734,7 +686,7 @@ components:
       properties:
         id:
           type: string
-          format: id
+          format: uri
         statements:
           type: array
           items:
@@ -746,12 +698,12 @@ components:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
       required:
-        - subject
         - stype
       properties:
         subject:
+          description: The predicate's subject id, may be omitted when the statement is contained in a structure
           type: string
-          format: id
+          format: uri
         privacy:
           type: string
           enum:
@@ -772,7 +724,7 @@ components:
           PredicateStatement: '#/components/schemas/PredicateStatement'
 
     PredicateStatement:
-      description: Statement whose subject is a predicate (conceptual assertion)
+      description: Statement whose subject is a predicate
       allOf:
         - $ref: '#/components/schemas/Statement'
       type: object
@@ -782,7 +734,7 @@ components:
       properties:
         object:
           type: string
-          format: id
+          format: uri
         predicate:
           type: string
           enum:
@@ -803,7 +755,7 @@ components:
         predicate:
           description: Ontology relation or attribute
           type: string
-          format: id
+          format: uri
         relational:
           type: boolean
           default: false
@@ -824,7 +776,7 @@ components:
         id:
           description: Frame identifier
           type: string
-          format: id
+          format: uri
         conceptualSlots:
           description: Conceptual elements, up to 128
           type: array
@@ -860,10 +812,13 @@ components:
           format: int32
           minimum: 0
           maximum: 128
+        name:
+          description: Slot pretty name (opt)
+          type: string
         predicate:
           description: Predicate identifier, should be a valid id in a known ontology
           type: string
-          format: id
+          format: uri
         required:
           description: Tells if the slot must be instantiated in order for the frame to make sense
           type: boolean
@@ -888,7 +843,7 @@ components:
        value:
         description: Constant Entity reference (opt)
         type: string
-        format: id
+        format: uri
 
 
     RelationalSlot:
@@ -967,7 +922,7 @@ components:
 #        frameType:
 #          description: Frame type identifier, should be system-wide unique
 #          type: string
-#          format: id
+#          format: uri
 #        slots:
 #          description: Slot values
 #          type: array
@@ -1031,7 +986,7 @@ components:
       properties:
         frameid:
           type: string
-          format: id
+          format: uri
         slotid:
           type: integer
           minimum: 0

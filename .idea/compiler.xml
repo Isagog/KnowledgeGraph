@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="java-client" />
         <module name="java-server" />
-        <module name="kg-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
