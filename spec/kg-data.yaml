@@ -126,6 +126,48 @@ paths:
         - DataService
 
   /statements:
+    get:
+      summary: Get statements
+      description: Retrieve statements related to a predicate, object, or subject combination
+      operationId: getAllStatements
+      parameters:
+      - name: subject_uri
+        explode: true
+        in: query
+        required: false
+        schema:
+          type: string
+        style: simple
+      - name: predicate_uri
+        in: query
+        explode: true
+        required: false
+        schema:
+           type: string
+        style: simple
+      - name: object_uri
+        in: query
+        explode: true
+        required: false
+        schema:
+           type: string
+        style: simple
+      responses:
+        200:
+          description: Success
+        403:
+          description: Invalid element
+        405:
+          description: Unsupported element
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+        - DataService
+
     post:
       summary: Entity statement creation
       description: Creates a new entity statement
