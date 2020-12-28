@@ -184,52 +184,10 @@ paths:
       tags:
         - DataService
 
-#  DONT EVEN TRY TO USE POLYMORPHISM HERE
-#  /query:
-#      post:
-#        summary: Knowledge query
-#        description: Queries a Knowledge Graph
-#        parameters:
-#          - name: kg
-#            in: query
-#            required: false
-#            schema:
-#              type: string
-#              format: id
-#            description: Query context (opt)
-#        operationId: query
-#        responses:
-#          200:
-#            description: Success
-#            content:
-#              application/json:
-#                schema:
-#                  $ref: '#/components/schemas/QueryResponse'
-#          401:
-#            description: Unsupported language
-#          402:
-#            description: Invalid query
-#          501:
-#            description: Service unavailable
-#          502:
-#            description: Server error
-#          503:
-#            description: Missing implementation
-#        requestBody:
-#          content:
-#            application/json:
-#              schema:
-#                 $ref: '#/components/schemas/Query'
-#          description: The query
-#          required: true
-#        tags:
-#          - DataService
-
-
   /query/expression:
     post:
-      summary: Knowledge query
-      description: Queries a Knowledge Graph
+      summary: Issue a graph query
+      description: Queries the Knowledge Graph by a query expression, whose syntax is specified
       parameters:
         - name: kg
           in: query
@@ -393,6 +351,16 @@ components:
       properties:
         qtype:
           type: string
+        limit:
+          description: Limit results to the specified value, -1 means no limit
+          type: integer
+          minimum: -1
+          default: -1
+        timeout:
+          description: Limits the answering time in seconds, -1 means no limit
+          type: integer
+          minimum: -1
+          default: -1
       discriminator:
         propertyName: qtype
         mapping:
@@ -401,7 +369,7 @@ components:
           QueryKeywords: '#/components/schemas/QueryKeywords'
 
     QueryExpression:
-      description: Query structured string
+      description: Query string in a specific query language
       allOf:
         - $ref: '#/components/schemas/Query'
       type: object
@@ -421,7 +389,7 @@ components:
           description: Query string
 
     QueryFrame:
-      description: Query frame
+      description: Query by frame
       allOf:
         - $ref: '#/components/schemas/Query'
       type: object
@@ -435,12 +403,11 @@ components:
           enum:
             - EXTENSION
             - CARDINALITY
-
         frame:
           $ref: kg-knowledge.yaml#/components/schemas/Frame
 
     QueryKeywords:
-      description: Keyword-based search
+      description: Keyword-based query (search)
       allOf:
         - $ref: '#/components/schemas/Query'
       type: object
