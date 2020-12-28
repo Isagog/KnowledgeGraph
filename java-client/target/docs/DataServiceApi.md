@@ -8,8 +8,9 @@ Method | HTTP request | Description
 [**createStatement**](DataServiceApi.md#createStatement) | **POST** /statements | Entity statement creation
 [**deleteEntity**](DataServiceApi.md#deleteEntity) | **DELETE** /entities/{id} | Entity deletion
 [**deleteStatement**](DataServiceApi.md#deleteStatement) | **DELETE** /statements | Statement deletion
+[**getAllStatements**](DataServiceApi.md#getAllStatements) | **GET** /statements | Get statements
 [**getEntity**](DataServiceApi.md#getEntity) | **GET** /entities/{id} | Element access
-[**queryExpression**](DataServiceApi.md#queryExpression) | **POST** /query/expression | Knowledge query
+[**queryExpression**](DataServiceApi.md#queryExpression) | **POST** /query/expression | Issue a graph query
 [**queryFrame**](DataServiceApi.md#queryFrame) | **POST** /query/frame | Knowledge query
 [**queryKeywords**](DataServiceApi.md#queryKeywords) | **POST** /query/keywords | Knowledge query
 [**upload**](DataServiceApi.md#upload) | **POST** /upload | Bulk upload
@@ -283,6 +284,76 @@ No authorization required
 **502** | Server error |  -  |
 **503** | Missing implementation |  -  |
 
+<a name="getAllStatements"></a>
+# **getAllStatements**
+> getAllStatements(subjectUri, predicateUri, objectUri)
+
+Get statements
+
+Retrieve statements related to a predicate, object, or subject combination
+
+### Example
+```java
+// Import classes:
+import com.isagog.kg.ApiClient;
+import com.isagog.kg.ApiException;
+import com.isagog.kg.Configuration;
+import com.isagog.kg.models.*;
+import com.isagog.kg.api.DataServiceApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://api.isagog.com");
+
+    DataServiceApi apiInstance = new DataServiceApi(defaultClient);
+    String subjectUri = "subjectUri_example"; // String | 
+    String predicateUri = "predicateUri_example"; // String | 
+    String objectUri = "objectUri_example"; // String | 
+    try {
+      apiInstance.getAllStatements(subjectUri, predicateUri, objectUri);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DataServiceApi#getAllStatements");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **subjectUri** | **String**|  | [optional]
+ **predicateUri** | **String**|  | [optional]
+ **objectUri** | **String**|  | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success |  -  |
+**403** | Invalid element |  -  |
+**405** | Unsupported element |  -  |
+**501** | Service unavailable |  -  |
+**502** | Server error |  -  |
+**503** | Missing implementation |  -  |
+
 <a name="getEntity"></a>
 # **getEntity**
 > Entity getEntity(id, details)
@@ -358,9 +429,9 @@ No authorization required
 # **queryExpression**
 > QueryResponse queryExpression(queryExpression, kg)
 
-Knowledge query
+Issue a graph query
 
-Queries a Knowledge Graph
+Queries the Knowledge Graph by a query expression, whose syntax is specified
 
 ### Example
 ```java

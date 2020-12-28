@@ -2,7 +2,7 @@
 
 # QueryExpression
 
-Query structured string
+Query string in a specific query language
 ## Properties
 
 Name | Type | Description | Notes

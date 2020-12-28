@@ -2,7 +2,7 @@
 
 # QueryKeywords
 
-Keyword-based search
+Keyword-based query (search)
 ## Properties
 
 Name | Type | Description | Notes

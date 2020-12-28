@@ -2,7 +2,7 @@
 
 # QueryFrame
 
-Query frame
+Query by frame
 ## Properties
 
 Name | Type | Description | Notes

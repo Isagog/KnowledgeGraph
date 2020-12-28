@@ -3,7 +3,6 @@ com\isagog\kg\JSON$4.class
 com\isagog\kg\ProgressResponseBody$1.class
 com\isagog\kg\StringUtil.class
 com\isagog\kg\api\KnowledgeServiceApi$9.class
-com\isagog\kg\model\QueryResponseHeader$DtypeEnum$Adapter.class
 com\isagog\kg\ApiClient$1.class
 com\isagog\kg\model\AttributiveSlot.class
 com\isagog\kg\model\BasicAnnotation.class
@@ -17,7 +16,6 @@ com\isagog\kg\api\LinguisticServiceApi$3.class
 com\isagog\kg\model\QueryFrame$QkindEnum.class
 com\isagog\kg\JSON$16.class
 com\isagog\kg\model\Frame.class
-com\isagog\kg\model\QueryResponseHeader$DtypeEnum.class
 com\isagog\kg\model\SyntacticRelation$TagEnum.class
 com\isagog\kg\ProgressResponseBody.class
 com\isagog\kg\api\KnowledgeServiceApi$12.class
@@ -124,7 +122,6 @@ com\isagog\kg\model\ElementRanking.class
 com\isagog\kg\api\KnowledgeServiceApi$13.class
 com\isagog\kg\JSON$8.class
 com\isagog\kg\model\InformativeAnnotation.class
-com\isagog\kg\model\QueryResponseHeader.class
 com\isagog\kg\model\AttributiveConcept$ConstraintEnum$Adapter.class
 com\isagog\kg\api\KnowledgeServiceApi$10.class
 com\isagog\kg\JSON$OffsetDateTimeTypeAdapter.class
@@ -145,7 +142,6 @@ com\isagog\kg\model\Sentence$LangEnum.class
 com\isagog\kg\api\KnowledgeServiceApi$16.class
 com\isagog\kg\model\Concept.class
 com\isagog\kg\api\LinguisticServiceApi.class
-com\isagog\kg\model\QueryResponseItem.class
 com\isagog\kg\api\KnowledgeServiceApi$14.class
 com\isagog\kg\model\Upload.class
 com\isagog\kg\JSON$20.class

@@ -131,21 +131,21 @@ paths:
       description: Retrieve statements related to a predicate, object, or subject combination
       operationId: getAllStatements
       parameters:
-      - name: subject_uri
+      - name: subject
         explode: true
         in: query
         required: false
         schema:
           type: string
         style: simple
-      - name: predicate_uri
+      - name: predicate
         in: query
         explode: true
         required: false
         schema:
            type: string
         style: simple
-      - name: object_uri
+      - name: object
         in: query
         explode: true
         required: false
