@@ -139,7 +139,7 @@ paths:
   /complete:
       get:
         summary: Suggets completions
-        description: Provides a list of candidate completions of the provided one
+        description: Provides a list of candidate completions to the provided input (hook)
         parameters:
           - name: hook
             in: query
@@ -147,17 +147,25 @@ paths:
             schema:
               type: string
               format: utf8
+          - name: context
+            in: query
+            required: false
+            schema:
+              type: array
+              description: Sorted list of previous completions to provide context (opt)
+              items:
+                $ref: '#/components/schemas/Completion'
+            explode: false
         operationId: complete
         responses:
           200:
-            description: Suitable completions
+            description: List of suitable completion (typed) choices
             content:
               application/json:
                 schema:
                   type: array
                   items:
-                    type: string
-                    format: utf8
+                    $ref: '#/components/schemas/CompletionChoices'
           402:
             description: Illegal hook
           501:
@@ -194,6 +202,52 @@ components:
           description: Serialized content
           type: string
           format: binary
+
+    CompletionType:
+      type: object
+      description: Enumeration of completion types
+      properties:
+        ctype:
+           type: string
+           enum:
+            - ENTITY
+            - CONCEPT
+            - RELATION
+            - ATTRIBUTE
+            - QUESTION_WORD
+            - CONJUNCTION
+            - ANY
+           default: ANY
+
+    CompletionChoices:
+      description: Typed completion choices
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CompletionType'
+      required:
+        - completion
+      properties:
+        choices:
+          description: Completion choices
+          type: array
+          items:
+            type: string
+            format: utf8
+
+    Completion:
+      description: Actual completion
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CompletionType'
+      required:
+        - completion
+      properties:
+        completion:
+          type: string
+          format: utf8
+
+
+
 
 
 

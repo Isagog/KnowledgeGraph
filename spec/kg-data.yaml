@@ -53,7 +53,7 @@ paths:
   /entities/{id}:
     get:
         summary: Element access
-        description: Returns a KnowledgeElement
+        description: Returns an Entity
         operationId: getEntity
         parameters:
           - name: id
@@ -77,7 +77,7 @@ paths:
             content:
               application/json:
                 schema:
-                  $ref: kg-knowledge.yaml#/components/schemas/Entity
+                  $ref: '#/components/schemas/EntityResponse'
           401:
             description: Element not found
           402:
@@ -155,6 +155,12 @@ paths:
       responses:
         200:
           description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                   $ref: kg-knowledge.yaml#/components/schemas/Statement
         403:
           description: Invalid element
         405:
@@ -532,6 +538,18 @@ components:
           maximum: 1.0
           default: 1.0
 
+    EntityResponse:
+      description: Entity lookup response
+      type: object
+      required:
+        - statements
+      properties:
+        entity:
+           $ref: kg-knowledge.yaml#/components/schemas/Entity
+        statements:
+          type: array
+          items:
+            $ref: kg-knowledge.yaml#/components/schemas/EntityStatement
 
     UpdateResponse:
       description: Update response

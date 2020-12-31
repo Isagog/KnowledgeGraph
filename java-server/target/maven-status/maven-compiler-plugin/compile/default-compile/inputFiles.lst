@@ -1,5 +1,6 @@
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\factories\DataServiceApiServiceFactory.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\LinguisticAnnotation.java
+D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\CompletionChoices.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\SentenceAnnotation.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\AttributiveSlot.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\ValueSlot.java
@@ -23,6 +24,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\UploadForm.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\SentenceRanking.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\ApiOriginFilter.java
+D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\CompletionType.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Slot.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\Application.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\QueryResponse.java
@@ -44,6 +46,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\KnowledgeAnnotation.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\ResponseRow.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\QueryFrame.java
+D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Completion.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Concept.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\QueryExpression.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\TokenAnnotation.java
@@ -57,6 +60,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\factories\LinguisticServiceApiServiceFactory.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\RFC3339DateFormat.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\JacksonJsonProvider.java
+D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\EntityResponse.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Query.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Sentence.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\ResponseHeader.java

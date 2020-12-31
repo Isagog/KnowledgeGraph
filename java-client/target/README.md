@@ -2,7 +2,7 @@
 
 Isagog Knowledge Graph Interaction Service
 - API version: 1.0.0
-  - Build date: 2020-12-28T15:32:27.502+01:00[Europe/Berlin]
+  - Build date: 2020-12-31T15:30:44.374+01:00[Europe/Berlin]
 
 Isagog Knowledge Graph Interaction module
 
@@ -86,8 +86,9 @@ public class Example {
 
     InteractionServiceApi apiInstance = new InteractionServiceApi(defaultClient);
     String hook = "hook_example"; // String | 
+    List<Completion> context = Arrays.asList(); // List<Completion> | 
     try {
-      List<String> result = apiInstance.complete(hook);
+      List<CompletionChoices> result = apiInstance.complete(hook, context);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling InteractionServiceApi#complete");
@@ -118,6 +119,9 @@ Class | Method | HTTP request | Description
  - [AttributiveSlot](docs/AttributiveSlot.md)
  - [BasicAnnotation](docs/BasicAnnotation.md)
  - [Classification](docs/Classification.md)
+ - [Completion](docs/Completion.md)
+ - [CompletionChoices](docs/CompletionChoices.md)
+ - [CompletionType](docs/CompletionType.md)
  - [Concept](docs/Concept.md)
  - [ConceptualSlot](docs/ConceptualSlot.md)
  - [DependencyAnnotation](docs/DependencyAnnotation.md)

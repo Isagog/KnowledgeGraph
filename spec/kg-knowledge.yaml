@@ -480,8 +480,6 @@ components:
         propertyName: ktype
         mapping:
           Concept:             '#/components/schemas/Concept'
-#          RelationalConcept:   '#/components/schemas/RelationalConcept'
-#          AttributiveConcept:  '#/components/schemas/AttributiveConcept'
           Relation:            '#/components/schemas/Relation'
           Attribute:           '#/components/schemas/Attribute'
           Entity:              '#/components/schemas/Entity'
@@ -687,10 +685,6 @@ components:
         id:
           type: string
           format: id
-        statements:
-          type: array
-          items:
-            $ref: '#/components/schemas/EntityStatement'
 
     Statement:
       description: Knowledge statement

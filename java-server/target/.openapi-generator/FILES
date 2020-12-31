@@ -16,6 +16,9 @@ src/main/java/com/isagog/kg/model/Attribute.java
 src/main/java/com/isagog/kg/model/AttributiveSlot.java
 src/main/java/com/isagog/kg/model/BasicAnnotation.java
 src/main/java/com/isagog/kg/model/Classification.java
+src/main/java/com/isagog/kg/model/Completion.java
+src/main/java/com/isagog/kg/model/CompletionChoices.java
+src/main/java/com/isagog/kg/model/CompletionType.java
 src/main/java/com/isagog/kg/model/Concept.java
 src/main/java/com/isagog/kg/model/ConceptualSlot.java
 src/main/java/com/isagog/kg/model/DependencyAnnotation.java

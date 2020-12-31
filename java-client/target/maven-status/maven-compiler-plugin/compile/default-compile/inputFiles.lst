@@ -2,6 +2,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\RelationalConcept.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\PredicateStatement.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\GzipRequestInterceptor.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Completion.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\ProgressRequestBody.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Classification.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Attribute.java
@@ -13,6 +14,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\JSON.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\ElementRanking.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\MetaclassAnnotation.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\CompletionChoices.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\RelationalSlot.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\UpdateResponseReport.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\ApiClient.java
@@ -30,6 +32,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\api\LinguisticServiceApi.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Statement.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Sentence.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\CompletionType.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\ApiException.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\QueryKeywords.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Concept.java
@@ -51,6 +54,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\auth\Authentication.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\QueryExpression.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\Configuration.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\EntityResponse.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Frame.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\EntityStatement.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Upload.java

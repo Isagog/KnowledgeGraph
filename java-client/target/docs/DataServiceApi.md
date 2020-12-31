@@ -286,7 +286,7 @@ No authorization required
 
 <a name="getAllStatements"></a>
 # **getAllStatements**
-> getAllStatements(subjectUri, predicateUri, objectUri)
+> List&lt;Statement&gt; getAllStatements(subject, predicate, _object)
 
 Get statements
 
@@ -307,11 +307,12 @@ public class Example {
     defaultClient.setBasePath("http://api.isagog.com");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
-    String subjectUri = "subjectUri_example"; // String | 
-    String predicateUri = "predicateUri_example"; // String | 
-    String objectUri = "objectUri_example"; // String | 
+    String subject = "subject_example"; // String | 
+    String predicate = "predicate_example"; // String | 
+    String _object = "_object_example"; // String | 
     try {
-      apiInstance.getAllStatements(subjectUri, predicateUri, objectUri);
+      List<Statement> result = apiInstance.getAllStatements(subject, predicate, _object);
+      System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DataServiceApi#getAllStatements");
       System.err.println("Status code: " + e.getCode());
@@ -327,13 +328,13 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **subjectUri** | **String**|  | [optional]
- **predicateUri** | **String**|  | [optional]
- **objectUri** | **String**|  | [optional]
+ **subject** | **String**|  | [optional]
+ **predicate** | **String**|  | [optional]
+ **_object** | **String**|  | [optional]
 
 ### Return type
 
-null (empty response body)
+[**List&lt;Statement&gt;**](Statement.md)
 
 ### Authorization
 
@@ -342,7 +343,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -356,11 +357,11 @@ No authorization required
 
 <a name="getEntity"></a>
 # **getEntity**
-> Entity getEntity(id, details)
+> EntityResponse getEntity(id, details)
 
 Element access
 
-Returns a KnowledgeElement
+Returns an Entity
 
 ### Example
 ```java
@@ -380,7 +381,7 @@ public class Example {
     String id = "id_example"; // String | 
     String details = "NONE"; // String | 
     try {
-      Entity result = apiInstance.getEntity(id, details);
+      EntityResponse result = apiInstance.getEntity(id, details);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DataServiceApi#getEntity");
@@ -402,7 +403,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Entity**](Entity.md)
+[**EntityResponse**](EntityResponse.md)
 
 ### Authorization
 

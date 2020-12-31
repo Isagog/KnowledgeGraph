@@ -8,6 +8,9 @@ docs/Attribute.md
 docs/AttributiveSlot.md
 docs/BasicAnnotation.md
 docs/Classification.md
+docs/Completion.md
+docs/CompletionChoices.md
+docs/CompletionType.md
 docs/Concept.md
 docs/ConceptualSlot.md
 docs/DependencyAnnotation.md
@@ -70,6 +73,9 @@ src/main/java/com/isagog/kg/model/Attribute.java
 src/main/java/com/isagog/kg/model/AttributiveSlot.java
 src/main/java/com/isagog/kg/model/BasicAnnotation.java
 src/main/java/com/isagog/kg/model/Classification.java
+src/main/java/com/isagog/kg/model/Completion.java
+src/main/java/com/isagog/kg/model/CompletionChoices.java
+src/main/java/com/isagog/kg/model/CompletionType.java
 src/main/java/com/isagog/kg/model/Concept.java
 src/main/java/com/isagog/kg/model/ConceptualSlot.java
 src/main/java/com/isagog/kg/model/DependencyAnnotation.java

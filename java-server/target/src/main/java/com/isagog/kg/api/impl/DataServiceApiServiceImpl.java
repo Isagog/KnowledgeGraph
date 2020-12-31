@@ -4,11 +4,13 @@ import com.isagog.kg.api.*;
 import com.isagog.kg.model.*;
 
 import com.isagog.kg.model.Entity;
+import com.isagog.kg.model.EntityResponse;
 import com.isagog.kg.model.EntityStatement;
 import com.isagog.kg.model.QueryExpression;
 import com.isagog.kg.model.QueryFrame;
 import com.isagog.kg.model.QueryKeywords;
 import com.isagog.kg.model.QueryResponse;
+import com.isagog.kg.model.Statement;
 import com.isagog.kg.model.Upload;
 
 import java.util.List;
@@ -22,7 +24,7 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-12-23T17:39:53.969+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-12-31T15:31:45.906+01:00[Europe/Berlin]")
 public class DataServiceApiServiceImpl extends DataServiceApiService {
     @Override
     public Response createEntity(Entity entity
@@ -44,6 +46,14 @@ public class DataServiceApiServiceImpl extends DataServiceApiService {
     }
     @Override
     public Response deleteStatement(EntityStatement entityStatement
+ ) throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+    }
+    @Override
+    public Response getAllStatements(String subject
+, String predicate
+, String _object
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();

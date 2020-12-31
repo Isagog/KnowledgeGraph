@@ -141,7 +141,8 @@ paths:
       x-accepts: application/json
   /complete:
     get:
-      description: Provides a list of candidate completions of the provided one
+      description: Provides a list of candidate completions to the provided input
+        (hook)
       operationId: complete
       parameters:
       - explode: true
@@ -152,16 +153,25 @@ paths:
           format: utf8
           type: string
         style: form
+      - explode: false
+        in: query
+        name: context
+        required: false
+        schema:
+          description: Sorted list of previous completions to provide context (opt)
+          items:
+            $ref: '#/components/schemas/Completion'
+          type: array
+        style: form
       responses:
         "200":
           content:
             application/json:
               schema:
                 items:
-                  format: utf8
-                  type: string
+                  $ref: '#/components/schemas/CompletionChoices'
                 type: array
-          description: Suitable completions
+          description: List of suitable completion (typed) choices
         "402":
           description: Illegal hook
         "501":
@@ -195,6 +205,50 @@ components:
           type: string
       required:
       - content
+      type: object
+    CompletionType:
+      description: Enumeration of completion types
+      properties:
+        ctype:
+          default: ANY
+          enum:
+          - ENTITY
+          - CONCEPT
+          - RELATION
+          - ATTRIBUTE
+          - QUESTION_WORD
+          - CONJUNCTION
+          - ANY
+          type: string
+      type: object
+    CompletionChoices:
+      allOf:
+      - $ref: '#/components/schemas/CompletionType'
+      description: Typed completion choices
+      example:
+        choices:
+        - choices
+        - choices
+      properties:
+        choices:
+          description: Completion choices
+          items:
+            format: utf8
+            type: string
+          type: array
+      required:
+      - completion
+      type: object
+    Completion:
+      allOf:
+      - $ref: '#/components/schemas/CompletionType'
+      description: Actual completion
+      properties:
+        completion:
+          format: utf8
+          type: string
+      required:
+      - completion
       type: object
     Sentence:
       description: A single sentence
@@ -556,10 +610,6 @@ components:
         id:
           format: id
           type: string
-        statements:
-          items:
-            $ref: '#/components/schemas/EntityStatement'
-          type: array
       required:
       - id
       type: object

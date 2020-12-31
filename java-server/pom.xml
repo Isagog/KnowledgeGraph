@@ -175,7 +175,7 @@
                             <modelPackage>com.isagog.kg.model</modelPackage>
                         </configuration>
                     </execution>
-                         end openapi generation -->
+                          end openapi generation -->
                 </executions>
             </plugin>
 

@@ -11,11 +11,11 @@ Method | HTTP request | Description
 
 <a name="complete"></a>
 # **complete**
-> List&lt;String&gt; complete(hook)
+> List&lt;CompletionChoices&gt; complete(hook, context)
 
 Suggets completions
 
-Provides a list of candidate completions of the provided one
+Provides a list of candidate completions to the provided input (hook)
 
 ### Example
 ```java
@@ -33,8 +33,9 @@ public class Example {
 
     InteractionServiceApi apiInstance = new InteractionServiceApi(defaultClient);
     String hook = "hook_example"; // String | 
+    List<Completion> context = Arrays.asList(); // List<Completion> | 
     try {
-      List<String> result = apiInstance.complete(hook);
+      List<CompletionChoices> result = apiInstance.complete(hook, context);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling InteractionServiceApi#complete");
@@ -52,10 +53,11 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **hook** | **String**|  |
+ **context** | [**List&lt;Completion&gt;**](Completion.md)|  | [optional]
 
 ### Return type
 
-**List&lt;String&gt;**
+[**List&lt;CompletionChoices&gt;**](CompletionChoices.md)
 
 ### Authorization
 
@@ -69,7 +71,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Suitable completions |  -  |
+**200** | List of suitable completion (typed) choices |  -  |
 **402** | Illegal hook |  -  |
 **501** | Service unavailable |  -  |
 **502** | Server error |  -  |
