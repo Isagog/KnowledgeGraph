@@ -7,7 +7,7 @@ Base class for knowledge annotations
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**atype** | **String** | Annotation type | 
+**atype** | **String** | Annotation type, should be aligned to the subclass name | 
 **label** | **String** | Annotation label (opt) |  [optional]
 
 

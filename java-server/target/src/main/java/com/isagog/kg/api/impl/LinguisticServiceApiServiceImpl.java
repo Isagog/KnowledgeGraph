@@ -18,7 +18,7 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-12-31T15:31:46.299+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-09T20:38:26.148+01:00[Europe/Berlin]")
 public class LinguisticServiceApiServiceImpl extends LinguisticServiceApiService {
     @Override
     public Response analyze(String task

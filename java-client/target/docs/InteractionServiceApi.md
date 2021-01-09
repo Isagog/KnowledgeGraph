@@ -5,13 +5,12 @@ All URIs are relative to *http://api.isagog.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**complete**](InteractionServiceApi.md#complete) | **GET** /complete | Suggets completions
-[**input**](InteractionServiceApi.md#input) | **POST** /input | User input
-[**issue**](InteractionServiceApi.md#issue) | **POST** /issue | Sends a frame instance for processing
+[**issue**](InteractionServiceApi.md#issue) | **POST** /issue | Sends an interaction sequence for processing
 
 
 <a name="complete"></a>
 # **complete**
-> List&lt;CompletionChoices&gt; complete(hook, context)
+> CompletionResponse complete(hook, itype)
 
 Suggets completions
 
@@ -32,10 +31,10 @@ public class Example {
     defaultClient.setBasePath("http://api.isagog.com");
 
     InteractionServiceApi apiInstance = new InteractionServiceApi(defaultClient);
-    String hook = "hook_example"; // String | 
-    List<Completion> context = Arrays.asList(); // List<Completion> | 
+    String hook = "hook_example"; // String | String to search by
+    String itype = "itype_example"; // String | Conceptual type restriction (opt)
     try {
-      List<CompletionChoices> result = apiInstance.complete(hook, context);
+      CompletionResponse result = apiInstance.complete(hook, itype);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling InteractionServiceApi#complete");
@@ -52,12 +51,12 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **hook** | **String**|  |
- **context** | [**List&lt;Completion&gt;**](Completion.md)|  | [optional]
+ **hook** | **String**| String to search by |
+ **itype** | **String**| Conceptual type restriction (opt) | [optional]
 
 ### Return type
 
-[**List&lt;CompletionChoices&gt;**](CompletionChoices.md)
+[**CompletionResponse**](CompletionResponse.md)
 
 ### Authorization
 
@@ -71,92 +70,19 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | List of suitable completion (typed) choices |  -  |
+**200** | List of suitable completions |  -  |
 **402** | Illegal hook |  -  |
-**501** | Service unavailable |  -  |
-**502** | Server error |  -  |
-**503** | Missing implementation |  -  |
-
-<a name="input"></a>
-# **input**
-> String input(sentence, kg)
-
-User input
-
-Processes the user input
-
-### Example
-```java
-// Import classes:
-import com.isagog.kg.ApiClient;
-import com.isagog.kg.ApiException;
-import com.isagog.kg.Configuration;
-import com.isagog.kg.models.*;
-import com.isagog.kg.api.InteractionServiceApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
-
-    InteractionServiceApi apiInstance = new InteractionServiceApi(defaultClient);
-    Sentence sentence = new Sentence(); // Sentence | User input
-    String kg = "kg_example"; // String | Upload context (KG id)
-    try {
-      String result = apiInstance.input(sentence, kg);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling InteractionServiceApi#input");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sentence** | [**Sentence**](Sentence.md)| User input |
- **kg** | **String**| Upload context (KG id) | [optional]
-
-### Return type
-
-**String**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: text/plain, application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Acknowledge message |  -  |
-**201** | Query response |  -  |
-**202** | Frame instantiation |  -  |
-**203** | Sentence analysis |  -  |
-**401** | Unknown graph |  -  |
-**402** | Illegal input format |  -  |
-**403** | Meaningless input |  -  |
 **501** | Service unavailable |  -  |
 **502** | Server error |  -  |
 **503** | Missing implementation |  -  |
 
 <a name="issue"></a>
 # **issue**
-> List&lt;String&gt; issue(frame, kg)
+> String issue(interactRecord, kg)
 
-Sends a frame instance for processing
+Sends an interaction sequence for processing
 
-Sends a frame, e.g. a user query form, to the systems
+Sends list of interaction records, to be processed according to the service&#39;s buisiness logic
 
 ### Example
 ```java
@@ -173,10 +99,10 @@ public class Example {
     defaultClient.setBasePath("http://api.isagog.com");
 
     InteractionServiceApi apiInstance = new InteractionServiceApi(defaultClient);
-    Frame frame = new Frame(); // Frame | Frame instance
-    String kg = "kg_example"; // String | Upload context (KG id)
+    List<InteractRecord> interactRecord = Arrays.asList(); // List<InteractRecord> | Interaction record array
+    String kg = "kg_example"; // String | Issuing target (opt)
     try {
-      List<String> result = apiInstance.issue(frame, kg);
+      String result = apiInstance.issue(interactRecord, kg);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling InteractionServiceApi#issue");
@@ -193,12 +119,12 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **frame** | [**Frame**](Frame.md)| Frame instance |
- **kg** | **String**| Upload context (KG id) | [optional]
+ **interactRecord** | [**List&lt;InteractRecord&gt;**](InteractRecord.md)| Interaction record array |
+ **kg** | **String**| Issuing target (opt) | [optional]
 
 ### Return type
 
-**List&lt;String&gt;**
+**String**
 
 ### Authorization
 
@@ -212,7 +138,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success acknowledge |  -  |
+**200** | Acknowledge |  -  |
 **201** | Query response |  -  |
 **202** | Update response |  -  |
 **401** | Unknown graph |  -  |

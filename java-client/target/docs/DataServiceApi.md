@@ -84,7 +84,7 @@ No authorization required
 
 <a name="createStatement"></a>
 # **createStatement**
-> createStatement(entityStatement)
+> createStatement(statement)
 
 Entity statement creation
 
@@ -105,9 +105,9 @@ public class Example {
     defaultClient.setBasePath("http://api.isagog.com");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
-    EntityStatement entityStatement = new EntityStatement(); // EntityStatement | Statement specification
+    Statement statement = new Statement(); // Statement | Statement specification
     try {
-      apiInstance.createStatement(entityStatement);
+      apiInstance.createStatement(statement);
     } catch (ApiException e) {
       System.err.println("Exception when calling DataServiceApi#createStatement");
       System.err.println("Status code: " + e.getCode());
@@ -123,7 +123,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **entityStatement** | [**EntityStatement**](EntityStatement.md)| Statement specification |
+ **statement** | [**Statement**](Statement.md)| Statement specification |
 
 ### Return type
 
@@ -218,7 +218,7 @@ No authorization required
 
 <a name="deleteStatement"></a>
 # **deleteStatement**
-> deleteStatement(entityStatement)
+> deleteStatement(statement)
 
 Statement deletion
 
@@ -239,9 +239,9 @@ public class Example {
     defaultClient.setBasePath("http://api.isagog.com");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
-    EntityStatement entityStatement = new EntityStatement(); // EntityStatement | Statement specification
+    Statement statement = new Statement(); // Statement | Statement specification
     try {
-      apiInstance.deleteStatement(entityStatement);
+      apiInstance.deleteStatement(statement);
     } catch (ApiException e) {
       System.err.println("Exception when calling DataServiceApi#deleteStatement");
       System.err.println("Status code: " + e.getCode());
@@ -257,7 +257,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **entityStatement** | [**EntityStatement**](EntityStatement.md)| Statement specification |
+ **statement** | [**Statement**](Statement.md)| Statement specification |
 
 ### Return type
 
@@ -286,7 +286,7 @@ No authorization required
 
 <a name="getAllStatements"></a>
 # **getAllStatements**
-> List&lt;Statement&gt; getAllStatements(subject, predicate, _object)
+> StatementResponse getAllStatements(subject, predicate, value)
 
 Get statements
 
@@ -309,9 +309,9 @@ public class Example {
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
     String subject = "subject_example"; // String | 
     String predicate = "predicate_example"; // String | 
-    String _object = "_object_example"; // String | 
+    String value = "value_example"; // String | 
     try {
-      List<Statement> result = apiInstance.getAllStatements(subject, predicate, _object);
+      StatementResponse result = apiInstance.getAllStatements(subject, predicate, value);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DataServiceApi#getAllStatements");
@@ -330,11 +330,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **subject** | **String**|  | [optional]
  **predicate** | **String**|  | [optional]
- **_object** | **String**|  | [optional]
+ **value** | **String**|  | [optional]
 
 ### Return type
 
-[**List&lt;Statement&gt;**](Statement.md)
+[**StatementResponse**](StatementResponse.md)
 
 ### Authorization
 

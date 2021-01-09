@@ -145,7 +145,7 @@ paths:
         schema:
            type: string
         style: simple
-      - name: object
+      - name: value
         in: query
         explode: true
         required: false
@@ -158,9 +158,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                   $ref: kg-knowledge.yaml#/components/schemas/Statement
+                $ref: '#/components/schemas/StatementResponse'
         403:
           description: Invalid element
         405:
@@ -195,7 +193,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: kg-knowledge.yaml#/components/schemas/EntityStatement
+              $ref: kg-knowledge.yaml#/components/schemas/Statement
         description: Statement specification
         required: true
       tags:
@@ -226,7 +224,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: kg-knowledge.yaml#/components/schemas/EntityStatement
+              $ref: kg-knowledge.yaml#/components/schemas/Statement
         description: Statement specification
         required: true
       tags:
@@ -433,7 +431,7 @@ components:
           description: Query language
         query:
           type: string
-          format: utf8
+          format: utf-8
           description: Query string
 
     QueryFrame:
@@ -466,7 +464,7 @@ components:
           type: array
           items:
             type: string
-            format: UFT-8
+            format: utf-8
         op:
           type: string
           enum:
@@ -530,7 +528,7 @@ components:
           type: array
           items:
             type: string
-            format: utf8
+            format: utf-8
         support:
           type: number
           format: double
@@ -549,7 +547,17 @@ components:
         statements:
           type: array
           items:
-            $ref: kg-knowledge.yaml#/components/schemas/EntityStatement
+            $ref: kg-knowledge.yaml#/components/schemas/Statement
+
+    StatementResponse:
+      type: object
+      required:
+        - statements
+      properties:
+        statements:
+          type: array
+          items:
+            $ref: kg-knowledge.yaml#/components/schemas/Statement
 
     UpdateResponse:
       description: Update response

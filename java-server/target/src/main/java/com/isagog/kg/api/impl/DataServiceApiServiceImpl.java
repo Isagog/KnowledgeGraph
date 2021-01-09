@@ -5,12 +5,12 @@ import com.isagog.kg.model.*;
 
 import com.isagog.kg.model.Entity;
 import com.isagog.kg.model.EntityResponse;
-import com.isagog.kg.model.EntityStatement;
 import com.isagog.kg.model.QueryExpression;
 import com.isagog.kg.model.QueryFrame;
 import com.isagog.kg.model.QueryKeywords;
 import com.isagog.kg.model.QueryResponse;
 import com.isagog.kg.model.Statement;
+import com.isagog.kg.model.StatementResponse;
 import com.isagog.kg.model.Upload;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2020-12-31T15:31:45.906+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-09T20:38:25.718+01:00[Europe/Berlin]")
 public class DataServiceApiServiceImpl extends DataServiceApiService {
     @Override
     public Response createEntity(Entity entity
@@ -33,7 +33,7 @@ public class DataServiceApiServiceImpl extends DataServiceApiService {
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
-    public Response createStatement(EntityStatement entityStatement
+    public Response createStatement(Statement statement
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
@@ -45,7 +45,7 @@ public class DataServiceApiServiceImpl extends DataServiceApiService {
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
-    public Response deleteStatement(EntityStatement entityStatement
+    public Response deleteStatement(Statement statement
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
@@ -53,7 +53,7 @@ public class DataServiceApiServiceImpl extends DataServiceApiService {
     @Override
     public Response getAllStatements(String subject
 , String predicate
-, String _object
+, String value
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();

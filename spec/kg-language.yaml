@@ -118,6 +118,16 @@ paths:
 components:
   schemas:
 
+    Language:
+      description: language codes
+      type: string
+      enum:
+      - en
+      - es
+      - fr
+      - it
+      - de
+
     Sentence:
       description: A single sentence
       type: object
@@ -125,14 +135,7 @@ components:
         - verbatim
       properties:
         lang:
-          description: Language
-          type: string
-          enum:
-            - en
-            - es
-            - fr
-            - it
-            - de
+          $ref: '#/components/schemas/Language'
         verbatim:
           description: Textual content
           type: string
@@ -212,6 +215,71 @@ components:
             EntityAnnotation: '#/components/schemas/EntityAnnotation'
             DependencyAnnotation: '#/components/schemas/DependencyAnnotation'
 
+    PartOfSpeech:
+      description: Part of speech
+      type: string
+      enum:
+        - ADJ #adjective
+        - ADP #adposition
+        - ADV #adverb
+        - AUX #auxiliary
+        - CCONJ #coordinating conjunction
+        - DET #determiner
+        - INTJ #interjection
+        - NOUN #noun
+        - NUM #numeral
+        - PART #particle
+        - PRON #pronoun
+        - PROPN #proper noun
+        - PUNCT #punctuation
+        - SCONJ #subordinating conjunction
+        - SYM #symbol
+        - VERB #verb
+        - X #other
+
+    SyntacticDependency:
+      description: Dependendency tag (Universal Dependencies)
+      type: string
+      enum:
+        - ACL            # clausal modifier of noun (adjectival clause)
+        - ADVCL        # adverbial clause modifier
+        - ADVMOD        # adverbial modifier
+        - AMOD        # adjectival modifier
+        - APPOS        # appositional modifier
+        - AUX            # auxiliary
+        - CASE        # case marking
+        - CC            # coordinating conjunction
+        - CCOMP        # clausal complement
+        - CLF            # classifier
+        - COMPOUND    # compound
+        - CONJ        # conjunct
+        - COP            # copula
+        - CSUBJ        # clausal subject
+        - DEP            # unspecified dependency
+        - DET            # determiner
+        - DISCOURSE   # discourse element
+        - DISLOCATED    # dislocated elements
+        - EXPL        # expletive
+        - FIXED        # fixed multiword expression
+        - FLAT        # flat multiword expression
+        - GOESWITH    # goes with
+        - IOBJ        # indirect object
+        - LIST        # list
+        - MARK        # marker
+        - NMOD        # nominal modifier
+        - NSUBJ        # nominal subject
+        - NUMMOD        # numeric modifier
+        - OBJ        # object
+        - OBL            # oblique nominal
+        - ORPHAN        # orphan
+        - PARATAXIS    # parataxis
+        - PUNCT        # punctuation
+        - REPARANDUM    # overridden disfluency
+        - ROOT        # root
+        - VOCATIVE    # vocative
+        - XCOMP        # open clausal complement
+        - OTHER
+
     BasicAnnotation:
         description: Pos and lemma annotation
         type: object
@@ -222,26 +290,7 @@ components:
           - $ref: '#/components/schemas/TokenAnnotation'
         properties:
           pos:
-            description: Part of speech
-            type: string
-            enum:
-              - ADJ #adjective
-              - ADP #adposition
-              - ADV #adverb
-              - AUX #auxiliary
-              - CCONJ #coordinating conjunction
-              - DET #determiner
-              - INTJ #interjection
-              - NOUN #noun
-              - NUM #numeral
-              - PART #particle
-              - PRON #pronoun
-              - PROPN #proper noun
-              - PUNCT #punctuation
-              - SCONJ #subordinating conjunction
-              - SYM #symbol
-              - VERB #verb
-              - X #other
+            $ref: '#/components/schemas/PartOfSpeech'
           features:
             description: Grammatical features
             type: array
@@ -302,47 +351,7 @@ components:
         - tag
       properties:
         tag:
-          description: Governor's syntactic role (Universal Dependencies)
-          type: string
-          enum:
-            - ACL            # clausal modifier of noun (adjectival clause)
-            - ADVCL        # adverbial clause modifier
-            - ADVMOD        # adverbial modifier
-            - AMOD        # adjectival modifier
-            - APPOS        # appositional modifier
-            - AUX            # auxiliary
-            - CASE        # case marking
-            - CC            # coordinating conjunction
-            - CCOMP        # clausal complement
-            - CLF            # classifier
-            - COMPOUND    # compound
-            - CONJ        # conjunct
-            - COP            # copula
-            - CSUBJ        # clausal subject
-            - DEP            # unspecified dependency
-            - DET            # determiner
-            - DISCOURSE   # discourse element
-            - DISLOCATED    # dislocated elements
-            - EXPL        # expletive
-            - FIXED        # fixed multiword expression
-            - FLAT        # flat multiword expression
-            - GOESWITH    # goes with
-            - IOBJ        # indirect object
-            - LIST        # list
-            - MARK        # marker
-            - NMOD        # nominal modifier
-            - NSUBJ        # nominal subject
-            - NUMMOD        # numeric modifier
-            - OBJ        # object
-            - OBL            # oblique nominal
-            - ORPHAN        # orphan
-            - PARATAXIS    # parataxis
-            - PUNCT        # punctuation
-            - REPARANDUM    # overridden disfluency
-            - ROOT        # root
-            - VOCATIVE    # vocative
-            - XCOMP        # open clausal complement
-            - OTHER
+          $ref: '#/components/schemas/SyntacticDependency'
         extension:
           description: Further details or non UD tag
           type: string
@@ -412,7 +421,7 @@ components:
         title:
           description: Document title
           type: string
-          format: utf8
+          format: utf-8
         body:
           description: Document body
           type: string

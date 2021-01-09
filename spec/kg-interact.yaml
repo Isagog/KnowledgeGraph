@@ -21,89 +21,88 @@ tags:
 
 paths:
 
-  /input:
-    post:
-      summary: User input
-      description: Processes the user input
-      parameters:
-        - name: kg
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Upload context (KG id)
-      operationId: input
-      responses:
-        200:
-          description: Acknowledge message
-          content:
-            text/plain:
-              schema:
-                type: string
-        201:
-          description: Query response
-          content:
-            application/json:
-              schema:
-                $ref: kg-data.yaml#/components/schemas/QueryResponse
-        202:
-          description: Frame instantiation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: kg-knowledge.yaml#/components/schemas/Frame
-        203:
-          description: Sentence analysis
-          content:
-            application/json:
-              schema:
-                $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
-
-        401:
-          description: Unknown graph
-        402:
-          description: Illegal input format
-        403:
-          description: Meaningless input
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-        503:
-          description: Missing implementation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: kg-language.yaml#/components/schemas/Sentence
-        description: User input
-        required: true
-      tags:
-        - InteractionService
+#  /input:
+#    post:
+#      summary: User input
+#      description: Processes the user input
+#      parameters:
+#        - name: kg
+#          in: query
+#          required: false
+#          schema:
+#            type: string
+#          description: Upload context (KG id)
+#      operationId: input
+#      responses:
+#        200:
+#          description: Acknowledge message
+#          content:
+#            text/plain:
+#              schema:
+#                type: string
+#        201:
+#          description: Query response
+#          content:
+#            application/json:
+#              schema:
+#                $ref: kg-data.yaml#/components/schemas/QueryResponse
+#        202:
+#          description: Frame instantiation
+#          content:
+#            application/json:
+#              schema:
+#                type: array
+#                items:
+#                  $ref: kg-knowledge.yaml#/components/schemas/Frame
+#        203:
+#          description: Sentence analysis
+#          content:
+#            application/json:
+#              schema:
+#                $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
+#
+#        401:
+#          description: Unknown graph
+#        402:
+#          description: Illegal input format
+#        403:
+#          description: Meaningless input
+#        501:
+#          description: Service unavailable
+#        502:
+#          description: Server error
+#        503:
+#          description: Missing implementation
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              $ref: kg-language.yaml#/components/schemas/Sentence
+#        description: User input
+#        required: true
+#      tags:
+#        - InteractionService
 
   /issue:
       post:
-        summary: Sends a frame instance for processing
-        description: Sends a frame, e.g. a user query form, to the systems
+        summary: Sends an interaction sequence for processing
+        description: Sends list of interaction records, to be processed according to the service's buisiness logic
         parameters:
           - name: kg
             in: query
             required: false
+            description: Issuing target (opt)
             schema:
               type: string
-            description: Upload context (KG id)
+              format: id
         operationId: issue
         responses:
           200:
-            description: Success acknowledge
+            description: Acknowledge
             content:
               application/json:
                 schema:
-                  type: array
-                  items:
-                    type: string
+                  type: string
           201:
             description: Query response
             content:
@@ -130,8 +129,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: kg-knowledge.yaml#/components/schemas/Frame
-          description: Frame instance
+                type: array
+                items:
+                    $ref: '#/components/schemas/InteractRecord'
+          description: Interaction record array
           required: true
         tags:
           - InteractionService
@@ -143,29 +144,26 @@ paths:
         parameters:
           - name: hook
             in: query
+            description: String to search by
             required: true
             schema:
               type: string
-              format: utf8
-          - name: context
+              format: utf-8
+          - name: itype
             in: query
+            description: Conceptual type restriction (opt)
             required: false
             schema:
-              type: array
-              description: Sorted list of previous completions to provide context (opt)
-              items:
-                $ref: '#/components/schemas/Completion'
-            explode: false
+              type: string
+
         operationId: complete
         responses:
           200:
-            description: List of suitable completion (typed) choices
+            description: List of suitable completions
             content:
               application/json:
                 schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/CompletionChoices'
+                   $ref: '#/components/schemas/CompletionResponse'
           402:
             description: Illegal hook
           501:
@@ -203,48 +201,50 @@ components:
           type: string
           format: binary
 
-    CompletionType:
-      type: object
-      description: Enumeration of completion types
-      properties:
-        ctype:
-           type: string
-           enum:
-            - ENTITY
-            - CONCEPT
-            - RELATION
-            - ATTRIBUTE
-            - QUESTION_WORD
-            - CONJUNCTION
-            - ANY
-           default: ANY
+    InteractType:
+      description: Interaction conceptual types
+      type: string
+      enum:
+        - ENTITY
+        - CONCEPT
+        - RELATION
+        - ATTRIBUTE
+        - FRAME
+        - EXPRESSION
 
-    CompletionChoices:
-      description: Typed completion choices
+
+    InteractRecord:
+      description: Interaction record
       type: object
-      allOf:
-        - $ref: '#/components/schemas/CompletionType'
       required:
-        - completion
+        - itype
+        - value
       properties:
-        choices:
-          description: Completion choices
+        itype:
+          $ref: '#/components/schemas/InteractType'
+        kitem:
+          description: Knowlege item (opt)
+          type: string
+          format: id
+        value:
+          description: Interaction content
+          type: string
+          format: utf-8
+
+    CompletionResponse:
+      description: Completion array
+      type: object
+      properties:
+        suggestions:
+          description: Suggested interactions
           type: array
           items:
-            type: string
-            format: utf8
+            $ref: '#/components/schemas/InteractRecord'
 
-    Completion:
-      description: Actual completion
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/CompletionType'
-      required:
-        - completion
-      properties:
-        completion:
-          type: string
-          format: utf8
+
+
+
+
 
 
 

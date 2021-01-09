@@ -469,8 +469,9 @@ components:
         - ktype
       properties:
         ktype:
-          description: Knowledge element type
+          description: Knowledge element type, should be aligned to the subclass name
           type: string
+          format: classname
         annotations:
           description: Knowledge annotations
           type: array
@@ -483,8 +484,7 @@ components:
           Relation:            '#/components/schemas/Relation'
           Attribute:           '#/components/schemas/Attribute'
           Entity:              '#/components/schemas/Entity'
-          PredicateStatement:  '#/components/schemas/PredicateStatement'
-          EntityStatement:     '#/components/schemas/EntityStatement'
+          Statement:           '#/components/schemas/Statement'
           Frame:               '#/components/schemas/Frame'
           ConceptualSlot:      '#/components/schemas/ConceptualSlot'
           RelationalSlot:      '#/components/schemas/RelationalSlot'
@@ -498,8 +498,9 @@ components:
         - atype
       properties:
         atype:
-          description: Annotation type
+          description: Annotation type, should be aligned to the subclass name
           type: string
+          format: classname
         label:
           description: Annotation label (opt)
           type: string
@@ -520,28 +521,10 @@ components:
         - form
       properties:
         lang:
-          type: string
-          enum:
-            - en
-            - es
-            - de
-            - fr
-            - it
-
+          $ref: kg-language.yaml#/components/schemas/Language
         pos:
-          description: Part of speech (opt)
-          type: string
-          enum:
-            - ADJ #adjective
-            - ADV #adverb
-            - NOUN #noun
-            - PRON #pronoun
-            - PROPN #proper noun
-            - NUM #numeral
-            - VERB #verb
-            - NP #noun phrase
-            - VP #verb phrase
-            - X #other
+          $ref: kg-language.yaml#/components/schemas/PartOfSpeech
+
         form:
           description: Linguistic rendering (base form)
           type: string
@@ -575,11 +558,6 @@ components:
           description: Concept identifier (uri)
           type: string
           format: id
-        statements:
-          type: array
-          items:
-            $ref: '#/components/schemas/PredicateStatement'
-
 
     RelationalConcept:
       description: Unary relational classifier
@@ -691,72 +669,84 @@ components:
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
-      required:
-        - stype
       properties:
         subject:
-          description: The predicate's subject id, may be omitted when the statement is contained in a structure
+          description: Subject id
           type: string
           format: id
-        privacy:
+        predicate:
+          description: Ontology relation or attribute
           type: string
-          enum:
-            - OWNER
-            - TRUSTED
-            - CONTACTS
-            - PUBLIC
-          default: OWNER
+          format: id
+        value:
+          description: Object entity id or attribute value
+          type: string
+        provenance:
+          type: string
         support:
           type: number
           format: double
           minimum: 0.0
           maximum: 1.0
-      discriminator:
-        propertyName: ktype
-        mapping:
-          EntityStatement:    '#/components/schemas/EntityStatement'
-          PredicateStatement: '#/components/schemas/PredicateStatement'
-
-    PredicateStatement:
-      description: Statement whose subject is a predicate
-      allOf:
-        - $ref: '#/components/schemas/Statement'
-      type: object
-      required:
-        - object
-        - predicate
-      properties:
-        object:
-          type: string
-          format: id
-        predicate:
-          type: string
-          enum:
-            - INCLUSION
-            - DISJUNCTION
-            - EQUIVALENCE
 
 
-    EntityStatement:
-      description: Statement whose subject is an individual (individual assertion)
-      allOf:
-        - $ref: '#/components/schemas/Statement'
-      type: object
-      required:
-        - predicate
-        - object
-      properties:
-        predicate:
-          description: Ontology relation or attribute
-          type: string
-          format: id
-        relational:
-          type: boolean
-          default: false
-        object:
-          description: Statement's object, i.e. an id or a value
-          type: string
-          format: utf8
+#      discriminator:
+#        propertyName: ktype
+#        mapping:
+#          EntityStatement:    '#/components/schemas/EntityStatement'
+#          PredicateStatement: '#/components/schemas/PredicateStatement'
+
+#    PredicateStatement:
+#      description: Statement whose subject is a predicate
+#      allOf:
+#        - $ref: '#/components/schemas/Statement'
+#      type: object
+#      required:
+#        - subject
+#        - object
+#        - predicate
+#      properties:
+#        subject:
+#          description: Subject predicate id
+#          type: string
+#          format: id
+#        object:
+#          description: Object predicate id
+#          type: string
+#          format: id
+#        axiom:
+#          type: string
+#          enum:
+#            - INCLUSION
+#            - DISJUNCTION
+#            - EQUIVALENCE
+#
+#
+#    EntityStatement:
+#      description: Statement whose subject is an individual (individual assertion)
+#      allOf:
+#        - $ref: '#/components/schemas/Statement'
+#      type: object
+#      required:
+#        - subject
+#        - predicate
+#        - object
+#      properties:
+#        subject:
+#          description: Subject entity id
+#          type: string
+#          format: id
+#        predicate:
+#          description: Ontology relation or attribute
+#          type: string
+#          format: id
+#        attribute:
+#          type: boolean
+#          default: false
+#        object:
+#          description: Object entity id or attribute value (if attribute=true)
+#          type: string
+#          format: utf8
 
     Frame:
       description: Conceptual pattern, e.g. a query or a form
@@ -900,76 +890,6 @@ components:
             description: Constant data value (opt)
             type: string
             format: utf8
-
-#    FrameInstance:
-#      description: Frame instance
-#      type: object
-#      allOf:
-#        - $ref: '#/components/schemas/KnowledgeElement'
-#      required:
-#        - frameType
-#      properties:
-#        id:
-#          description: Instance handle, should be univoque in the session
-#          type: integer
-#          format: int64
-#        frameType:
-#          description: Frame type identifier, should be system-wide unique
-#          type: string
-#          format: id
-#        slots:
-#          description: Slot values
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/SlotInstance'
-#        support:
-#          type: number
-#          format: double
-#          minimum: 0.0
-#          maximum: 1.0
-#        provenance:
-#          description: The values provenance (opt)
-#          type: string
-#          enum:
-#            - USER_INPUT
-#            - KNOWLEGDE_BASE
-#            - DOCUMENT
-#            - UNDEFINED
-#          default: UNDEFINED
-
-
-#    SlotInstance:
-#      description: Slot value instance (should be abstract)
-#      type: object
-#      allOf:
-#        - $ref: '#/components/schemas/KnowledgeElement'
-#      required:
-#        - itype
-#        - slot
-#        - value
-#      properties:
-#        itype:
-#          type: string
-#          enum:
-#            - ENTITYVARIABLE
-#            - ENTITY
-#            - VALUEVARIABLE
-#            - VALUE
-#        slot:
-#          $ref: '#/components/schemas/SlotReference'
-#        value:
-#          type: string
-#          format: utf8
-#        comparation:
-#          description: Comparation operator for data values
-#          type: string
-#          enum:
-#            - EQUAL
-#            - GREATER
-#            - SMALLER
-#            - SIMILAR
-#          default: EQUAL
-#
 
     SlotReference:
       description: Reference to a frame slot

@@ -7,20 +7,11 @@ Knowledge statement
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**subject** | **String** | The predicate&#39;s subject id, may be omitted when the statement is contained in a structure |  [optional]
-**privacy** | [**PrivacyEnum**](#PrivacyEnum) |  |  [optional]
+**subject** | **String** | Subject id |  [optional]
+**predicate** | **String** | Ontology relation or attribute |  [optional]
+**value** | **String** | Object entity id or attribute value |  [optional]
+**provenance** | **String** |  |  [optional]
 **support** | **Double** |  |  [optional]
-
-
-
-## Enum: PrivacyEnum
-
-Name | Value
----- | -----
-OWNER | &quot;OWNER&quot;
-TRUSTED | &quot;TRUSTED&quot;
-CONTACTS | &quot;CONTACTS&quot;
-PUBLIC | &quot;PUBLIC&quot;
 
 
 
