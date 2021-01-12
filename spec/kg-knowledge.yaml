@@ -848,7 +848,7 @@ components:
           maximum: 128
       required:
         - subjectBinding
-        - objectBinding
+
 
 
     AttributiveSlot:
@@ -878,7 +878,7 @@ components:
           default: EQUAL
       required:
         - subjectBinding
-        - objectBinding
+
 
     ValueSlot:
       allOf:

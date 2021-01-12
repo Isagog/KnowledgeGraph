@@ -205,12 +205,13 @@ components:
       description: Interaction conceptual types
       type: string
       enum:
+        - VALUE
         - ENTITY
         - CONCEPT
         - RELATION
         - ATTRIBUTE
         - FRAME
-        - EXPRESSION
+        - SYNTAGM
 
 
     InteractRecord:

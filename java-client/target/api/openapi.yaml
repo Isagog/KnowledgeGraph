@@ -144,12 +144,13 @@ components:
     InteractType:
       description: Interaction conceptual types
       enum:
+      - VALUE
       - ENTITY
       - CONCEPT
       - RELATION
       - ATTRIBUTE
       - FRAME
-      - EXPRESSION
+      - SYNTAGM
       type: string
     InteractRecord:
       description: Interaction record
