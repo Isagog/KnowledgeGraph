@@ -2,7 +2,7 @@
 
 Isagog Knowledge Graph Interaction Service
 - API version: 1.0.0
-  - Build date: 2021-01-11T16:57:27.041+01:00[Europe/Berlin]
+  - Build date: 2021-01-13T15:28:25.267+01:00[Europe/Berlin]
 
 Isagog Knowledge Graph Interaction module
 
@@ -86,12 +86,12 @@ public class Example {
 
     InteractionServiceApi apiInstance = new InteractionServiceApi(defaultClient);
     String hook = "hook_example"; // String | String to search by
-    String itype = "itype_example"; // String | Conceptual type restriction (opt)
+    Frame frame = new Frame(); // Frame | 
     try {
-      CompletionResponse result = apiInstance.complete(hook, itype);
+      CompletionResponse result = apiInstance.completeFrame(hook, frame);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling InteractionServiceApi#complete");
+      System.err.println("Exception when calling InteractionServiceApi#completeFrame");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -108,21 +108,40 @@ All URIs are relative to *http://api.isagog.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*InteractionServiceApi* | [**complete**](docs/InteractionServiceApi.md#complete) | **GET** /complete | Suggets completions
+*InteractionServiceApi* | [**completeFrame**](docs/InteractionServiceApi.md#completeFrame) | **POST** /complete | Suggets completions
+*InteractionServiceApi* | [**completeString**](docs/InteractionServiceApi.md#completeString) | **GET** /complete | Suggets completions
 *InteractionServiceApi* | [**issue**](docs/InteractionServiceApi.md#issue) | **POST** /issue | Sends an interaction sequence for processing
 
 
 ## Documentation for Models
 
+ - [Attribute](docs/Attribute.md)
+ - [AttributiveSlot](docs/AttributiveSlot.md)
  - [CompletionResponse](docs/CompletionResponse.md)
+ - [Concept](docs/Concept.md)
+ - [ConceptualSlot](docs/ConceptualSlot.md)
+ - [Entity](docs/Entity.md)
+ - [Frame](docs/Frame.md)
+ - [InformativeAnnotation](docs/InformativeAnnotation.md)
  - [InteractRecord](docs/InteractRecord.md)
  - [InteractType](docs/InteractType.md)
+ - [KnowledgeAnnotation](docs/KnowledgeAnnotation.md)
+ - [KnowledgeElement](docs/KnowledgeElement.md)
+ - [Language](docs/Language.md)
+ - [LinguisticAnnotation](docs/LinguisticAnnotation.md)
+ - [MetaclassAnnotation](docs/MetaclassAnnotation.md)
+ - [PartOfSpeech](docs/PartOfSpeech.md)
  - [QueryResponse](docs/QueryResponse.md)
+ - [Relation](docs/Relation.md)
+ - [RelationalSlot](docs/RelationalSlot.md)
  - [ResponseHeader](docs/ResponseHeader.md)
  - [ResponseRow](docs/ResponseRow.md)
+ - [Slot](docs/Slot.md)
+ - [Statement](docs/Statement.md)
  - [UpdateResponse](docs/UpdateResponse.md)
  - [UpdateResponseReport](docs/UpdateResponseReport.md)
  - [UploadForm](docs/UploadForm.md)
+ - [ValueSlot](docs/ValueSlot.md)
 
 
 ## Documentation for Authorization

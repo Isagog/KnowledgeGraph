@@ -4,13 +4,82 @@ All URIs are relative to *http://api.isagog.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**complete**](InteractionServiceApi.md#complete) | **GET** /complete | Suggets completions
+[**completeFrame**](InteractionServiceApi.md#completeFrame) | **POST** /complete | Suggets completions
+[**completeString**](InteractionServiceApi.md#completeString) | **GET** /complete | Suggets completions
 [**issue**](InteractionServiceApi.md#issue) | **POST** /issue | Sends an interaction sequence for processing
 
 
-<a name="complete"></a>
-# **complete**
-> CompletionResponse complete(hook, itype)
+<a name="completeFrame"></a>
+# **completeFrame**
+> CompletionResponse completeFrame(hook, frame)
+
+Suggets completions
+
+Provides completion to the provided hook wrt a frame
+
+### Example
+```java
+// Import classes:
+import com.isagog.kg.ApiClient;
+import com.isagog.kg.ApiException;
+import com.isagog.kg.Configuration;
+import com.isagog.kg.models.*;
+import com.isagog.kg.api.InteractionServiceApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://api.isagog.com");
+
+    InteractionServiceApi apiInstance = new InteractionServiceApi(defaultClient);
+    String hook = "hook_example"; // String | String to search by
+    Frame frame = new Frame(); // Frame | 
+    try {
+      CompletionResponse result = apiInstance.completeFrame(hook, frame);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling InteractionServiceApi#completeFrame");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **hook** | **String**| String to search by |
+ **frame** | [**Frame**](Frame.md)|  | [optional]
+
+### Return type
+
+[**CompletionResponse**](CompletionResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of suitable completions |  -  |
+**402** | Illegal hook |  -  |
+**501** | Service unavailable |  -  |
+**502** | Server error |  -  |
+**503** | Missing implementation |  -  |
+
+<a name="completeString"></a>
+# **completeString**
+> CompletionResponse completeString(hook, itype)
 
 Suggets completions
 
@@ -34,10 +103,10 @@ public class Example {
     String hook = "hook_example"; // String | String to search by
     String itype = "itype_example"; // String | Conceptual type restriction (opt)
     try {
-      CompletionResponse result = apiInstance.complete(hook, itype);
+      CompletionResponse result = apiInstance.completeString(hook, itype);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling InteractionServiceApi#complete");
+      System.err.println("Exception when calling InteractionServiceApi#completeString");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());

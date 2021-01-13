@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Base class for knowledge annotations
  */
 @ApiModel(description = "Base class for knowledge annotations")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-11T17:00:59.973+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-13T15:29:38.710+01:00[Europe/Berlin]")
 public class KnowledgeAnnotation   {
   @JsonProperty("atype")
   private String atype;

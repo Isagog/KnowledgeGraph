@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
 import com.isagog.kg.model.CompletionResponse;
+import com.isagog.kg.model.Frame;
 import com.isagog.kg.model.InteractRecord;
 import java.util.List;
 import com.isagog.kg.model.QueryResponse;
@@ -30,10 +31,31 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the InteractionService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-11T17:01:00.235+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-13T15:29:38.710+01:00[Europe/Berlin]")
 public class InteractionServiceApi  {
    private final InteractionServiceApiService delegate = InteractionServiceApiServiceFactory.getInteractionServiceApi();
 
+    @POST
+    @Path("/complete")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @io.swagger.annotations.ApiOperation(value = "Suggets completions", notes = "Provides completion to the provided hook wrt a frame", response = CompletionResponse.class, tags={ "InteractionService", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "List of suitable completions", response = CompletionResponse.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 402, message = "Illegal hook", response = CompletionResponse.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 501, message = "Service unavailable", response = CompletionResponse.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = CompletionResponse.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = CompletionResponse.class) })
+    public Response completeFrame(@ApiParam(value = "String to search by",required=true) @QueryParam("hook") String hook
+,@ApiParam(value = "" ) Frame frame
+)
+    throws NotFoundException {
+        return delegate.completeFrame(hook,frame);
+    }
     @GET
     @Path("/complete")
     
@@ -49,11 +71,11 @@ public class InteractionServiceApi  {
         @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = CompletionResponse.class),
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = CompletionResponse.class) })
-    public Response complete(@ApiParam(value = "String to search by",required=true) @QueryParam("hook") String hook
+    public Response completeString(@ApiParam(value = "String to search by",required=true) @QueryParam("hook") String hook
 ,@ApiParam(value = "Conceptual type restriction (opt)") @QueryParam("itype") String itype
 )
     throws NotFoundException {
-        return delegate.complete(hook,itype);
+        return delegate.completeString(hook,itype);
     }
     @POST
     @Path("/issue")

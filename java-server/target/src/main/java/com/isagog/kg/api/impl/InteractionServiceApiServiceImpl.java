@@ -4,6 +4,7 @@ import com.isagog.kg.api.*;
 import com.isagog.kg.model.*;
 
 import com.isagog.kg.model.CompletionResponse;
+import com.isagog.kg.model.Frame;
 import com.isagog.kg.model.InteractRecord;
 import java.util.List;
 import com.isagog.kg.model.QueryResponse;
@@ -20,10 +21,17 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-11T17:01:00.235+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-13T15:29:38.710+01:00[Europe/Berlin]")
 public class InteractionServiceApiServiceImpl extends InteractionServiceApiService {
     @Override
-    public Response complete(String hook
+    public Response completeFrame(String hook
+, Frame frame
+ ) throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+    }
+    @Override
+    public Response completeString(String hook
 , String itype
  ) throws NotFoundException {
         // do some magic!

@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Reference to a frame slot
  */
 @ApiModel(description = "Reference to a frame slot")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-11T17:00:59.973+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-13T15:29:38.387+01:00[Europe/Berlin]")
 public class SlotReference   {
   @JsonProperty("frameid")
   private String frameid;

@@ -14,7 +14,7 @@ import java.util.List;
  * Pos and lemma annotation
  */
 @ApiModel(description = "Pos and lemma annotation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-11T17:00:59.973+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-13T15:29:38.387+01:00[Europe/Berlin]")
 public class BasicAnnotation extends TokenAnnotation  {
   @JsonProperty("pos")
   private PartOfSpeech pos;

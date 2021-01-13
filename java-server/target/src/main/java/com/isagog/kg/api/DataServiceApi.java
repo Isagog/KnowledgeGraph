@@ -34,7 +34,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the DataService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-11T17:00:59.381+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-13T15:29:37.786+01:00[Europe/Berlin]")
 public class DataServiceApi  {
    private final DataServiceApiService delegate = DataServiceApiServiceFactory.getDataServiceApi();
 

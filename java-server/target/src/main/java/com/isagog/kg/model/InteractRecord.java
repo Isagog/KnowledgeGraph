@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Interaction record
  */
 @ApiModel(description = "Interaction record")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-11T17:01:00.235+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-13T15:29:38.710+01:00[Europe/Berlin]")
 public class InteractRecord   {
   @JsonProperty("itype")
   private InteractType itype;
@@ -20,6 +20,9 @@ public class InteractRecord   {
 
   @JsonProperty("value")
   private String value;
+
+  @JsonProperty("binding")
+  private Integer binding;
 
   public InteractRecord itype(InteractType itype) {
     this.itype = itype;
@@ -75,6 +78,26 @@ public class InteractRecord   {
     this.value = value;
   }
 
+  public InteractRecord binding(Integer binding) {
+    this.binding = binding;
+    return this;
+  }
+
+   /**
+   * Frame slot binding (opt)
+   * minimum: 0
+   * maximum: 128
+   * @return binding
+  **/
+  @ApiModelProperty(value = "Frame slot binding (opt)")
+  public Integer getBinding() {
+    return binding;
+  }
+
+  public void setBinding(Integer binding) {
+    this.binding = binding;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -87,12 +110,13 @@ public class InteractRecord   {
     InteractRecord interactRecord = (InteractRecord) o;
     return Objects.equals(this.itype, interactRecord.itype) &&
         Objects.equals(this.kitem, interactRecord.kitem) &&
-        Objects.equals(this.value, interactRecord.value);
+        Objects.equals(this.value, interactRecord.value) &&
+        Objects.equals(this.binding, interactRecord.binding);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(itype, kitem, value);
+    return Objects.hash(itype, kitem, value, binding);
   }
 
   @Override
@@ -103,6 +127,7 @@ public class InteractRecord   {
     sb.append("    itype: ").append(toIndentedString(itype)).append("\n");
     sb.append("    kitem: ").append(toIndentedString(kitem)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    binding: ").append(toIndentedString(binding)).append("\n");
     sb.append("}");
     return sb.toString();
   }

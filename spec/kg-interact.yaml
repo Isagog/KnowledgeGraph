@@ -156,7 +156,7 @@ paths:
             schema:
               type: string
 
-        operationId: complete
+        operationId: completeString
         responses:
           200:
             description: List of suitable completions
@@ -174,6 +174,40 @@ paths:
             description: Missing implementation
         tags:
           - InteractionService
+      post:
+          summary: Suggets completions
+          description: Provides completion to the provided hook wrt a frame
+          parameters:
+            - name: hook
+              in: query
+              description: String to search by
+              required: true
+              schema:
+                type: string
+                format: utf-8
+          operationId: completeFrame
+          responses:
+            200:
+              description: List of suitable completions
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CompletionResponse'
+            402:
+              description: Illegal hook
+            501:
+              description: Service unavailable
+            502:
+              description: Server error
+            503:
+              description: Missing implementation
+          tags:
+            - InteractionService
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: kg-knowledge.yaml#/components/schemas/Frame
 
 
 
@@ -231,6 +265,12 @@ components:
           description: Interaction content
           type: string
           format: utf-8
+        binding:
+          description: Frame slot binding (opt)
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 128
 
     CompletionResponse:
       description: Completion array
