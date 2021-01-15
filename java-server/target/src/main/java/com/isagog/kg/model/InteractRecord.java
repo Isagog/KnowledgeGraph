@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.*;
 import com.isagog.kg.model.InteractType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interaction record
  */
 @ApiModel(description = "Interaction record")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-13T15:29:38.710+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-15T12:22:52.499+01:00[Europe/Berlin]")
 public class InteractRecord   {
   @JsonProperty("itype")
   private InteractType itype;
@@ -18,11 +20,11 @@ public class InteractRecord   {
   @JsonProperty("kitem")
   private String kitem;
 
+  @JsonProperty("constraints")
+  private List<String> constraints = null;
+
   @JsonProperty("value")
   private String value;
-
-  @JsonProperty("binding")
-  private Integer binding;
 
   public InteractRecord itype(InteractType itype) {
     this.itype = itype;
@@ -60,6 +62,32 @@ public class InteractRecord   {
     this.kitem = kitem;
   }
 
+  public InteractRecord constraints(List<String> constraints) {
+    this.constraints = constraints;
+    return this;
+  }
+
+  public InteractRecord addConstraintsItem(String constraintsItem) {
+    if (this.constraints == null) {
+      this.constraints = new ArrayList<String>();
+    }
+    this.constraints.add(constraintsItem);
+    return this;
+  }
+
+   /**
+   * Knowledge constraints (opt)
+   * @return constraints
+  **/
+  @ApiModelProperty(value = "Knowledge constraints (opt)")
+  public List<String> getConstraints() {
+    return constraints;
+  }
+
+  public void setConstraints(List<String> constraints) {
+    this.constraints = constraints;
+  }
+
   public InteractRecord value(String value) {
     this.value = value;
     return this;
@@ -78,26 +106,6 @@ public class InteractRecord   {
     this.value = value;
   }
 
-  public InteractRecord binding(Integer binding) {
-    this.binding = binding;
-    return this;
-  }
-
-   /**
-   * Frame slot binding (opt)
-   * minimum: 0
-   * maximum: 128
-   * @return binding
-  **/
-  @ApiModelProperty(value = "Frame slot binding (opt)")
-  public Integer getBinding() {
-    return binding;
-  }
-
-  public void setBinding(Integer binding) {
-    this.binding = binding;
-  }
-
 
   @Override
   public boolean equals(Object o) {
@@ -110,13 +118,13 @@ public class InteractRecord   {
     InteractRecord interactRecord = (InteractRecord) o;
     return Objects.equals(this.itype, interactRecord.itype) &&
         Objects.equals(this.kitem, interactRecord.kitem) &&
-        Objects.equals(this.value, interactRecord.value) &&
-        Objects.equals(this.binding, interactRecord.binding);
+        Objects.equals(this.constraints, interactRecord.constraints) &&
+        Objects.equals(this.value, interactRecord.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(itype, kitem, value, binding);
+    return Objects.hash(itype, kitem, constraints, value);
   }
 
   @Override
@@ -126,8 +134,8 @@ public class InteractRecord   {
     
     sb.append("    itype: ").append(toIndentedString(itype)).append("\n");
     sb.append("    kitem: ").append(toIndentedString(kitem)).append("\n");
+    sb.append("    constraints: ").append(toIndentedString(constraints)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    binding: ").append(toIndentedString(binding)).append("\n");
     sb.append("}");
     return sb.toString();
   }

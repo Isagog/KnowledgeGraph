@@ -81,7 +81,7 @@ paths:
     get:
       description: Provides a list of candidate completions to the provided input
         (hook)
-      operationId: completeString
+      operationId: complete
       parameters:
       - description: String to search by
         explode: true
@@ -121,7 +121,7 @@ paths:
       x-accepts: application/json
     post:
       description: Provides completion to the provided hook wrt a frame
-      operationId: completeFrame
+      operationId: completeInContext
       parameters:
       - description: String to search by
         explode: true
@@ -136,7 +136,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Frame'
+              items:
+                $ref: '#/components/schemas/InteractRecord'
+              type: array
       responses:
         "200":
           content:
@@ -193,8 +195,10 @@ components:
     InteractRecord:
       description: Interaction record
       example:
-        binding: 10
         kitem: kitem
+        constraints:
+        - constraints
+        - constraints
         value: value
       properties:
         itype:
@@ -203,16 +207,15 @@ components:
           description: Knowlege item (opt)
           format: id
           type: string
+        constraints:
+          description: Knowledge constraints (opt)
+          items:
+            type: string
+          type: array
         value:
           description: Interaction content
           format: utf-8
           type: string
-        binding:
-          description: Frame slot binding (opt)
-          format: int32
-          maximum: 128
-          minimum: 0
-          type: integer
       required:
       - itype
       - value
@@ -221,15 +224,19 @@ components:
       description: Completion array
       example:
         suggestions:
-        - binding: 10
-          kitem: kitem
+        - kitem: kitem
+          constraints:
+          - constraints
+          - constraints
           value: value
-        - binding: 10
-          kitem: kitem
+        - kitem: kitem
+          constraints:
+          - constraints
+          - constraints
           value: value
       properties:
         suggestions:
-          description: Suggested interactions
+          description: Suggested interactions, should be sorted by type (itype)
           items:
             $ref: '#/components/schemas/InteractRecord'
           type: array
@@ -302,366 +309,6 @@ components:
       required:
       - report
       type: object
-    Frame:
-      allOf:
-      - $ref: '#/components/schemas/KnowledgeElement'
-      description: Conceptual pattern, e.g. a query or a form
-      example:
-        conceptualSlots:
-        - value: value
-        - value: value
-        relationalSlots:
-        - objectBinding: 77
-          subjectBinding: 10
-        - objectBinding: 77
-          subjectBinding: 10
-        attributiveSlots:
-        - objectBinding: 76
-          comparation: EQUAL
-          subjectBinding: 18
-        - objectBinding: 76
-          comparation: EQUAL
-          subjectBinding: 18
-        valueSlots:
-        - value: value
-        - value: value
-        id: id
-      properties:
-        id:
-          description: Frame identifier
-          format: id
-          type: string
-        conceptualSlots:
-          description: Conceptual elements, up to 128
-          items:
-            $ref: '#/components/schemas/ConceptualSlot'
-          type: array
-        relationalSlots:
-          description: Relational elements, up to 128
-          items:
-            $ref: '#/components/schemas/RelationalSlot'
-          type: array
-        attributiveSlots:
-          description: Attributive elements, up to 128
-          items:
-            $ref: '#/components/schemas/AttributiveSlot'
-          type: array
-        valueSlots:
-          description: Value elements, up to 128
-          items:
-            $ref: '#/components/schemas/ValueSlot'
-          type: array
-      required:
-      - id
-      - slots
-      type: object
-    KnowledgeElement:
-      description: Managed knowledge element (should be abstract)
-      discriminator:
-        mapping:
-          Concept: '#/components/schemas/Concept'
-          Relation: '#/components/schemas/Relation'
-          Attribute: '#/components/schemas/Attribute'
-          Entity: '#/components/schemas/Entity'
-          Statement: '#/components/schemas/Statement'
-          Frame: '#/components/schemas/Frame'
-          ConceptualSlot: '#/components/schemas/ConceptualSlot'
-          RelationalSlot: '#/components/schemas/RelationalSlot'
-          AttributiveSlot: '#/components/schemas/AttributiveSlot'
-        propertyName: ktype
-      properties:
-        ktype:
-          description: Knowledge element type, should be aligned to the subclass name
-          format: classname
-          type: string
-        annotations:
-          description: Knowledge annotations
-          items:
-            $ref: '#/components/schemas/KnowledgeAnnotation'
-          type: array
-      required:
-      - ktype
-      type: object
-    KnowledgeAnnotation:
-      description: Base class for knowledge annotations
-      discriminator:
-        mapping:
-          LinguisticAnnotation: '#/components/schemas/LinguisticAnnotation'
-          MetaclassAnnotation: '#/components/schemas/MetaclassAnnotation'
-          InformativeAnnotation: '#/components/schemas/InformativeAnnotation'
-        propertyName: atype
-      properties:
-        atype:
-          description: Annotation type, should be aligned to the subclass name
-          format: classname
-          type: string
-        label:
-          description: Annotation label (opt)
-          type: string
-      required:
-      - atype
-    LinguisticAnnotation:
-      allOf:
-      - $ref: '#/components/schemas/KnowledgeAnnotation'
-      description: Linguistic attachment to knowledge elements
-      properties:
-        lang:
-          $ref: '#/components/schemas/Language'
-        pos:
-          $ref: '#/components/schemas/PartOfSpeech'
-        form:
-          description: Linguistic rendering (base form)
-          type: string
-        regex:
-          description: Regular expression to match occurrences (opt)
-          type: string
-      required:
-      - form
-      - lang
-    MetaclassAnnotation:
-      allOf:
-      - $ref: '#/components/schemas/KnowledgeAnnotation'
-      description: Metaclass annotation
-      required:
-      - label
-    InformativeAnnotation:
-      allOf:
-      - $ref: '#/components/schemas/KnowledgeAnnotation'
-      description: Informative annotation
-      required:
-      - label
-    Concept:
-      allOf:
-      - $ref: '#/components/schemas/KnowledgeElement'
-      description: Unary classifier
-      properties:
-        id:
-          description: Concept identifier (uri)
-          format: id
-          type: string
-      required:
-      - id
-      type: object
-    Relation:
-      allOf:
-      - $ref: '#/components/schemas/KnowledgeElement'
-      description: Class of entity pairs
-      properties:
-        id:
-          format: id
-          type: string
-        domain:
-          description: Domain restriction
-          format: id
-          type: string
-        range:
-          description: Range restriction
-          format: id
-          type: string
-      required:
-      - id
-    Attribute:
-      allOf:
-      - $ref: '#/components/schemas/KnowledgeElement'
-      description: Class of Entity-value pairs
-      properties:
-        id:
-          format: id
-          type: string
-        domain:
-          description: Domain restriction
-          format: id
-          type: string
-        range:
-          default: STRING
-          enum:
-          - STRING
-          - TEXT
-          - INTEGER
-          - DOUBLE
-          type: string
-      required:
-      - id
-    Entity:
-      allOf:
-      - $ref: '#/components/schemas/KnowledgeElement'
-      description: Individual entity
-      properties:
-        id:
-          format: id
-          type: string
-      required:
-      - id
-      type: object
-    Statement:
-      allOf:
-      - $ref: '#/components/schemas/KnowledgeElement'
-      description: Knowledge statement
-      properties:
-        subject:
-          description: Subject id
-          format: id
-          type: string
-        predicate:
-          description: Ontology relation or attribute
-          format: id
-          type: string
-        value:
-          description: Object entity id or attribute value
-          type: string
-        provenance:
-          type: string
-        support:
-          format: double
-          maximum: 1.0
-          minimum: 0.0
-          type: number
-      type: object
-    ConceptualSlot:
-      allOf:
-      - $ref: '#/components/schemas/Slot'
-      description: A slot boud to a concept
-      example:
-        value: value
-      properties:
-        value:
-          description: Constant Entity reference (opt)
-          format: id
-          type: string
-    Slot:
-      allOf:
-      - $ref: '#/components/schemas/KnowledgeElement'
-      description: Framed conceptual element
-      discriminator:
-        mapping:
-          ConceptualSlot: '#/components/schemas/ConceptualSlot'
-          RelationalSlot: '#/components/schemas/RelationalSlot'
-          AttributiveSlot: '#/components/schemas/AttributiveSlot'
-          ValueSlot: '#/components/schemas/ValueSlot'
-        propertyName: ktype
-      properties:
-        id:
-          description: Slot identifier, must be frame-unique
-          format: int32
-          maximum: 128
-          minimum: 0
-          type: integer
-        name:
-          description: Slot pretty name (opt)
-          type: string
-        predicate:
-          description: Predicate identifier, should be a valid id in a known ontology
-          format: id
-          type: string
-        required:
-          default: false
-          description: Tells if the slot must be instantiated in order for the frame
-            to make sense
-          type: boolean
-        informative:
-          default: false
-          description: Tells whether slot's values contribute to frame's meaning
-          type: boolean
-      required:
-      - id
-      type: object
-    RelationalSlot:
-      allOf:
-      - $ref: '#/components/schemas/Slot'
-      description: A slot bound to a relation (property)
-      example:
-        objectBinding: 77
-        subjectBinding: 10
-      properties:
-        subjectBinding:
-          description: Slot's subject binding, must be a ConceptualSlot in the same
-            frame.
-          maximum: 128
-          minimum: 0
-          type: integer
-        objectBinding:
-          description: Slot's object binding, must be a ConceptualSlot in the same
-            frame.
-          maximum: 128
-          minimum: 0
-          type: integer
-      required:
-      - subjectBinding
-      type: object
-    AttributiveSlot:
-      allOf:
-      - $ref: '#/components/schemas/Slot'
-      description: A slot bound to an Attribute (data property)
-      example:
-        objectBinding: 76
-        comparation: EQUAL
-        subjectBinding: 18
-      properties:
-        subjectBinding:
-          description: Slot's subject binding, must be a ConceptualSlot in the same
-            frame.
-          maximum: 128
-          minimum: 0
-          type: integer
-        objectBinding:
-          description: Slot's object binding, must be a ValueSlot in the same frame.
-          maximum: 128
-          minimum: 0
-          type: integer
-        comparation:
-          default: EQUAL
-          description: Comparation operator for data values (opt)
-          enum:
-          - EQUAL
-          - GREATER
-          - SMALLER
-          - SIMILAR
-          type: string
-      required:
-      - subjectBinding
-      type: object
-    ValueSlot:
-      allOf:
-      - $ref: '#/components/schemas/Slot'
-      description: A slot bound to a data item
-      example:
-        value: value
-      properties:
-        value:
-          description: Constant data value (opt)
-          format: utf8
-          type: string
-      type: object
-    Language:
-      description: language codes
-      enum:
-      - en
-      - es
-      - fr
-      - it
-      - de
-      type: string
-    PartOfSpeech:
-      description: Part of speech
-      enum:
-      - ADJ
-      - ADP
-      - ADV
-      - AUX
-      - CCONJ
-      - DET
-      - INTJ
-      - NOUN
-      - NUM
-      - PART
-      - PRON
-      - PROPN
-      - PUNCT
-      - SCONJ
-      - SYM
-      - VERB
-      - X
-      type: string
     UpdateResponse_report:
       properties:
         code:

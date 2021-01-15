@@ -21,67 +21,6 @@ tags:
 
 paths:
 
-#  /input:
-#    post:
-#      summary: User input
-#      description: Processes the user input
-#      parameters:
-#        - name: kg
-#          in: query
-#          required: false
-#          schema:
-#            type: string
-#          description: Upload context (KG id)
-#      operationId: input
-#      responses:
-#        200:
-#          description: Acknowledge message
-#          content:
-#            text/plain:
-#              schema:
-#                type: string
-#        201:
-#          description: Query response
-#          content:
-#            application/json:
-#              schema:
-#                $ref: kg-data.yaml#/components/schemas/QueryResponse
-#        202:
-#          description: Frame instantiation
-#          content:
-#            application/json:
-#              schema:
-#                type: array
-#                items:
-#                  $ref: kg-knowledge.yaml#/components/schemas/Frame
-#        203:
-#          description: Sentence analysis
-#          content:
-#            application/json:
-#              schema:
-#                $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
-#
-#        401:
-#          description: Unknown graph
-#        402:
-#          description: Illegal input format
-#        403:
-#          description: Meaningless input
-#        501:
-#          description: Service unavailable
-#        502:
-#          description: Server error
-#        503:
-#          description: Missing implementation
-#      requestBody:
-#        content:
-#          application/json:
-#            schema:
-#              $ref: kg-language.yaml#/components/schemas/Sentence
-#        description: User input
-#        required: true
-#      tags:
-#        - InteractionService
 
   /issue:
       post:
@@ -156,7 +95,7 @@ paths:
             schema:
               type: string
 
-        operationId: completeString
+        operationId: complete
         responses:
           200:
             description: List of suitable completions
@@ -185,7 +124,7 @@ paths:
               schema:
                 type: string
                 format: utf-8
-          operationId: completeFrame
+          operationId: completeInContext
           responses:
             200:
               description: List of suitable completions
@@ -207,7 +146,9 @@ paths:
             content:
               application/json:
                 schema:
-                  $ref: kg-knowledge.yaml#/components/schemas/Frame
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/InteractRecord'
 
 
 
@@ -261,23 +202,24 @@ components:
           description: Knowlege item (opt)
           type: string
           format: id
+        constraints:
+          description: Knowledge constraints (opt)
+          type: array
+          items:
+            type: string
         value:
           description: Interaction content
           type: string
           format: utf-8
-        binding:
-          description: Frame slot binding (opt)
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 128
+
+
 
     CompletionResponse:
       description: Completion array
       type: object
       properties:
         suggestions:
-          description: Suggested interactions
+          description: Suggested interactions, should be sorted by type (itype)
           type: array
           items:
             $ref: '#/components/schemas/InteractRecord'

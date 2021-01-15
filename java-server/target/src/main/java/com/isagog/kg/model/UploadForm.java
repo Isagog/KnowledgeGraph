@@ -11,7 +11,7 @@ import java.io.File;
  * Upload form
  */
 @ApiModel(description = "Upload form")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-13T15:29:38.710+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-15T12:22:52.499+01:00[Europe/Berlin]")
 public class UploadForm   {
   /**
    * Serialization format
