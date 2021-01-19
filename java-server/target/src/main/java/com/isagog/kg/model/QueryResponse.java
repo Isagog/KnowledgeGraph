@@ -13,7 +13,7 @@ import java.util.List;
  * Query result set
  */
 @ApiModel(description = "Query result set")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-15T12:22:52.499+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-18T16:28:29.958+01:00[Europe/Berlin]")
 public class QueryResponse   {
   @JsonProperty("handle")
   private Long handle;

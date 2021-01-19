@@ -5,6 +5,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\PartOfSpeech.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Classification.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Attribute.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\IssueResponse.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\InteractType.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\auth\HttpBasicAuth.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Entity.java
@@ -43,6 +44,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\QueryResponse.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\BasicAnnotation.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\QueryFrame.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\ResponseType.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\SyntacticDependency.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\auth\HttpBearerAuth.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\ServerVariable.java

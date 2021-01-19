@@ -9,9 +9,8 @@ import io.swagger.jaxrs.*;
 
 import com.isagog.kg.model.CompletionResponse;
 import com.isagog.kg.model.InteractRecord;
+import com.isagog.kg.model.IssueResponse;
 import java.util.List;
-import com.isagog.kg.model.QueryResponse;
-import com.isagog.kg.model.UpdateResponse;
 
 import java.util.List;
 import com.isagog.kg.api.NotFoundException;
@@ -30,7 +29,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the InteractionService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-15T12:22:52.499+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-18T16:28:29.958+01:00[Europe/Berlin]")
 public class InteractionServiceApi  {
    private final InteractionServiceApiService delegate = InteractionServiceApiServiceFactory.getInteractionServiceApi();
 
@@ -80,23 +79,19 @@ public class InteractionServiceApi  {
     @Path("/issue")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    @io.swagger.annotations.ApiOperation(value = "Sends an interaction sequence for processing", notes = "Sends list of interaction records, to be processed according to the service's buisiness logic", response = String.class, tags={ "InteractionService", })
+    @io.swagger.annotations.ApiOperation(value = "Sends an interaction sequence for processing", notes = "Sends list of interaction records, to be processed according to the service's buisiness logic", response = IssueResponse.class, tags={ "InteractionService", })
     @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "Acknowledge", response = String.class),
+        @io.swagger.annotations.ApiResponse(code = 200, message = "Success", response = IssueResponse.class),
         
-        @io.swagger.annotations.ApiResponse(code = 201, message = "Query response", response = String.class),
+        @io.swagger.annotations.ApiResponse(code = 401, message = "Unknown graph", response = IssueResponse.class),
         
-        @io.swagger.annotations.ApiResponse(code = 202, message = "Update response", response = String.class),
+        @io.swagger.annotations.ApiResponse(code = 402, message = "Malformed frame", response = IssueResponse.class),
         
-        @io.swagger.annotations.ApiResponse(code = 401, message = "Unknown graph", response = String.class),
+        @io.swagger.annotations.ApiResponse(code = 501, message = "Service unavailable", response = IssueResponse.class),
         
-        @io.swagger.annotations.ApiResponse(code = 402, message = "Malformed frame", response = String.class),
+        @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = IssueResponse.class),
         
-        @io.swagger.annotations.ApiResponse(code = 501, message = "Service unavailable", response = String.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = String.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = String.class) })
+        @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = IssueResponse.class) })
     public Response issue(@ApiParam(value = "Interaction record array" ,required=true) List<InteractRecord> interactRecord
 ,@ApiParam(value = "Issuing target (opt)") @QueryParam("kg") String kg
 )

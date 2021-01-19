@@ -147,7 +147,7 @@ No authorization required
 
 <a name="issue"></a>
 # **issue**
-> String issue(interactRecord, kg)
+> IssueResponse issue(interactRecord, kg)
 
 Sends an interaction sequence for processing
 
@@ -171,7 +171,7 @@ public class Example {
     List<InteractRecord> interactRecord = Arrays.asList(); // List<InteractRecord> | Interaction record array
     String kg = "kg_example"; // String | Issuing target (opt)
     try {
-      String result = apiInstance.issue(interactRecord, kg);
+      IssueResponse result = apiInstance.issue(interactRecord, kg);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling InteractionServiceApi#issue");
@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**IssueResponse**](IssueResponse.md)
 
 ### Authorization
 
@@ -207,9 +207,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Acknowledge |  -  |
-**201** | Query response |  -  |
-**202** | Update response |  -  |
+**200** | Success |  -  |
 **401** | Unknown graph |  -  |
 **402** | Malformed frame |  -  |
 **501** | Service unavailable |  -  |

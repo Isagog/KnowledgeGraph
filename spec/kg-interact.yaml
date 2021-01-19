@@ -37,23 +37,11 @@ paths:
         operationId: issue
         responses:
           200:
-            description: Acknowledge
+            description: Success
             content:
               application/json:
                 schema:
-                  type: string
-          201:
-            description: Query response
-            content:
-              application/json:
-                schema:
-                  $ref: kg-data.yaml#/components/schemas/QueryResponse
-          202:
-            description: Update response
-            content:
-              application/json:
-                schema:
-                  $ref: kg-data.yaml#/components/schemas/UpdateResponse
+                  $ref: '#/components/schemas/IssueResponse'
           401:
             description: Unknown graph
           402:
@@ -188,6 +176,15 @@ components:
         - FRAME
         - SYNTAGM
 
+    ResponseType:
+      description: Interaction response type
+      type: string
+      enum:
+        - QUERY_ANSWER
+        - SEARCH_ANSWER
+        - UPDATE_ACKNOWLEDGE
+        - ERROR
+
 
     InteractRecord:
       description: Interaction record
@@ -226,9 +223,20 @@ components:
 
 
 
-
-
-
+    IssueResponse:
+     description: Response to issuing an interation
+     type: object
+     required:
+       - rtype
+     properties:
+       rtype:
+         $ref: '#/components/schemas/ResponseType'
+       qanswer:
+         $ref: kg-data.yaml#/components/schemas/QueryResponse
+       upanswer:
+         $ref: kg-data.yaml#/components/schemas/UpdateResponse
+       message:
+         type: string
 
 
 

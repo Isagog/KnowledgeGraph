@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Textual object
  */
 @ApiModel(description = "Textual object")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-15T12:22:52.013+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-18T16:28:29.479+01:00[Europe/Berlin]")
 public class Document   {
   @JsonProperty("title")
   private String title;

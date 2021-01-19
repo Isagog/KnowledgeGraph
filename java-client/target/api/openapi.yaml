@@ -48,20 +48,8 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-          description: Acknowledge
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/QueryResponse'
-          description: Query response
-        "202":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateResponse'
-          description: Update response
+                $ref: '#/components/schemas/IssueResponse'
+          description: Success
         "401":
           description: Unknown graph
         "402":
@@ -192,6 +180,14 @@ components:
       - FRAME
       - SYNTAGM
       type: string
+    ResponseType:
+      description: Interaction response type
+      enum:
+      - QUERY_ANSWER
+      - SEARCH_ANSWER
+      - UPDATE_ACKNOWLEDGE
+      - ERROR
+      type: string
     InteractRecord:
       description: Interaction record
       example:
@@ -241,8 +237,64 @@ components:
             $ref: '#/components/schemas/InteractRecord'
           type: array
       type: object
+    IssueResponse:
+      description: Response to issuing an interation
+      example:
+        upanswer:
+          report:
+          - code: OK
+            message: message
+          - code: OK
+            message: message
+        qanswer:
+          size: 6
+          header:
+          - name: name
+            dtype: URI
+          - name: name
+            dtype: URI
+          handle: 0
+          rows:
+          - values:
+            - values
+            - values
+            support: 0.14658129805029452
+          - values:
+            - values
+            - values
+            support: 0.14658129805029452
+        message: message
+      properties:
+        rtype:
+          $ref: '#/components/schemas/ResponseType'
+        qanswer:
+          $ref: '#/components/schemas/QueryResponse'
+        upanswer:
+          $ref: '#/components/schemas/UpdateResponse'
+        message:
+          type: string
+      required:
+      - rtype
+      type: object
     QueryResponse:
       description: Query result set
+      example:
+        size: 6
+        header:
+        - name: name
+          dtype: URI
+        - name: name
+          dtype: URI
+        handle: 0
+        rows:
+        - values:
+          - values
+          - values
+          support: 0.14658129805029452
+        - values:
+          - values
+          - values
+          support: 0.14658129805029452
       properties:
         handle:
           description: Handle to the query result for paging (opt)
@@ -267,6 +319,9 @@ components:
       type: object
     ResponseHeader:
       description: Query result set header
+      example:
+        name: name
+        dtype: URI
       properties:
         name:
           type: string
@@ -283,6 +338,11 @@ components:
       type: object
     ResponseRow:
       description: Query result set row
+      example:
+        values:
+        - values
+        - values
+        support: 0.14658129805029452
       properties:
         values:
           items:
@@ -300,6 +360,12 @@ components:
       type: object
     UpdateResponse:
       description: Update response
+      example:
+        report:
+        - code: OK
+          message: message
+        - code: OK
+          message: message
       properties:
         report:
           description: Report
@@ -310,6 +376,9 @@ components:
       - report
       type: object
     UpdateResponse_report:
+      example:
+        code: OK
+        message: message
       properties:
         code:
           enum:

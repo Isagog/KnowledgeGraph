@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Governor&#39;s semantic role
  */
 @ApiModel(description = "Governor's semantic role")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-15T12:22:52.234+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-18T16:28:29.686+01:00[Europe/Berlin]")
 public class SemanticRelation extends DependencyAnnotation  {
   @JsonProperty("predicate")
   private String predicate;
