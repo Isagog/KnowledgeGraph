@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Query by frame
  */
 @ApiModel(description = "Query by frame")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-18T16:28:29.085+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-20T12:31:13.580+01:00[Europe/Berlin]")
 public class QueryFrame extends Query  {
   /**
    * Query kind, where (INDIVIDUATION = single entity, CARDINALITY = entity count, LIST = list of entity n-tuples)

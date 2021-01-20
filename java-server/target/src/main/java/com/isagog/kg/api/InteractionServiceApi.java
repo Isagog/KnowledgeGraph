@@ -29,7 +29,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the InteractionService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-18T16:28:29.958+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-20T12:31:14.635+01:00[Europe/Berlin]")
 public class InteractionServiceApi  {
    private final InteractionServiceApiService delegate = InteractionServiceApiServiceFactory.getInteractionServiceApi();
 

@@ -14,7 +14,7 @@ import java.util.List;
  * Managed knowledge element (should be abstract)
  */
 @ApiModel(description = "Managed knowledge element (should be abstract)")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-18T16:28:29.686+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-20T12:31:14.314+01:00[Europe/Berlin]")
 public class KnowledgeElement   {
   @JsonProperty("ktype")
   private String ktype;
