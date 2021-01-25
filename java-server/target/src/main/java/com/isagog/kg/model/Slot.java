@@ -15,7 +15,7 @@ import java.util.List;
  * Framed conceptual element
  */
 @ApiModel(description = "Framed conceptual element")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-20T12:31:14.314+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-23T13:35:22.833+01:00[Europe/Berlin]")
 public class Slot extends KnowledgeElement  {
   @JsonProperty("id")
   private Integer id;
@@ -76,10 +76,10 @@ public class Slot extends KnowledgeElement  {
   }
 
    /**
-   * Predicate identifier, should be a valid id in a known ontology
+   * Predicate identifier, should be a valid id
    * @return predicate
   **/
-  @ApiModelProperty(value = "Predicate identifier, should be a valid id in a known ontology")
+  @ApiModelProperty(value = "Predicate identifier, should be a valid id")
   public String getPredicate() {
     return predicate;
   }
@@ -94,10 +94,10 @@ public class Slot extends KnowledgeElement  {
   }
 
    /**
-   * Tells if the slot must be instantiated in order for the frame to make sense
+   * Tells if the slot should be instantiated in order for the frame to make sense
    * @return required
   **/
-  @ApiModelProperty(value = "Tells if the slot must be instantiated in order for the frame to make sense")
+  @ApiModelProperty(value = "Tells if the slot should be instantiated in order for the frame to make sense")
   public Boolean getRequired() {
     return required;
   }

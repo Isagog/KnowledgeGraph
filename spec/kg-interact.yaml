@@ -10,7 +10,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-  - url: http://api.isagog.com
+  - url: localhost:8030
     variables:
       port:
         default: '8030'

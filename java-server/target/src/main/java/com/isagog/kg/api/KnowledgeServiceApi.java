@@ -12,6 +12,7 @@ import com.isagog.kg.model.Concept;
 import com.isagog.kg.model.ElementRanking;
 import com.isagog.kg.model.Entity;
 import com.isagog.kg.model.Frame;
+import com.isagog.kg.model.KnowledgeGraph;
 import com.isagog.kg.model.Relation;
 import com.isagog.kg.model.SentenceAnnotation;
 
@@ -32,7 +33,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the KnowledgeService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-20T12:31:14.314+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-23T13:35:22.833+01:00[Europe/Berlin]")
 public class KnowledgeServiceApi  {
    private final KnowledgeServiceApiService delegate = KnowledgeServiceApiServiceFactory.getKnowledgeServiceApi();
 
@@ -103,9 +104,10 @@ public class KnowledgeServiceApi  {
         @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = Attribute.class, responseContainer = "List"),
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Attribute.class, responseContainer = "List") })
-    public Response getAllAttributes()
+    public Response getAllAttributes(@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
+)
     throws NotFoundException {
-        return delegate.getAllAttributes();
+        return delegate.getAllAttributes(kg);
     }
     @GET
     @Path("/concepts")
@@ -126,9 +128,10 @@ public class KnowledgeServiceApi  {
         @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = Concept.class, responseContainer = "List"),
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Concept.class, responseContainer = "List") })
-    public Response getAllConcepts()
+    public Response getAllConcepts(@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
+)
     throws NotFoundException {
-        return delegate.getAllConcepts();
+        return delegate.getAllConcepts(kg);
     }
     @GET
     @Path("/frames")
@@ -149,9 +152,33 @@ public class KnowledgeServiceApi  {
         @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = Frame.class, responseContainer = "List"),
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Frame.class, responseContainer = "List") })
-    public Response getAllFrames()
+    public Response getAllFrames(@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
+)
     throws NotFoundException {
-        return delegate.getAllFrames();
+        return delegate.getAllFrames(kg);
+    }
+    @GET
+    @Path("/graphs")
+    
+    @Produces({ "application/json" })
+    @io.swagger.annotations.ApiOperation(value = "Get KGs", notes = "Get all the known KGs", response = KnowledgeGraph.class, responseContainer = "List", tags={ "KnowledgeService", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "Successful operation", response = KnowledgeGraph.class, responseContainer = "List"),
+        
+        @io.swagger.annotations.ApiResponse(code = 401, message = "No results", response = KnowledgeGraph.class, responseContainer = "List"),
+        
+        @io.swagger.annotations.ApiResponse(code = 402, message = "Invalid query", response = KnowledgeGraph.class, responseContainer = "List"),
+        
+        @io.swagger.annotations.ApiResponse(code = 403, message = "Invalid attribute", response = KnowledgeGraph.class, responseContainer = "List"),
+        
+        @io.swagger.annotations.ApiResponse(code = 501, message = "Service unavailable", response = KnowledgeGraph.class, responseContainer = "List"),
+        
+        @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = KnowledgeGraph.class, responseContainer = "List"),
+        
+        @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = KnowledgeGraph.class, responseContainer = "List") })
+    public Response getAllGraphs()
+    throws NotFoundException {
+        return delegate.getAllGraphs();
     }
     @GET
     @Path("/relations")
@@ -172,9 +199,10 @@ public class KnowledgeServiceApi  {
         @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = Relation.class, responseContainer = "List"),
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Relation.class, responseContainer = "List") })
-    public Response getAllRelations()
+    public Response getAllRelations(@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
+)
     throws NotFoundException {
-        return delegate.getAllRelations();
+        return delegate.getAllRelations(kg);
     }
     @GET
     @Path("/attributes/{id}")
@@ -196,9 +224,10 @@ public class KnowledgeServiceApi  {
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Attribute.class) })
     public Response getAttribute(@ApiParam(value = "The attribute's id",required=true) @PathParam("id") String id
+,@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
 )
     throws NotFoundException {
-        return delegate.getAttribute(id);
+        return delegate.getAttribute(id,kg);
     }
     @GET
     @Path("/concepts/{id}")
@@ -220,9 +249,10 @@ public class KnowledgeServiceApi  {
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Concept.class) })
     public Response getConcept(@ApiParam(value = "The concept's id",required=true) @PathParam("id") String id
+,@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
 )
     throws NotFoundException {
-        return delegate.getConcept(id);
+        return delegate.getConcept(id,kg);
     }
     @GET
     @Path("/frames/{id}")
@@ -244,9 +274,10 @@ public class KnowledgeServiceApi  {
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Frame.class) })
     public Response getFrame(@ApiParam(value = "The frame's id",required=true) @PathParam("id") String id
+,@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
 )
     throws NotFoundException {
-        return delegate.getFrame(id);
+        return delegate.getFrame(id,kg);
     }
     @GET
     @Path("/relations/{id}")
@@ -268,9 +299,10 @@ public class KnowledgeServiceApi  {
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Relation.class) })
     public Response getRelation(@ApiParam(value = "The relation's id",required=true) @PathParam("id") String id
+,@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
 )
     throws NotFoundException {
-        return delegate.getRelation(id);
+        return delegate.getRelation(id,kg);
     }
     @GET
     @Path("/search")
@@ -292,11 +324,11 @@ public class KnowledgeServiceApi  {
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = ElementRanking.class, responseContainer = "List") })
     public Response search(@ApiParam(value = "The query to search by",required=true) @QueryParam("query") String query
-,@ApiParam(value = "Narrow search to a specific element type", allowableValues="CONCEPT, PROPERTY, ATTRIBUTE, ENTITY, FRAME, ANY", defaultValue="ANY") @DefaultValue("ANY") @QueryParam("etype") String etype
+,@ApiParam(value = "Narrow search to a specific knowledge type", allowableValues="CONCEPT, PROPERTY, ATTRIBUTE, ENTITY, FRAME, ANY", defaultValue="ANY") @DefaultValue("ANY") @QueryParam("ktype") String ktype
 ,@ApiParam(value = "Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\\subordinates, IDENTIFIER=id only", allowableValues="FULL, SUMMARY, IDENTIFIER", defaultValue="IDENTIFIER") @DefaultValue("IDENTIFIER") @QueryParam("details") String details
 ,@ApiParam(value = "Attribute to search by, either an annotation or a data property", defaultValue="rdfs:label") @DefaultValue("rdfs:label") @QueryParam("attribute") String attribute
 )
     throws NotFoundException {
-        return delegate.search(query,etype,details,attribute);
+        return delegate.search(query,ktype,details,attribute);
     }
 }

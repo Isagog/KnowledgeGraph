@@ -13,7 +13,7 @@ import java.util.List;
  * Individual entity
  */
 @ApiModel(description = "Individual entity")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-20T12:31:14.314+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-23T13:35:22.833+01:00[Europe/Berlin]")
 public class Entity extends KnowledgeElement  {
   @JsonProperty("id")
   private String id;

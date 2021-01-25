@@ -31,6 +31,7 @@ com\isagog\kg\model\QueryKeywords.class
 com\isagog\kg\model\UpdateResponseReport$CodeEnum.class
 com\isagog\kg\api\InteractionServiceApi$6.class
 com\isagog\kg\model\Attribute$RangeEnum.class
+com\isagog\kg\api\DataServiceApi$12.class
 com\isagog\kg\api\DataServiceApi$2.class
 com\isagog\kg\model\UploadForm$FormatEnum$Adapter.class
 com\isagog\kg\model\EntityAnnotation.class
@@ -55,6 +56,7 @@ com\isagog\kg\ServerConfiguration.class
 com\isagog\kg\JSON$DateTypeAdapter.class
 com\isagog\kg\model\Entity.class
 com\isagog\kg\model\QueryResponse.class
+com\isagog\kg\api\KnowledgeServiceApi$24.class
 com\isagog\kg\Configuration.class
 com\isagog\kg\api\KnowledgeServiceApi$17.class
 com\isagog\kg\auth\ApiKeyAuth.class
@@ -72,6 +74,7 @@ com\isagog\kg\ServerVariable.class
 com\isagog\kg\model\SemanticRelation$RoleEnum.class
 com\isagog\kg\ApiClient$4.class
 com\isagog\kg\api\LinguisticServiceApi$2.class
+com\isagog\kg\api\KnowledgeServiceApi$23.class
 com\isagog\kg\api\DataServiceApi$7.class
 com\isagog\kg\api\KnowledgeServiceApi$8.class
 com\isagog\kg\ProgressRequestBody$1.class
@@ -120,12 +123,14 @@ com\isagog\kg\model\TokenAnnotation.class
 com\isagog\kg\model\Upload$FormatEnum.class
 com\isagog\kg\api\KnowledgeServiceApi$21.class
 com\isagog\kg\api\InteractionServiceApi.class
+com\isagog\kg\model\KnowledgeGraph.class
 com\isagog\kg\ApiClient$2.class
 com\isagog\kg\model\InteractType.class
 com\isagog\kg\api\KnowledgeServiceApi$16.class
 com\isagog\kg\model\Concept.class
 com\isagog\kg\api\LinguisticServiceApi.class
 com\isagog\kg\api\KnowledgeServiceApi$14.class
+com\isagog\kg\api\DataServiceApi$11.class
 com\isagog\kg\model\Language.class
 com\isagog\kg\model\Upload.class
 com\isagog\kg\ApiCallback.class
@@ -148,7 +153,6 @@ com\isagog\kg\api\InteractionServiceApi$1.class
 com\isagog\kg\GzipRequestInterceptor.class
 com\isagog\kg\api\KnowledgeServiceApi$15.class
 com\isagog\kg\model\CompletionResponse.class
-com\isagog\kg\model\SlotReference.class
 com\isagog\kg\api\KnowledgeServiceApi$5.class
 com\isagog\kg\model\QueryExpression$LangEnum.class
 com\isagog\kg\api\KnowledgeServiceApi$20.class

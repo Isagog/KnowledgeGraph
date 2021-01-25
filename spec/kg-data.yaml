@@ -10,7 +10,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-  - url: http://api.isagog.com
+  - url: http://localhost:8030
     variables:
       port:
         default: '8030'
@@ -21,6 +21,7 @@ tags:
   - name: DataService
 
 paths:
+
 
   /entities:
     post:
@@ -49,28 +50,28 @@ paths:
         required: true
       tags:
         - DataService
-
-  /entities/{id}:
     get:
-        summary: Element access
+        summary: Entity access
         description: Returns an Entity
-        operationId: getEntity
+        operationId: getEntityDetails
         parameters:
           - name: id
-            in: path
+            description: Entity identifier
+            in: query
             required: true
             schema:
               type: string
               format: id
           - name: details
+            description: Details to fetch
             in: query
             schema:
               type: string
               enum:
                 - FULL
-                - SUMMARY
-                - NONE
-              default: NONE
+                - DATA
+                - LABELS
+              default: LABELS
         responses:
           200:
             description: Success
@@ -117,11 +118,48 @@ paths:
           description: Missing implementation
       parameters:
         - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: id
+      tags:
+        - DataService
+
+  /entities/{id}:
+    get:
+      summary: Entity access
+      description: Returns an Entity
+      operationId: getEntity
+      parameters:
+        - name: id
+          description: Entity identifier
           in: path
           required: true
           schema:
             type: string
             format: id
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityResponse'
+        401:
+          description: Element not found
+        402:
+          description: Not authorized
+        403:
+          description: Invalid element
+        405:
+          description: Protected element
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
       tags:
         - DataService
 

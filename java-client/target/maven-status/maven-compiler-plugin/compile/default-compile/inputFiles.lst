@@ -19,7 +19,6 @@ D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\RelationalSlot.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\UpdateResponseReport.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\ApiClient.java
-D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\SlotReference.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\ValueSlot.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\TokenAnnotation.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\SentenceRanking.java
@@ -70,5 +69,6 @@ D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\KnowledgeElement.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\ApiCallback.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\EntityAnnotation.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\KnowledgeGraph.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\api\DataServiceApi.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\AttributiveSlot.java

@@ -24,7 +24,7 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-20T12:31:13.580+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-23T13:35:22.086+01:00[Europe/Berlin]")
 public abstract class DataServiceApiService {
     public abstract Response createEntity(Entity entity
  ) throws NotFoundException;
@@ -39,6 +39,8 @@ public abstract class DataServiceApiService {
  ,String value
  ) throws NotFoundException;
     public abstract Response getEntity(String id
+ ) throws NotFoundException;
+    public abstract Response getEntityDetails(String id
  ,String details
  ) throws NotFoundException;
     public abstract Response queryExpression(QueryExpression queryExpression

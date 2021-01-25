@@ -1,6 +1,6 @@
 # InteractionServiceApi
 
-All URIs are relative to *http://api.isagog.com*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -29,7 +29,7 @@ import com.isagog.kg.api.InteractionServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     InteractionServiceApi apiInstance = new InteractionServiceApi(defaultClient);
     String hook = "hook_example"; // String | String to search by
@@ -97,7 +97,7 @@ import com.isagog.kg.api.InteractionServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     InteractionServiceApi apiInstance = new InteractionServiceApi(defaultClient);
     String hook = "hook_example"; // String | String to search by
@@ -165,7 +165,7 @@ import com.isagog.kg.api.InteractionServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     InteractionServiceApi apiInstance = new InteractionServiceApi(defaultClient);
     List<InteractRecord> interactRecord = Arrays.asList(); // List<InteractRecord> | Interaction record array

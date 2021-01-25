@@ -13,27 +13,27 @@ import java.util.List;
  * A slot boud to a concept
  */
 @ApiModel(description = "A slot boud to a concept")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-20T12:31:14.314+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-23T13:35:22.833+01:00[Europe/Berlin]")
 public class ConceptualSlot extends Slot  {
-  @JsonProperty("value")
-  private String value;
+  @JsonProperty("entity")
+  private String entity;
 
-  public ConceptualSlot value(String value) {
-    this.value = value;
+  public ConceptualSlot entity(String entity) {
+    this.entity = entity;
     return this;
   }
 
    /**
-   * Constant Entity reference (opt)
-   * @return value
+   * Constant entity reference (opt)
+   * @return entity
   **/
-  @ApiModelProperty(value = "Constant Entity reference (opt)")
-  public String getValue() {
-    return value;
+  @ApiModelProperty(value = "Constant entity reference (opt)")
+  public String getEntity() {
+    return entity;
   }
 
-  public void setValue(String value) {
-    this.value = value;
+  public void setEntity(String entity) {
+    this.entity = entity;
   }
 
 
@@ -46,13 +46,13 @@ public class ConceptualSlot extends Slot  {
       return false;
     }
     ConceptualSlot conceptualSlot = (ConceptualSlot) o;
-    return Objects.equals(this.value, conceptualSlot.value) &&
+    return Objects.equals(this.entity, conceptualSlot.entity) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value, super.hashCode());
+    return Objects.hash(entity, super.hashCode());
   }
 
   @Override
@@ -60,7 +60,7 @@ public class ConceptualSlot extends Slot  {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConceptualSlot {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    entity: ").append(toIndentedString(entity)).append("\n");
     sb.append("}");
     return sb.toString();
   }

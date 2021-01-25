@@ -16,7 +16,7 @@ import java.util.List;
  * Text annotation
  */
 @ApiModel(description = "Text annotation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-20T12:31:14.314+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-23T13:35:22.833+01:00[Europe/Berlin]")
 public class SentenceAnnotation   {
   @JsonProperty("classes")
   private List<Classification> classes = null;

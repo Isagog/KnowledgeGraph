@@ -1,15 +1,16 @@
 # DataServiceApi
 
-All URIs are relative to *http://api.isagog.com*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createEntity**](DataServiceApi.md#createEntity) | **POST** /entities | Entity creation
 [**createStatement**](DataServiceApi.md#createStatement) | **POST** /statements | Entity statement creation
-[**deleteEntity**](DataServiceApi.md#deleteEntity) | **DELETE** /entities/{id} | Entity deletion
+[**deleteEntity**](DataServiceApi.md#deleteEntity) | **DELETE** /entities | Entity deletion
 [**deleteStatement**](DataServiceApi.md#deleteStatement) | **DELETE** /statements | Statement deletion
 [**getAllStatements**](DataServiceApi.md#getAllStatements) | **GET** /statements | Get statements
-[**getEntity**](DataServiceApi.md#getEntity) | **GET** /entities/{id} | Element access
+[**getEntity**](DataServiceApi.md#getEntity) | **GET** /entities/{id} | Entity access
+[**getEntityDetails**](DataServiceApi.md#getEntityDetails) | **GET** /entities | Entity access
 [**queryExpression**](DataServiceApi.md#queryExpression) | **POST** /query/expression | Issue a graph query
 [**queryFrame**](DataServiceApi.md#queryFrame) | **POST** /query/frame | Knowledge query
 [**queryKeywords**](DataServiceApi.md#queryKeywords) | **POST** /query/keywords | Knowledge query
@@ -36,7 +37,7 @@ import com.isagog.kg.api.DataServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
     Entity entity = new Entity(); // Entity | Entity record
@@ -102,7 +103,7 @@ import com.isagog.kg.api.DataServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
     Statement statement = new Statement(); // Statement | Statement specification
@@ -168,7 +169,7 @@ import com.isagog.kg.api.DataServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
     String id = "id_example"; // String | 
@@ -236,7 +237,7 @@ import com.isagog.kg.api.DataServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
     Statement statement = new Statement(); // Statement | Statement specification
@@ -304,7 +305,7 @@ import com.isagog.kg.api.DataServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
     String subject = "subject_example"; // String | 
@@ -357,9 +358,9 @@ No authorization required
 
 <a name="getEntity"></a>
 # **getEntity**
-> EntityResponse getEntity(id, details)
+> EntityResponse getEntity(id)
 
-Element access
+Entity access
 
 Returns an Entity
 
@@ -375,13 +376,12 @@ import com.isagog.kg.api.DataServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
-    String id = "id_example"; // String | 
-    String details = "NONE"; // String | 
+    String id = "id_example"; // String | Entity identifier
     try {
-      EntityResponse result = apiInstance.getEntity(id, details);
+      EntityResponse result = apiInstance.getEntity(id);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DataServiceApi#getEntity");
@@ -398,8 +398,78 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**|  |
- **details** | **String**|  | [optional] [default to NONE] [enum: FULL, SUMMARY, NONE]
+ **id** | **String**| Entity identifier |
+
+### Return type
+
+[**EntityResponse**](EntityResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success |  -  |
+**401** | Element not found |  -  |
+**402** | Not authorized |  -  |
+**403** | Invalid element |  -  |
+**405** | Protected element |  -  |
+**501** | Service unavailable |  -  |
+**502** | Server error |  -  |
+**503** | Missing implementation |  -  |
+
+<a name="getEntityDetails"></a>
+# **getEntityDetails**
+> EntityResponse getEntityDetails(id, details)
+
+Entity access
+
+Returns an Entity
+
+### Example
+```java
+// Import classes:
+import com.isagog.kg.ApiClient;
+import com.isagog.kg.ApiException;
+import com.isagog.kg.Configuration;
+import com.isagog.kg.models.*;
+import com.isagog.kg.api.DataServiceApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8030");
+
+    DataServiceApi apiInstance = new DataServiceApi(defaultClient);
+    String id = "id_example"; // String | Entity identifier
+    String details = "LABELS"; // String | Details to fetch
+    try {
+      EntityResponse result = apiInstance.getEntityDetails(id, details);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DataServiceApi#getEntityDetails");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Entity identifier |
+ **details** | **String**| Details to fetch | [optional] [default to LABELS] [enum: FULL, DATA, LABELS]
 
 ### Return type
 
@@ -446,7 +516,7 @@ import com.isagog.kg.api.DataServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
     QueryExpression queryExpression = new QueryExpression(); // QueryExpression | The query
@@ -515,7 +585,7 @@ import com.isagog.kg.api.DataServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
     QueryFrame queryFrame = new QueryFrame(); // QueryFrame | The query
@@ -584,7 +654,7 @@ import com.isagog.kg.api.DataServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
     QueryKeywords queryKeywords = new QueryKeywords(); // QueryKeywords | The query
@@ -653,7 +723,7 @@ import com.isagog.kg.api.DataServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
     String kg = "kg_example"; // String | 

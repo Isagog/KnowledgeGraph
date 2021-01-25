@@ -2,7 +2,7 @@
 
 Isagog Knowledge Graph Interaction Service
 - API version: 1.0.0
-  - Build date: 2021-01-20T12:17:03.380+01:00[Europe/Berlin]
+  - Build date: 2021-01-23T13:34:07.794+01:00[Europe/Berlin]
 
 Isagog Knowledge Graph Interaction module
 
@@ -82,7 +82,7 @@ import com.isagog.kg.api.InteractionServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     InteractionServiceApi apiInstance = new InteractionServiceApi(defaultClient);
     String hook = "hook_example"; // String | String to search by
@@ -104,7 +104,7 @@ public class Example {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://api.isagog.com*
+All URIs are relative to *http://localhost:8030*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------

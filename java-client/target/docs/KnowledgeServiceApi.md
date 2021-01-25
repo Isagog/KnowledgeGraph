@@ -1,6 +1,6 @@
 # KnowledgeServiceApi
 
-All URIs are relative to *http://api.isagog.com*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**getAllAttributes**](KnowledgeServiceApi.md#getAllAttributes) | **GET** /attributes | Gets all attributes in the Knowledge Graph ontology
 [**getAllConcepts**](KnowledgeServiceApi.md#getAllConcepts) | **GET** /concepts | Get all the atomic concepts in the Knowledge Graph
 [**getAllFrames**](KnowledgeServiceApi.md#getAllFrames) | **GET** /frames | Gets all the frames in the Knowledge Graph ontology
+[**getAllGraphs**](KnowledgeServiceApi.md#getAllGraphs) | **GET** /graphs | Get KGs
 [**getAllRelations**](KnowledgeServiceApi.md#getAllRelations) | **GET** /relations | Gets all the relations in the Knowledge Graph ontology
 [**getAttribute**](KnowledgeServiceApi.md#getAttribute) | **GET** /attributes/{id} | Gets an attribute
 [**getConcept**](KnowledgeServiceApi.md#getConcept) | **GET** /concepts/{id} | Gets a concept
@@ -37,7 +38,7 @@ import com.isagog.kg.api.KnowledgeServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     Entity entity = new Entity(); // Entity | Entity specification
@@ -108,7 +109,7 @@ import com.isagog.kg.api.KnowledgeServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     Integer limit = 56; // Integer | Limits the number of returned frame candidates to the supplied value
@@ -158,7 +159,7 @@ No authorization required
 
 <a name="getAllAttributes"></a>
 # **getAllAttributes**
-> List&lt;Attribute&gt; getAllAttributes()
+> List&lt;Attribute&gt; getAllAttributes(kg)
 
 Gets all attributes in the Knowledge Graph ontology
 
@@ -176,11 +177,12 @@ import com.isagog.kg.api.KnowledgeServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
+    String kg = "kg_example"; // String | The KG id (opt)
     try {
-      List<Attribute> result = apiInstance.getAllAttributes();
+      List<Attribute> result = apiInstance.getAllAttributes(kg);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#getAllAttributes");
@@ -194,7 +196,10 @@ public class Example {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **kg** | **String**| The KG id (opt) | [optional]
 
 ### Return type
 
@@ -222,7 +227,7 @@ No authorization required
 
 <a name="getAllConcepts"></a>
 # **getAllConcepts**
-> List&lt;Concept&gt; getAllConcepts()
+> List&lt;Concept&gt; getAllConcepts(kg)
 
 Get all the atomic concepts in the Knowledge Graph
 
@@ -240,11 +245,12 @@ import com.isagog.kg.api.KnowledgeServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
+    String kg = "kg_example"; // String | The KG id (opt)
     try {
-      List<Concept> result = apiInstance.getAllConcepts();
+      List<Concept> result = apiInstance.getAllConcepts(kg);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#getAllConcepts");
@@ -258,7 +264,10 @@ public class Example {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **kg** | **String**| The KG id (opt) | [optional]
 
 ### Return type
 
@@ -286,7 +295,7 @@ No authorization required
 
 <a name="getAllFrames"></a>
 # **getAllFrames**
-> List&lt;Frame&gt; getAllFrames()
+> List&lt;Frame&gt; getAllFrames(kg)
 
 Gets all the frames in the Knowledge Graph ontology
 
@@ -304,11 +313,12 @@ import com.isagog.kg.api.KnowledgeServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
+    String kg = "kg_example"; // String | The KG id (opt)
     try {
-      List<Frame> result = apiInstance.getAllFrames();
+      List<Frame> result = apiInstance.getAllFrames(kg);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#getAllFrames");
@@ -322,7 +332,10 @@ public class Example {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **kg** | **String**| The KG id (opt) | [optional]
 
 ### Return type
 
@@ -348,9 +361,73 @@ No authorization required
 **502** | Server error |  -  |
 **503** | Missing implementation |  -  |
 
+<a name="getAllGraphs"></a>
+# **getAllGraphs**
+> List&lt;KnowledgeGraph&gt; getAllGraphs()
+
+Get KGs
+
+Get all the known KGs
+
+### Example
+```java
+// Import classes:
+import com.isagog.kg.ApiClient;
+import com.isagog.kg.ApiException;
+import com.isagog.kg.Configuration;
+import com.isagog.kg.models.*;
+import com.isagog.kg.api.KnowledgeServiceApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8030");
+
+    KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
+    try {
+      List<KnowledgeGraph> result = apiInstance.getAllGraphs();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling KnowledgeServiceApi#getAllGraphs");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List&lt;KnowledgeGraph&gt;**](KnowledgeGraph.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful operation |  -  |
+**401** | No results |  -  |
+**402** | Invalid query |  -  |
+**403** | Invalid attribute |  -  |
+**501** | Service unavailable |  -  |
+**502** | Server error |  -  |
+**503** | Missing implementation |  -  |
+
 <a name="getAllRelations"></a>
 # **getAllRelations**
-> List&lt;Relation&gt; getAllRelations()
+> List&lt;Relation&gt; getAllRelations(kg)
 
 Gets all the relations in the Knowledge Graph ontology
 
@@ -368,11 +445,12 @@ import com.isagog.kg.api.KnowledgeServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
+    String kg = "kg_example"; // String | The KG id (opt)
     try {
-      List<Relation> result = apiInstance.getAllRelations();
+      List<Relation> result = apiInstance.getAllRelations(kg);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#getAllRelations");
@@ -386,7 +464,10 @@ public class Example {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **kg** | **String**| The KG id (opt) | [optional]
 
 ### Return type
 
@@ -414,7 +495,7 @@ No authorization required
 
 <a name="getAttribute"></a>
 # **getAttribute**
-> Attribute getAttribute(id)
+> Attribute getAttribute(id, kg)
 
 Gets an attribute
 
@@ -432,12 +513,13 @@ import com.isagog.kg.api.KnowledgeServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     String id = "id_example"; // String | The attribute's id
+    String kg = "kg_example"; // String | The KG id (opt)
     try {
-      Attribute result = apiInstance.getAttribute(id);
+      Attribute result = apiInstance.getAttribute(id, kg);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#getAttribute");
@@ -455,6 +537,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The attribute&#39;s id |
+ **kg** | **String**| The KG id (opt) | [optional]
 
 ### Return type
 
@@ -482,7 +565,7 @@ No authorization required
 
 <a name="getConcept"></a>
 # **getConcept**
-> Concept getConcept(id)
+> Concept getConcept(id, kg)
 
 Gets a concept
 
@@ -500,12 +583,13 @@ import com.isagog.kg.api.KnowledgeServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     String id = "id_example"; // String | The concept's id
+    String kg = "kg_example"; // String | The KG id (opt)
     try {
-      Concept result = apiInstance.getConcept(id);
+      Concept result = apiInstance.getConcept(id, kg);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#getConcept");
@@ -523,6 +607,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The concept&#39;s id |
+ **kg** | **String**| The KG id (opt) | [optional]
 
 ### Return type
 
@@ -550,7 +635,7 @@ No authorization required
 
 <a name="getFrame"></a>
 # **getFrame**
-> Frame getFrame(id)
+> Frame getFrame(id, kg)
 
 Gets a frame
 
@@ -568,12 +653,13 @@ import com.isagog.kg.api.KnowledgeServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     String id = "id_example"; // String | The frame's id
+    String kg = "kg_example"; // String | The KG id (opt)
     try {
-      Frame result = apiInstance.getFrame(id);
+      Frame result = apiInstance.getFrame(id, kg);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#getFrame");
@@ -591,6 +677,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The frame&#39;s id |
+ **kg** | **String**| The KG id (opt) | [optional]
 
 ### Return type
 
@@ -618,7 +705,7 @@ No authorization required
 
 <a name="getRelation"></a>
 # **getRelation**
-> Relation getRelation(id)
+> Relation getRelation(id, kg)
 
 Gets a relation
 
@@ -636,12 +723,13 @@ import com.isagog.kg.api.KnowledgeServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     String id = "id_example"; // String | The relation's id
+    String kg = "kg_example"; // String | The KG id (opt)
     try {
-      Relation result = apiInstance.getRelation(id);
+      Relation result = apiInstance.getRelation(id, kg);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#getRelation");
@@ -659,6 +747,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The relation&#39;s id |
+ **kg** | **String**| The KG id (opt) | [optional]
 
 ### Return type
 
@@ -686,7 +775,7 @@ No authorization required
 
 <a name="search"></a>
 # **search**
-> List&lt;ElementRanking&gt; search(query, etype, details, attribute)
+> List&lt;ElementRanking&gt; search(query, ktype, details, attribute)
 
 Knowledge search
 
@@ -704,15 +793,15 @@ import com.isagog.kg.api.KnowledgeServiceApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://api.isagog.com");
+    defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     String query = "query_example"; // String | The query to search by
-    String etype = "ANY"; // String | Narrow search to a specific element type
+    String ktype = "ANY"; // String | Narrow search to a specific knowledge type
     String details = "IDENTIFIER"; // String | Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\\subordinates, IDENTIFIER=id only
     String attribute = "\"rdfs:label\""; // String | Attribute to search by, either an annotation or a data property
     try {
-      List<ElementRanking> result = apiInstance.search(query, etype, details, attribute);
+      List<ElementRanking> result = apiInstance.search(query, ktype, details, attribute);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#search");
@@ -730,7 +819,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query** | **String**| The query to search by |
- **etype** | **String**| Narrow search to a specific element type | [optional] [default to ANY] [enum: CONCEPT, PROPERTY, ATTRIBUTE, ENTITY, FRAME, ANY]
+ **ktype** | **String**| Narrow search to a specific knowledge type | [optional] [default to ANY] [enum: CONCEPT, PROPERTY, ATTRIBUTE, ENTITY, FRAME, ANY]
  **details** | **String**| Details to be returned: e.g. for predicates: FULL&#x3D;full hierarchy, SUMMARY&#x3D;direct super\\subordinates, IDENTIFIER&#x3D;id only | [optional] [default to IDENTIFIER] [enum: FULL, SUMMARY, IDENTIFIER]
  **attribute** | **String**| Attribute to search by, either an annotation or a data property | [optional] [default to &quot;rdfs:label&quot;]
 

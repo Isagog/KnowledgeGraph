@@ -8,6 +8,7 @@ import com.isagog.kg.model.Concept;
 import com.isagog.kg.model.ElementRanking;
 import com.isagog.kg.model.Entity;
 import com.isagog.kg.model.Frame;
+import com.isagog.kg.model.KnowledgeGraph;
 import com.isagog.kg.model.Relation;
 import com.isagog.kg.model.SentenceAnnotation;
 
@@ -22,7 +23,7 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-20T12:31:14.314+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-23T13:35:22.833+01:00[Europe/Berlin]")
 public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
     @Override
     public Response evaluateEntity(Entity entity
@@ -39,52 +40,65 @@ public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
-    public Response getAllAttributes() throws NotFoundException {
+    public Response getAllAttributes(String kg
+ ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
-    public Response getAllConcepts() throws NotFoundException {
+    public Response getAllConcepts(String kg
+ ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
-    public Response getAllFrames() throws NotFoundException {
+    public Response getAllFrames(String kg
+ ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
-    public Response getAllRelations() throws NotFoundException {
+    public Response getAllGraphs() throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+    }
+    @Override
+    public Response getAllRelations(String kg
+ ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
     public Response getAttribute(String id
+, String kg
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
     public Response getConcept(String id
+, String kg
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
     public Response getFrame(String id
+, String kg
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
     public Response getRelation(String id
+, String kg
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
     public Response search(String query
-, String etype
+, String ktype
 , String details
 , String attribute
  ) throws NotFoundException {
