@@ -204,6 +204,8 @@ components:
           type: array
           items:
             type: string
+        slot:
+          $ref: kg-knowledge.yaml#/components/schemas/SlotReference
         value:
           description: Interaction content
           type: string

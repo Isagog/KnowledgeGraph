@@ -938,3 +938,19 @@ components:
           description: Constant data value (opt)
           type: string
           format: utf8
+
+    SlotReference:
+      type: object
+      description: Reference to a slot
+      properties:
+        frame:
+          description: Frame identifier
+          type: string
+        slot:
+          description: Slot identifier
+          type: integer
+          minimum: 0
+          maximum: 128
+
+
+

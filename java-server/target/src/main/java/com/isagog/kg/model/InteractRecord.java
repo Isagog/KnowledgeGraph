@@ -3,6 +3,7 @@ package com.isagog.kg.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.*;
 import com.isagog.kg.model.InteractType;
+import com.isagog.kg.model.SlotReference;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
  * Interaction record
  */
 @ApiModel(description = "Interaction record")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-01-23T13:35:23.123+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T16:07:23.995+01:00[Europe/Berlin]")
 public class InteractRecord   {
   @JsonProperty("itype")
   private InteractType itype;
@@ -22,6 +23,9 @@ public class InteractRecord   {
 
   @JsonProperty("constraints")
   private List<String> constraints = null;
+
+  @JsonProperty("slot")
+  private SlotReference slot;
 
   @JsonProperty("value")
   private String value;
@@ -88,6 +92,24 @@ public class InteractRecord   {
     this.constraints = constraints;
   }
 
+  public InteractRecord slot(SlotReference slot) {
+    this.slot = slot;
+    return this;
+  }
+
+   /**
+   * Get slot
+   * @return slot
+  **/
+  @ApiModelProperty(value = "")
+  public SlotReference getSlot() {
+    return slot;
+  }
+
+  public void setSlot(SlotReference slot) {
+    this.slot = slot;
+  }
+
   public InteractRecord value(String value) {
     this.value = value;
     return this;
@@ -119,12 +141,13 @@ public class InteractRecord   {
     return Objects.equals(this.itype, interactRecord.itype) &&
         Objects.equals(this.kitem, interactRecord.kitem) &&
         Objects.equals(this.constraints, interactRecord.constraints) &&
+        Objects.equals(this.slot, interactRecord.slot) &&
         Objects.equals(this.value, interactRecord.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(itype, kitem, constraints, value);
+    return Objects.hash(itype, kitem, constraints, slot, value);
   }
 
   @Override
@@ -135,6 +158,7 @@ public class InteractRecord   {
     sb.append("    itype: ").append(toIndentedString(itype)).append("\n");
     sb.append("    kitem: ").append(toIndentedString(kitem)).append("\n");
     sb.append("    constraints: ").append(toIndentedString(constraints)).append("\n");
+    sb.append("    slot: ").append(toIndentedString(slot)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
