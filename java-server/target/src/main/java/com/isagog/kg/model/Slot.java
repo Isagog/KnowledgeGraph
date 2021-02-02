@@ -15,7 +15,7 @@ import java.util.List;
  * Framed conceptual element
  */
 @ApiModel(description = "Framed conceptual element")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T16:07:23.695+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.415+01:00[Europe/Berlin]")
 public class Slot extends KnowledgeElement  {
   @JsonProperty("id")
   private Integer id;
@@ -23,8 +23,8 @@ public class Slot extends KnowledgeElement  {
   @JsonProperty("name")
   private String name;
 
-  @JsonProperty("predicate")
-  private String predicate;
+  @JsonProperty("predicates")
+  private List<String> predicates = null;
 
   @JsonProperty("required")
   private Boolean required = false;
@@ -70,22 +70,30 @@ public class Slot extends KnowledgeElement  {
     this.name = name;
   }
 
-  public Slot predicate(String predicate) {
-    this.predicate = predicate;
+  public Slot predicates(List<String> predicates) {
+    this.predicates = predicates;
+    return this;
+  }
+
+  public Slot addPredicatesItem(String predicatesItem) {
+    if (this.predicates == null) {
+      this.predicates = new ArrayList<String>();
+    }
+    this.predicates.add(predicatesItem);
     return this;
   }
 
    /**
-   * Predicate identifier, should be a valid id
-   * @return predicate
+   * Constraint predicates
+   * @return predicates
   **/
-  @ApiModelProperty(value = "Predicate identifier, should be a valid id")
-  public String getPredicate() {
-    return predicate;
+  @ApiModelProperty(value = "Constraint predicates")
+  public List<String> getPredicates() {
+    return predicates;
   }
 
-  public void setPredicate(String predicate) {
-    this.predicate = predicate;
+  public void setPredicates(List<String> predicates) {
+    this.predicates = predicates;
   }
 
   public Slot required(Boolean required) {
@@ -136,7 +144,7 @@ public class Slot extends KnowledgeElement  {
     Slot slot = (Slot) o;
     return Objects.equals(this.id, slot.id) &&
         Objects.equals(this.name, slot.name) &&
-        Objects.equals(this.predicate, slot.predicate) &&
+        Objects.equals(this.predicates, slot.predicates) &&
         Objects.equals(this.required, slot.required) &&
         Objects.equals(this.informative, slot.informative) &&
         super.equals(o);
@@ -144,7 +152,7 @@ public class Slot extends KnowledgeElement  {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, predicate, required, informative, super.hashCode());
+    return Objects.hash(id, name, predicates, required, informative, super.hashCode());
   }
 
   @Override
@@ -154,7 +162,7 @@ public class Slot extends KnowledgeElement  {
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    predicate: ").append(toIndentedString(predicate)).append("\n");
+    sb.append("    predicates: ").append(toIndentedString(predicates)).append("\n");
     sb.append("    required: ").append(toIndentedString(required)).append("\n");
     sb.append("    informative: ").append(toIndentedString(informative)).append("\n");
     sb.append("}");

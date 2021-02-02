@@ -1,7 +1,6 @@
 com\isagog\kg\api\RFC3339DateFormat.class
 com\isagog\kg\model\InteractRecord.class
 com\isagog\kg\api\factories\LinguisticServiceApiServiceFactory.class
-com\isagog\kg\StringUtil.class
 com\isagog\kg\model\AttributiveSlot.class
 com\isagog\kg\model\BasicAnnotation.class
 com\isagog\kg\model\RelationalConcept$QuantifierEnum.class
@@ -37,6 +36,7 @@ com\isagog\kg\api\factories\DataServiceApiServiceFactory.class
 com\isagog\kg\api\impl\DataServiceApiServiceImpl.class
 com\isagog\kg\api\InteractionServiceApi.class
 com\isagog\kg\api\impl\KnowledgeServiceApiServiceImpl.class
+com\isagog\kg\api\StringUtil.class
 com\isagog\kg\model\KnowledgeGraph.class
 com\isagog\kg\model\InteractType.class
 com\isagog\kg\model\Concept.class
@@ -71,6 +71,7 @@ com\isagog\kg\model\SemanticRelation.class
 com\isagog\kg\model\SemanticRelation$RoleEnum.class
 com\isagog\kg\api\NotFoundException.class
 com\isagog\kg\model\CompletionResponse.class
+com\isagog\kg\model\SlotReference.class
 com\isagog\kg\api\factories\InteractionServiceApiServiceFactory.class
 com\isagog\kg\model\QueryExpression$LangEnum.class
 com\isagog\kg\model\QueryKeywords$OpEnum.class

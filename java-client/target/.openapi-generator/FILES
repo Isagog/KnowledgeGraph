@@ -13,6 +13,7 @@ docs/QueryResponse.md
 docs/ResponseHeader.md
 docs/ResponseRow.md
 docs/ResponseType.md
+docs/SlotReference.md
 docs/UpdateResponse.md
 docs/UpdateResponseReport.md
 docs/UploadForm.md
@@ -51,6 +52,7 @@ src/main/java/com/isagog/kg/model/QueryResponse.java
 src/main/java/com/isagog/kg/model/ResponseHeader.java
 src/main/java/com/isagog/kg/model/ResponseRow.java
 src/main/java/com/isagog/kg/model/ResponseType.java
+src/main/java/com/isagog/kg/model/SlotReference.java
 src/main/java/com/isagog/kg/model/UpdateResponse.java
 src/main/java/com/isagog/kg/model/UpdateResponseReport.java
 src/main/java/com/isagog/kg/model/UploadForm.java

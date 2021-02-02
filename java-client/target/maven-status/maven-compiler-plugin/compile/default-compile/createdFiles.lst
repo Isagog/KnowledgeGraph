@@ -153,6 +153,7 @@ com\isagog\kg\api\InteractionServiceApi$1.class
 com\isagog\kg\GzipRequestInterceptor.class
 com\isagog\kg\api\KnowledgeServiceApi$15.class
 com\isagog\kg\model\CompletionResponse.class
+com\isagog\kg\model\SlotReference.class
 com\isagog\kg\api\KnowledgeServiceApi$5.class
 com\isagog\kg\model\QueryExpression$LangEnum.class
 com\isagog\kg\api\KnowledgeServiceApi$20.class

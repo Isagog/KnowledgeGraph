@@ -192,6 +192,9 @@ components:
       description: Interaction record
       example:
         kitem: kitem
+        slot:
+          slot: 10
+          frame: frame
         constraints:
         - constraints
         - constraints
@@ -208,6 +211,8 @@ components:
           items:
             type: string
           type: array
+        slot:
+          $ref: '#/components/schemas/SlotReference'
         value:
           description: Interaction content
           format: utf-8
@@ -221,11 +226,17 @@ components:
       example:
         suggestions:
         - kitem: kitem
+          slot:
+            slot: 10
+            frame: frame
           constraints:
           - constraints
           - constraints
           value: value
         - kitem: kitem
+          slot:
+            slot: 10
+            frame: frame
           constraints:
           - constraints
           - constraints
@@ -275,6 +286,21 @@ components:
           type: string
       required:
       - rtype
+      type: object
+    SlotReference:
+      description: Reference to a slot
+      example:
+        slot: 10
+        frame: frame
+      properties:
+        frame:
+          description: Frame identifier
+          type: string
+        slot:
+          description: Slot identifier
+          maximum: 128
+          minimum: 0
+          type: integer
       type: object
     QueryResponse:
       description: Query result set

@@ -6,6 +6,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\ResponseType.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\factories\InteractionServiceApiServiceFactory.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Relation.java
+D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\SlotReference.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\KnowledgeServiceApi.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\LinguisticServiceApiService.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\DependencyAnnotation.java

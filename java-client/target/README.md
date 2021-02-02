@@ -2,7 +2,7 @@
 
 Isagog Knowledge Graph Interaction Service
 - API version: 1.0.0
-  - Build date: 2021-01-23T13:34:07.794+01:00[Europe/Berlin]
+  - Build date: 2021-02-01T22:54:01.359+01:00[Europe/Berlin]
 
 Isagog Knowledge Graph Interaction module
 
@@ -123,6 +123,7 @@ Class | Method | HTTP request | Description
  - [ResponseHeader](docs/ResponseHeader.md)
  - [ResponseRow](docs/ResponseRow.md)
  - [ResponseType](docs/ResponseType.md)
+ - [SlotReference](docs/SlotReference.md)
  - [UpdateResponse](docs/UpdateResponse.md)
  - [UpdateResponseReport](docs/UpdateResponseReport.md)
  - [UploadForm](docs/UploadForm.md)

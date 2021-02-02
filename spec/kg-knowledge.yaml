@@ -847,10 +847,12 @@ components:
         name:
           description: Slot pretty name (opt)
           type: string
-        predicate:
-          description: Predicate identifier, should be a valid id
-          type: string
-          format: id
+        predicates:
+          description: Constraint predicates
+          type: array
+          items:
+            type: string
+            format: id
         required:
           description: Tells if the slot should be instantiated in order for the frame to make sense
           type: boolean

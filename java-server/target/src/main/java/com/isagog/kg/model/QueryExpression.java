@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Query string in a specific query language
  */
 @ApiModel(description = "Query string in a specific query language")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T16:07:23.045+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:50.715+01:00[Europe/Berlin]")
 public class QueryExpression extends Query  {
   /**
    * Query language

@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Query result set header
  */
 @ApiModel(description = "Query result set header")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T16:07:23.995+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.732+01:00[Europe/Berlin]")
 public class ResponseHeader   {
   @JsonProperty("name")
   private String name;
