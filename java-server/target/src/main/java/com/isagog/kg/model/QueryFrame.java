@@ -1,9 +1,11 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.isagog.kg.model.Frame;
 import com.isagog.kg.model.Query;
+import com.isagog.kg.model.QueryKind;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -11,60 +13,29 @@ import io.swagger.annotations.ApiModelProperty;
  * Query by frame
  */
 @ApiModel(description = "Query by frame")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:50.715+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:23.648+01:00[Europe/Berlin]")
 public class QueryFrame extends Query  {
-  /**
-   * Query kind, where (INDIVIDUATION = single entity, CARDINALITY = entity count, LIST = list of entity n-tuples)
-   */
-  public enum QkindEnum {
-    EXTENSION("EXTENSION"),
-    
-    CARDINALITY("CARDINALITY");
-
-    private String value;
-
-    QkindEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static QkindEnum fromValue(String text) {
-      for (QkindEnum b : QkindEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   @JsonProperty("qkind")
-  private QkindEnum qkind;
+  private QueryKind qkind;
 
   @JsonProperty("frame")
   private Frame frame;
 
-  public QueryFrame qkind(QkindEnum qkind) {
+  public QueryFrame qkind(QueryKind qkind) {
     this.qkind = qkind;
     return this;
   }
 
    /**
-   * Query kind, where (INDIVIDUATION = single entity, CARDINALITY = entity count, LIST = list of entity n-tuples)
+   * Get qkind
    * @return qkind
   **/
-  @ApiModelProperty(required = true, value = "Query kind, where (INDIVIDUATION = single entity, CARDINALITY = entity count, LIST = list of entity n-tuples)")
-  public QkindEnum getQkind() {
+  @ApiModelProperty(required = true, value = "")
+  public QueryKind getQkind() {
     return qkind;
   }
 
-  public void setQkind(QkindEnum qkind) {
+  public void setQkind(QueryKind qkind) {
     this.qkind = qkind;
   }
 

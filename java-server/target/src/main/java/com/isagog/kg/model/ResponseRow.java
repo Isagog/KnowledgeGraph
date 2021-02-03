@@ -1,7 +1,8 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
  * Query result set row
  */
 @ApiModel(description = "Query result set row")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.732+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.635+01:00[Europe/Berlin]")
 public class ResponseRow   {
   @JsonProperty("values")
   private List<String> values = new ArrayList<String>();

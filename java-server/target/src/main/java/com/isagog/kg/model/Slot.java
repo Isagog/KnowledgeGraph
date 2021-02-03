@@ -1,7 +1,8 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.isagog.kg.model.KnowledgeAnnotation;
@@ -15,59 +16,33 @@ import java.util.List;
  * Framed conceptual element
  */
 @ApiModel(description = "Framed conceptual element")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.415+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.334+01:00[Europe/Berlin]")
 public class Slot extends KnowledgeElement  {
   @JsonProperty("id")
-  private Integer id;
-
-  @JsonProperty("name")
-  private String name;
+  private String id;
 
   @JsonProperty("predicates")
   private List<String> predicates = null;
 
   @JsonProperty("required")
-  private Boolean required = false;
+  private Boolean required = true;
 
-  @JsonProperty("informative")
-  private Boolean informative = false;
-
-  public Slot id(Integer id) {
+  public Slot id(String id) {
     this.id = id;
     return this;
   }
 
    /**
    * Slot identifier, must be frame-unique
-   * minimum: 0
-   * maximum: 128
    * @return id
   **/
   @ApiModelProperty(required = true, value = "Slot identifier, must be frame-unique")
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
-  }
-
-  public Slot name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Slot pretty name (opt)
-   * @return name
-  **/
-  @ApiModelProperty(value = "Slot pretty name (opt)")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public Slot predicates(List<String> predicates) {
@@ -114,24 +89,6 @@ public class Slot extends KnowledgeElement  {
     this.required = required;
   }
 
-  public Slot informative(Boolean informative) {
-    this.informative = informative;
-    return this;
-  }
-
-   /**
-   * Tells whether slot's values contribute to frame's meaning
-   * @return informative
-  **/
-  @ApiModelProperty(value = "Tells whether slot's values contribute to frame's meaning")
-  public Boolean getInformative() {
-    return informative;
-  }
-
-  public void setInformative(Boolean informative) {
-    this.informative = informative;
-  }
-
 
   @Override
   public boolean equals(Object o) {
@@ -143,16 +100,14 @@ public class Slot extends KnowledgeElement  {
     }
     Slot slot = (Slot) o;
     return Objects.equals(this.id, slot.id) &&
-        Objects.equals(this.name, slot.name) &&
         Objects.equals(this.predicates, slot.predicates) &&
         Objects.equals(this.required, slot.required) &&
-        Objects.equals(this.informative, slot.informative) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, predicates, required, informative, super.hashCode());
+    return Objects.hash(id, predicates, required, super.hashCode());
   }
 
   @Override
@@ -161,10 +116,8 @@ public class Slot extends KnowledgeElement  {
     sb.append("class Slot {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    predicates: ").append(toIndentedString(predicates)).append("\n");
     sb.append("    required: ").append(toIndentedString(required)).append("\n");
-    sb.append("    informative: ").append(toIndentedString(informative)).append("\n");
     sb.append("}");
     return sb.toString();
   }

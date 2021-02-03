@@ -1,8 +1,9 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.isagog.kg.model.ValueType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -10,50 +11,13 @@ import io.swagger.annotations.ApiModelProperty;
  * Query result set header
  */
 @ApiModel(description = "Query result set header")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.732+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.635+01:00[Europe/Berlin]")
 public class ResponseHeader   {
   @JsonProperty("name")
   private String name;
 
-  /**
-   * Gets or Sets dtype
-   */
-  public enum DtypeEnum {
-    URI("URI"),
-    
-    BOOLEAN("BOOLEAN"),
-    
-    INTEGER("INTEGER"),
-    
-    DOUBLE("DOUBLE"),
-    
-    STRING("STRING");
-
-    private String value;
-
-    DtypeEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static DtypeEnum fromValue(String text) {
-      for (DtypeEnum b : DtypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   @JsonProperty("dtype")
-  private DtypeEnum dtype;
+  private ValueType dtype;
 
   public ResponseHeader name(String name) {
     this.name = name;
@@ -73,7 +37,7 @@ public class ResponseHeader   {
     this.name = name;
   }
 
-  public ResponseHeader dtype(DtypeEnum dtype) {
+  public ResponseHeader dtype(ValueType dtype) {
     this.dtype = dtype;
     return this;
   }
@@ -83,11 +47,11 @@ public class ResponseHeader   {
    * @return dtype
   **/
   @ApiModelProperty(value = "")
-  public DtypeEnum getDtype() {
+  public ValueType getDtype() {
     return dtype;
   }
 
-  public void setDtype(DtypeEnum dtype) {
+  public void setDtype(ValueType dtype) {
     this.dtype = dtype;
   }
 

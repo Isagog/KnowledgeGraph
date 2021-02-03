@@ -371,11 +371,14 @@ components:
             type: string
             format: id
           role:
-            description: Governor's predicative role (subject or object)
-            type: string
-            enum:
-              - SUBJECT
-              - OBJECT
+            $ref: '#/components/schemas/PredicativeRoles'
+
+    PredicativeRoles:
+      description: Governor's predicative role (subject or object)
+      type: string
+      enum:
+        - SUBJECT
+        - OBJECT
 
     GrammarFeature:
       description: Grammatic feature

@@ -600,24 +600,22 @@ components:
       discriminator:
         propertyName: atype
         mapping:
-          LinguisticAnnotation:  '#/components/schemas/LinguisticAnnotation'
+          LanguageAnnotation:  '#/components/schemas/LanguageAnnotation'
           MetaclassAnnotation:   '#/components/schemas/MetaclassAnnotation'
           InformativeAnnotation: '#/components/schemas/InformativeAnnotation'
 
 
-    LinguisticAnnotation:
+    LanguageAnnotation:
       description: Linguistic attachment to knowledge elements
       allOf:
         - $ref: '#/components/schemas/KnowledgeAnnotation'
       required:
-        - lang
-        - form
+         - form
       properties:
         lang:
           $ref: kg-language.yaml#/components/schemas/Language
         pos:
           $ref: kg-language.yaml#/components/schemas/PartOfSpeech
-
         form:
           description: Linguistic rendering (base form)
           type: string
@@ -684,12 +682,15 @@ components:
           type: string
           format: id
         quantifier:
-          type: string
-          enum:
-            - SOME
-            - ALL
-            - ATLEAST1
-            - ATMOST1
+          $ref: '#/components/schemas/Quantifier'
+
+    Quantifier:
+      type: string
+      enum:
+        - SOME
+        - ALL
+        - ATLEAST1
+        - ATMOST1
 
     AttributiveConcept:
       description: Unary attributive classifier
@@ -706,13 +707,7 @@ components:
           type: string
           format: byte
         constraint:
-          type: string
-          enum:
-            - EQUAL
-            - GREATER_THAN
-            - SMALLER_THAN
-            - SIMILAR
-          default: EQUAL
+          $ref: '#/components/schemas/Comparator'
 
 
     Relation:
@@ -750,14 +745,16 @@ components:
           type: string
           format: id
         range:
-          type: string
-          enum:
-            - STRING
-            - TEXT
-            - INTEGER
-            - DOUBLE
-          default: STRING
+          $ref: '#/components/schemas/AttributeRange'
 
+    AttributeRange:
+      type: string
+      enum:
+          - STRING
+          - TEXT
+          - INTEGER
+          - DOUBLE
+      default: STRING
 
     Entity:
       description: Individual entity
@@ -824,11 +821,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AttributiveSlot'
-        valueSlots:
-          description: Value elements, up to 128
-          type: array
-          items:
-            $ref: '#/components/schemas/ValueSlot'
+#        valueSlots:
+#          description: Value elements, up to 128
+#          type: array
+#          items:
+#            $ref: '#/components/schemas/ValueSlot'
 
     Slot:
       description: Framed conceptual element
@@ -840,13 +837,8 @@ components:
       properties:
         id:
           description: Slot identifier, must be frame-unique
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 128
-        name:
-          description: Slot pretty name (opt)
           type: string
+          format: id
         predicates:
           description: Constraint predicates
           type: array
@@ -856,18 +848,18 @@ components:
         required:
           description: Tells if the slot should be instantiated in order for the frame to make sense
           type: boolean
-          default: false
-        informative:
-          description: Tells whether slot's values contribute to frame's meaning
-          type: boolean
-          default: false
+          default: true
+#        informative:
+#          description: Tells whether slot's values contribute to frame's meaning
+#          type: boolean
+#          default: false
       discriminator:
         propertyName: ktype
         mapping:
           ConceptualSlot:  '#/components/schemas/ConceptualSlot'
           RelationalSlot:  '#/components/schemas/RelationalSlot'
           AttributiveSlot: '#/components/schemas/AttributiveSlot'
-          ValueSlot:       '#/components/schemas/ValueSlot'
+#          ValueSlot:       '#/components/schemas/ValueSlot'
 
     ConceptualSlot:
       description: A slot boud to a concept
@@ -887,15 +879,13 @@ components:
       type: object
       properties:
         subjectBinding:
-          description: Slot's subject binding, must be a ConceptualSlot in the same frame.
-          type: integer
-          minimum: 0
-          maximum: 128
+          description: Slot's subject binding
+          type: string
+          format: id
         objectBinding:
-          description: Slot's object binding, must be a ConceptualSlot in the same frame.
-          type: integer
-          minimum: 0
-          maximum: 128
+          description: Slot's object binding
+          type: string
+          format: id
       required:
         - subjectBinding
 
@@ -908,51 +898,57 @@ components:
       description: A slot bound to an Attribute (data property)
       properties:
         subjectBinding:
-          description: Slot's subject binding, must be a ConceptualSlot in the same frame.
-          type: integer
-          minimum: 0
-          maximum: 128
-        objectBinding:
-          description: Slot's object binding, must be a ValueSlot in the same frame.
-          type: integer
-          minimum: 0
-          maximum: 128
-        comparation:
-          description: Comparation operator for data values (opt)
+          description: Slot's subject binding
           type: string
-          enum:
-           - EQUAL
-           - GREATER
-           - SMALLER
-           - SIMILAR
-          default: EQUAL
-      required:
-        - subjectBinding
-
-
-    ValueSlot:
-      allOf:
-        - $ref: '#/components/schemas/Slot'
-      type: object
-      description: A slot bound to a data item
-      properties:
+          format: id
+#        objectBinding:
+#          description: Slot's object binding, must be a ValueSlot in the same frame.
+#          type: integer
+#          minimum: 0
+#          maximum: 128
         value:
           description: Constant data value (opt)
           type: string
           format: utf8
 
-    SlotReference:
-      type: object
-      description: Reference to a slot
-      properties:
-        frame:
-          description: Frame identifier
-          type: string
-        slot:
-          description: Slot identifier
-          type: integer
-          minimum: 0
-          maximum: 128
+        comparation:
+          $ref: '#/components/schemas/Comparator'
+      required:
+        - subjectBinding
+
+    Comparator:
+      description: Comparation operator for data values (opt)
+      type: string
+      enum:
+          - EQUAL
+          - GREATER
+          - SMALLER
+          - SIMILAR
+      default: EQUAL
+
+#    ValueSlot:
+#      allOf:
+#        - $ref: '#/components/schemas/Slot'
+#      type: object
+#      description: A slot bound to a data item
+#      properties:
+#        value:
+#          description: Constant data value (opt)
+#          type: string
+#          format: utf8
+
+#    SlotReference:
+#      type: object
+#      description: Reference to a slot
+#      properties:
+#        frame:
+#          description: Frame identifier
+#          type: string
+#        slot:
+#          description: Slot identifier
+#          type: integer
+#          minimum: 0
+#          maximum: 128
 
 
 

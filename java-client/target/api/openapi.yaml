@@ -192,13 +192,11 @@ components:
       description: Interaction record
       example:
         kitem: kitem
-        slot:
-          slot: 10
-          frame: frame
         constraints:
         - constraints
         - constraints
         value: value
+        slotref: slotref
       properties:
         itype:
           $ref: '#/components/schemas/InteractType'
@@ -211,8 +209,9 @@ components:
           items:
             type: string
           type: array
-        slot:
-          $ref: '#/components/schemas/SlotReference'
+        slotref:
+          description: Full reference to a slot (frame id:slot id) (opt)
+          type: string
         value:
           description: Interaction content
           format: utf-8
@@ -226,21 +225,17 @@ components:
       example:
         suggestions:
         - kitem: kitem
-          slot:
-            slot: 10
-            frame: frame
           constraints:
           - constraints
           - constraints
           value: value
+          slotref: slotref
         - kitem: kitem
-          slot:
-            slot: 10
-            frame: frame
           constraints:
           - constraints
           - constraints
           value: value
+          slotref: slotref
       properties:
         suggestions:
           description: Suggested interactions, should be sorted by type (itype)
@@ -252,18 +247,12 @@ components:
       description: Response to issuing an interation
       example:
         upanswer:
-          report:
-          - code: OK
-            message: message
-          - code: OK
-            message: message
+          report: report
         qanswer:
           size: 6
           header:
           - name: name
-            dtype: URI
           - name: name
-            dtype: URI
           handle: 0
           rows:
           - values:
@@ -287,30 +276,13 @@ components:
       required:
       - rtype
       type: object
-    SlotReference:
-      description: Reference to a slot
-      example:
-        slot: 10
-        frame: frame
-      properties:
-        frame:
-          description: Frame identifier
-          type: string
-        slot:
-          description: Slot identifier
-          maximum: 128
-          minimum: 0
-          type: integer
-      type: object
     QueryResponse:
       description: Query result set
       example:
         size: 6
         header:
         - name: name
-          dtype: URI
         - name: name
-          dtype: URI
         handle: 0
         rows:
         - values:
@@ -347,21 +319,22 @@ components:
       description: Query result set header
       example:
         name: name
-        dtype: URI
       properties:
         name:
           type: string
         dtype:
-          enum:
-          - URI
-          - BOOLEAN
-          - INTEGER
-          - DOUBLE
-          - STRING
-          type: string
+          $ref: '#/components/schemas/ValueType'
       required:
       - name
       type: object
+    ValueType:
+      enum:
+      - URI
+      - BOOLEAN
+      - INTEGER
+      - DOUBLE
+      - STRING
+      type: string
     ResponseRow:
       description: Query result set row
       example:
@@ -387,32 +360,12 @@ components:
     UpdateResponse:
       description: Update response
       example:
-        report:
-        - code: OK
-          message: message
-        - code: OK
-          message: message
+        report: report
       properties:
         report:
           description: Report
-          items:
-            $ref: '#/components/schemas/UpdateResponse_report'
-          type: array
+          type: string
       required:
       - report
-      type: object
-    UpdateResponse_report:
-      example:
-        code: OK
-        message: message
-      properties:
-        code:
-          enum:
-          - OK
-          - WARN
-          - ERROR
-          type: string
-        message:
-          type: string
       type: object
 

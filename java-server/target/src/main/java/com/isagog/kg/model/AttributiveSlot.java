@@ -1,7 +1,9 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.isagog.kg.model.Comparator;
 import com.isagog.kg.model.KnowledgeAnnotation;
 import com.isagog.kg.model.Slot;
 import io.swagger.annotations.ApiModel;
@@ -13,107 +15,68 @@ import java.util.List;
  * A slot bound to an Attribute (data property)
  */
 @ApiModel(description = "A slot bound to an Attribute (data property)")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.415+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.334+01:00[Europe/Berlin]")
 public class AttributiveSlot extends Slot  {
   @JsonProperty("subjectBinding")
-  private Integer subjectBinding;
+  private String subjectBinding;
 
-  @JsonProperty("objectBinding")
-  private Integer objectBinding;
-
-  /**
-   * Comparation operator for data values (opt)
-   */
-  public enum ComparationEnum {
-    EQUAL("EQUAL"),
-    
-    GREATER("GREATER"),
-    
-    SMALLER("SMALLER"),
-    
-    SIMILAR("SIMILAR");
-
-    private String value;
-
-    ComparationEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static ComparationEnum fromValue(String text) {
-      for (ComparationEnum b : ComparationEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
+  @JsonProperty("value")
+  private String value;
 
   @JsonProperty("comparation")
-  private ComparationEnum comparation = ComparationEnum.EQUAL;
+  private Comparator comparation = Comparator.EQUAL;
 
-  public AttributiveSlot subjectBinding(Integer subjectBinding) {
+  public AttributiveSlot subjectBinding(String subjectBinding) {
     this.subjectBinding = subjectBinding;
     return this;
   }
 
    /**
-   * Slot's subject binding, must be a ConceptualSlot in the same frame.
-   * minimum: 0
-   * maximum: 128
+   * Slot's subject binding
    * @return subjectBinding
   **/
-  @ApiModelProperty(required = true, value = "Slot's subject binding, must be a ConceptualSlot in the same frame.")
-  public Integer getSubjectBinding() {
+  @ApiModelProperty(required = true, value = "Slot's subject binding")
+  public String getSubjectBinding() {
     return subjectBinding;
   }
 
-  public void setSubjectBinding(Integer subjectBinding) {
+  public void setSubjectBinding(String subjectBinding) {
     this.subjectBinding = subjectBinding;
   }
 
-  public AttributiveSlot objectBinding(Integer objectBinding) {
-    this.objectBinding = objectBinding;
+  public AttributiveSlot value(String value) {
+    this.value = value;
     return this;
   }
 
    /**
-   * Slot's object binding, must be a ValueSlot in the same frame.
-   * minimum: 0
-   * maximum: 128
-   * @return objectBinding
+   * Constant data value (opt)
+   * @return value
   **/
-  @ApiModelProperty(value = "Slot's object binding, must be a ValueSlot in the same frame.")
-  public Integer getObjectBinding() {
-    return objectBinding;
+  @ApiModelProperty(value = "Constant data value (opt)")
+  public String getValue() {
+    return value;
   }
 
-  public void setObjectBinding(Integer objectBinding) {
-    this.objectBinding = objectBinding;
+  public void setValue(String value) {
+    this.value = value;
   }
 
-  public AttributiveSlot comparation(ComparationEnum comparation) {
+  public AttributiveSlot comparation(Comparator comparation) {
     this.comparation = comparation;
     return this;
   }
 
    /**
-   * Comparation operator for data values (opt)
+   * Get comparation
    * @return comparation
   **/
-  @ApiModelProperty(value = "Comparation operator for data values (opt)")
-  public ComparationEnum getComparation() {
+  @ApiModelProperty(value = "")
+  public Comparator getComparation() {
     return comparation;
   }
 
-  public void setComparation(ComparationEnum comparation) {
+  public void setComparation(Comparator comparation) {
     this.comparation = comparation;
   }
 
@@ -128,14 +91,14 @@ public class AttributiveSlot extends Slot  {
     }
     AttributiveSlot attributiveSlot = (AttributiveSlot) o;
     return Objects.equals(this.subjectBinding, attributiveSlot.subjectBinding) &&
-        Objects.equals(this.objectBinding, attributiveSlot.objectBinding) &&
+        Objects.equals(this.value, attributiveSlot.value) &&
         Objects.equals(this.comparation, attributiveSlot.comparation) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(subjectBinding, objectBinding, comparation, super.hashCode());
+    return Objects.hash(subjectBinding, value, comparation, super.hashCode());
   }
 
   @Override
@@ -144,7 +107,7 @@ public class AttributiveSlot extends Slot  {
     sb.append("class AttributiveSlot {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    subjectBinding: ").append(toIndentedString(subjectBinding)).append("\n");
-    sb.append("    objectBinding: ").append(toIndentedString(objectBinding)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    comparation: ").append(toIndentedString(comparation)).append("\n");
     sb.append("}");
     return sb.toString();

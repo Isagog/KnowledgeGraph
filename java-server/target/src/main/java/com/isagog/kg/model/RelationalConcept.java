@@ -1,9 +1,11 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.isagog.kg.model.Concept;
 import com.isagog.kg.model.KnowledgeAnnotation;
+import com.isagog.kg.model.Quantifier;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ import java.util.List;
  * Unary relational classifier
  */
 @ApiModel(description = "Unary relational classifier")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.415+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.334+01:00[Europe/Berlin]")
 public class RelationalConcept extends Concept  {
   @JsonProperty("relation")
   private String relation;
@@ -21,43 +23,8 @@ public class RelationalConcept extends Concept  {
   @JsonProperty("restriction")
   private String restriction;
 
-  /**
-   * Gets or Sets quantifier
-   */
-  public enum QuantifierEnum {
-    SOME("SOME"),
-    
-    ALL("ALL"),
-    
-    ATLEAST1("ATLEAST1"),
-    
-    ATMOST1("ATMOST1");
-
-    private String value;
-
-    QuantifierEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static QuantifierEnum fromValue(String text) {
-      for (QuantifierEnum b : QuantifierEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   @JsonProperty("quantifier")
-  private QuantifierEnum quantifier;
+  private Quantifier quantifier;
 
   public RelationalConcept relation(String relation) {
     this.relation = relation;
@@ -95,7 +62,7 @@ public class RelationalConcept extends Concept  {
     this.restriction = restriction;
   }
 
-  public RelationalConcept quantifier(QuantifierEnum quantifier) {
+  public RelationalConcept quantifier(Quantifier quantifier) {
     this.quantifier = quantifier;
     return this;
   }
@@ -105,11 +72,11 @@ public class RelationalConcept extends Concept  {
    * @return quantifier
   **/
   @ApiModelProperty(required = true, value = "")
-  public QuantifierEnum getQuantifier() {
+  public Quantifier getQuantifier() {
     return quantifier;
   }
 
-  public void setQuantifier(QuantifierEnum quantifier) {
+  public void setQuantifier(Quantifier quantifier) {
     this.quantifier = quantifier;
   }
 

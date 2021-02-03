@@ -1,7 +1,8 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.isagog.kg.model.KnowledgeAnnotation;
 import com.isagog.kg.model.Slot;
 import io.swagger.annotations.ApiModel;
@@ -13,51 +14,47 @@ import java.util.List;
  * A slot bound to a relation (property)
  */
 @ApiModel(description = "A slot bound to a relation (property)")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.415+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.334+01:00[Europe/Berlin]")
 public class RelationalSlot extends Slot  {
   @JsonProperty("subjectBinding")
-  private Integer subjectBinding;
+  private String subjectBinding;
 
   @JsonProperty("objectBinding")
-  private Integer objectBinding;
+  private String objectBinding;
 
-  public RelationalSlot subjectBinding(Integer subjectBinding) {
+  public RelationalSlot subjectBinding(String subjectBinding) {
     this.subjectBinding = subjectBinding;
     return this;
   }
 
    /**
-   * Slot's subject binding, must be a ConceptualSlot in the same frame.
-   * minimum: 0
-   * maximum: 128
+   * Slot's subject binding
    * @return subjectBinding
   **/
-  @ApiModelProperty(required = true, value = "Slot's subject binding, must be a ConceptualSlot in the same frame.")
-  public Integer getSubjectBinding() {
+  @ApiModelProperty(required = true, value = "Slot's subject binding")
+  public String getSubjectBinding() {
     return subjectBinding;
   }
 
-  public void setSubjectBinding(Integer subjectBinding) {
+  public void setSubjectBinding(String subjectBinding) {
     this.subjectBinding = subjectBinding;
   }
 
-  public RelationalSlot objectBinding(Integer objectBinding) {
+  public RelationalSlot objectBinding(String objectBinding) {
     this.objectBinding = objectBinding;
     return this;
   }
 
    /**
-   * Slot's object binding, must be a ConceptualSlot in the same frame.
-   * minimum: 0
-   * maximum: 128
+   * Slot's object binding
    * @return objectBinding
   **/
-  @ApiModelProperty(value = "Slot's object binding, must be a ConceptualSlot in the same frame.")
-  public Integer getObjectBinding() {
+  @ApiModelProperty(value = "Slot's object binding")
+  public String getObjectBinding() {
     return objectBinding;
   }
 
-  public void setObjectBinding(Integer objectBinding) {
+  public void setObjectBinding(String objectBinding) {
     this.objectBinding = objectBinding;
   }
 

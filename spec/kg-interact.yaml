@@ -204,8 +204,9 @@ components:
           type: array
           items:
             type: string
-        slot:
-          $ref: kg-knowledge.yaml#/components/schemas/SlotReference
+        slotref:
+          description: Full reference to a slot (frame id:slot id) (opt)
+          type: string
         value:
           description: Interaction content
           type: string

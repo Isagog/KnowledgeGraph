@@ -1,3 +1,4 @@
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Comparator.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Document.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\RelationalConcept.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\GzipRequestInterceptor.java
@@ -6,20 +7,21 @@ D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Classification.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Attribute.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\IssueResponse.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\QueryLanguages.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\InteractType.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\auth\HttpBasicAuth.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Entity.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\InteractRecord.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Slot.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\QueryKind.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\Pair.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\LinguisticAnnotation.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Quantifier.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\JSON.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\ElementRanking.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\MetaclassAnnotation.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\RelationalSlot.java
-D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\UpdateResponseReport.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\ApiClient.java
-D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\ValueSlot.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\TokenAnnotation.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\SentenceRanking.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\UpdateResponse.java
@@ -43,6 +45,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\QueryResponse.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\BasicAnnotation.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\QueryFrame.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\AttributeRange.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\ResponseType.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\SyntacticDependency.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\auth\HttpBearerAuth.java
@@ -61,7 +64,9 @@ D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\EntityResponse.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Frame.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\Upload.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\DataFormat.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\SyntacticRelation.java
+D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\ValueType.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\auth\ApiKeyAuth.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\model\SemanticRelation.java
 D:\Projects\Isagog\KnowledgeGraph\java-client\target\src\main\java\com\isagog\kg\api\InteractionServiceApi.java

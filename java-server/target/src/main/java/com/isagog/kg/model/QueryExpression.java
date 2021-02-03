@@ -1,8 +1,10 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.isagog.kg.model.Query;
+import com.isagog.kg.model.QueryLanguages;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -10,60 +12,29 @@ import io.swagger.annotations.ApiModelProperty;
  * Query string in a specific query language
  */
 @ApiModel(description = "Query string in a specific query language")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:50.715+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:23.648+01:00[Europe/Berlin]")
 public class QueryExpression extends Query  {
-  /**
-   * Query language
-   */
-  public enum LangEnum {
-    SPARQL("SPARQL"),
-    
-    GRAPHQL("GRAPHQL");
-
-    private String value;
-
-    LangEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static LangEnum fromValue(String text) {
-      for (LangEnum b : LangEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   @JsonProperty("lang")
-  private LangEnum lang;
+  private QueryLanguages lang;
 
   @JsonProperty("query")
   private String query;
 
-  public QueryExpression lang(LangEnum lang) {
+  public QueryExpression lang(QueryLanguages lang) {
     this.lang = lang;
     return this;
   }
 
    /**
-   * Query language
+   * Get lang
    * @return lang
   **/
-  @ApiModelProperty(required = true, value = "Query language")
-  public LangEnum getLang() {
+  @ApiModelProperty(required = true, value = "")
+  public QueryLanguages getLang() {
     return lang;
   }
 
-  public void setLang(LangEnum lang) {
+  public void setLang(QueryLanguages lang) {
     this.lang = lang;
   }
 

@@ -1,6 +1,6 @@
 package com.isagog.kg.api;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.732+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.635+01:00[Europe/Berlin]")
 public class StringUtil {
   /**
    * Check if the given array contains the given value (with case-insensitive comparison).

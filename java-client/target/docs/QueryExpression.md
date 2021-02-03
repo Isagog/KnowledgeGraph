@@ -7,17 +7,8 @@ Query string in a specific query language
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**lang** | [**LangEnum**](#LangEnum) | Query language | 
+**lang** | **QueryLanguages** |  | 
 **query** | **String** | Query string |  [optional]
-
-
-
-## Enum: LangEnum
-
-Name | Value
----- | -----
-SPARQL | &quot;SPARQL&quot;
-GRAPHQL | &quot;GRAPHQL&quot;
 
 
 

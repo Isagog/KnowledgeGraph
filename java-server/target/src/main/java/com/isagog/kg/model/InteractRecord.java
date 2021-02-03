@@ -1,9 +1,9 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.isagog.kg.model.InteractType;
-import com.isagog.kg.model.SlotReference;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.List;
  * Interaction record
  */
 @ApiModel(description = "Interaction record")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.732+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.635+01:00[Europe/Berlin]")
 public class InteractRecord   {
   @JsonProperty("itype")
   private InteractType itype;
@@ -24,8 +24,8 @@ public class InteractRecord   {
   @JsonProperty("constraints")
   private List<String> constraints = null;
 
-  @JsonProperty("slot")
-  private SlotReference slot;
+  @JsonProperty("slotref")
+  private String slotref;
 
   @JsonProperty("value")
   private String value;
@@ -92,22 +92,22 @@ public class InteractRecord   {
     this.constraints = constraints;
   }
 
-  public InteractRecord slot(SlotReference slot) {
-    this.slot = slot;
+  public InteractRecord slotref(String slotref) {
+    this.slotref = slotref;
     return this;
   }
 
    /**
-   * Get slot
-   * @return slot
+   * Full reference to a slot (frame id:slot id) (opt)
+   * @return slotref
   **/
-  @ApiModelProperty(value = "")
-  public SlotReference getSlot() {
-    return slot;
+  @ApiModelProperty(value = "Full reference to a slot (frame id:slot id) (opt)")
+  public String getSlotref() {
+    return slotref;
   }
 
-  public void setSlot(SlotReference slot) {
-    this.slot = slot;
+  public void setSlotref(String slotref) {
+    this.slotref = slotref;
   }
 
   public InteractRecord value(String value) {
@@ -141,13 +141,13 @@ public class InteractRecord   {
     return Objects.equals(this.itype, interactRecord.itype) &&
         Objects.equals(this.kitem, interactRecord.kitem) &&
         Objects.equals(this.constraints, interactRecord.constraints) &&
-        Objects.equals(this.slot, interactRecord.slot) &&
+        Objects.equals(this.slotref, interactRecord.slotref) &&
         Objects.equals(this.value, interactRecord.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(itype, kitem, constraints, slot, value);
+    return Objects.hash(itype, kitem, constraints, slotref, value);
   }
 
   @Override
@@ -158,7 +158,7 @@ public class InteractRecord   {
     sb.append("    itype: ").append(toIndentedString(itype)).append("\n");
     sb.append("    kitem: ").append(toIndentedString(kitem)).append("\n");
     sb.append("    constraints: ").append(toIndentedString(constraints)).append("\n");
-    sb.append("    slot: ").append(toIndentedString(slot)).append("\n");
+    sb.append("    slotref: ").append(toIndentedString(slotref)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();

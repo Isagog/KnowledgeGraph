@@ -1,60 +1,24 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.isagog.kg.model.DataFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Upload
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:50.715+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:23.648+01:00[Europe/Berlin]")
 public class Upload   {
-  /**
-   * Gets or Sets format
-   */
-  public enum FormatEnum {
-    XML("XML"),
-    
-    TURTLE("TURTLE"),
-    
-    N3("N3"),
-    
-    CSV("CSV"),
-    
-    JSON("JSON");
-
-    private String value;
-
-    FormatEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static FormatEnum fromValue(String text) {
-      for (FormatEnum b : FormatEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   @JsonProperty("format")
-  private FormatEnum format;
+  private DataFormat format;
 
   @JsonProperty("content")
   private byte[] content;
 
-  public Upload format(FormatEnum format) {
+  public Upload format(DataFormat format) {
     this.format = format;
     return this;
   }
@@ -64,11 +28,11 @@ public class Upload   {
    * @return format
   **/
   @ApiModelProperty(value = "")
-  public FormatEnum getFormat() {
+  public DataFormat getFormat() {
     return format;
   }
 
-  public void setFormat(FormatEnum format) {
+  public void setFormat(DataFormat format) {
     this.format = format;
   }
 

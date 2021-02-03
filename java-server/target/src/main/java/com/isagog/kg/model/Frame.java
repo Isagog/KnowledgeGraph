@@ -1,13 +1,13 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.isagog.kg.model.AttributiveSlot;
 import com.isagog.kg.model.ConceptualSlot;
 import com.isagog.kg.model.KnowledgeAnnotation;
 import com.isagog.kg.model.KnowledgeElement;
 import com.isagog.kg.model.RelationalSlot;
-import com.isagog.kg.model.ValueSlot;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.List;
  * Conceptual pattern, e.g. a query or a form
  */
 @ApiModel(description = "Conceptual pattern, e.g. a query or a form")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.415+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.334+01:00[Europe/Berlin]")
 public class Frame extends KnowledgeElement  {
   @JsonProperty("id")
   private String id;
@@ -30,9 +30,6 @@ public class Frame extends KnowledgeElement  {
 
   @JsonProperty("attributiveSlots")
   private List<AttributiveSlot> attributiveSlots = null;
-
-  @JsonProperty("valueSlots")
-  private List<ValueSlot> valueSlots = null;
 
   public Frame id(String id) {
     this.id = id;
@@ -130,32 +127,6 @@ public class Frame extends KnowledgeElement  {
     this.attributiveSlots = attributiveSlots;
   }
 
-  public Frame valueSlots(List<ValueSlot> valueSlots) {
-    this.valueSlots = valueSlots;
-    return this;
-  }
-
-  public Frame addValueSlotsItem(ValueSlot valueSlotsItem) {
-    if (this.valueSlots == null) {
-      this.valueSlots = new ArrayList<ValueSlot>();
-    }
-    this.valueSlots.add(valueSlotsItem);
-    return this;
-  }
-
-   /**
-   * Value elements, up to 128
-   * @return valueSlots
-  **/
-  @ApiModelProperty(value = "Value elements, up to 128")
-  public List<ValueSlot> getValueSlots() {
-    return valueSlots;
-  }
-
-  public void setValueSlots(List<ValueSlot> valueSlots) {
-    this.valueSlots = valueSlots;
-  }
-
 
   @Override
   public boolean equals(Object o) {
@@ -170,13 +141,12 @@ public class Frame extends KnowledgeElement  {
         Objects.equals(this.conceptualSlots, frame.conceptualSlots) &&
         Objects.equals(this.relationalSlots, frame.relationalSlots) &&
         Objects.equals(this.attributiveSlots, frame.attributiveSlots) &&
-        Objects.equals(this.valueSlots, frame.valueSlots) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, conceptualSlots, relationalSlots, attributiveSlots, valueSlots, super.hashCode());
+    return Objects.hash(id, conceptualSlots, relationalSlots, attributiveSlots, super.hashCode());
   }
 
   @Override
@@ -188,7 +158,6 @@ public class Frame extends KnowledgeElement  {
     sb.append("    conceptualSlots: ").append(toIndentedString(conceptualSlots)).append("\n");
     sb.append("    relationalSlots: ").append(toIndentedString(relationalSlots)).append("\n");
     sb.append("    attributiveSlots: ").append(toIndentedString(attributiveSlots)).append("\n");
-    sb.append("    valueSlots: ").append(toIndentedString(valueSlots)).append("\n");
     sb.append("}");
     return sb.toString();
   }

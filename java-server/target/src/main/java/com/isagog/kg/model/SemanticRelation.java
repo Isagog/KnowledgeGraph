@@ -1,8 +1,10 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.isagog.kg.model.DependencyAnnotation;
+import com.isagog.kg.model.PredicativeRoles;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -10,44 +12,13 @@ import io.swagger.annotations.ApiModelProperty;
  * Governor&#39;s semantic role
  */
 @ApiModel(description = "Governor's semantic role")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.415+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.334+01:00[Europe/Berlin]")
 public class SemanticRelation extends DependencyAnnotation  {
   @JsonProperty("predicate")
   private String predicate;
 
-  /**
-   * Governor's predicative role (subject or object)
-   */
-  public enum RoleEnum {
-    SUBJECT("SUBJECT"),
-    
-    OBJECT("OBJECT");
-
-    private String value;
-
-    RoleEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static RoleEnum fromValue(String text) {
-      for (RoleEnum b : RoleEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   @JsonProperty("role")
-  private RoleEnum role;
+  private PredicativeRoles role;
 
   public SemanticRelation predicate(String predicate) {
     this.predicate = predicate;
@@ -67,21 +38,21 @@ public class SemanticRelation extends DependencyAnnotation  {
     this.predicate = predicate;
   }
 
-  public SemanticRelation role(RoleEnum role) {
+  public SemanticRelation role(PredicativeRoles role) {
     this.role = role;
     return this;
   }
 
    /**
-   * Governor's predicative role (subject or object)
+   * Get role
    * @return role
   **/
-  @ApiModelProperty(required = true, value = "Governor's predicative role (subject or object)")
-  public RoleEnum getRole() {
+  @ApiModelProperty(required = true, value = "")
+  public PredicativeRoles getRole() {
     return role;
   }
 
-  public void setRole(RoleEnum role) {
+  public void setRole(PredicativeRoles role) {
     this.role = role;
   }
 

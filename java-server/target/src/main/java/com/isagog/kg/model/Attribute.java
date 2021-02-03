@@ -1,7 +1,9 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.isagog.kg.model.AttributeRange;
 import com.isagog.kg.model.KnowledgeAnnotation;
 import com.isagog.kg.model.KnowledgeElement;
 import io.swagger.annotations.ApiModel;
@@ -13,7 +15,7 @@ import java.util.List;
  * Class of Entity-value pairs
  */
 @ApiModel(description = "Class of Entity-value pairs")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.415+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.334+01:00[Europe/Berlin]")
 public class Attribute extends KnowledgeElement  {
   @JsonProperty("id")
   private String id;
@@ -21,43 +23,8 @@ public class Attribute extends KnowledgeElement  {
   @JsonProperty("domain")
   private String domain;
 
-  /**
-   * Gets or Sets range
-   */
-  public enum RangeEnum {
-    STRING("STRING"),
-    
-    TEXT("TEXT"),
-    
-    INTEGER("INTEGER"),
-    
-    DOUBLE("DOUBLE");
-
-    private String value;
-
-    RangeEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static RangeEnum fromValue(String text) {
-      for (RangeEnum b : RangeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   @JsonProperty("range")
-  private RangeEnum range = RangeEnum.STRING;
+  private AttributeRange range = AttributeRange.STRING;
 
   public Attribute id(String id) {
     this.id = id;
@@ -95,7 +62,7 @@ public class Attribute extends KnowledgeElement  {
     this.domain = domain;
   }
 
-  public Attribute range(RangeEnum range) {
+  public Attribute range(AttributeRange range) {
     this.range = range;
     return this;
   }
@@ -105,11 +72,11 @@ public class Attribute extends KnowledgeElement  {
    * @return range
   **/
   @ApiModelProperty(value = "")
-  public RangeEnum getRange() {
+  public AttributeRange getRange() {
     return range;
   }
 
-  public void setRange(RangeEnum range) {
+  public void setRange(AttributeRange range) {
     this.range = range;
   }
 

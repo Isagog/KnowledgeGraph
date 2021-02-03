@@ -1,7 +1,8 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.isagog.kg.model.KnowledgeAnnotation;
 import com.isagog.kg.model.Slot;
 import io.swagger.annotations.ApiModel;
@@ -13,7 +14,7 @@ import java.util.List;
  * A slot boud to a concept
  */
 @ApiModel(description = "A slot boud to a concept")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.415+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.334+01:00[Europe/Berlin]")
 public class ConceptualSlot extends Slot  {
   @JsonProperty("entity")
   private String entity;

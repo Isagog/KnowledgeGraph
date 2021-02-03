@@ -462,15 +462,20 @@ components:
         - body
       properties:
         lang:
-          type: string
-          enum:
-            - SPARQL
-            - GRAPHQL
-          description: Query language
+         $ref: '#/components/schemas/QueryLanguages'
         query:
           type: string
           format: utf-8
           description: Query string
+
+    QueryLanguages:
+      description: Query languages
+      type: string
+      enum:
+        - SPARQL
+        - GRAPHQL
+
+
 
     QueryFrame:
       description: Query by frame
@@ -482,13 +487,16 @@ components:
         - frame
       properties:
         qkind:
-          type: string
-          description: Query kind, where (INDIVIDUATION = single entity, CARDINALITY = entity count, LIST = list of entity n-tuples)
-          enum:
-            - EXTENSION
-            - CARDINALITY
+          $ref: '#/components/schemas/QueryKind'
         frame:
           $ref: kg-knowledge.yaml#/components/schemas/Frame
+
+    QueryKind:
+      type: string
+      description: Query kind, where (INDIVIDUATION = single entity, CARDINALITY = entity count, LIST = list of entity n-tuples)
+      enum:
+        - EXTENSION
+        - CARDINALITY
 
     QueryKeywords:
       description: Keyword-based query (search)
@@ -504,15 +512,16 @@ components:
             type: string
             format: utf-8
         op:
-          type: string
-          enum:
-            - OR
-            - AND
-            - EXCEPT
-          default: OR
-          description: The search operator; OR = at least one match, AND = complete match, EXCEPT = match the first value but not the others
+          $ref: '#/components/schemas/SearchOperator'
 
-
+    SearchOperator:
+      type: string
+      enum:
+          - OR
+          - AND
+          - EXCEPT
+      default: OR
+      description: The search operator; OR = at least one match, AND = complete match, EXCEPT = match the first value but not the others
 
     QueryResponse:
       description: Query result set
@@ -548,13 +557,17 @@ components:
         name:
           type: string
         dtype:
-          type: string
-          enum:
-            - URI
-            - BOOLEAN
-            - INTEGER
-            - DOUBLE
-            - STRING
+          $ref: '#/components/schemas/ValueType'
+
+
+    ValueType:
+      type: string
+      enum:
+        - URI
+        - BOOLEAN
+        - INTEGER
+        - DOUBLE
+        - STRING
 
     ResponseRow:
       description: Query result set row
@@ -605,30 +618,22 @@ components:
       properties:
         report:
           description: Report
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-                enum:
-                  - OK
-                  - WARN
-                  - ERROR
-              message:
-                type: string
+          type: string
 
     Upload:
       type: object
       properties:
         format:
-          type: string
-          enum:
-            - XML
-            - TURTLE
-            - N3
-            - CSV
-            - JSON
+          $ref: '#/components/schemas/DataFormat'
         content:
           type: string
           format: byte
+
+    DataFormat:
+      type: string
+      enum:
+        - XML
+        - TURTLE
+        - N3
+        - CSV
+        - JSON

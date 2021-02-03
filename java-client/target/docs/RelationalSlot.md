@@ -7,8 +7,8 @@ A slot bound to a relation (property)
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**subjectBinding** | **Integer** | Slot&#39;s subject binding, must be a ConceptualSlot in the same frame. | 
-**objectBinding** | **Integer** | Slot&#39;s object binding, must be a ConceptualSlot in the same frame. |  [optional]
+**subjectBinding** | **String** | Slot&#39;s subject binding | 
+**objectBinding** | **String** | Slot&#39;s object binding |  [optional]
 
 
 

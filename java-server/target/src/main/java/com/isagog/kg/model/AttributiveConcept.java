@@ -1,7 +1,9 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.isagog.kg.model.Comparator;
 import com.isagog.kg.model.Concept;
 import com.isagog.kg.model.KnowledgeAnnotation;
 import io.swagger.annotations.ApiModel;
@@ -13,7 +15,7 @@ import java.util.List;
  * Unary attributive classifier
  */
 @ApiModel(description = "Unary attributive classifier")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:51.415+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.334+01:00[Europe/Berlin]")
 public class AttributiveConcept extends Concept  {
   @JsonProperty("attribute")
   private String attribute;
@@ -21,43 +23,8 @@ public class AttributiveConcept extends Concept  {
   @JsonProperty("value")
   private byte[] value;
 
-  /**
-   * Gets or Sets constraint
-   */
-  public enum ConstraintEnum {
-    EQUAL("EQUAL"),
-    
-    GREATER_THAN("GREATER_THAN"),
-    
-    SMALLER_THAN("SMALLER_THAN"),
-    
-    SIMILAR("SIMILAR");
-
-    private String value;
-
-    ConstraintEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static ConstraintEnum fromValue(String text) {
-      for (ConstraintEnum b : ConstraintEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   @JsonProperty("constraint")
-  private ConstraintEnum constraint = ConstraintEnum.EQUAL;
+  private Comparator constraint = Comparator.EQUAL;
 
   public AttributiveConcept attribute(String attribute) {
     this.attribute = attribute;
@@ -95,7 +62,7 @@ public class AttributiveConcept extends Concept  {
     this.value = value;
   }
 
-  public AttributiveConcept constraint(ConstraintEnum constraint) {
+  public AttributiveConcept constraint(Comparator constraint) {
     this.constraint = constraint;
     return this;
   }
@@ -105,11 +72,11 @@ public class AttributiveConcept extends Concept  {
    * @return constraint
   **/
   @ApiModelProperty(value = "")
-  public ConstraintEnum getConstraint() {
+  public Comparator getConstraint() {
     return constraint;
   }
 
-  public void setConstraint(ConstraintEnum constraint) {
+  public void setConstraint(Comparator constraint) {
     this.constraint = constraint;
   }
 

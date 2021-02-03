@@ -1,8 +1,10 @@
 package com.isagog.kg.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.isagog.kg.model.Query;
+import com.isagog.kg.model.SearchOperator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -12,46 +14,13 @@ import java.util.List;
  * Keyword-based query (search)
  */
 @ApiModel(description = "Keyword-based query (search)")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-01T22:54:50.715+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:23.648+01:00[Europe/Berlin]")
 public class QueryKeywords extends Query  {
   @JsonProperty("keys")
   private List<String> keys = new ArrayList<String>();
 
-  /**
-   * The search operator; OR = at least one match, AND = complete match, EXCEPT = match the first value but not the others
-   */
-  public enum OpEnum {
-    OR("OR"),
-    
-    AND("AND"),
-    
-    EXCEPT("EXCEPT");
-
-    private String value;
-
-    OpEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static OpEnum fromValue(String text) {
-      for (OpEnum b : OpEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   @JsonProperty("op")
-  private OpEnum op = OpEnum.OR;
+  private SearchOperator op = SearchOperator.OR;
 
   public QueryKeywords keys(List<String> keys) {
     this.keys = keys;
@@ -76,21 +45,21 @@ public class QueryKeywords extends Query  {
     this.keys = keys;
   }
 
-  public QueryKeywords op(OpEnum op) {
+  public QueryKeywords op(SearchOperator op) {
     this.op = op;
     return this;
   }
 
    /**
-   * The search operator; OR = at least one match, AND = complete match, EXCEPT = match the first value but not the others
+   * Get op
    * @return op
   **/
-  @ApiModelProperty(value = "The search operator; OR = at least one match, AND = complete match, EXCEPT = match the first value but not the others")
-  public OpEnum getOp() {
+  @ApiModelProperty(value = "")
+  public SearchOperator getOp() {
     return op;
   }
 
-  public void setOp(OpEnum op) {
+  public void setOp(SearchOperator op) {
     this.op = op;
   }
 

@@ -84,7 +84,7 @@
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>5.0.0-SNAPSHOT</version>
                 <executions>
-                    <!-- openapi
+                    <!-- openapi -->
                     <execution>
                         <id>data</id>
                         <goals>
@@ -95,6 +95,7 @@
                             <generatorName>${generator-language}</generatorName>
                             <generateApiTests>false</generateApiTests>
                             <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>${openapi.supportfile}</generateSupportingFiles>
                             <configOptions>
                                 <sourceFolder>src/main/java</sourceFolder>
                                 <useTags>true</useTags>
@@ -117,6 +118,9 @@
                         <configuration>
                             <inputSpec>../spec/kg-language.yaml</inputSpec>
                             <generatorName>${generator-language}</generatorName>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>${openapi.supportfile}</generateSupportingFiles>
                             <configOptions>
                                 <sourceFolder>src/main/java</sourceFolder>
                                 <useTags>true</useTags>
@@ -139,6 +143,9 @@
                         <configuration>
                             <inputSpec>../spec/kg-knowledge.yaml</inputSpec>
                             <generatorName>${generator-language}</generatorName>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>${openapi.supportfile}</generateSupportingFiles>
                             <configOptions>
                                 <sourceFolder>src/main/java</sourceFolder>
                                 <useTags>true</useTags>
@@ -161,6 +168,9 @@
                         <configuration>
                             <inputSpec>../spec/kg-interact.yaml</inputSpec>
                             <generatorName>${generator-language}</generatorName>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>${openapi.supportfile}</generateSupportingFiles>
                             <configOptions>
                                 <sourceFolder>src/main/java</sourceFolder>
                                 <useTags>true</useTags>
@@ -175,7 +185,7 @@
                             <modelPackage>com.isagog.kg.model</modelPackage>
                         </configuration>
                     </execution>
-                         openapi generation -->
+                       <!--  openapi generation -->
                 </executions>
             </plugin>
 
@@ -372,6 +382,7 @@
         <jackson-version>2.8.9</jackson-version>
         <javax-annotation-version>1.3.2</javax-annotation-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <openapi.supportfile>true</openapi.supportfile>
     </properties>
 
 </project>
