@@ -8,8 +8,10 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
 import com.isagog.kg.model.Document;
+import com.isagog.kg.model.Language;
 import com.isagog.kg.model.Sentence;
 import com.isagog.kg.model.SentenceAnnotation;
+import com.isagog.kg.model.Task;
 
 import java.util.List;
 import com.isagog.kg.api.NotFoundException;
@@ -28,7 +30,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the LinguisticService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.118+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-06T07:45:03.476+01:00[Europe/Berlin]")
 public class LinguisticServiceApi  {
    private final LinguisticServiceApiService delegate = LinguisticServiceApiServiceFactory.getLinguisticServiceApi();
 
@@ -36,7 +38,7 @@ public class LinguisticServiceApi  {
     @Path("/analyze")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    @io.swagger.annotations.ApiOperation(value = "Sentence analysis", notes = "Provides an annotation of the supplied text object according to available knowledge, including entity recognition, linking and relations (opt)", response = SentenceAnnotation.class, tags={ "LinguisticService", })
+    @io.swagger.annotations.ApiOperation(value = "Sentence analysis", notes = "Provides an annotation of the supplied text object", response = SentenceAnnotation.class, tags={ "LinguisticService", })
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 200, message = "Success", response = SentenceAnnotation.class),
         
@@ -51,11 +53,12 @@ public class LinguisticServiceApi  {
         @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = SentenceAnnotation.class),
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = SentenceAnnotation.class) })
-    public Response analyze(@ApiParam(value = "", allowableValues="TOKENIZATION, ENTITY_ANALISYS, RELATION_ANALYSIS") @QueryParam("task") String task
+    public Response analyze(@ApiParam(value = "Tasks to be executed, all available if missing", defaultValue="new ArrayList<Task>()") @DefaultValue("new ArrayList<Task>()") @QueryParam("tasks") List<Task> tasks
+,@ApiParam(value = "Input language, autodetect if missing", allowableValues="en, es, fr, it, de") @QueryParam("lang") Language lang
 ,@ApiParam(value = "" ) Sentence sentence
 )
     throws NotFoundException {
-        return delegate.analyze(task,sentence);
+        return delegate.analyze(tasks,lang,sentence);
     }
     @POST
     @Path("/extract")

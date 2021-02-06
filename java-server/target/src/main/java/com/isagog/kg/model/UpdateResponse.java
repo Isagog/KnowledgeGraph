@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Update response
  */
 @ApiModel(description = "Update response")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.635+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-06T07:45:04.008+01:00[Europe/Berlin]")
 public class UpdateResponse   {
   @JsonProperty("report")
   private String report;

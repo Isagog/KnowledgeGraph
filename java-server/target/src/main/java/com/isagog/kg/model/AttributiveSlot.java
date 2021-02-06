@@ -15,7 +15,7 @@ import java.util.List;
  * A slot bound to an Attribute (data property)
  */
 @ApiModel(description = "A slot bound to an Attribute (data property)")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.334+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-06T07:45:03.707+01:00[Europe/Berlin]")
 public class AttributiveSlot extends Slot  {
   @JsonProperty("subjectBinding")
   private String subjectBinding;

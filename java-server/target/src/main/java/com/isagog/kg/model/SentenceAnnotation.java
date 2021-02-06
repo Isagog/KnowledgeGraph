@@ -3,10 +3,11 @@ package com.isagog.kg.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.isagog.kg.model.BasicAnnotation;
 import com.isagog.kg.model.Classification;
 import com.isagog.kg.model.DependencyAnnotation;
 import com.isagog.kg.model.EntityAnnotation;
+import com.isagog.kg.model.KeywordAnnotation;
+import com.isagog.kg.model.LemmaAnnotation;
 import com.isagog.kg.model.Sentence;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,16 +18,19 @@ import java.util.List;
  * Text annotation
  */
 @ApiModel(description = "Text annotation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:24.334+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-06T07:45:03.707+01:00[Europe/Berlin]")
 public class SentenceAnnotation   {
   @JsonProperty("classes")
   private List<Classification> classes = null;
 
   @JsonProperty("tokens")
-  private List<BasicAnnotation> tokens = null;
+  private List<LemmaAnnotation> tokens = null;
 
   @JsonProperty("entities")
   private List<EntityAnnotation> entities = null;
+
+  @JsonProperty("keywords")
+  private List<KeywordAnnotation> keywords = null;
 
   @JsonProperty("dependencies")
   private List<DependencyAnnotation> dependencies = null;
@@ -60,14 +64,14 @@ public class SentenceAnnotation   {
     this.classes = classes;
   }
 
-  public SentenceAnnotation tokens(List<BasicAnnotation> tokens) {
+  public SentenceAnnotation tokens(List<LemmaAnnotation> tokens) {
     this.tokens = tokens;
     return this;
   }
 
-  public SentenceAnnotation addTokensItem(BasicAnnotation tokensItem) {
+  public SentenceAnnotation addTokensItem(LemmaAnnotation tokensItem) {
     if (this.tokens == null) {
-      this.tokens = new ArrayList<BasicAnnotation>();
+      this.tokens = new ArrayList<LemmaAnnotation>();
     }
     this.tokens.add(tokensItem);
     return this;
@@ -78,11 +82,11 @@ public class SentenceAnnotation   {
    * @return tokens
   **/
   @ApiModelProperty(value = "Basic token annotation")
-  public List<BasicAnnotation> getTokens() {
+  public List<LemmaAnnotation> getTokens() {
     return tokens;
   }
 
-  public void setTokens(List<BasicAnnotation> tokens) {
+  public void setTokens(List<LemmaAnnotation> tokens) {
     this.tokens = tokens;
   }
 
@@ -110,6 +114,32 @@ public class SentenceAnnotation   {
 
   public void setEntities(List<EntityAnnotation> entities) {
     this.entities = entities;
+  }
+
+  public SentenceAnnotation keywords(List<KeywordAnnotation> keywords) {
+    this.keywords = keywords;
+    return this;
+  }
+
+  public SentenceAnnotation addKeywordsItem(KeywordAnnotation keywordsItem) {
+    if (this.keywords == null) {
+      this.keywords = new ArrayList<KeywordAnnotation>();
+    }
+    this.keywords.add(keywordsItem);
+    return this;
+  }
+
+   /**
+   * Keyword annotation
+   * @return keywords
+  **/
+  @ApiModelProperty(value = "Keyword annotation")
+  public List<KeywordAnnotation> getKeywords() {
+    return keywords;
+  }
+
+  public void setKeywords(List<KeywordAnnotation> keywords) {
+    this.keywords = keywords;
   }
 
   public SentenceAnnotation dependencies(List<DependencyAnnotation> dependencies) {
@@ -169,13 +199,14 @@ public class SentenceAnnotation   {
     return Objects.equals(this.classes, sentenceAnnotation.classes) &&
         Objects.equals(this.tokens, sentenceAnnotation.tokens) &&
         Objects.equals(this.entities, sentenceAnnotation.entities) &&
+        Objects.equals(this.keywords, sentenceAnnotation.keywords) &&
         Objects.equals(this.dependencies, sentenceAnnotation.dependencies) &&
         Objects.equals(this.sentence, sentenceAnnotation.sentence);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(classes, tokens, entities, dependencies, sentence);
+    return Objects.hash(classes, tokens, entities, keywords, dependencies, sentence);
   }
 
   @Override
@@ -186,6 +217,7 @@ public class SentenceAnnotation   {
     sb.append("    classes: ").append(toIndentedString(classes)).append("\n");
     sb.append("    tokens: ").append(toIndentedString(tokens)).append("\n");
     sb.append("    entities: ").append(toIndentedString(entities)).append("\n");
+    sb.append("    keywords: ").append(toIndentedString(keywords)).append("\n");
     sb.append("    dependencies: ").append(toIndentedString(dependencies)).append("\n");
     sb.append("    sentence: ").append(toIndentedString(sentence)).append("\n");
     sb.append("}");

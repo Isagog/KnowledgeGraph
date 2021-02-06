@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Data query
  */
 @ApiModel(description = "Data query")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-03T13:43:23.648+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-06T07:45:03.037+01:00[Europe/Berlin]")
 public class Query   {
   @JsonProperty("qtype")
   private String qtype;

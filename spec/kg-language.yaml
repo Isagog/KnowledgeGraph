@@ -26,17 +26,22 @@ paths:
   /analyze:
     post:
       summary: Sentence analysis
-      description: Provides an annotation of the supplied text object according to available knowledge, including entity recognition, linking and relations (opt)
+      description: Provides an annotation of the supplied text object
       parameters:
-        - name: task
+        - name: tasks
+          description: Tasks to be executed, all available if missing
           in: query
           required: false
           schema:
-            type: string
-            enum:
-              - TOKENIZATION
-              - ENTITY_ANALISYS
-              - RELATION_ANALYSIS
+            type: array
+            items:
+              $ref: '#/components/schemas/Task'
+        - name: lang
+          description: Input language, autodetect if missing
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Language'
       operationId: analyze
       responses:
         200:
@@ -128,6 +133,16 @@ components:
       - it
       - de
 
+    Task:
+      description: NLP Tasks
+      type: string
+      enum:
+        - TOKENIZATION
+        - LEMMATIZATION
+        - ENTITY_EXTRACTION
+        - RELATION_ANALYSIS
+        - KEYWORD_EXTRACTION
+
     Sentence:
       description: A single sentence
       type: object
@@ -172,12 +187,17 @@ components:
             description: Basic token annotation
             type: array
             items:
-              $ref: '#/components/schemas/BasicAnnotation'
+              $ref: '#/components/schemas/LemmaAnnotation'
           entities:
             description: Entity annotation
             type: array
             items:
               $ref: '#/components/schemas/EntityAnnotation'
+          keywords:
+            description: Keyword annotation
+            type: array
+            items:
+              $ref: '#/components/schemas/KeywordAnnotation'
           dependencies:
             description: Dependencies
             type: array
@@ -211,8 +231,9 @@ components:
       discriminator:
           propertyName: ttype
           mapping:
-            BasicAnnotation:  '#/components/schemas/BasicAnnotation'
+            LemmaAnnotation:  '#/components/schemas/LemmaAnnotation'
             EntityAnnotation: '#/components/schemas/EntityAnnotation'
+            KeywordAnnotation: '#/components/schemas/KeywordAnnotation'
             DependencyAnnotation: '#/components/schemas/DependencyAnnotation'
 
     PartOfSpeech:
@@ -280,7 +301,7 @@ components:
         - XCOMP        # open clausal complement
         - OTHER
 
-    BasicAnnotation:
+    LemmaAnnotation:
         description: Pos and lemma annotation
         type: object
         required:
@@ -299,6 +320,12 @@ components:
           lemma:
             description: Base form
             type: string
+
+    KeywordAnnotation:
+      description: Distinguished text segment (keyword)
+      allOf:
+        - $ref: '#/components/schemas/TokenAnnotation'
+      type: object
 
 
     EntityAnnotation:
