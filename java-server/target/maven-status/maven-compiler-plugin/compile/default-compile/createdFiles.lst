@@ -4,7 +4,7 @@ com\isagog\kg\api\factories\LinguisticServiceApiServiceFactory.class
 com\isagog\kg\StringUtil.class
 com\isagog\kg\model\LanguageAnnotation.class
 com\isagog\kg\model\AttributiveSlot.class
-com\isagog\kg\model\BasicAnnotation.class
+com\isagog\kg\model\LemmaAnnotation.class
 com\isagog\kg\model\Sentence.class
 com\isagog\kg\model\Comparator.class
 com\isagog\kg\model\Query.class
@@ -66,6 +66,7 @@ com\isagog\kg\model\SearchOperator.class
 com\isagog\kg\model\StatementResponse.class
 com\isagog\kg\model\ConceptualSlot.class
 com\isagog\kg\model\SemanticRelation.class
+com\isagog\kg\model\Task.class
 com\isagog\kg\model\Quantifier.class
 com\isagog\kg\api\NotFoundException.class
 com\isagog\kg\model\CompletionResponse.class
@@ -76,6 +77,7 @@ com\isagog\kg\model\SyntacticDependency.class
 com\isagog\kg\model\Classification.class
 com\isagog\kg\model\RelationalConcept.class
 com\isagog\kg\model\Statement.class
+com\isagog\kg\model\KeywordAnnotation.class
 com\isagog\kg\model\QueryExpression.class
 com\isagog\kg\api\JacksonJsonProvider.class
 com\isagog\kg\model\KnowledgeAnnotation.class

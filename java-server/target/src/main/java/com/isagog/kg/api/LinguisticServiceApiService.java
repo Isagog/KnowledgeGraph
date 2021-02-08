@@ -7,7 +7,6 @@ import org.wso2.msf4j.formparam.FormDataParam;
 import org.wso2.msf4j.formparam.FileInfo;
 
 import com.isagog.kg.model.Document;
-import com.isagog.kg.model.Language;
 import com.isagog.kg.model.Sentence;
 import com.isagog.kg.model.SentenceAnnotation;
 import com.isagog.kg.model.Task;
@@ -20,13 +19,12 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-06T07:45:03.476+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-08T18:41:03.098+01:00[Europe/Berlin]")
 public abstract class LinguisticServiceApiService {
     public abstract Response analyze(List<Task> tasks
- ,Language lang
  ,Sentence sentence
  ) throws NotFoundException;
-    public abstract Response extract(String task
+    public abstract Response extract(String mode
  ,Integer limit
  ,Document document
  ) throws NotFoundException;

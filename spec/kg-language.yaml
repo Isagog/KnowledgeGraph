@@ -36,12 +36,6 @@ paths:
             type: array
             items:
               $ref: '#/components/schemas/Task'
-        - name: lang
-          description: Input language, autodetect if missing
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/Language'
       operationId: analyze
       responses:
         200:
@@ -76,14 +70,16 @@ paths:
       summary: Sentence extraction
       description: Extract sentences from a text
       parameters:
-        - name: task
+        - name: mode
           in: query
           required: false
           schema:
             type: string
             enum:
-                - SUMMARIZATION
-                - RETRIEVAL
+                - SUMMARY
+                - PASSAGES
+                - FULL
+            default: FULL
         - name: limit
           in: query
           required: false
@@ -455,4 +451,4 @@ components:
         body:
           description: Document body
           type: string
-          format: byte
+          format: utf-8

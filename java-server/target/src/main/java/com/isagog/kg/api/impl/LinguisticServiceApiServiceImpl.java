@@ -4,7 +4,6 @@ import com.isagog.kg.api.*;
 import com.isagog.kg.model.*;
 
 import com.isagog.kg.model.Document;
-import com.isagog.kg.model.Language;
 import com.isagog.kg.model.Sentence;
 import com.isagog.kg.model.SentenceAnnotation;
 import com.isagog.kg.model.Task;
@@ -20,18 +19,17 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-06T07:45:03.476+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-08T18:41:03.098+01:00[Europe/Berlin]")
 public class LinguisticServiceApiServiceImpl extends LinguisticServiceApiService {
     @Override
     public Response analyze(List<Task> tasks
-, Language lang
 , Sentence sentence
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
-    public Response extract(String task
+    public Response extract(String mode
 , Integer limit
 , Document document
  ) throws NotFoundException {

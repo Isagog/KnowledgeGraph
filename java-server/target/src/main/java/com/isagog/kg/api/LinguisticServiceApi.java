@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
 import com.isagog.kg.model.Document;
-import com.isagog.kg.model.Language;
 import com.isagog.kg.model.Sentence;
 import com.isagog.kg.model.SentenceAnnotation;
 import com.isagog.kg.model.Task;
@@ -30,7 +29,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the LinguisticService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-06T07:45:03.476+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-08T18:41:03.098+01:00[Europe/Berlin]")
 public class LinguisticServiceApi  {
    private final LinguisticServiceApiService delegate = LinguisticServiceApiServiceFactory.getLinguisticServiceApi();
 
@@ -54,11 +53,10 @@ public class LinguisticServiceApi  {
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = SentenceAnnotation.class) })
     public Response analyze(@ApiParam(value = "Tasks to be executed, all available if missing", defaultValue="new ArrayList<Task>()") @DefaultValue("new ArrayList<Task>()") @QueryParam("tasks") List<Task> tasks
-,@ApiParam(value = "Input language, autodetect if missing", allowableValues="en, es, fr, it, de") @QueryParam("lang") Language lang
 ,@ApiParam(value = "" ) Sentence sentence
 )
     throws NotFoundException {
-        return delegate.analyze(tasks,lang,sentence);
+        return delegate.analyze(tasks,sentence);
     }
     @POST
     @Path("/extract")
@@ -79,11 +77,11 @@ public class LinguisticServiceApi  {
         @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = Sentence.class, responseContainer = "List"),
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Sentence.class, responseContainer = "List") })
-    public Response extract(@ApiParam(value = "", allowableValues="SUMMARIZATION, RETRIEVAL") @QueryParam("task") String task
+    public Response extract(@ApiParam(value = "", allowableValues="SUMMARY, PASSAGES, FULL", defaultValue="FULL") @DefaultValue("FULL") @QueryParam("mode") String mode
 ,@ApiParam(value = "") @QueryParam("limit") Integer limit
 ,@ApiParam(value = "" ) Document document
 )
     throws NotFoundException {
-        return delegate.extract(task,limit,document);
+        return delegate.extract(mode,limit,document);
     }
 }

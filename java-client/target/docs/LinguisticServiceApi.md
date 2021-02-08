@@ -10,11 +10,11 @@ Method | HTTP request | Description
 
 <a name="analyze"></a>
 # **analyze**
-> SentenceAnnotation analyze(task, sentence)
+> SentenceAnnotation analyze(tasks, sentence)
 
 Sentence analysis
 
-Provides an annotation of the supplied text object according to available knowledge, including entity recognition, linking and relations (opt)
+Provides an annotation of the supplied text object
 
 ### Example
 ```java
@@ -31,10 +31,10 @@ public class Example {
     defaultClient.setBasePath("http://api.isagog.com");
 
     LinguisticServiceApi apiInstance = new LinguisticServiceApi(defaultClient);
-    String task = "task_example"; // String | 
+    List<Task> tasks = Arrays.asList(); // List<Task> | Tasks to be executed, all available if missing
     Sentence sentence = new Sentence(); // Sentence | 
     try {
-      SentenceAnnotation result = apiInstance.analyze(task, sentence);
+      SentenceAnnotation result = apiInstance.analyze(tasks, sentence);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling LinguisticServiceApi#analyze");
@@ -51,7 +51,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **task** | **String**|  | [optional] [enum: TOKENIZATION, ENTITY_ANALISYS, RELATION_ANALYSIS]
+ **tasks** | [**List&lt;Task&gt;**](Task.md)| Tasks to be executed, all available if missing | [optional]
  **sentence** | [**Sentence**](Sentence.md)|  | [optional]
 
 ### Return type
@@ -80,7 +80,7 @@ No authorization required
 
 <a name="extract"></a>
 # **extract**
-> List&lt;Sentence&gt; extract(task, limit, document)
+> List&lt;Sentence&gt; extract(mode, limit, document)
 
 Sentence extraction
 
@@ -101,11 +101,11 @@ public class Example {
     defaultClient.setBasePath("http://api.isagog.com");
 
     LinguisticServiceApi apiInstance = new LinguisticServiceApi(defaultClient);
-    String task = "task_example"; // String | 
+    String mode = "FULL"; // String | 
     Integer limit = 56; // Integer | 
     Document document = new Document(); // Document | 
     try {
-      List<Sentence> result = apiInstance.extract(task, limit, document);
+      List<Sentence> result = apiInstance.extract(mode, limit, document);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling LinguisticServiceApi#extract");
@@ -122,7 +122,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **task** | **String**|  | [optional] [enum: SUMMARIZATION, RETRIEVAL]
+ **mode** | **String**|  | [optional] [default to FULL] [enum: SUMMARY, PASSAGES, FULL]
  **limit** | **Integer**|  | [optional]
  **document** | [**Document**](Document.md)|  | [optional]
 

@@ -10,13 +10,13 @@ import io.swagger.annotations.ApiModelProperty;
  * Textual object
  */
 @ApiModel(description = "Textual object")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-06T07:45:03.476+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-08T18:41:03.098+01:00[Europe/Berlin]")
 public class Document   {
   @JsonProperty("title")
   private String title;
 
   @JsonProperty("body")
-  private byte[] body;
+  private String body;
 
   public Document title(String title) {
     this.title = title;
@@ -36,7 +36,7 @@ public class Document   {
     this.title = title;
   }
 
-  public Document body(byte[] body) {
+  public Document body(String body) {
     this.body = body;
     return this;
   }
@@ -46,11 +46,11 @@ public class Document   {
    * @return body
   **/
   @ApiModelProperty(required = true, value = "Document body")
-  public byte[] getBody() {
+  public String getBody() {
     return body;
   }
 
-  public void setBody(byte[] body) {
+  public void setBody(String body) {
     this.body = body;
   }
 
