@@ -8,7 +8,7 @@ Textual object
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **title** | **String** | Document title |  [optional]
-**body** | **byte[]** | Document body | 
+**body** | **String** | Document body | 
 
 
 

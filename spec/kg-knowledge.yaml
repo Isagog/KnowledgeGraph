@@ -821,11 +821,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AttributiveSlot'
-#        valueSlots:
+#        individualSlots:
 #          description: Value elements, up to 128
 #          type: array
 #          items:
-#            $ref: '#/components/schemas/ValueSlot'
+#            $ref: '#/components/schemas/IndividualSlot'
 
     Slot:
       description: Framed conceptual element
@@ -845,10 +845,10 @@ components:
           items:
             type: string
             format: id
-        required:
-          description: Tells if the slot should be instantiated in order for the frame to make sense
-          type: boolean
-          default: true
+#        required:
+#          description: Tells if the slot should be instantiated in order for the frame to make sense
+#          type: boolean
+#          default: true
 #        informative:
 #          description: Tells whether slot's values contribute to frame's meaning
 #          type: boolean
@@ -862,7 +862,7 @@ components:
 #          ValueSlot:       '#/components/schemas/ValueSlot'
 
     ConceptualSlot:
-      description: A slot boud to a concept
+      description: A slot bound to a concept
       allOf:
         - $ref: '#/components/schemas/Slot'
       properties:
@@ -870,6 +870,10 @@ components:
         description: Constant entity reference (opt)
         type: string
         format: id
+       individual:
+         description: Tells if the entity value is required
+         type: boolean
+         default: false
 
 
     RelationalSlot:

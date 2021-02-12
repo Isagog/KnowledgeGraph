@@ -11,13 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A slot boud to a concept
+ * A slot bound to a concept
  */
-@ApiModel(description = "A slot boud to a concept")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-08T18:41:03.371+01:00[Europe/Berlin]")
+@ApiModel(description = "A slot bound to a concept")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T10:53:57.678+01:00[Europe/Berlin]")
 public class ConceptualSlot extends Slot  {
   @JsonProperty("entity")
   private String entity;
+
+  @JsonProperty("individual")
+  private Boolean individual = false;
 
   public ConceptualSlot entity(String entity) {
     this.entity = entity;
@@ -37,6 +40,24 @@ public class ConceptualSlot extends Slot  {
     this.entity = entity;
   }
 
+  public ConceptualSlot individual(Boolean individual) {
+    this.individual = individual;
+    return this;
+  }
+
+   /**
+   * Tells if the entity value is required
+   * @return individual
+  **/
+  @ApiModelProperty(value = "Tells if the entity value is required")
+  public Boolean getIndividual() {
+    return individual;
+  }
+
+  public void setIndividual(Boolean individual) {
+    this.individual = individual;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -48,12 +69,13 @@ public class ConceptualSlot extends Slot  {
     }
     ConceptualSlot conceptualSlot = (ConceptualSlot) o;
     return Objects.equals(this.entity, conceptualSlot.entity) &&
+        Objects.equals(this.individual, conceptualSlot.individual) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(entity, super.hashCode());
+    return Objects.hash(entity, individual, super.hashCode());
   }
 
   @Override
@@ -62,6 +84,7 @@ public class ConceptualSlot extends Slot  {
     sb.append("class ConceptualSlot {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    entity: ").append(toIndentedString(entity)).append("\n");
+    sb.append("    individual: ").append(toIndentedString(individual)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -2,7 +2,7 @@
 
 Isagog Knowledge Graph Interaction Service
 - API version: 1.0.0
-  - Build date: 2021-02-08T18:40:28.983+01:00[Europe/Berlin]
+  - Build date: 2021-02-12T10:53:24.222+01:00[Europe/Berlin]
 
 Isagog Knowledge Graph Interaction module
 

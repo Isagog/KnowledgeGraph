@@ -15,7 +15,7 @@ import java.util.List;
  * Class of Entity-value pairs
  */
 @ApiModel(description = "Class of Entity-value pairs")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-08T18:41:03.371+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T10:53:57.678+01:00[Europe/Berlin]")
 public class Attribute extends KnowledgeElement  {
   @JsonProperty("id")
   private String id;

@@ -150,9 +150,11 @@ components:
         verbatim:
           description: Textual content
           type: string
+          format: utf-8
         context:
           description: Textual context (opt)
           type: string
+          format: utf-8
 
 
     Classification:

@@ -16,16 +16,13 @@ import java.util.List;
  * Framed conceptual element
  */
 @ApiModel(description = "Framed conceptual element")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-08T18:41:03.371+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T10:53:57.678+01:00[Europe/Berlin]")
 public class Slot extends KnowledgeElement  {
   @JsonProperty("id")
   private String id;
 
   @JsonProperty("predicates")
   private List<String> predicates = null;
-
-  @JsonProperty("required")
-  private Boolean required = true;
 
   public Slot id(String id) {
     this.id = id;
@@ -71,24 +68,6 @@ public class Slot extends KnowledgeElement  {
     this.predicates = predicates;
   }
 
-  public Slot required(Boolean required) {
-    this.required = required;
-    return this;
-  }
-
-   /**
-   * Tells if the slot should be instantiated in order for the frame to make sense
-   * @return required
-  **/
-  @ApiModelProperty(value = "Tells if the slot should be instantiated in order for the frame to make sense")
-  public Boolean getRequired() {
-    return required;
-  }
-
-  public void setRequired(Boolean required) {
-    this.required = required;
-  }
-
 
   @Override
   public boolean equals(Object o) {
@@ -101,13 +80,12 @@ public class Slot extends KnowledgeElement  {
     Slot slot = (Slot) o;
     return Objects.equals(this.id, slot.id) &&
         Objects.equals(this.predicates, slot.predicates) &&
-        Objects.equals(this.required, slot.required) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, predicates, required, super.hashCode());
+    return Objects.hash(id, predicates, super.hashCode());
   }
 
   @Override
@@ -117,7 +95,6 @@ public class Slot extends KnowledgeElement  {
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    predicates: ").append(toIndentedString(predicates)).append("\n");
-    sb.append("    required: ").append(toIndentedString(required)).append("\n");
     sb.append("}");
     return sb.toString();
   }
