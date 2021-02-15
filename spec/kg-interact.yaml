@@ -195,6 +195,10 @@ components:
       properties:
         itype:
           $ref: '#/components/schemas/InteractType'
+        value:
+          description: Interaction content
+          type: string
+          format: utf-8
         kitem:
           description: Knowlege item (opt)
           type: string
@@ -205,12 +209,8 @@ components:
           items:
             type: string
         slotref:
-          description: Full reference to a slot (frame id:slot id) (opt)
+          description: Reference to a frame slot <frame id>.<slot id> (opt)
           type: string
-        value:
-          description: Interaction content
-          type: string
-          format: utf-8
 
 
 
