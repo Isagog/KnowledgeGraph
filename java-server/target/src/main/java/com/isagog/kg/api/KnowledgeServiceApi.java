@@ -10,7 +10,7 @@ import io.swagger.jaxrs.*;
 import com.isagog.kg.model.Attribute;
 import com.isagog.kg.model.Concept;
 import com.isagog.kg.model.ElementRanking;
-import com.isagog.kg.model.Entity;
+import com.isagog.kg.model.EvaluationMethod;
 import com.isagog.kg.model.Frame;
 import com.isagog.kg.model.HierarchyDetails;
 import com.isagog.kg.model.KnowledgeGraph;
@@ -34,13 +34,13 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the KnowledgeService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:28:34.055+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T19:24:07.699+01:00[Europe/Berlin]")
 public class KnowledgeServiceApi  {
    private final KnowledgeServiceApiService delegate = KnowledgeServiceApiServiceFactory.getKnowledgeServiceApi();
 
-    @POST
-    @Path("/evaluate")
-    @Consumes({ "application/json" })
+    @GET
+    @Path("/evaluate/{entity}")
+    
     @Produces({ "application/json" })
     @io.swagger.annotations.ApiOperation(value = "Entity evaluation", notes = "Evaluates an entity as an instance of known concepts. Deductive evaluation should return asserted and implied entity classes. Abductive evaluation should return a ranking of the most plausible entity classes.", response = ElementRanking.class, responseContainer = "List", tags={ "KnowledgeService", })
     @io.swagger.annotations.ApiResponses(value = { 
@@ -59,8 +59,8 @@ public class KnowledgeServiceApi  {
         @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = ElementRanking.class, responseContainer = "List"),
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = ElementRanking.class, responseContainer = "List") })
-    public Response evaluateEntity(@ApiParam(value = "Entity specification" ,required=true) Entity entity
-,@ApiParam(value = "Inference method to be used", allowableValues="DEDUCTION, ABDUCTION", defaultValue="DEDUCTION") @DefaultValue("DEDUCTION") @QueryParam("method") String method
+    public Response evaluateEntity(@ApiParam(value = "Entity identifier",required=true) @PathParam("entity") String entity
+,@ApiParam(value = "Inference method to be used", allowableValues="DEDUCTION, ABDUCTION") @QueryParam("method") EvaluationMethod method
 )
     throws NotFoundException {
         return delegate.evaluateEntity(entity,method);

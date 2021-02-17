@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
  * A single sentence
  */
 @ApiModel(description = "A single sentence")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:28:33.856+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T19:24:07.519+01:00[Europe/Berlin]")
 public class Sentence   {
   @JsonProperty("lang")
   private Language lang;

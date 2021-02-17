@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
 import com.isagog.kg.model.Entity;
+import com.isagog.kg.model.EntityDetails;
 import com.isagog.kg.model.EntityResponse;
 import com.isagog.kg.model.QueryExpression;
 import com.isagog.kg.model.QueryFrame;
@@ -34,7 +35,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the DataService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:28:33.383+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T19:24:07.070+01:00[Europe/Berlin]")
 public class DataServiceApi  {
    private final DataServiceApiService delegate = DataServiceApiServiceFactory.getDataServiceApi();
 
@@ -180,9 +181,10 @@ public class DataServiceApi  {
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = EntityResponse.class) })
     public Response getEntity(@ApiParam(value = "Entity identifier",required=true) @PathParam("id") String id
+,@ApiParam(value = "Details to fetch", allowableValues="FULL, DATA, LABELS") @QueryParam("details") EntityDetails details
 )
     throws NotFoundException {
-        return delegate.getEntity(id);
+        return delegate.getEntity(id,details);
     }
     @GET
     @Path("/entities")
@@ -206,7 +208,7 @@ public class DataServiceApi  {
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = EntityResponse.class) })
     public Response getEntityDetails(@ApiParam(value = "Entity identifier",required=true) @QueryParam("id") String id
-,@ApiParam(value = "Details to fetch", allowableValues="FULL, DATA, LABELS", defaultValue="LABELS") @DefaultValue("LABELS") @QueryParam("details") String details
+,@ApiParam(value = "Details to fetch", allowableValues="FULL, DATA, LABELS") @QueryParam("details") EntityDetails details
 )
     throws NotFoundException {
         return delegate.getEntityDetails(id,details);

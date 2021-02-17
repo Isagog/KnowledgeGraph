@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Governor&#39;s syntactin role
  */
 @ApiModel(description = "Governor's syntactin role")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:28:33.856+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T19:24:07.519+01:00[Europe/Berlin]")
 public class SyntacticRelation extends DependencyAnnotation  {
   @JsonProperty("tag")
   private SyntacticDependency tag;

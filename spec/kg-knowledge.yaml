@@ -497,22 +497,25 @@ paths:
       - KnowledgeService
 
 
-  /evaluate:
-    post:
+  /evaluate/{entity}:
+    get:
       summary: Entity evaluation
       description: Evaluates an entity as an instance of known concepts.
         Deductive evaluation should return asserted and implied entity classes.
         Abductive evaluation should return a ranking of the most plausible entity classes.
       parameters:
+        - name: entity
+          in: path
+          description: Entity identifier
+          required: true
+          schema:
+            type: string
+            format: id
         - name: method
           in: query
           required: false
           schema:
-            type: string
-            enum:
-              - DEDUCTION
-              - ABDUCTION
-            default: DEDUCTION
+            $ref: '#/components/schemas/EvaluationMethod'
           description: Inference method to be used
           allowEmptyValue: true
       operationId: evaluateEntity
@@ -539,13 +542,6 @@ paths:
           description: Server error
         503:
           description: Missing implementation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Entity'
-        description: Entity specification
-        required: true
       tags:
         - KnowledgeService
 
@@ -676,6 +672,11 @@ components:
         - ENTITY
         - FRAME
 
+    EvaluationMethod:
+      type: string
+      enum:
+        - DEDUCTION
+        - ABDUCTION
 
 
     Classifier:

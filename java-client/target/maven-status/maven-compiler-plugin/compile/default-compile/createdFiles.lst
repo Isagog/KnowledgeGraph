@@ -23,6 +23,7 @@ com\isagog\kg\JSON$1.class
 com\isagog\kg\model\SyntacticRelation.class
 com\isagog\kg\api\KnowledgeServiceApi$3.class
 com\isagog\kg\api\DataServiceApi$5.class
+com\isagog\kg\model\EvaluationMethod.class
 com\isagog\kg\model\SentenceAnnotation.class
 com\isagog\kg\model\GrammarFeature$AttributeEnum.class
 com\isagog\kg\GzipRequestInterceptor$2.class
@@ -39,6 +40,7 @@ com\isagog\kg\model\ResponseType.class
 com\isagog\kg\api\KnowledgeServiceApi$6.class
 com\isagog\kg\model\DependencyAnnotation.class
 com\isagog\kg\api\DataServiceApi$8.class
+com\isagog\kg\model\EntityDetails.class
 com\isagog\kg\api\InteractionServiceApi$3.class
 com\isagog\kg\auth\HttpBearerAuth.class
 com\isagog\kg\ApiClient.class
@@ -62,6 +64,7 @@ com\isagog\kg\api\KnowledgeServiceApi.class
 com\isagog\kg\Pair.class
 com\isagog\kg\api\DataServiceApi$1.class
 com\isagog\kg\ApiException.class
+com\isagog\kg\model\EvaluationMethod$Adapter.class
 com\isagog\kg\model\QueryKind$Adapter.class
 com\isagog\kg\api\KnowledgeServiceApi$7.class
 com\isagog\kg\model\ConceptualSlot.class
@@ -83,6 +86,7 @@ com\isagog\kg\api\KnowledgeServiceApi$1.class
 com\isagog\kg\api\DataServiceApi.class
 com\isagog\kg\model\GrammarFeature.class
 com\isagog\kg\ProgressRequestBody.class
+com\isagog\kg\model\EntityDetails$Adapter.class
 com\isagog\kg\model\QueryFrame.class
 com\isagog\kg\api\DataServiceApi$6.class
 com\isagog\kg\model\InteractRecord.class

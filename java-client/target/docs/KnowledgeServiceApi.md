@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**evaluateEntity**](KnowledgeServiceApi.md#evaluateEntity) | **POST** /evaluate | Entity evaluation
+[**evaluateEntity**](KnowledgeServiceApi.md#evaluateEntity) | **GET** /evaluate/{entity} | Entity evaluation
 [**getAllAttributes**](KnowledgeServiceApi.md#getAllAttributes) | **GET** /attributes | Gets all attributes in the Knowledge Graph ontology
 [**getAllConcepts**](KnowledgeServiceApi.md#getAllConcepts) | **GET** /concepts | Get all the atomic concepts in the Knowledge Graph
 [**getAllFrames**](KnowledgeServiceApi.md#getAllFrames) | **GET** /frames | Gets all the frames in the Knowledge Graph ontology
@@ -40,8 +40,8 @@ public class Example {
     defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
-    Entity entity = new Entity(); // Entity | Entity specification
-    String method = "DEDUCTION"; // String | Inference method to be used
+    String entity = "entity_example"; // String | Entity identifier
+    EvaluationMethod method = EvaluationMethod.fromValue("DEDUCTION"); // EvaluationMethod | Inference method to be used
     try {
       List<ElementRanking> result = apiInstance.evaluateEntity(entity, method);
       System.out.println(result);
@@ -60,8 +60,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **entity** | [**Entity**](Entity.md)| Entity specification |
- **method** | **String**| Inference method to be used | [optional] [default to DEDUCTION] [enum: DEDUCTION, ABDUCTION]
+ **entity** | **String**| Entity identifier |
+ **method** | [**EvaluationMethod**](.md)| Inference method to be used | [optional] [enum: DEDUCTION, ABDUCTION]
 
 ### Return type
 
@@ -73,7 +73,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details

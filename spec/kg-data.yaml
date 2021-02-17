@@ -64,14 +64,10 @@ paths:
               format: id
           - name: details
             description: Details to fetch
+            required: false
             in: query
             schema:
-              type: string
-              enum:
-                - FULL
-                - DATA
-                - LABELS
-              default: LABELS
+              $ref: '#/components/schemas/EntityDetails'
         responses:
           200:
             description: Success
@@ -139,6 +135,12 @@ paths:
           schema:
             type: string
             format: id
+        - name: details
+          description: Details to fetch
+          required: false
+          in: query
+          schema:
+            $ref: '#/components/schemas/EntityDetails'
       responses:
         200:
           description: Success
@@ -475,6 +477,12 @@ components:
         - SPARQL
         - GRAPHQL
 
+    EntityDetails:
+      type: string
+      enum:
+        - FULL
+        - DATA
+        - LABELS
 
 
     QueryFrame:

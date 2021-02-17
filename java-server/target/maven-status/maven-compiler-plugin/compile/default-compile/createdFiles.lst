@@ -16,6 +16,7 @@ com\isagog\kg\model\ResponseHeader.class
 com\isagog\kg\model\Attribute.class
 com\isagog\kg\model\SyntacticRelation.class
 com\isagog\kg\model\HierarchyDetails.class
+com\isagog\kg\model\EvaluationMethod.class
 com\isagog\kg\model\SentenceAnnotation.class
 com\isagog\kg\model\ElementRanking.class
 com\isagog\kg\model\GrammarFeature$AttributeEnum.class
@@ -32,6 +33,7 @@ com\isagog\kg\model\UploadForm.class
 com\isagog\kg\model\ResponseType.class
 com\isagog\kg\model\DependencyAnnotation.class
 com\isagog\kg\model\TokenAnnotation.class
+com\isagog\kg\model\EntityDetails.class
 com\isagog\kg\api\factories\DataServiceApiServiceFactory.class
 com\isagog\kg\api\impl\DataServiceApiServiceImpl.class
 com\isagog\kg\api\InteractionServiceApi.class

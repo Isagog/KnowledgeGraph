@@ -29,7 +29,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the LinguisticService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:28:33.856+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T19:24:07.519+01:00[Europe/Berlin]")
 public class LinguisticServiceApi  {
    private final LinguisticServiceApiService delegate = LinguisticServiceApiServiceFactory.getLinguisticServiceApi();
 

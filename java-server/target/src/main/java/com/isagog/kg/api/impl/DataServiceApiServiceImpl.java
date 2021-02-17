@@ -4,6 +4,7 @@ import com.isagog.kg.api.*;
 import com.isagog.kg.model.*;
 
 import com.isagog.kg.model.Entity;
+import com.isagog.kg.model.EntityDetails;
 import com.isagog.kg.model.EntityResponse;
 import com.isagog.kg.model.QueryExpression;
 import com.isagog.kg.model.QueryFrame;
@@ -24,7 +25,7 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:28:33.383+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T19:24:07.070+01:00[Europe/Berlin]")
 public class DataServiceApiServiceImpl extends DataServiceApiService {
     @Override
     public Response createEntity(Entity entity
@@ -60,13 +61,14 @@ public class DataServiceApiServiceImpl extends DataServiceApiService {
     }
     @Override
     public Response getEntity(String id
+, EntityDetails details
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
     public Response getEntityDetails(String id
-, String details
+, EntityDetails details
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
