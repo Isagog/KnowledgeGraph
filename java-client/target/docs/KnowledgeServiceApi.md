@@ -565,7 +565,7 @@ No authorization required
 
 <a name="getConcept"></a>
 # **getConcept**
-> Concept getConcept(id, kg)
+> Concept getConcept(id, kg, details)
 
 Gets a concept
 
@@ -587,9 +587,10 @@ public class Example {
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     String id = "id_example"; // String | The concept's id
-    String kg = "kg_example"; // String | The KG id (opt)
+    String kg = "kg_example"; // String | The KG id
+    List<HierarchyDetails> details = Arrays.asList(); // List<HierarchyDetails> | Details to be fetched (opt), defaults to any
     try {
-      Concept result = apiInstance.getConcept(id, kg);
+      Concept result = apiInstance.getConcept(id, kg, details);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#getConcept");
@@ -607,7 +608,8 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The concept&#39;s id |
- **kg** | **String**| The KG id (opt) | [optional]
+ **kg** | **String**| The KG id |
+ **details** | [**List&lt;HierarchyDetails&gt;**](HierarchyDetails.md)| Details to be fetched (opt), defaults to any |
 
 ### Return type
 

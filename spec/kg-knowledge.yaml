@@ -223,11 +223,19 @@ paths:
             format: id
         - name: kg
           in: query
-          description: The KG id (opt)
-          required: false
+          description: The KG id
+          required: true
           schema:
             type: string
             format: id
+        - name: details
+          description: Details to be fetched (opt), defaults to any
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/HierarchyDetails'
       responses:
         200:
           description: Successful operation
@@ -651,11 +659,10 @@ components:
           type: string
           format: id
 
-    Concept:
-      description: Unary classifier
+    Classifier:
+      description: Classifying predicate
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
-      type: object
       required:
         - id
       properties:
@@ -663,6 +670,28 @@ components:
           description: Concept identifier (uri)
           type: string
           format: id
+        superclasses:
+          type: array
+          items:
+            type: string
+            format: id
+        subclasses:
+          type: array
+          items:
+            type: string
+            format: id
+        disjointclasses:
+          type: array
+          items:
+            type: string
+            format: id
+
+    Concept:
+      description: Unary classifier
+      allOf:
+        - $ref: '#/components/schemas/Classifier'
+      type: object
+
 
     RelationalConcept:
       description: Unary relational classifier
@@ -711,39 +740,35 @@ components:
 
 
     Relation:
-      description: Class of entity pairs
+      description: Binary classifier
       allOf:
-        - $ref: '#/components/schemas/KnowledgeElement'
-      required:
-        - id
+        - $ref: '#/components/schemas/Classifier'
       properties:
-        id:
-          type: string
-          format: id
         domain:
           description: Domain restriction
-          type: string
-          format: id
+          type: array
+          items:
+            type: string
+            format: id
         range:
-          description: Range restriction
-          type: string
-          format: id
+          description: Range restrictions
+          type: array
+          items:
+            type: string
+            format: id
 
 
     Attribute:
       description: Class of Entity-value pairs
       allOf:
-        - $ref: '#/components/schemas/KnowledgeElement'
-      required:
-        - id
+        - $ref: '#/components/schemas/Classifier'
       properties:
-        id:
-          type: string
-          format: id
         domain:
           description: Domain restriction
-          type: string
-          format: id
+          type: array
+          items:
+            type: string
+            format: id
         range:
           $ref: '#/components/schemas/AttributeRange'
 
@@ -929,6 +954,14 @@ components:
           - SMALLER
           - SIMILAR
       default: EQUAL
+
+    HierarchyDetails:
+      description: Conceptual hierarchy details (inclusion axioms)
+      type: string
+      enum:
+        - SUPERPREDICATES
+        - SUBPREDICATES
+        - DISJOINTPREDICATES
 
 #    ValueSlot:
 #      allOf:

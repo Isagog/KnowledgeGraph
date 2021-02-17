@@ -15,7 +15,7 @@ import java.util.List;
  * Unary attributive classifier
  */
 @ApiModel(description = "Unary attributive classifier")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T11:32:33.397+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:22.256+01:00[Europe/Berlin]")
 public class AttributiveConcept extends Concept  {
   @JsonProperty("attribute")
   private String attribute;

@@ -17,7 +17,7 @@ import java.util.List;
  * Conceptual pattern, e.g. a query or a form
  */
 @ApiModel(description = "Conceptual pattern, e.g. a query or a form")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T11:32:33.397+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:22.256+01:00[Europe/Berlin]")
 public class Frame extends KnowledgeElement  {
   @JsonProperty("id")
   private String id;

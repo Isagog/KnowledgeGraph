@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Text general classification (e.g. intent or sentiment)
  */
 @ApiModel(description = "Text general classification (e.g. intent or sentiment)")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T11:32:33.397+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:22.256+01:00[Europe/Berlin]")
 public class Classification   {
   @JsonProperty("classifier")
   private String classifier;

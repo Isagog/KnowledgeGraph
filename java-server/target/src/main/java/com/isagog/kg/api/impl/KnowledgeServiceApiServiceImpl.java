@@ -8,6 +8,7 @@ import com.isagog.kg.model.Concept;
 import com.isagog.kg.model.ElementRanking;
 import com.isagog.kg.model.Entity;
 import com.isagog.kg.model.Frame;
+import com.isagog.kg.model.HierarchyDetails;
 import com.isagog.kg.model.KnowledgeGraph;
 import com.isagog.kg.model.Relation;
 import com.isagog.kg.model.SentenceAnnotation;
@@ -23,7 +24,7 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T11:32:33.397+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:22.256+01:00[Europe/Berlin]")
 public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
     @Override
     public Response evaluateEntity(Entity entity
@@ -78,6 +79,7 @@ public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
     @Override
     public Response getConcept(String id
 , String kg
+, List<HierarchyDetails> details
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();

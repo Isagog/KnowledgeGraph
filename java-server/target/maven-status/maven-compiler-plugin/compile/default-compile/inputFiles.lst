@@ -14,6 +14,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\LinguisticServiceApi.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\DataServiceApi.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\InteractRecord.java
+D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\HierarchyDetails.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\KnowledgeElement.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Entity.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\KnowledgeServiceApiService.java
@@ -28,6 +29,7 @@ D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Slot.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\Application.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\QueryResponse.java
+D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Classifier.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\QueryKeywords.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Document.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\KeywordAnnotation.java

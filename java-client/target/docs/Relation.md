@@ -2,14 +2,13 @@
 
 # Relation
 
-Class of entity pairs
+Binary classifier
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
-**domain** | **String** | Domain restriction |  [optional]
-**range** | **String** | Range restriction |  [optional]
+**domain** | **List&lt;String&gt;** | Domain restriction |  [optional]
+**range** | **List&lt;String&gt;** | Range restrictions |  [optional]
 
 
 

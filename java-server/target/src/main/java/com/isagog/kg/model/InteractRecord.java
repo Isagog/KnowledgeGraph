@@ -13,10 +13,13 @@ import java.util.List;
  * Interaction record
  */
 @ApiModel(description = "Interaction record")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T11:32:33.726+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:22.563+01:00[Europe/Berlin]")
 public class InteractRecord   {
   @JsonProperty("itype")
   private InteractType itype;
+
+  @JsonProperty("value")
+  private String value;
 
   @JsonProperty("kitem")
   private String kitem;
@@ -26,9 +29,6 @@ public class InteractRecord   {
 
   @JsonProperty("slotref")
   private String slotref;
-
-  @JsonProperty("value")
-  private String value;
 
   public InteractRecord itype(InteractType itype) {
     this.itype = itype;
@@ -46,6 +46,24 @@ public class InteractRecord   {
 
   public void setItype(InteractType itype) {
     this.itype = itype;
+  }
+
+  public InteractRecord value(String value) {
+    this.value = value;
+    return this;
+  }
+
+   /**
+   * Interaction content
+   * @return value
+  **/
+  @ApiModelProperty(required = true, value = "Interaction content")
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
   }
 
   public InteractRecord kitem(String kitem) {
@@ -98,34 +116,16 @@ public class InteractRecord   {
   }
 
    /**
-   * Full reference to a slot (frame id:slot id) (opt)
+   * Reference to a frame slot <frame id>.<slot id> (opt)
    * @return slotref
   **/
-  @ApiModelProperty(value = "Full reference to a slot (frame id:slot id) (opt)")
+  @ApiModelProperty(value = "Reference to a frame slot <frame id>.<slot id> (opt)")
   public String getSlotref() {
     return slotref;
   }
 
   public void setSlotref(String slotref) {
     this.slotref = slotref;
-  }
-
-  public InteractRecord value(String value) {
-    this.value = value;
-    return this;
-  }
-
-   /**
-   * Interaction content
-   * @return value
-  **/
-  @ApiModelProperty(required = true, value = "Interaction content")
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
   }
 
 
@@ -139,15 +139,15 @@ public class InteractRecord   {
     }
     InteractRecord interactRecord = (InteractRecord) o;
     return Objects.equals(this.itype, interactRecord.itype) &&
+        Objects.equals(this.value, interactRecord.value) &&
         Objects.equals(this.kitem, interactRecord.kitem) &&
         Objects.equals(this.constraints, interactRecord.constraints) &&
-        Objects.equals(this.slotref, interactRecord.slotref) &&
-        Objects.equals(this.value, interactRecord.value);
+        Objects.equals(this.slotref, interactRecord.slotref);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(itype, kitem, constraints, slotref, value);
+    return Objects.hash(itype, value, kitem, constraints, slotref);
   }
 
   @Override
@@ -156,10 +156,10 @@ public class InteractRecord   {
     sb.append("class InteractRecord {\n");
     
     sb.append("    itype: ").append(toIndentedString(itype)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    kitem: ").append(toIndentedString(kitem)).append("\n");
     sb.append("    constraints: ").append(toIndentedString(constraints)).append("\n");
     sb.append("    slotref: ").append(toIndentedString(slotref)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
   }

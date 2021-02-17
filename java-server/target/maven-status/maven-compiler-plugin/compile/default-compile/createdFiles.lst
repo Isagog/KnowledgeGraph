@@ -14,6 +14,7 @@ com\isagog\kg\model\Frame.class
 com\isagog\kg\model\ResponseHeader.class
 com\isagog\kg\model\Attribute.class
 com\isagog\kg\model\SyntacticRelation.class
+com\isagog\kg\model\HierarchyDetails.class
 com\isagog\kg\model\SentenceAnnotation.class
 com\isagog\kg\model\ElementRanking.class
 com\isagog\kg\model\GrammarFeature$AttributeEnum.class
@@ -67,6 +68,7 @@ com\isagog\kg\model\StatementResponse.class
 com\isagog\kg\model\ConceptualSlot.class
 com\isagog\kg\model\SemanticRelation.class
 com\isagog\kg\model\Task.class
+com\isagog\kg\model\Classifier.class
 com\isagog\kg\model\Quantifier.class
 com\isagog\kg\api\NotFoundException.class
 com\isagog\kg\model\CompletionResponse.class

@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Response to issuing an interation
  */
 @ApiModel(description = "Response to issuing an interation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T11:32:33.726+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:22.563+01:00[Europe/Berlin]")
 public class IssueResponse   {
   @JsonProperty("rtype")
   private ResponseType rtype;

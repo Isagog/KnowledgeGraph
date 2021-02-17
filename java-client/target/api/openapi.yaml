@@ -192,14 +192,18 @@ components:
       description: Interaction record
       example:
         kitem: kitem
+        value: value
         constraints:
         - constraints
         - constraints
-        value: value
         slotref: slotref
       properties:
         itype:
           $ref: '#/components/schemas/InteractType'
+        value:
+          description: Interaction content
+          format: utf-8
+          type: string
         kitem:
           description: Knowlege item (opt)
           format: id
@@ -210,11 +214,7 @@ components:
             type: string
           type: array
         slotref:
-          description: Full reference to a slot (frame id:slot id) (opt)
-          type: string
-        value:
-          description: Interaction content
-          format: utf-8
+          description: Reference to a frame slot <frame id>.<slot id> (opt)
           type: string
       required:
       - itype
@@ -225,16 +225,16 @@ components:
       example:
         suggestions:
         - kitem: kitem
+          value: value
           constraints:
           - constraints
           - constraints
-          value: value
           slotref: slotref
         - kitem: kitem
+          value: value
           constraints:
           - constraints
           - constraints
-          value: value
           slotref: slotref
       properties:
         suggestions:

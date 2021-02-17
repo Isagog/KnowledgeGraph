@@ -3,48 +3,35 @@ package com.isagog.kg.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.isagog.kg.model.Classifier;
 import com.isagog.kg.model.KnowledgeAnnotation;
-import com.isagog.kg.model.KnowledgeElement;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class of entity pairs
+ * Binary classifier
  */
-@ApiModel(description = "Class of entity pairs")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T11:32:33.397+01:00[Europe/Berlin]")
-public class Relation extends KnowledgeElement  {
-  @JsonProperty("id")
-  private String id;
-
+@ApiModel(description = "Binary classifier")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:22.256+01:00[Europe/Berlin]")
+public class Relation extends Classifier  {
   @JsonProperty("domain")
-  private String domain;
+  private List<String> domain = null;
 
   @JsonProperty("range")
-  private String range;
+  private List<String> range = null;
 
-  public Relation id(String id) {
-    this.id = id;
+  public Relation domain(List<String> domain) {
+    this.domain = domain;
     return this;
   }
 
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(required = true, value = "")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public Relation domain(String domain) {
-    this.domain = domain;
+  public Relation addDomainItem(String domainItem) {
+    if (this.domain == null) {
+      this.domain = new ArrayList<String>();
+    }
+    this.domain.add(domainItem);
     return this;
   }
 
@@ -53,29 +40,37 @@ public class Relation extends KnowledgeElement  {
    * @return domain
   **/
   @ApiModelProperty(value = "Domain restriction")
-  public String getDomain() {
+  public List<String> getDomain() {
     return domain;
   }
 
-  public void setDomain(String domain) {
+  public void setDomain(List<String> domain) {
     this.domain = domain;
   }
 
-  public Relation range(String range) {
+  public Relation range(List<String> range) {
     this.range = range;
     return this;
   }
 
+  public Relation addRangeItem(String rangeItem) {
+    if (this.range == null) {
+      this.range = new ArrayList<String>();
+    }
+    this.range.add(rangeItem);
+    return this;
+  }
+
    /**
-   * Range restriction
+   * Range restrictions
    * @return range
   **/
-  @ApiModelProperty(value = "Range restriction")
-  public String getRange() {
+  @ApiModelProperty(value = "Range restrictions")
+  public List<String> getRange() {
     return range;
   }
 
-  public void setRange(String range) {
+  public void setRange(List<String> range) {
     this.range = range;
   }
 
@@ -89,15 +84,14 @@ public class Relation extends KnowledgeElement  {
       return false;
     }
     Relation relation = (Relation) o;
-    return Objects.equals(this.id, relation.id) &&
-        Objects.equals(this.domain, relation.domain) &&
+    return Objects.equals(this.domain, relation.domain) &&
         Objects.equals(this.range, relation.range) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, domain, range, super.hashCode());
+    return Objects.hash(domain, range, super.hashCode());
   }
 
   @Override
@@ -105,7 +99,6 @@ public class Relation extends KnowledgeElement  {
     StringBuilder sb = new StringBuilder();
     sb.append("class Relation {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    domain: ").append(toIndentedString(domain)).append("\n");
     sb.append("    range: ").append(toIndentedString(range)).append("\n");
     sb.append("}");

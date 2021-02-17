@@ -4,8 +4,8 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.isagog.kg.model.AttributeRange;
+import com.isagog.kg.model.Classifier;
 import com.isagog.kg.model.KnowledgeAnnotation;
-import com.isagog.kg.model.KnowledgeElement;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -15,37 +15,24 @@ import java.util.List;
  * Class of Entity-value pairs
  */
 @ApiModel(description = "Class of Entity-value pairs")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T11:32:33.397+01:00[Europe/Berlin]")
-public class Attribute extends KnowledgeElement  {
-  @JsonProperty("id")
-  private String id;
-
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:22.256+01:00[Europe/Berlin]")
+public class Attribute extends Classifier  {
   @JsonProperty("domain")
-  private String domain;
+  private List<String> domain = null;
 
   @JsonProperty("range")
   private AttributeRange range = AttributeRange.STRING;
 
-  public Attribute id(String id) {
-    this.id = id;
+  public Attribute domain(List<String> domain) {
+    this.domain = domain;
     return this;
   }
 
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(required = true, value = "")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public Attribute domain(String domain) {
-    this.domain = domain;
+  public Attribute addDomainItem(String domainItem) {
+    if (this.domain == null) {
+      this.domain = new ArrayList<String>();
+    }
+    this.domain.add(domainItem);
     return this;
   }
 
@@ -54,11 +41,11 @@ public class Attribute extends KnowledgeElement  {
    * @return domain
   **/
   @ApiModelProperty(value = "Domain restriction")
-  public String getDomain() {
+  public List<String> getDomain() {
     return domain;
   }
 
-  public void setDomain(String domain) {
+  public void setDomain(List<String> domain) {
     this.domain = domain;
   }
 
@@ -90,15 +77,14 @@ public class Attribute extends KnowledgeElement  {
       return false;
     }
     Attribute attribute = (Attribute) o;
-    return Objects.equals(this.id, attribute.id) &&
-        Objects.equals(this.domain, attribute.domain) &&
+    return Objects.equals(this.domain, attribute.domain) &&
         Objects.equals(this.range, attribute.range) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, domain, range, super.hashCode());
+    return Objects.hash(domain, range, super.hashCode());
   }
 
   @Override
@@ -106,7 +92,6 @@ public class Attribute extends KnowledgeElement  {
     StringBuilder sb = new StringBuilder();
     sb.append("class Attribute {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    domain: ").append(toIndentedString(domain)).append("\n");
     sb.append("    range: ").append(toIndentedString(range)).append("\n");
     sb.append("}");

@@ -7,8 +7,7 @@ Class of Entity-value pairs
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
-**domain** | **String** | Domain restriction |  [optional]
+**domain** | **List&lt;String&gt;** | Domain restriction |  [optional]
 **range** | **AttributeRange** |  |  [optional]
 
 

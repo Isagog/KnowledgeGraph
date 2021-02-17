@@ -7,7 +7,6 @@ Unary classifier
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | Concept identifier (uri) | 
 
 
 

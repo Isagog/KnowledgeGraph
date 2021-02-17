@@ -103,6 +103,7 @@ com\isagog\kg\api\DataServiceApi$9.class
 com\isagog\kg\JSON$SqlDateTypeAdapter.class
 com\isagog\kg\model\Attribute.class
 com\isagog\kg\model\AttributeRange$Adapter.class
+com\isagog\kg\model\HierarchyDetails.class
 com\isagog\kg\model\ElementRanking.class
 com\isagog\kg\api\KnowledgeServiceApi$13.class
 com\isagog\kg\model\InformativeAnnotation.class
@@ -111,6 +112,7 @@ com\isagog\kg\api\KnowledgeServiceApi$10.class
 com\isagog\kg\model\AttributeRange.class
 com\isagog\kg\model\Language$Adapter.class
 com\isagog\kg\JSON$OffsetDateTimeTypeAdapter.class
+com\isagog\kg\model\HierarchyDetails$Adapter.class
 com\isagog\kg\api\LinguisticServiceApi$4.class
 com\isagog\kg\model\SentenceRanking.class
 com\isagog\kg\model\TokenAnnotation.class
@@ -145,6 +147,7 @@ com\isagog\kg\model\StatementResponse.class
 com\isagog\kg\model\Task.class
 com\isagog\kg\api\InteractionServiceApi$1.class
 com\isagog\kg\GzipRequestInterceptor.class
+com\isagog\kg\model\Classifier.class
 com\isagog\kg\model\Quantifier.class
 com\isagog\kg\model\SearchOperator$Adapter.class
 com\isagog\kg\api\KnowledgeServiceApi$15.class

@@ -16,7 +16,7 @@ import java.util.List;
  * Framed conceptual element
  */
 @ApiModel(description = "Framed conceptual element")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T11:32:33.397+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:22.256+01:00[Europe/Berlin]")
 public class Slot extends KnowledgeElement  {
   @JsonProperty("id")
   private String id;

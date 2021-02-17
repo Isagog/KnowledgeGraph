@@ -12,6 +12,7 @@ import com.isagog.kg.model.Concept;
 import com.isagog.kg.model.ElementRanking;
 import com.isagog.kg.model.Entity;
 import com.isagog.kg.model.Frame;
+import com.isagog.kg.model.HierarchyDetails;
 import com.isagog.kg.model.KnowledgeGraph;
 import com.isagog.kg.model.Relation;
 import com.isagog.kg.model.SentenceAnnotation;
@@ -33,7 +34,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the KnowledgeService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-12T11:32:33.397+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:22.256+01:00[Europe/Berlin]")
 public class KnowledgeServiceApi  {
    private final KnowledgeServiceApiService delegate = KnowledgeServiceApiServiceFactory.getKnowledgeServiceApi();
 
@@ -249,10 +250,11 @@ public class KnowledgeServiceApi  {
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Concept.class) })
     public Response getConcept(@ApiParam(value = "The concept's id",required=true) @PathParam("id") String id
-,@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
+,@ApiParam(value = "The KG id",required=true) @QueryParam("kg") String kg
+,@ApiParam(value = "Details to be fetched (opt), defaults to any",required=true, defaultValue="new ArrayList<HierarchyDetails>()") @PathParam("details") List<HierarchyDetails> details
 )
     throws NotFoundException {
-        return delegate.getConcept(id,kg);
+        return delegate.getConcept(id,kg,details);
     }
     @GET
     @Path("/frames/{id}")
