@@ -34,7 +34,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the KnowledgeService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:16:25.422+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:28:34.055+01:00[Europe/Berlin]")
 public class KnowledgeServiceApi  {
    private final KnowledgeServiceApiService delegate = KnowledgeServiceApiServiceFactory.getKnowledgeServiceApi();
 
@@ -306,12 +306,12 @@ public class KnowledgeServiceApi  {
         @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = ElementRanking.class, responseContainer = "List"),
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = ElementRanking.class, responseContainer = "List") })
-    public Response search(@ApiParam(value = "The query to search by",required=true) @QueryParam("query") String query
+    public Response search(@ApiParam(value = "The value to search by",required=true) @QueryParam("query") String query
+,@ApiParam(value = "Attribute to search by, either an annotation or a data property", defaultValue="rdfs:label") @DefaultValue("rdfs:label") @QueryParam("attribute") String attribute
 ,@ApiParam(value = "Narrow search to a specific knowledge type", allowableValues="CONCEPT, RELATION, ATTRIBUTE, ENTITY, FRAME") @QueryParam("ktype") KnowledgeType ktype
 ,@ApiParam(value = "Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\\subordinates, IDENTIFIER=id only", allowableValues="SUPERPREDICATES, SUBPREDICATES, DISJOINTPREDICATES") @QueryParam("details") HierarchyDetails details
-,@ApiParam(value = "Attribute to search by, either an annotation or a data property", defaultValue="rdfs:label") @DefaultValue("rdfs:label") @QueryParam("attribute") String attribute
 )
     throws NotFoundException {
-        return delegate.search(query,ktype,details,attribute);
+        return delegate.search(query,attribute,ktype,details);
     }
 }

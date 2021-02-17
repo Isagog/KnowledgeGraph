@@ -472,7 +472,6 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/HierarchyDetails'
-
     responses:
       200:
         description: Successful operation

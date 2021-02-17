@@ -16,7 +16,7 @@ import java.util.List;
  * Unary classifier, can be atomic, or defined as a restriction on Relation or Attributes
  */
 @ApiModel(description = "Unary classifier, can be atomic, or defined as a restriction on Relation or Attributes")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:16:25.422+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:28:34.055+01:00[Europe/Berlin]")
 public class Concept extends Classifier  {
   @JsonProperty("property")
   private String property;

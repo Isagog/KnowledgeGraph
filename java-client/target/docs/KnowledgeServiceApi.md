@@ -712,7 +712,7 @@ No authorization required
 
 <a name="search"></a>
 # **search**
-> List&lt;ElementRanking&gt; search(query, ktype, details, attribute)
+> List&lt;ElementRanking&gt; search(query, attribute, ktype, details)
 
 Knowledge search
 
@@ -733,12 +733,12 @@ public class Example {
     defaultClient.setBasePath("http://localhost:8030");
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
-    String query = "query_example"; // String | The query to search by
+    String query = "query_example"; // String | The value to search by
+    String attribute = "\"rdfs:label\""; // String | Attribute to search by, either an annotation or a data property
     KnowledgeType ktype = KnowledgeType.fromValue("CONCEPT"); // KnowledgeType | Narrow search to a specific knowledge type
     HierarchyDetails details = HierarchyDetails.fromValue("SUPERPREDICATES"); // HierarchyDetails | Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\\subordinates, IDENTIFIER=id only
-    String attribute = "\"rdfs:label\""; // String | Attribute to search by, either an annotation or a data property
     try {
-      List<ElementRanking> result = apiInstance.search(query, ktype, details, attribute);
+      List<ElementRanking> result = apiInstance.search(query, attribute, ktype, details);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#search");
@@ -755,10 +755,10 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **String**| The query to search by |
+ **query** | **String**| The value to search by |
+ **attribute** | **String**| Attribute to search by, either an annotation or a data property | [optional] [default to &quot;rdfs:label&quot;]
  **ktype** | [**KnowledgeType**](.md)| Narrow search to a specific knowledge type | [optional] [enum: CONCEPT, RELATION, ATTRIBUTE, ENTITY, FRAME]
  **details** | [**HierarchyDetails**](.md)| Details to be returned: e.g. for predicates: FULL&#x3D;full hierarchy, SUMMARY&#x3D;direct super\\subordinates, IDENTIFIER&#x3D;id only | [optional] [enum: SUPERPREDICATES, SUBPREDICATES, DISJOINTPREDICATES]
- **attribute** | **String**| Attribute to search by, either an annotation or a data property | [optional] [default to &quot;rdfs:label&quot;]
 
 ### Return type
 
