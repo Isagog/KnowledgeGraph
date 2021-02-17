@@ -449,10 +449,17 @@ paths:
     parameters:
       - name: query
         in: query
-        description: The query to search by
+        description: The value to search by
         required: true
         schema:
           type: string
+      - name: attribute
+        in: query
+        description: Attribute to search by, either an annotation or a data property
+        required: false
+        schema:
+          type: string
+          default: "rdfs:label"
       - name: ktype
         in: query
         description: Narrow search to a specific knowledge type
@@ -465,13 +472,7 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/HierarchyDetails'
-      - name: attribute
-        in: query
-        description: Attribute to search by, either an annotation or a data property
-        required: false
-        schema:
-          type: string
-          default: "rdfs:label"
+
     responses:
       200:
         description: Successful operation
