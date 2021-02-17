@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Query by frame
  */
 @ApiModel(description = "Query by frame")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:21.565+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:16:24.761+01:00[Europe/Berlin]")
 public class QueryFrame extends Query  {
   @JsonProperty("qkind")
   private QueryKind qkind;

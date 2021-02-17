@@ -5,7 +5,6 @@ All URIs are relative to *http://localhost:8030*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**evaluateEntity**](KnowledgeServiceApi.md#evaluateEntity) | **POST** /evaluate | Entity evaluation
-[**extractFrames**](KnowledgeServiceApi.md#extractFrames) | **POST** /frames/extract | Frame extraction from sentences
 [**getAllAttributes**](KnowledgeServiceApi.md#getAllAttributes) | **GET** /attributes | Gets all attributes in the Knowledge Graph ontology
 [**getAllConcepts**](KnowledgeServiceApi.md#getAllConcepts) | **GET** /concepts | Get all the atomic concepts in the Knowledge Graph
 [**getAllFrames**](KnowledgeServiceApi.md#getAllFrames) | **GET** /frames | Gets all the frames in the Knowledge Graph ontology
@@ -85,74 +84,6 @@ No authorization required
 **402** | Unknown graph |  -  |
 **403** | Invalid arguments |  -  |
 **405** | Unsupported method |  -  |
-**501** | Service unavailable |  -  |
-**502** | Server error |  -  |
-**503** | Missing implementation |  -  |
-
-<a name="extractFrames"></a>
-# **extractFrames**
-> List&lt;Frame&gt; extractFrames(limit, sentenceAnnotation)
-
-Frame extraction from sentences
-
-Extract frames from an annotated sentence
-
-### Example
-```java
-// Import classes:
-import com.isagog.kg.ApiClient;
-import com.isagog.kg.ApiException;
-import com.isagog.kg.Configuration;
-import com.isagog.kg.models.*;
-import com.isagog.kg.api.KnowledgeServiceApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8030");
-
-    KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
-    Integer limit = 56; // Integer | Limits the number of returned frame candidates to the supplied value
-    SentenceAnnotation sentenceAnnotation = new SentenceAnnotation(); // SentenceAnnotation | 
-    try {
-      List<Frame> result = apiInstance.extractFrames(limit, sentenceAnnotation);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling KnowledgeServiceApi#extractFrames");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| Limits the number of returned frame candidates to the supplied value | [optional]
- **sentenceAnnotation** | [**SentenceAnnotation**](SentenceAnnotation.md)|  | [optional]
-
-### Return type
-
-[**List&lt;Frame&gt;**](Frame.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Frame span |  -  |
-**402** | Insufficient data mapping |  -  |
 **501** | Service unavailable |  -  |
 **502** | Server error |  -  |
 **503** | Missing implementation |  -  |
@@ -495,7 +426,7 @@ No authorization required
 
 <a name="getAttribute"></a>
 # **getAttribute**
-> Attribute getAttribute(id, kg)
+> Attribute getAttribute(id, kg, details)
 
 Gets an attribute
 
@@ -518,8 +449,9 @@ public class Example {
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     String id = "id_example"; // String | The attribute's id
     String kg = "kg_example"; // String | The KG id (opt)
+    List<HierarchyDetails> details = Arrays.asList(); // List<HierarchyDetails> | Details to be fetched (opt), defaults to any
     try {
-      Attribute result = apiInstance.getAttribute(id, kg);
+      Attribute result = apiInstance.getAttribute(id, kg, details);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#getAttribute");
@@ -537,7 +469,8 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The attribute&#39;s id |
- **kg** | **String**| The KG id (opt) | [optional]
+ **kg** | **String**| The KG id (opt) |
+ **details** | [**List&lt;HierarchyDetails&gt;**](HierarchyDetails.md)| Details to be fetched (opt), defaults to any |
 
 ### Return type
 
@@ -707,7 +640,7 @@ No authorization required
 
 <a name="getRelation"></a>
 # **getRelation**
-> Relation getRelation(id, kg)
+> Relation getRelation(id, kg, details)
 
 Gets a relation
 
@@ -730,8 +663,9 @@ public class Example {
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     String id = "id_example"; // String | The relation's id
     String kg = "kg_example"; // String | The KG id (opt)
+    List<HierarchyDetails> details = Arrays.asList(); // List<HierarchyDetails> | Details to be fetched (opt), defaults to any
     try {
-      Relation result = apiInstance.getRelation(id, kg);
+      Relation result = apiInstance.getRelation(id, kg, details);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling KnowledgeServiceApi#getRelation");
@@ -749,7 +683,8 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The relation&#39;s id |
- **kg** | **String**| The KG id (opt) | [optional]
+ **kg** | **String**| The KG id (opt) |
+ **details** | [**List&lt;HierarchyDetails&gt;**](HierarchyDetails.md)| Details to be fetched (opt), defaults to any |
 
 ### Return type
 
@@ -799,8 +734,8 @@ public class Example {
 
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     String query = "query_example"; // String | The query to search by
-    String ktype = "ANY"; // String | Narrow search to a specific knowledge type
-    String details = "IDENTIFIER"; // String | Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\\subordinates, IDENTIFIER=id only
+    KnowledgeType ktype = KnowledgeType.fromValue("CONCEPT"); // KnowledgeType | Narrow search to a specific knowledge type
+    HierarchyDetails details = HierarchyDetails.fromValue("SUPERPREDICATES"); // HierarchyDetails | Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\\subordinates, IDENTIFIER=id only
     String attribute = "\"rdfs:label\""; // String | Attribute to search by, either an annotation or a data property
     try {
       List<ElementRanking> result = apiInstance.search(query, ktype, details, attribute);
@@ -821,8 +756,8 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query** | **String**| The query to search by |
- **ktype** | **String**| Narrow search to a specific knowledge type | [optional] [default to ANY] [enum: CONCEPT, PROPERTY, ATTRIBUTE, ENTITY, FRAME, ANY]
- **details** | **String**| Details to be returned: e.g. for predicates: FULL&#x3D;full hierarchy, SUMMARY&#x3D;direct super\\subordinates, IDENTIFIER&#x3D;id only | [optional] [default to IDENTIFIER] [enum: FULL, SUMMARY, IDENTIFIER]
+ **ktype** | [**KnowledgeType**](.md)| Narrow search to a specific knowledge type | [optional] [enum: CONCEPT, RELATION, ATTRIBUTE, ENTITY, FRAME]
+ **details** | [**HierarchyDetails**](.md)| Details to be returned: e.g. for predicates: FULL&#x3D;full hierarchy, SUMMARY&#x3D;direct super\\subordinates, IDENTIFIER&#x3D;id only | [optional] [enum: SUPERPREDICATES, SUBPREDICATES, DISJOINTPREDICATES]
  **attribute** | **String**| Attribute to search by, either an annotation or a data property | [optional] [default to &quot;rdfs:label&quot;]
 
 ### Return type

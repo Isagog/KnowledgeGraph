@@ -14,8 +14,8 @@ import com.isagog.kg.model.Entity;
 import com.isagog.kg.model.Frame;
 import com.isagog.kg.model.HierarchyDetails;
 import com.isagog.kg.model.KnowledgeGraph;
+import com.isagog.kg.model.KnowledgeType;
 import com.isagog.kg.model.Relation;
-import com.isagog.kg.model.SentenceAnnotation;
 
 import java.util.List;
 import com.isagog.kg.api.NotFoundException;
@@ -34,7 +34,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the KnowledgeService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:22.256+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:16:25.422+01:00[Europe/Berlin]")
 public class KnowledgeServiceApi  {
    private final KnowledgeServiceApiService delegate = KnowledgeServiceApiServiceFactory.getKnowledgeServiceApi();
 
@@ -64,27 +64,6 @@ public class KnowledgeServiceApi  {
 )
     throws NotFoundException {
         return delegate.evaluateEntity(entity,method);
-    }
-    @POST
-    @Path("/frames/extract")
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
-    @io.swagger.annotations.ApiOperation(value = "Frame extraction from sentences", notes = "Extract frames from an annotated sentence", response = Frame.class, responseContainer = "List", tags={ "KnowledgeService", })
-    @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "Frame span", response = Frame.class, responseContainer = "List"),
-        
-        @io.swagger.annotations.ApiResponse(code = 402, message = "Insufficient data mapping", response = Frame.class, responseContainer = "List"),
-        
-        @io.swagger.annotations.ApiResponse(code = 501, message = "Service unavailable", response = Frame.class, responseContainer = "List"),
-        
-        @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = Frame.class, responseContainer = "List"),
-        
-        @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Frame.class, responseContainer = "List") })
-    public Response extractFrames(@ApiParam(value = "Limits the number of returned frame candidates to the supplied value") @QueryParam("limit") Integer limit
-,@ApiParam(value = "" ) SentenceAnnotation sentenceAnnotation
-)
-    throws NotFoundException {
-        return delegate.extractFrames(limit,sentenceAnnotation);
     }
     @GET
     @Path("/attributes")
@@ -225,10 +204,11 @@ public class KnowledgeServiceApi  {
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Attribute.class) })
     public Response getAttribute(@ApiParam(value = "The attribute's id",required=true) @PathParam("id") String id
-,@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
+,@ApiParam(value = "The KG id (opt)",required=true) @QueryParam("kg") String kg
+,@ApiParam(value = "Details to be fetched (opt), defaults to any",required=true, defaultValue="new ArrayList<HierarchyDetails>()") @PathParam("details") List<HierarchyDetails> details
 )
     throws NotFoundException {
-        return delegate.getAttribute(id,kg);
+        return delegate.getAttribute(id,kg,details);
     }
     @GET
     @Path("/concepts/{id}")
@@ -301,10 +281,11 @@ public class KnowledgeServiceApi  {
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Relation.class) })
     public Response getRelation(@ApiParam(value = "The relation's id",required=true) @PathParam("id") String id
-,@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
+,@ApiParam(value = "The KG id (opt)",required=true) @QueryParam("kg") String kg
+,@ApiParam(value = "Details to be fetched (opt), defaults to any",required=true, defaultValue="new ArrayList<HierarchyDetails>()") @PathParam("details") List<HierarchyDetails> details
 )
     throws NotFoundException {
-        return delegate.getRelation(id,kg);
+        return delegate.getRelation(id,kg,details);
     }
     @GET
     @Path("/search")
@@ -326,8 +307,8 @@ public class KnowledgeServiceApi  {
         
         @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = ElementRanking.class, responseContainer = "List") })
     public Response search(@ApiParam(value = "The query to search by",required=true) @QueryParam("query") String query
-,@ApiParam(value = "Narrow search to a specific knowledge type", allowableValues="CONCEPT, PROPERTY, ATTRIBUTE, ENTITY, FRAME, ANY", defaultValue="ANY") @DefaultValue("ANY") @QueryParam("ktype") String ktype
-,@ApiParam(value = "Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\\subordinates, IDENTIFIER=id only", allowableValues="FULL, SUMMARY, IDENTIFIER", defaultValue="IDENTIFIER") @DefaultValue("IDENTIFIER") @QueryParam("details") String details
+,@ApiParam(value = "Narrow search to a specific knowledge type", allowableValues="CONCEPT, RELATION, ATTRIBUTE, ENTITY, FRAME") @QueryParam("ktype") KnowledgeType ktype
+,@ApiParam(value = "Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\\subordinates, IDENTIFIER=id only", allowableValues="SUPERPREDICATES, SUBPREDICATES, DISJOINTPREDICATES") @QueryParam("details") HierarchyDetails details
 ,@ApiParam(value = "Attribute to search by, either an annotation or a data property", defaultValue="rdfs:label") @DefaultValue("rdfs:label") @QueryParam("attribute") String attribute
 )
     throws NotFoundException {

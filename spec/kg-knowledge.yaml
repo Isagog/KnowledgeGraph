@@ -274,10 +274,18 @@ paths:
         - name: kg
           in: query
           description: The KG id (opt)
-          required: false
+          required: true
           schema:
             type: string
             format: id
+        - name: details
+          description: Details to be fetched (opt), defaults to any
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/HierarchyDetails'
       responses:
         200:
           description: Successful operation
@@ -316,10 +324,18 @@ paths:
           - name: kg
             in: query
             description: The KG id (opt)
-            required: false
+            required: true
             schema:
               type: string
               format: id
+          - name: details
+            description: Details to be fetched (opt), defaults to any
+            in: path
+            required: true
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/HierarchyDetails'
         responses:
           200:
             description: Successful operation
@@ -386,44 +402,44 @@ paths:
       tags:
         - KnowledgeService
         
-  /frames/extract:
-    post:
-      summary: Frame extraction from sentences
-      description: Extract frames from an annotated sentence
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          description: Limits the number of returned frame candidates to the supplied value
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 100
-      operationId: extractFrames
-      responses:
-        200:
-          description: Frame span
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Frame'
-        402:
-          description: Insufficient data mapping
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-        503:
-          description: Missing implementation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
-      tags:
-        - KnowledgeService
+#  /frames/extract:
+#    post:
+#      summary: Frame extraction from sentences
+#      description: Extract frames from an annotated sentence
+#      parameters:
+#        - name: limit
+#          in: query
+#          required: false
+#          description: Limits the number of returned frame candidates to the supplied value
+#          schema:
+#            type: integer
+#            minimum: 1
+#            maximum: 100
+#      operationId: extractFrames
+#      responses:
+#        200:
+#          description: Frame span
+#          content:
+#            application/json:
+#              schema:
+#                type: array
+#                items:
+#                  $ref: '#/components/schemas/Frame'
+#        402:
+#          description: Insufficient data mapping
+#        501:
+#          description: Service unavailable
+#        502:
+#          description: Server error
+#        503:
+#          description: Missing implementation
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
+#      tags:
+#        - KnowledgeService
 
   /search:
    get:
@@ -442,26 +458,13 @@ paths:
         description: Narrow search to a specific knowledge type
         required: false
         schema:
-          type: string
-          enum:
-            - CONCEPT
-            - PROPERTY
-            - ATTRIBUTE
-            - ENTITY
-            - FRAME
-            - ANY
-          default: ANY
+          $ref: '#/components/schemas/KnowledgeType'
       - name: details
         in: query
         description: 'Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\subordinates, IDENTIFIER=id only'
         required: false
         schema:
-          type: string
-          enum:
-            - FULL
-            - SUMMARY
-            - IDENTIFIER
-          default: IDENTIFIER
+          $ref: '#/components/schemas/HierarchyDetails'
       - name: attribute
         in: query
         description: Attribute to search by, either an annotation or a data property
@@ -553,8 +556,13 @@ components:
       description: Managed knowledge element (should be abstract)
       type: object
       required:
+        - id
         - ktype
       properties:
+        id:
+          description: Element identifier (uri)
+          type: string
+          format: id
         ktype:
           description: Knowledge element type, should be aligned to the subclass name
           type: string
@@ -659,17 +667,22 @@ components:
           type: string
           format: id
 
+    KnowledgeType:
+      type: string
+      enum:
+        - CONCEPT
+        - RELATION
+        - ATTRIBUTE
+        - ENTITY
+        - FRAME
+
+
+
     Classifier:
       description: Classifying predicate
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
-      required:
-        - id
       properties:
-        id:
-          description: Concept identifier (uri)
-          type: string
-          format: id
         superclasses:
           type: array
           items:
@@ -687,31 +700,39 @@ components:
             format: id
 
     Concept:
-      description: Unary classifier
+      description: Unary classifier, can be atomic, or defined as a restriction on Relation or Attributes
       allOf:
         - $ref: '#/components/schemas/Classifier'
       type: object
-
-
-    RelationalConcept:
-      description: Unary relational classifier
-      allOf:
-        - $ref: '#/components/schemas/Concept'
-      type: object
-      required:
-        - relation
-        - quantifier
       properties:
-        relation:
-          description: Relation identifier
+        property:
+          description: For concept defined as a restricion, the Relation or Attribute identifier (opt)
           type: string
           format: id
         restriction:
-          description: Restriction identifier
+          description: For relational concepts, the restriction concept (opt)
           type: string
           format: id
         quantifier:
           $ref: '#/components/schemas/Quantifier'
+        value:
+          description: For attributive concepts, the restriction value (opt)
+          type: string
+          format: utf-8
+        constraint:
+          $ref: '#/components/schemas/Comparator'
+
+
+#    RelationalConcept:
+#      description: Unary relational classifier
+#      allOf:
+#        - $ref: '#/components/schemas/Concept'
+#      type: object
+#      required:
+#        - relation
+#        - quantifier
+#      properties:
+
 
     Quantifier:
       type: string
@@ -721,22 +742,18 @@ components:
         - ATLEAST1
         - ATMOST1
 
-    AttributiveConcept:
-      description: Unary attributive classifier
-      allOf:
-        - $ref: '#/components/schemas/Concept'
-      type: object
-      required:
-        - attribute
-      properties:
-        attribute:
-          type: string
-          format: id
-        value:
-          type: string
-          format: byte
-        constraint:
-          $ref: '#/components/schemas/Comparator'
+#    AttributiveConcept:
+#      description: Unary attributive classifier
+#      allOf:
+#        - $ref: '#/components/schemas/Concept'
+#      type: object
+#      required:
+#        - attribute
+#      properties:
+#        attribute:
+#          type: string
+#          format: id
+
 
 
     Relation:

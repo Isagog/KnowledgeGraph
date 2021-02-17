@@ -1,3 +1,4 @@
+com\isagog\kg\model\KnowledgeType.class
 com\isagog\kg\model\ResponseType$Adapter.class
 com\isagog\kg\ProgressResponseBody$1.class
 com\isagog\kg\StringUtil.class
@@ -41,7 +42,7 @@ com\isagog\kg\api\DataServiceApi$8.class
 com\isagog\kg\api\InteractionServiceApi$3.class
 com\isagog\kg\auth\HttpBearerAuth.class
 com\isagog\kg\ApiClient.class
-com\isagog\kg\model\AttributiveConcept.class
+com\isagog\kg\model\KnowledgeType$Adapter.class
 com\isagog\kg\api\LinguisticServiceApi$1.class
 com\isagog\kg\ApiClient$3.class
 com\isagog\kg\model\UpdateResponse.class
@@ -52,7 +53,6 @@ com\isagog\kg\JSON$DateTypeAdapter.class
 com\isagog\kg\model\Entity.class
 com\isagog\kg\model\QueryResponse.class
 com\isagog\kg\model\Task$Adapter.class
-com\isagog\kg\api\KnowledgeServiceApi$24.class
 com\isagog\kg\Configuration.class
 com\isagog\kg\api\KnowledgeServiceApi$17.class
 com\isagog\kg\auth\ApiKeyAuth.class
@@ -69,7 +69,6 @@ com\isagog\kg\model\SemanticRelation.class
 com\isagog\kg\ServerVariable.class
 com\isagog\kg\ApiClient$4.class
 com\isagog\kg\api\LinguisticServiceApi$2.class
-com\isagog\kg\api\KnowledgeServiceApi$23.class
 com\isagog\kg\api\DataServiceApi$7.class
 com\isagog\kg\api\KnowledgeServiceApi$8.class
 com\isagog\kg\ProgressRequestBody$1.class
@@ -156,7 +155,6 @@ com\isagog\kg\model\QueryKind.class
 com\isagog\kg\api\KnowledgeServiceApi$5.class
 com\isagog\kg\api\KnowledgeServiceApi$20.class
 com\isagog\kg\model\Classification.class
-com\isagog\kg\model\RelationalConcept.class
 com\isagog\kg\model\Statement.class
 com\isagog\kg\api\DataServiceApi$3.class
 com\isagog\kg\model\ValueType$Adapter.class

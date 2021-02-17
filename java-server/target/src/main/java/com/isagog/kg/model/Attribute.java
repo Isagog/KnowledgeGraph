@@ -15,7 +15,7 @@ import java.util.List;
  * Class of Entity-value pairs
  */
 @ApiModel(description = "Class of Entity-value pairs")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T17:22:22.256+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T18:16:25.422+01:00[Europe/Berlin]")
 public class Attribute extends Classifier  {
   @JsonProperty("domain")
   private List<String> domain = null;
