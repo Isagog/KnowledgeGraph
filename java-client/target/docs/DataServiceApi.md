@@ -358,7 +358,7 @@ No authorization required
 
 <a name="getEntity"></a>
 # **getEntity**
-> EntityResponse getEntity(id)
+> EntityResponse getEntity(id, details)
 
 Entity access
 
@@ -380,8 +380,9 @@ public class Example {
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
     String id = "id_example"; // String | Entity identifier
+    EntityDetails details = EntityDetails.fromValue("FULL"); // EntityDetails | Details to fetch
     try {
-      EntityResponse result = apiInstance.getEntity(id);
+      EntityResponse result = apiInstance.getEntity(id, details);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DataServiceApi#getEntity");
@@ -399,6 +400,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| Entity identifier |
+ **details** | [**EntityDetails**](.md)| Details to fetch | [optional] [enum: FULL, DATA, LABELS]
 
 ### Return type
 
@@ -449,7 +451,7 @@ public class Example {
 
     DataServiceApi apiInstance = new DataServiceApi(defaultClient);
     String id = "id_example"; // String | Entity identifier
-    String details = "LABELS"; // String | Details to fetch
+    EntityDetails details = EntityDetails.fromValue("FULL"); // EntityDetails | Details to fetch
     try {
       EntityResponse result = apiInstance.getEntityDetails(id, details);
       System.out.println(result);
@@ -469,7 +471,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| Entity identifier |
- **details** | **String**| Details to fetch | [optional] [default to LABELS] [enum: FULL, DATA, LABELS]
+ **details** | [**EntityDetails**](.md)| Details to fetch | [optional] [enum: FULL, DATA, LABELS]
 
 ### Return type
 

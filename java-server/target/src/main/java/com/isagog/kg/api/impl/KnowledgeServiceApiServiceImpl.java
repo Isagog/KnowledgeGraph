@@ -5,10 +5,9 @@ import com.isagog.kg.model.*;
 
 import com.isagog.kg.model.Attribute;
 import com.isagog.kg.model.Concept;
+import com.isagog.kg.model.ConceptualDetails;
 import com.isagog.kg.model.ElementRanking;
-import com.isagog.kg.model.EvaluationMethod;
 import com.isagog.kg.model.Frame;
-import com.isagog.kg.model.HierarchyDetails;
 import com.isagog.kg.model.KnowledgeGraph;
 import com.isagog.kg.model.KnowledgeType;
 import com.isagog.kg.model.Relation;
@@ -24,15 +23,8 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T19:24:07.699+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T10:42:13.655+01:00[Europe/Berlin]")
 public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
-    @Override
-    public Response evaluateEntity(String entity
-, EvaluationMethod method
- ) throws NotFoundException {
-        // do some magic!
-        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
-    }
     @Override
     public Response getAllAttributes(String kg
  ) throws NotFoundException {
@@ -65,7 +57,7 @@ public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
     @Override
     public Response getAttribute(String id
 , String kg
-, List<HierarchyDetails> details
+, ConceptualDetails details
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
@@ -73,7 +65,7 @@ public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
     @Override
     public Response getConcept(String id
 , String kg
-, List<HierarchyDetails> details
+, ConceptualDetails details
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
@@ -88,7 +80,7 @@ public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
     @Override
     public Response getRelation(String id
 , String kg
-, List<HierarchyDetails> details
+, ConceptualDetails details
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
@@ -97,7 +89,7 @@ public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
     public Response search(String query
 , String attribute
 , KnowledgeType ktype
-, HierarchyDetails details
+, ConceptualDetails details
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();

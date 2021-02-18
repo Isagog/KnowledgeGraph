@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Grammatic feature
  */
 @ApiModel(description = "Grammatic feature")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T19:24:07.519+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T10:42:13.474+01:00[Europe/Berlin]")
 public class GrammarFeature   {
   /**
    * Gets or Sets attribute

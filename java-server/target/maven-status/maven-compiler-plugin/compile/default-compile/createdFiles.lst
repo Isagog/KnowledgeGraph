@@ -15,7 +15,6 @@ com\isagog\kg\model\Frame.class
 com\isagog\kg\model\ResponseHeader.class
 com\isagog\kg\model\Attribute.class
 com\isagog\kg\model\SyntacticRelation.class
-com\isagog\kg\model\HierarchyDetails.class
 com\isagog\kg\model\EvaluationMethod.class
 com\isagog\kg\model\SentenceAnnotation.class
 com\isagog\kg\model\ElementRanking.class
@@ -45,6 +44,7 @@ com\isagog\kg\api\impl\InteractionServiceApiServiceImpl.class
 com\isagog\kg\api\LinguisticServiceApi.class
 com\isagog\kg\api\ApiOriginFilter.class
 com\isagog\kg\api\LinguisticServiceApiService.class
+com\isagog\kg\model\ConceptualDetails.class
 com\isagog\kg\model\Language.class
 com\isagog\kg\model\Upload.class
 com\isagog\kg\model\UpdateResponse.class

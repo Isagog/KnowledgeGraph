@@ -7,8 +7,9 @@ A slot bound to a concept
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**entity** | **String** | Constant entity reference (opt) |  [optional]
-**individual** | **Boolean** | Tells if the entity value is required |  [optional]
+**entity** | **String** | Entity reference (opt) |  [optional]
+**individual** | **Boolean** | Individual (vs. predicative) slot |  [optional]
+**root** | **Boolean** | Distinguished root slot |  [optional]
 
 
 

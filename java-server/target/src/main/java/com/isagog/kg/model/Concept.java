@@ -16,13 +16,13 @@ import java.util.List;
  * Unary classifier, can be atomic, or defined as a restriction on Relation or Attributes
  */
 @ApiModel(description = "Unary classifier, can be atomic, or defined as a restriction on Relation or Attributes")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T19:24:07.699+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T10:42:13.655+01:00[Europe/Berlin]")
 public class Concept extends Classifier  {
   @JsonProperty("property")
   private String property;
 
-  @JsonProperty("restriction")
-  private String restriction;
+  @JsonProperty("related")
+  private String related;
 
   @JsonProperty("quantifier")
   private Quantifier quantifier;
@@ -51,22 +51,22 @@ public class Concept extends Classifier  {
     this.property = property;
   }
 
-  public Concept restriction(String restriction) {
-    this.restriction = restriction;
+  public Concept related(String related) {
+    this.related = related;
     return this;
   }
 
    /**
    * For relational concepts, the restriction concept (opt)
-   * @return restriction
+   * @return related
   **/
   @ApiModelProperty(value = "For relational concepts, the restriction concept (opt)")
-  public String getRestriction() {
-    return restriction;
+  public String getRelated() {
+    return related;
   }
 
-  public void setRestriction(String restriction) {
-    this.restriction = restriction;
+  public void setRelated(String related) {
+    this.related = related;
   }
 
   public Concept quantifier(Quantifier quantifier) {
@@ -134,7 +134,7 @@ public class Concept extends Classifier  {
     }
     Concept concept = (Concept) o;
     return Objects.equals(this.property, concept.property) &&
-        Objects.equals(this.restriction, concept.restriction) &&
+        Objects.equals(this.related, concept.related) &&
         Objects.equals(this.quantifier, concept.quantifier) &&
         Objects.equals(this.value, concept.value) &&
         Objects.equals(this.constraint, concept.constraint) &&
@@ -143,7 +143,7 @@ public class Concept extends Classifier  {
 
   @Override
   public int hashCode() {
-    return Objects.hash(property, restriction, quantifier, value, constraint, super.hashCode());
+    return Objects.hash(property, related, quantifier, value, constraint, super.hashCode());
   }
 
   @Override
@@ -152,7 +152,7 @@ public class Concept extends Classifier  {
     sb.append("class Concept {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    property: ").append(toIndentedString(property)).append("\n");
-    sb.append("    restriction: ").append(toIndentedString(restriction)).append("\n");
+    sb.append("    related: ").append(toIndentedString(related)).append("\n");
     sb.append("    quantifier: ").append(toIndentedString(quantifier)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    constraint: ").append(toIndentedString(constraint)).append("\n");

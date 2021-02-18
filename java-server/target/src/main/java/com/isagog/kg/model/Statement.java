@@ -14,7 +14,7 @@ import java.util.List;
  * Knowledge statement
  */
 @ApiModel(description = "Knowledge statement")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T19:24:07.699+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T10:42:13.655+01:00[Europe/Berlin]")
 public class Statement extends KnowledgeElement  {
   @JsonProperty("subject")
   private String subject;

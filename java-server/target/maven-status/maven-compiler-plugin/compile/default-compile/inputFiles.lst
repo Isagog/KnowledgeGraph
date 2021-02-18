@@ -1,4 +1,5 @@
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\factories\DataServiceApiServiceFactory.java
+D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\ConceptualDetails.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\EvaluationMethod.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\LemmaAnnotation.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\SentenceAnnotation.java
@@ -16,7 +17,6 @@ D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\LinguisticServiceApi.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\DataServiceApi.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\InteractRecord.java
-D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\HierarchyDetails.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\KnowledgeElement.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\model\Entity.java
 D:\Projects\Isagog\KnowledgeGraph\java-server\target\src\main\java\com\isagog\kg\api\KnowledgeServiceApiService.java

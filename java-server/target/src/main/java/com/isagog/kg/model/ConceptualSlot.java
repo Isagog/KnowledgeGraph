@@ -14,7 +14,7 @@ import java.util.List;
  * A slot bound to a concept
  */
 @ApiModel(description = "A slot bound to a concept")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-17T19:24:07.699+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T10:42:13.655+01:00[Europe/Berlin]")
 public class ConceptualSlot extends Slot  {
   @JsonProperty("entity")
   private String entity;
@@ -22,16 +22,19 @@ public class ConceptualSlot extends Slot  {
   @JsonProperty("individual")
   private Boolean individual = false;
 
+  @JsonProperty("root")
+  private Boolean root = false;
+
   public ConceptualSlot entity(String entity) {
     this.entity = entity;
     return this;
   }
 
    /**
-   * Constant entity reference (opt)
+   * Entity reference (opt)
    * @return entity
   **/
-  @ApiModelProperty(value = "Constant entity reference (opt)")
+  @ApiModelProperty(value = "Entity reference (opt)")
   public String getEntity() {
     return entity;
   }
@@ -46,16 +49,34 @@ public class ConceptualSlot extends Slot  {
   }
 
    /**
-   * Tells if the entity value is required
+   * Individual (vs. predicative) slot
    * @return individual
   **/
-  @ApiModelProperty(value = "Tells if the entity value is required")
+  @ApiModelProperty(value = "Individual (vs. predicative) slot")
   public Boolean getIndividual() {
     return individual;
   }
 
   public void setIndividual(Boolean individual) {
     this.individual = individual;
+  }
+
+  public ConceptualSlot root(Boolean root) {
+    this.root = root;
+    return this;
+  }
+
+   /**
+   * Distinguished root slot
+   * @return root
+  **/
+  @ApiModelProperty(value = "Distinguished root slot")
+  public Boolean getRoot() {
+    return root;
+  }
+
+  public void setRoot(Boolean root) {
+    this.root = root;
   }
 
 
@@ -70,12 +91,13 @@ public class ConceptualSlot extends Slot  {
     ConceptualSlot conceptualSlot = (ConceptualSlot) o;
     return Objects.equals(this.entity, conceptualSlot.entity) &&
         Objects.equals(this.individual, conceptualSlot.individual) &&
+        Objects.equals(this.root, conceptualSlot.root) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(entity, individual, super.hashCode());
+    return Objects.hash(entity, individual, root, super.hashCode());
   }
 
   @Override
@@ -85,6 +107,7 @@ public class ConceptualSlot extends Slot  {
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    entity: ").append(toIndentedString(entity)).append("\n");
     sb.append("    individual: ").append(toIndentedString(individual)).append("\n");
+    sb.append("    root: ").append(toIndentedString(root)).append("\n");
     sb.append("}");
     return sb.toString();
   }

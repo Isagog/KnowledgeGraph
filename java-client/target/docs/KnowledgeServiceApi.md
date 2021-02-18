@@ -4,7 +4,6 @@ All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**evaluateEntity**](KnowledgeServiceApi.md#evaluateEntity) | **GET** /evaluate/{entity} | Entity evaluation
 [**getAllAttributes**](KnowledgeServiceApi.md#getAllAttributes) | **GET** /attributes | Gets all attributes in the Knowledge Graph ontology
 [**getAllConcepts**](KnowledgeServiceApi.md#getAllConcepts) | **GET** /concepts | Get all the atomic concepts in the Knowledge Graph
 [**getAllFrames**](KnowledgeServiceApi.md#getAllFrames) | **GET** /frames | Gets all the frames in the Knowledge Graph ontology
@@ -16,77 +15,6 @@ Method | HTTP request | Description
 [**getRelation**](KnowledgeServiceApi.md#getRelation) | **GET** /relations/{id} | Gets a relation
 [**search**](KnowledgeServiceApi.md#search) | **GET** /search | Knowledge search
 
-
-<a name="evaluateEntity"></a>
-# **evaluateEntity**
-> List&lt;ElementRanking&gt; evaluateEntity(entity, method)
-
-Entity evaluation
-
-Evaluates an entity as an instance of known concepts. Deductive evaluation should return asserted and implied entity classes. Abductive evaluation should return a ranking of the most plausible entity classes.
-
-### Example
-```java
-// Import classes:
-import com.isagog.kg.ApiClient;
-import com.isagog.kg.ApiException;
-import com.isagog.kg.Configuration;
-import com.isagog.kg.models.*;
-import com.isagog.kg.api.KnowledgeServiceApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8030");
-
-    KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
-    String entity = "entity_example"; // String | Entity identifier
-    EvaluationMethod method = EvaluationMethod.fromValue("DEDUCTION"); // EvaluationMethod | Inference method to be used
-    try {
-      List<ElementRanking> result = apiInstance.evaluateEntity(entity, method);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling KnowledgeServiceApi#evaluateEntity");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **entity** | **String**| Entity identifier |
- **method** | [**EvaluationMethod**](.md)| Inference method to be used | [optional] [enum: DEDUCTION, ABDUCTION]
-
-### Return type
-
-[**List&lt;ElementRanking&gt;**](ElementRanking.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Success |  -  |
-**401** | Not found |  -  |
-**402** | Unknown graph |  -  |
-**403** | Invalid arguments |  -  |
-**405** | Unsupported method |  -  |
-**501** | Service unavailable |  -  |
-**502** | Server error |  -  |
-**503** | Missing implementation |  -  |
 
 <a name="getAllAttributes"></a>
 # **getAllAttributes**
@@ -449,7 +377,7 @@ public class Example {
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     String id = "id_example"; // String | The attribute's id
     String kg = "kg_example"; // String | The KG id (opt)
-    List<HierarchyDetails> details = Arrays.asList(); // List<HierarchyDetails> | Details to be fetched (opt), defaults to any
+    ConceptualDetails details = ConceptualDetails.fromValue("SUPERPREDICATES"); // ConceptualDetails | Details to be fetched (opt), defaults to any
     try {
       Attribute result = apiInstance.getAttribute(id, kg, details);
       System.out.println(result);
@@ -470,7 +398,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The attribute&#39;s id |
  **kg** | **String**| The KG id (opt) |
- **details** | [**List&lt;HierarchyDetails&gt;**](HierarchyDetails.md)| Details to be fetched (opt), defaults to any |
+ **details** | [**ConceptualDetails**](.md)| Details to be fetched (opt), defaults to any | [default to NONE] [enum: SUPERPREDICATES, SUBPREDICATES, DISJOINTPREDICATES, ALL, NONE]
 
 ### Return type
 
@@ -521,7 +449,7 @@ public class Example {
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     String id = "id_example"; // String | The concept's id
     String kg = "kg_example"; // String | The KG id
-    List<HierarchyDetails> details = Arrays.asList(); // List<HierarchyDetails> | Details to be fetched (opt), defaults to any
+    ConceptualDetails details = ConceptualDetails.fromValue("SUPERPREDICATES"); // ConceptualDetails | Details to be fetched (opt), defaults to any
     try {
       Concept result = apiInstance.getConcept(id, kg, details);
       System.out.println(result);
@@ -542,7 +470,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The concept&#39;s id |
  **kg** | **String**| The KG id |
- **details** | [**List&lt;HierarchyDetails&gt;**](HierarchyDetails.md)| Details to be fetched (opt), defaults to any |
+ **details** | [**ConceptualDetails**](.md)| Details to be fetched (opt), defaults to any | [default to NONE] [enum: SUPERPREDICATES, SUBPREDICATES, DISJOINTPREDICATES, ALL, NONE]
 
 ### Return type
 
@@ -663,7 +591,7 @@ public class Example {
     KnowledgeServiceApi apiInstance = new KnowledgeServiceApi(defaultClient);
     String id = "id_example"; // String | The relation's id
     String kg = "kg_example"; // String | The KG id (opt)
-    List<HierarchyDetails> details = Arrays.asList(); // List<HierarchyDetails> | Details to be fetched (opt), defaults to any
+    ConceptualDetails details = ConceptualDetails.fromValue("SUPERPREDICATES"); // ConceptualDetails | Details to be fetched (opt), defaults to any
     try {
       Relation result = apiInstance.getRelation(id, kg, details);
       System.out.println(result);
@@ -684,7 +612,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The relation&#39;s id |
  **kg** | **String**| The KG id (opt) |
- **details** | [**List&lt;HierarchyDetails&gt;**](HierarchyDetails.md)| Details to be fetched (opt), defaults to any |
+ **details** | [**ConceptualDetails**](.md)| Details to be fetched (opt), defaults to any | [default to NONE] [enum: SUPERPREDICATES, SUBPREDICATES, DISJOINTPREDICATES, ALL, NONE]
 
 ### Return type
 
@@ -736,7 +664,7 @@ public class Example {
     String query = "query_example"; // String | The value to search by
     String attribute = "\"rdfs:label\""; // String | Attribute to search by, either an annotation or a data property
     KnowledgeType ktype = KnowledgeType.fromValue("CONCEPT"); // KnowledgeType | Narrow search to a specific knowledge type
-    HierarchyDetails details = HierarchyDetails.fromValue("SUPERPREDICATES"); // HierarchyDetails | Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\\subordinates, IDENTIFIER=id only
+    ConceptualDetails details = ConceptualDetails.fromValue("SUPERPREDICATES"); // ConceptualDetails | Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\\subordinates, IDENTIFIER=id only
     try {
       List<ElementRanking> result = apiInstance.search(query, attribute, ktype, details);
       System.out.println(result);
@@ -758,7 +686,7 @@ Name | Type | Description  | Notes
  **query** | **String**| The value to search by |
  **attribute** | **String**| Attribute to search by, either an annotation or a data property | [optional] [default to &quot;rdfs:label&quot;]
  **ktype** | [**KnowledgeType**](.md)| Narrow search to a specific knowledge type | [optional] [enum: CONCEPT, RELATION, ATTRIBUTE, ENTITY, FRAME]
- **details** | [**HierarchyDetails**](.md)| Details to be returned: e.g. for predicates: FULL&#x3D;full hierarchy, SUMMARY&#x3D;direct super\\subordinates, IDENTIFIER&#x3D;id only | [optional] [enum: SUPERPREDICATES, SUBPREDICATES, DISJOINTPREDICATES]
+ **details** | [**ConceptualDetails**](.md)| Details to be returned: e.g. for predicates: FULL&#x3D;full hierarchy, SUMMARY&#x3D;direct super\\subordinates, IDENTIFIER&#x3D;id only | [optional] [default to NONE] [enum: SUPERPREDICATES, SUBPREDICATES, DISJOINTPREDICATES, ALL, NONE]
 
 ### Return type
 

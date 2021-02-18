@@ -12,7 +12,6 @@ com\isagog\kg\model\Sentence.class
 com\isagog\kg\model\Comparator.class
 com\isagog\kg\model\PredicativeRoles$Adapter.class
 com\isagog\kg\model\Query.class
-com\isagog\kg\api\KnowledgeServiceApi$22.class
 com\isagog\kg\model\InteractType$Adapter.class
 com\isagog\kg\model\ResponseRow.class
 com\isagog\kg\api\LinguisticServiceApi$3.class
@@ -106,7 +105,6 @@ com\isagog\kg\api\DataServiceApi$9.class
 com\isagog\kg\JSON$SqlDateTypeAdapter.class
 com\isagog\kg\model\Attribute.class
 com\isagog\kg\model\AttributeRange$Adapter.class
-com\isagog\kg\model\HierarchyDetails.class
 com\isagog\kg\model\ElementRanking.class
 com\isagog\kg\api\KnowledgeServiceApi$13.class
 com\isagog\kg\model\InformativeAnnotation.class
@@ -115,11 +113,9 @@ com\isagog\kg\api\KnowledgeServiceApi$10.class
 com\isagog\kg\model\AttributeRange.class
 com\isagog\kg\model\Language$Adapter.class
 com\isagog\kg\JSON$OffsetDateTimeTypeAdapter.class
-com\isagog\kg\model\HierarchyDetails$Adapter.class
 com\isagog\kg\api\LinguisticServiceApi$4.class
 com\isagog\kg\model\SentenceRanking.class
 com\isagog\kg\model\TokenAnnotation.class
-com\isagog\kg\api\KnowledgeServiceApi$21.class
 com\isagog\kg\api\InteractionServiceApi.class
 com\isagog\kg\model\KnowledgeGraph.class
 com\isagog\kg\ApiClient$2.class
@@ -128,6 +124,7 @@ com\isagog\kg\api\KnowledgeServiceApi$16.class
 com\isagog\kg\model\Concept.class
 com\isagog\kg\api\LinguisticServiceApi.class
 com\isagog\kg\api\KnowledgeServiceApi$14.class
+com\isagog\kg\model\ConceptualDetails.class
 com\isagog\kg\api\DataServiceApi$11.class
 com\isagog\kg\model\Language.class
 com\isagog\kg\model\Upload.class
@@ -165,3 +162,4 @@ com\isagog\kg\model\ValueType$Adapter.class
 com\isagog\kg\api\DataServiceApi$10.class
 com\isagog\kg\model\KnowledgeAnnotation.class
 com\isagog\kg\model\Document.class
+com\isagog\kg\model\ConceptualDetails$Adapter.class

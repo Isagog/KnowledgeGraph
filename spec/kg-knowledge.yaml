@@ -233,9 +233,7 @@ paths:
           in: path
           required: true
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/HierarchyDetails'
+             $ref: '#/components/schemas/ConceptualDetails'
       responses:
         200:
           description: Successful operation
@@ -283,9 +281,7 @@ paths:
           in: path
           required: true
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/HierarchyDetails'
+              $ref: '#/components/schemas/ConceptualDetails'
       responses:
         200:
           description: Successful operation
@@ -333,9 +329,7 @@ paths:
             in: path
             required: true
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/HierarchyDetails'
+               $ref: '#/components/schemas/ConceptualDetails'
         responses:
           200:
             description: Successful operation
@@ -453,6 +447,7 @@ paths:
         required: true
         schema:
           type: string
+          format: utf-8
       - name: attribute
         in: query
         description: Attribute to search by, either an annotation or a data property
@@ -471,7 +466,7 @@ paths:
         description: 'Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\subordinates, IDENTIFIER=id only'
         required: false
         schema:
-          $ref: '#/components/schemas/HierarchyDetails'
+          $ref: '#/components/schemas/ConceptualDetails'
     responses:
       200:
         description: Successful operation
@@ -497,53 +492,59 @@ paths:
       - KnowledgeService
 
 
-  /evaluate/{entity}:
-    get:
-      summary: Entity evaluation
-      description: Evaluates an entity as an instance of known concepts.
-        Deductive evaluation should return asserted and implied entity classes.
-        Abductive evaluation should return a ranking of the most plausible entity classes.
-      parameters:
-        - name: entity
-          in: path
-          description: Entity identifier
-          required: true
-          schema:
-            type: string
-            format: id
-        - name: method
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/EvaluationMethod'
-          description: Inference method to be used
-          allowEmptyValue: true
-      operationId: evaluateEntity
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ElementRanking'
-        401:
-          description: Not found
-        402:
-          description: Unknown graph
-        403:
-          description: Invalid arguments
-        405:
-          description: Unsupported method
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-        503:
-          description: Missing implementation
-      tags:
-        - KnowledgeService
+#  /evaluate/{id}:
+#    get:
+#      summary: Entity evaluation
+#      description: Evaluates an entity as a filer of a frame.
+#        Deductive evaluation should evaluate asserted and implied entity classes.
+#        Abductive evaluation should rank the most plausible entity classes.
+#      parameters:
+#        - name: id
+#          in: path
+#          description: Entity identifier
+#          required: true
+#          schema:
+#            type: string
+#            format: id
+#        - name: frame
+#          in: query
+#          required: true
+#          schema:
+#            $ref: '#/components/schemas/Frame'
+#          description: The frame
+#        - name: method
+#          in: query
+#          required: false
+#          schema:
+#            $ref: '#/components/schemas/EvaluationMethod'
+#          description: Inference method to be used
+#          allowEmptyValue: true
+#      operationId: evaluateEntity
+#      responses:
+#        200:
+#          description: Success
+#          content:
+#            application/json:
+#              schema:
+#                type: array
+#                items:
+#                  $ref: '#/components/schemas/ElementRanking'
+#        401:
+#          description: Not found
+#        402:
+#          description: Unknown graph
+#        403:
+#          description: Invalid arguments
+#        405:
+#          description: Unsupported method
+#        501:
+#          description: Service unavailable
+#        502:
+#          description: Server error
+#        503:
+#          description: Missing implementation
+#      tags:
+#        - KnowledgeService
 
 components:
   schemas:
@@ -710,7 +711,7 @@ components:
           description: For concept defined as a restricion, the Relation or Attribute identifier (opt)
           type: string
           format: id
-        restriction:
+        related:
           description: For relational concepts, the restriction concept (opt)
           type: string
           format: id
@@ -843,7 +844,6 @@ components:
       type: object
       required:
         - id
-        - slots
       properties:
         id:
           description: Frame identifier
@@ -910,13 +910,18 @@ components:
         - $ref: '#/components/schemas/Slot'
       properties:
        entity:
-        description: Constant entity reference (opt)
+        description: Entity reference (opt)
         type: string
         format: id
        individual:
-         description: Tells if the entity value is required
+         description: Individual (vs. predicative) slot
          type: boolean
          default: false
+       root:
+         description: Distinguished root slot
+         type: boolean
+         default: false
+
 
 
     RelationalSlot:
@@ -973,13 +978,16 @@ components:
           - SIMILAR
       default: EQUAL
 
-    HierarchyDetails:
+    ConceptualDetails:
       description: Conceptual hierarchy details (inclusion axioms)
       type: string
       enum:
         - SUPERPREDICATES
         - SUBPREDICATES
         - DISJOINTPREDICATES
+        - ALL
+        - NONE
+      default: NONE
 
 #    ValueSlot:
 #      allOf:
