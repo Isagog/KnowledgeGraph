@@ -30,7 +30,6 @@ com\isagog\kg\model\PartOfSpeech.class
 com\isagog\kg\model\QueryKeywords.class
 com\isagog\kg\api\InteractionServiceApi$6.class
 com\isagog\kg\model\QueryLanguages$Adapter.class
-com\isagog\kg\api\DataServiceApi$12.class
 com\isagog\kg\api\DataServiceApi$2.class
 com\isagog\kg\model\UploadForm$FormatEnum$Adapter.class
 com\isagog\kg\model\EntityAnnotation.class
@@ -125,7 +124,6 @@ com\isagog\kg\model\Concept.class
 com\isagog\kg\api\LinguisticServiceApi.class
 com\isagog\kg\api\KnowledgeServiceApi$14.class
 com\isagog\kg\model\ConceptualDetails.class
-com\isagog\kg\api\DataServiceApi$11.class
 com\isagog\kg\model\Language.class
 com\isagog\kg\model\Upload.class
 com\isagog\kg\ApiCallback.class

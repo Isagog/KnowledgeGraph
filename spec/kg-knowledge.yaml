@@ -561,9 +561,8 @@ components:
           type: string
           format: id
         ktype:
-          description: Knowledge element type, should be aligned to the subclass name
+          description: Knowledge element type, MUST be one of KnowledgeType enum
           type: string
-          format: classname
         annotations:
           description: Knowledge annotations
           type: array
@@ -572,16 +571,27 @@ components:
       discriminator:
         propertyName: ktype
         mapping:
-          KnowledgeGraph:      '#/components/schemas/KnowledgeGraph'
-          Concept:             '#/components/schemas/Concept'
-          Relation:            '#/components/schemas/Relation'
-          Attribute:           '#/components/schemas/Attribute'
-          Entity:              '#/components/schemas/Entity'
-          Statement:           '#/components/schemas/Statement'
-          Frame:               '#/components/schemas/Frame'
-          ConceptualSlot:      '#/components/schemas/ConceptualSlot'
-          RelationalSlot:      '#/components/schemas/RelationalSlot'
-          AttributiveSlot:     '#/components/schemas/AttributiveSlot'
+          GRAPH:               '#/components/schemas/KnowledgeGraph'
+          CONCEPT:             '#/components/schemas/Concept'
+          RELATION:            '#/components/schemas/Relation'
+          ATTRIBUTE:           '#/components/schemas/Attribute'
+          ENTITY:              '#/components/schemas/Entity'
+          STATEMENT:           '#/components/schemas/Statement'
+          FRAME:               '#/components/schemas/Frame'
+          CONCEPTUALSLOT:      '#/components/schemas/ConceptualSlot'
+          RELATIONALSLOT:      '#/components/schemas/RelationalSlot'
+          ATTRIBUTIVESLOT:     '#/components/schemas/AttributiveSlot'
+
+#          KnowledgeGraph:      '#/components/schemas/KnowledgeGraph'
+#          Concept:             '#/components/schemas/Concept'
+#          Relation:            '#/components/schemas/Relation'
+#          Attribute:           '#/components/schemas/Attribute'
+#          Entity:              '#/components/schemas/Entity'
+#          Statement:           '#/components/schemas/Statement'
+#          Frame:               '#/components/schemas/Frame'
+#          ConceptualSlot:      '#/components/schemas/ConceptualSlot'
+#          RelationalSlot:      '#/components/schemas/RelationalSlot'
+#          AttributiveSlot:     '#/components/schemas/AttributiveSlot'
 
 
     ElementRanking:
@@ -672,6 +682,11 @@ components:
         - ATTRIBUTE
         - ENTITY
         - FRAME
+        - GRAPH
+        - STATEMENT
+        - CONCEPTUALSLOT
+        - RELATIONALSLOT
+        - ATTRIBUTIVESLOT
 
     EvaluationMethod:
       type: string
@@ -842,13 +857,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
-      required:
-        - id
       properties:
-        id:
-          description: Frame identifier
-          type: string
-          format: id
         conceptualSlots:
           description: Conceptual elements, up to 128
           type: array
@@ -875,13 +884,8 @@ components:
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
-      required:
-        - id
+
       properties:
-        id:
-          description: Slot identifier, must be frame-unique
-          type: string
-          format: id
         predicates:
           description: Constraint predicates
           type: array

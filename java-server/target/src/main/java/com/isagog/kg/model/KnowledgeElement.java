@@ -15,7 +15,7 @@ import java.util.List;
  * Managed knowledge element (should be abstract)
  */
 @ApiModel(description = "Managed knowledge element (should be abstract)")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T10:42:13.655+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T12:33:28.758+01:00[Europe/Berlin]")
 public class KnowledgeElement   {
   @JsonProperty("id")
   private String id;
@@ -50,10 +50,10 @@ public class KnowledgeElement   {
   }
 
    /**
-   * Knowledge element type, should be aligned to the subclass name
+   * Knowledge element type, MUST be one of KnowledgeType enum
    * @return ktype
   **/
-  @ApiModelProperty(required = true, value = "Knowledge element type, should be aligned to the subclass name")
+  @ApiModelProperty(required = true, value = "Knowledge element type, MUST be one of KnowledgeType enum")
   public String getKtype() {
     return ktype;
   }

@@ -685,7 +685,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query** | **String**| The value to search by |
  **attribute** | **String**| Attribute to search by, either an annotation or a data property | [optional] [default to &quot;rdfs:label&quot;]
- **ktype** | [**KnowledgeType**](.md)| Narrow search to a specific knowledge type | [optional] [enum: CONCEPT, RELATION, ATTRIBUTE, ENTITY, FRAME]
+ **ktype** | [**KnowledgeType**](.md)| Narrow search to a specific knowledge type | [optional] [enum: CONCEPT, RELATION, ATTRIBUTE, ENTITY, FRAME, GRAPH, STATEMENT, CONCEPTUALSLOT, RELATIONALSLOT, ATTRIBUTIVESLOT]
  **details** | [**ConceptualDetails**](.md)| Details to be returned: e.g. for predicates: FULL&#x3D;full hierarchy, SUMMARY&#x3D;direct super\\subordinates, IDENTIFIER&#x3D;id only | [optional] [default to NONE] [enum: SUPERPREDICATES, SUBPREDICATES, DISJOINTPREDICATES, ALL, NONE]
 
 ### Return type

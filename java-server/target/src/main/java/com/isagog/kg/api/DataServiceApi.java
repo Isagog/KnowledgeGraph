@@ -35,7 +35,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the DataService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T10:42:13.009+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T12:33:28.059+01:00[Europe/Berlin]")
 public class DataServiceApi  {
    private final DataServiceApiService delegate = DataServiceApiServiceFactory.getDataServiceApi();
 
@@ -185,33 +185,6 @@ public class DataServiceApi  {
 )
     throws NotFoundException {
         return delegate.getEntity(id,details);
-    }
-    @GET
-    @Path("/entities")
-    
-    @Produces({ "application/json" })
-    @io.swagger.annotations.ApiOperation(value = "Entity access", notes = "Returns an Entity", response = EntityResponse.class, tags={ "DataService", })
-    @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "Success", response = EntityResponse.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 401, message = "Element not found", response = EntityResponse.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 402, message = "Not authorized", response = EntityResponse.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 403, message = "Invalid element", response = EntityResponse.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 405, message = "Protected element", response = EntityResponse.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 501, message = "Service unavailable", response = EntityResponse.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = EntityResponse.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = EntityResponse.class) })
-    public Response getEntityDetails(@ApiParam(value = "Entity identifier",required=true) @QueryParam("id") String id
-,@ApiParam(value = "Details to fetch", allowableValues="FULL, DATA, LABELS") @QueryParam("details") EntityDetails details
-)
-    throws NotFoundException {
-        return delegate.getEntityDetails(id,details);
     }
     @POST
     @Path("/query/expression")

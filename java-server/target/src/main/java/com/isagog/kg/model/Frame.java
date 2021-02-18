@@ -17,11 +17,8 @@ import java.util.List;
  * Conceptual pattern, e.g. a query or a form
  */
 @ApiModel(description = "Conceptual pattern, e.g. a query or a form")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T10:42:13.655+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T12:33:28.758+01:00[Europe/Berlin]")
 public class Frame extends KnowledgeElement  {
-  @JsonProperty("id")
-  private String id;
-
   @JsonProperty("conceptualSlots")
   private List<ConceptualSlot> conceptualSlots = null;
 
@@ -30,24 +27,6 @@ public class Frame extends KnowledgeElement  {
 
   @JsonProperty("attributiveSlots")
   private List<AttributiveSlot> attributiveSlots = null;
-
-  public Frame id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Frame identifier
-   * @return id
-  **/
-  @ApiModelProperty(required = true, value = "Frame identifier")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
 
   public Frame conceptualSlots(List<ConceptualSlot> conceptualSlots) {
     this.conceptualSlots = conceptualSlots;
@@ -137,8 +116,7 @@ public class Frame extends KnowledgeElement  {
       return false;
     }
     Frame frame = (Frame) o;
-    return Objects.equals(this.id, frame.id) &&
-        Objects.equals(this.conceptualSlots, frame.conceptualSlots) &&
+    return Objects.equals(this.conceptualSlots, frame.conceptualSlots) &&
         Objects.equals(this.relationalSlots, frame.relationalSlots) &&
         Objects.equals(this.attributiveSlots, frame.attributiveSlots) &&
         super.equals(o);
@@ -146,7 +124,7 @@ public class Frame extends KnowledgeElement  {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, conceptualSlots, relationalSlots, attributiveSlots, super.hashCode());
+    return Objects.hash(conceptualSlots, relationalSlots, attributiveSlots, super.hashCode());
   }
 
   @Override
@@ -154,7 +132,6 @@ public class Frame extends KnowledgeElement  {
     StringBuilder sb = new StringBuilder();
     sb.append("class Frame {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    conceptualSlots: ").append(toIndentedString(conceptualSlots)).append("\n");
     sb.append("    relationalSlots: ").append(toIndentedString(relationalSlots)).append("\n");
     sb.append("    attributiveSlots: ").append(toIndentedString(attributiveSlots)).append("\n");

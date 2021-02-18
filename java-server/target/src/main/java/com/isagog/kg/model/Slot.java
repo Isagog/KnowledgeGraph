@@ -16,34 +16,13 @@ import java.util.List;
  * Framed conceptual element
  */
 @ApiModel(description = "Framed conceptual element")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T10:42:13.655+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T12:33:28.758+01:00[Europe/Berlin]")
 public class Slot extends KnowledgeElement  {
-  @JsonProperty("id")
-  private String id;
-
   @JsonProperty("predicates")
   private List<String> predicates = null;
 
   @JsonProperty("required")
   private Boolean required = true;
-
-  public Slot id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Slot identifier, must be frame-unique
-   * @return id
-  **/
-  @ApiModelProperty(required = true, value = "Slot identifier, must be frame-unique")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
 
   public Slot predicates(List<String> predicates) {
     this.predicates = predicates;
@@ -99,15 +78,14 @@ public class Slot extends KnowledgeElement  {
       return false;
     }
     Slot slot = (Slot) o;
-    return Objects.equals(this.id, slot.id) &&
-        Objects.equals(this.predicates, slot.predicates) &&
+    return Objects.equals(this.predicates, slot.predicates) &&
         Objects.equals(this.required, slot.required) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, predicates, required, super.hashCode());
+    return Objects.hash(predicates, required, super.hashCode());
   }
 
   @Override
@@ -115,7 +93,6 @@ public class Slot extends KnowledgeElement  {
     StringBuilder sb = new StringBuilder();
     sb.append("class Slot {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    predicates: ").append(toIndentedString(predicates)).append("\n");
     sb.append("    required: ").append(toIndentedString(required)).append("\n");
     sb.append("}");

@@ -10,7 +10,6 @@ Method | HTTP request | Description
 [**deleteStatement**](DataServiceApi.md#deleteStatement) | **DELETE** /statements | Statement deletion
 [**getAllStatements**](DataServiceApi.md#getAllStatements) | **GET** /statements | Get statements
 [**getEntity**](DataServiceApi.md#getEntity) | **GET** /entities/{id} | Entity access
-[**getEntityDetails**](DataServiceApi.md#getEntityDetails) | **GET** /entities | Entity access
 [**queryExpression**](DataServiceApi.md#queryExpression) | **POST** /query/expression | Issue a graph query
 [**queryFrame**](DataServiceApi.md#queryFrame) | **POST** /query/frame | Knowledge query
 [**queryKeywords**](DataServiceApi.md#queryKeywords) | **POST** /query/keywords | Knowledge query
@@ -386,77 +385,6 @@ public class Example {
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DataServiceApi#getEntity");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| Entity identifier |
- **details** | [**EntityDetails**](.md)| Details to fetch | [optional] [enum: FULL, DATA, LABELS]
-
-### Return type
-
-[**EntityResponse**](EntityResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Success |  -  |
-**401** | Element not found |  -  |
-**402** | Not authorized |  -  |
-**403** | Invalid element |  -  |
-**405** | Protected element |  -  |
-**501** | Service unavailable |  -  |
-**502** | Server error |  -  |
-**503** | Missing implementation |  -  |
-
-<a name="getEntityDetails"></a>
-# **getEntityDetails**
-> EntityResponse getEntityDetails(id, details)
-
-Entity access
-
-Returns an Entity
-
-### Example
-```java
-// Import classes:
-import com.isagog.kg.ApiClient;
-import com.isagog.kg.ApiException;
-import com.isagog.kg.Configuration;
-import com.isagog.kg.models.*;
-import com.isagog.kg.api.DataServiceApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8030");
-
-    DataServiceApi apiInstance = new DataServiceApi(defaultClient);
-    String id = "id_example"; // String | Entity identifier
-    EntityDetails details = EntityDetails.fromValue("FULL"); // EntityDetails | Details to fetch
-    try {
-      EntityResponse result = apiInstance.getEntityDetails(id, details);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling DataServiceApi#getEntityDetails");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());

@@ -7,7 +7,6 @@ Framed conceptual element
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | Slot identifier, must be frame-unique | 
 **predicates** | **List&lt;String&gt;** | Constraint predicates |  [optional]
 **required** | **Boolean** | Tells if the slot should be instantiated in order for the frame to be processed |  [optional]
 
