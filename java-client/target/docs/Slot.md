@@ -7,7 +7,7 @@ Framed conceptual element
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**predicates** | **List&lt;String&gt;** | Constraint predicates |  [optional]
+**reference** | **String** | Conceptual element |  [optional]
 **required** | **Boolean** | Tells if the slot should be instantiated in order for the frame to be processed |  [optional]
 
 

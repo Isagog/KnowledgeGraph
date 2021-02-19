@@ -14,13 +14,19 @@ import java.util.List;
  * A slot bound to a relation (property)
  */
 @ApiModel(description = "A slot bound to a relation (property)")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T12:33:28.758+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T21:02:10.526+01:00[Europe/Berlin]")
 public class RelationalSlot extends Slot  {
   @JsonProperty("subjectBinding")
   private String subjectBinding;
 
   @JsonProperty("objectBinding")
   private String objectBinding;
+
+  @JsonProperty("subjectConstraints")
+  private List<String> subjectConstraints = null;
+
+  @JsonProperty("objectConstraints")
+  private List<String> objectConstraints = null;
 
   public RelationalSlot subjectBinding(String subjectBinding) {
     this.subjectBinding = subjectBinding;
@@ -58,6 +64,58 @@ public class RelationalSlot extends Slot  {
     this.objectBinding = objectBinding;
   }
 
+  public RelationalSlot subjectConstraints(List<String> subjectConstraints) {
+    this.subjectConstraints = subjectConstraints;
+    return this;
+  }
+
+  public RelationalSlot addSubjectConstraintsItem(String subjectConstraintsItem) {
+    if (this.subjectConstraints == null) {
+      this.subjectConstraints = new ArrayList<String>();
+    }
+    this.subjectConstraints.add(subjectConstraintsItem);
+    return this;
+  }
+
+   /**
+   * Domain constraints
+   * @return subjectConstraints
+  **/
+  @ApiModelProperty(value = "Domain constraints")
+  public List<String> getSubjectConstraints() {
+    return subjectConstraints;
+  }
+
+  public void setSubjectConstraints(List<String> subjectConstraints) {
+    this.subjectConstraints = subjectConstraints;
+  }
+
+  public RelationalSlot objectConstraints(List<String> objectConstraints) {
+    this.objectConstraints = objectConstraints;
+    return this;
+  }
+
+  public RelationalSlot addObjectConstraintsItem(String objectConstraintsItem) {
+    if (this.objectConstraints == null) {
+      this.objectConstraints = new ArrayList<String>();
+    }
+    this.objectConstraints.add(objectConstraintsItem);
+    return this;
+  }
+
+   /**
+   * Range constraints
+   * @return objectConstraints
+  **/
+  @ApiModelProperty(value = "Range constraints")
+  public List<String> getObjectConstraints() {
+    return objectConstraints;
+  }
+
+  public void setObjectConstraints(List<String> objectConstraints) {
+    this.objectConstraints = objectConstraints;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -70,12 +128,14 @@ public class RelationalSlot extends Slot  {
     RelationalSlot relationalSlot = (RelationalSlot) o;
     return Objects.equals(this.subjectBinding, relationalSlot.subjectBinding) &&
         Objects.equals(this.objectBinding, relationalSlot.objectBinding) &&
+        Objects.equals(this.subjectConstraints, relationalSlot.subjectConstraints) &&
+        Objects.equals(this.objectConstraints, relationalSlot.objectConstraints) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(subjectBinding, objectBinding, super.hashCode());
+    return Objects.hash(subjectBinding, objectBinding, subjectConstraints, objectConstraints, super.hashCode());
   }
 
   @Override
@@ -85,6 +145,8 @@ public class RelationalSlot extends Slot  {
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    subjectBinding: ").append(toIndentedString(subjectBinding)).append("\n");
     sb.append("    objectBinding: ").append(toIndentedString(objectBinding)).append("\n");
+    sb.append("    subjectConstraints: ").append(toIndentedString(subjectConstraints)).append("\n");
+    sb.append("    objectConstraints: ").append(toIndentedString(objectConstraints)).append("\n");
     sb.append("}");
     return sb.toString();
   }

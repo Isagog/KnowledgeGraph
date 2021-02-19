@@ -884,54 +884,49 @@ components:
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
-
       properties:
-        predicates:
-          description: Constraint predicates
-          type: array
-          items:
-            type: string
-            format: id
+        reference:
+          description: Conceptual element
+          type: string
+          format: id
         required:
           description: Tells if the slot should be instantiated in order for the frame to be processed
           type: boolean
           default: true
-#        informative:
-#          description: Tells whether slot's values contribute to frame's meaning
-#          type: boolean
-#          default: false
       discriminator:
         propertyName: ktype
         mapping:
-          ConceptualSlot:  '#/components/schemas/ConceptualSlot'
-          RelationalSlot:  '#/components/schemas/RelationalSlot'
-          AttributiveSlot: '#/components/schemas/AttributiveSlot'
-#          ValueSlot:       '#/components/schemas/ValueSlot'
+          CONCEPTUALSLOT:  '#/components/schemas/ConceptualSlot'
+          RELATIONALSLOT:  '#/components/schemas/RelationalSlot'
+          ATTRIBUTIVESLOT: '#/components/schemas/AttributiveSlot'
 
     ConceptualSlot:
       description: A slot bound to a concept
       allOf:
         - $ref: '#/components/schemas/Slot'
       properties:
-       entity:
-        description: Entity reference (opt)
-        type: string
-        format: id
-       individual:
-         description: Individual (vs. predicative) slot
+
+       isIndividual:
+         description: Tells if reference points to an individual
          type: boolean
          default: false
+       constraints:
+         description: Constraint concepts
+         type: array
+         items:
+           type: string
+           format: id
        root:
          description: Distinguished root slot
          type: boolean
          default: false
 
-
-
     RelationalSlot:
       description: A slot bound to a relation (property)
       allOf:
         - $ref: '#/components/schemas/Slot'
+      required:
+        - subjectBinding
       type: object
       properties:
         subjectBinding:
@@ -942,8 +937,18 @@ components:
           description: Slot's object binding
           type: string
           format: id
-      required:
-        - subjectBinding
+        subjectConstraints :
+          description: Domain constraints
+          type: array
+          items:
+            type: string
+            format: id
+        objectConstraints:
+          description: Range constraints
+          type: array
+          items:
+            type: string
+            format: id
 
 
 
@@ -952,25 +957,26 @@ components:
         - $ref: '#/components/schemas/Slot'
       type: object
       description: A slot bound to an Attribute (data property)
+      required:
+        - subjectBinding
       properties:
         subjectBinding:
           description: Slot's subject binding
           type: string
           format: id
-#        objectBinding:
-#          description: Slot's object binding, must be a ValueSlot in the same frame.
-#          type: integer
-#          minimum: 0
-#          maximum: 128
+        subjectConstraints:
+          description: Domain constraints
+          type: array
+          items:
+            type: string
+            format: id
         value:
           description: Constant data value (opt)
           type: string
-          format: utf8
-
+          format: utf-8
         comparation:
           $ref: '#/components/schemas/Comparator'
-      required:
-        - subjectBinding
+
 
     Comparator:
       description: Comparation operator for data values (opt)

@@ -15,10 +15,13 @@ import java.util.List;
  * A slot bound to an Attribute (data property)
  */
 @ApiModel(description = "A slot bound to an Attribute (data property)")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T12:33:28.758+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T21:02:10.526+01:00[Europe/Berlin]")
 public class AttributiveSlot extends Slot  {
   @JsonProperty("subjectBinding")
   private String subjectBinding;
+
+  @JsonProperty("subjectConstraints")
+  private List<String> subjectConstraints = null;
 
   @JsonProperty("value")
   private String value;
@@ -42,6 +45,32 @@ public class AttributiveSlot extends Slot  {
 
   public void setSubjectBinding(String subjectBinding) {
     this.subjectBinding = subjectBinding;
+  }
+
+  public AttributiveSlot subjectConstraints(List<String> subjectConstraints) {
+    this.subjectConstraints = subjectConstraints;
+    return this;
+  }
+
+  public AttributiveSlot addSubjectConstraintsItem(String subjectConstraintsItem) {
+    if (this.subjectConstraints == null) {
+      this.subjectConstraints = new ArrayList<String>();
+    }
+    this.subjectConstraints.add(subjectConstraintsItem);
+    return this;
+  }
+
+   /**
+   * Domain constraints
+   * @return subjectConstraints
+  **/
+  @ApiModelProperty(value = "Domain constraints")
+  public List<String> getSubjectConstraints() {
+    return subjectConstraints;
+  }
+
+  public void setSubjectConstraints(List<String> subjectConstraints) {
+    this.subjectConstraints = subjectConstraints;
   }
 
   public AttributiveSlot value(String value) {
@@ -91,6 +120,7 @@ public class AttributiveSlot extends Slot  {
     }
     AttributiveSlot attributiveSlot = (AttributiveSlot) o;
     return Objects.equals(this.subjectBinding, attributiveSlot.subjectBinding) &&
+        Objects.equals(this.subjectConstraints, attributiveSlot.subjectConstraints) &&
         Objects.equals(this.value, attributiveSlot.value) &&
         Objects.equals(this.comparation, attributiveSlot.comparation) &&
         super.equals(o);
@@ -98,7 +128,7 @@ public class AttributiveSlot extends Slot  {
 
   @Override
   public int hashCode() {
-    return Objects.hash(subjectBinding, value, comparation, super.hashCode());
+    return Objects.hash(subjectBinding, subjectConstraints, value, comparation, super.hashCode());
   }
 
   @Override
@@ -107,6 +137,7 @@ public class AttributiveSlot extends Slot  {
     sb.append("class AttributiveSlot {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    subjectBinding: ").append(toIndentedString(subjectBinding)).append("\n");
+    sb.append("    subjectConstraints: ").append(toIndentedString(subjectConstraints)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    comparation: ").append(toIndentedString(comparation)).append("\n");
     sb.append("}");

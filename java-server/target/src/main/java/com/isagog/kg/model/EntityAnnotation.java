@@ -15,7 +15,7 @@ import java.util.List;
  * Entity classifier and\\or link
  */
 @ApiModel(description = "Entity classifier and\\or link")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T12:33:28.555+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T21:02:10.323+01:00[Europe/Berlin]")
 public class EntityAnnotation extends TokenAnnotation  {
   @JsonProperty("classes")
   private List<Classification> classes = null;

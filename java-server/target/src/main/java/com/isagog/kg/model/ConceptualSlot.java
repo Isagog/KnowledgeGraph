@@ -14,51 +14,59 @@ import java.util.List;
  * A slot bound to a concept
  */
 @ApiModel(description = "A slot bound to a concept")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T12:33:28.758+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T21:02:10.526+01:00[Europe/Berlin]")
 public class ConceptualSlot extends Slot  {
-  @JsonProperty("entity")
-  private String entity;
+  @JsonProperty("isIndividual")
+  private Boolean isIndividual = false;
 
-  @JsonProperty("individual")
-  private Boolean individual = false;
+  @JsonProperty("constraints")
+  private List<String> constraints = null;
 
   @JsonProperty("root")
   private Boolean root = false;
 
-  public ConceptualSlot entity(String entity) {
-    this.entity = entity;
+  public ConceptualSlot isIndividual(Boolean isIndividual) {
+    this.isIndividual = isIndividual;
     return this;
   }
 
    /**
-   * Entity reference (opt)
-   * @return entity
+   * Tells if reference points to an individual
+   * @return isIndividual
   **/
-  @ApiModelProperty(value = "Entity reference (opt)")
-  public String getEntity() {
-    return entity;
+  @ApiModelProperty(value = "Tells if reference points to an individual")
+  public Boolean getIsIndividual() {
+    return isIndividual;
   }
 
-  public void setEntity(String entity) {
-    this.entity = entity;
+  public void setIsIndividual(Boolean isIndividual) {
+    this.isIndividual = isIndividual;
   }
 
-  public ConceptualSlot individual(Boolean individual) {
-    this.individual = individual;
+  public ConceptualSlot constraints(List<String> constraints) {
+    this.constraints = constraints;
+    return this;
+  }
+
+  public ConceptualSlot addConstraintsItem(String constraintsItem) {
+    if (this.constraints == null) {
+      this.constraints = new ArrayList<String>();
+    }
+    this.constraints.add(constraintsItem);
     return this;
   }
 
    /**
-   * Individual (vs. predicative) slot
-   * @return individual
+   * Constraint concepts
+   * @return constraints
   **/
-  @ApiModelProperty(value = "Individual (vs. predicative) slot")
-  public Boolean getIndividual() {
-    return individual;
+  @ApiModelProperty(value = "Constraint concepts")
+  public List<String> getConstraints() {
+    return constraints;
   }
 
-  public void setIndividual(Boolean individual) {
-    this.individual = individual;
+  public void setConstraints(List<String> constraints) {
+    this.constraints = constraints;
   }
 
   public ConceptualSlot root(Boolean root) {
@@ -89,15 +97,15 @@ public class ConceptualSlot extends Slot  {
       return false;
     }
     ConceptualSlot conceptualSlot = (ConceptualSlot) o;
-    return Objects.equals(this.entity, conceptualSlot.entity) &&
-        Objects.equals(this.individual, conceptualSlot.individual) &&
+    return Objects.equals(this.isIndividual, conceptualSlot.isIndividual) &&
+        Objects.equals(this.constraints, conceptualSlot.constraints) &&
         Objects.equals(this.root, conceptualSlot.root) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(entity, individual, root, super.hashCode());
+    return Objects.hash(isIndividual, constraints, root, super.hashCode());
   }
 
   @Override
@@ -105,8 +113,8 @@ public class ConceptualSlot extends Slot  {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConceptualSlot {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    entity: ").append(toIndentedString(entity)).append("\n");
-    sb.append("    individual: ").append(toIndentedString(individual)).append("\n");
+    sb.append("    isIndividual: ").append(toIndentedString(isIndividual)).append("\n");
+    sb.append("    constraints: ").append(toIndentedString(constraints)).append("\n");
     sb.append("    root: ").append(toIndentedString(root)).append("\n");
     sb.append("}");
     return sb.toString();

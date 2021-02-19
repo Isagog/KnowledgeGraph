@@ -16,38 +16,30 @@ import java.util.List;
  * Framed conceptual element
  */
 @ApiModel(description = "Framed conceptual element")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T12:33:28.758+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T21:02:10.526+01:00[Europe/Berlin]")
 public class Slot extends KnowledgeElement  {
-  @JsonProperty("predicates")
-  private List<String> predicates = null;
+  @JsonProperty("reference")
+  private String reference;
 
   @JsonProperty("required")
   private Boolean required = true;
 
-  public Slot predicates(List<String> predicates) {
-    this.predicates = predicates;
-    return this;
-  }
-
-  public Slot addPredicatesItem(String predicatesItem) {
-    if (this.predicates == null) {
-      this.predicates = new ArrayList<String>();
-    }
-    this.predicates.add(predicatesItem);
+  public Slot reference(String reference) {
+    this.reference = reference;
     return this;
   }
 
    /**
-   * Constraint predicates
-   * @return predicates
+   * Conceptual element
+   * @return reference
   **/
-  @ApiModelProperty(value = "Constraint predicates")
-  public List<String> getPredicates() {
-    return predicates;
+  @ApiModelProperty(value = "Conceptual element")
+  public String getReference() {
+    return reference;
   }
 
-  public void setPredicates(List<String> predicates) {
-    this.predicates = predicates;
+  public void setReference(String reference) {
+    this.reference = reference;
   }
 
   public Slot required(Boolean required) {
@@ -78,14 +70,14 @@ public class Slot extends KnowledgeElement  {
       return false;
     }
     Slot slot = (Slot) o;
-    return Objects.equals(this.predicates, slot.predicates) &&
+    return Objects.equals(this.reference, slot.reference) &&
         Objects.equals(this.required, slot.required) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(predicates, required, super.hashCode());
+    return Objects.hash(reference, required, super.hashCode());
   }
 
   @Override
@@ -93,7 +85,7 @@ public class Slot extends KnowledgeElement  {
     StringBuilder sb = new StringBuilder();
     sb.append("class Slot {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    predicates: ").append(toIndentedString(predicates)).append("\n");
+    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    required: ").append(toIndentedString(required)).append("\n");
     sb.append("}");
     return sb.toString();

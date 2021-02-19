@@ -7,8 +7,8 @@ A slot bound to a concept
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**entity** | **String** | Entity reference (opt) |  [optional]
-**individual** | **Boolean** | Individual (vs. predicative) slot |  [optional]
+**isIndividual** | **Boolean** | Tells if reference points to an individual |  [optional]
+**constraints** | **List&lt;String&gt;** | Constraint concepts |  [optional]
 **root** | **Boolean** | Distinguished root slot |  [optional]
 
 
