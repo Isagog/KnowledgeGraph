@@ -33,10 +33,38 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the KnowledgeService API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T21:02:10.526+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-20T08:52:28.994+01:00[Europe/Berlin]")
 public class KnowledgeServiceApi  {
    private final KnowledgeServiceApiService delegate = KnowledgeServiceApiServiceFactory.getKnowledgeServiceApi();
 
+    @GET
+    @Path("/axioms/disjontness")
+    
+    @Produces({ "application/json" })
+    @io.swagger.annotations.ApiOperation(value = "Tells about disjointess", notes = "", response = Boolean.class, tags={ "KnowledgeService", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "Successful operation", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 401, message = "No results", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 402, message = "Invalid argument pair", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 403, message = "Unknown first", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 404, message = "Unwnown second", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 501, message = "Service unavailable", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Boolean.class) })
+    public Response disjoint(@ApiParam(value = "Candidate classifier",required=true) @QueryParam("first") String first
+,@ApiParam(value = "Candidate classifier",required=true) @QueryParam("second") String second
+,@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
+)
+    throws NotFoundException {
+        return delegate.disjoint(first,second,kg);
+    }
     @GET
     @Path("/attributes")
     
@@ -65,7 +93,7 @@ public class KnowledgeServiceApi  {
     @Path("/concepts")
     
     @Produces({ "application/json" })
-    @io.swagger.annotations.ApiOperation(value = "Get all the atomic concepts in the Knowledge Graph", notes = "Get all the atomic concepts in the Knowledge Graph", response = Concept.class, responseContainer = "List", tags={ "KnowledgeService", })
+    @io.swagger.annotations.ApiOperation(value = "Get all the concepts in the Knowledge Graph", notes = "Get all the atomic concepts in the Knowledge Graph", response = Concept.class, responseContainer = "List", tags={ "KnowledgeService", })
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 200, message = "Successful operation", response = Concept.class, responseContainer = "List"),
         
@@ -260,6 +288,34 @@ public class KnowledgeServiceApi  {
         return delegate.getRelation(id,kg,details);
     }
     @GET
+    @Path("/axioms/inclusion")
+    
+    @Produces({ "application/json" })
+    @io.swagger.annotations.ApiOperation(value = "Tells about inclusion dependencies", notes = "", response = Boolean.class, tags={ "KnowledgeService", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "Successful operation", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 401, message = "No results", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 402, message = "Invalid argument pair", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 403, message = "Unknown superclass", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 404, message = "Unwnown subclass", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 501, message = "Service unavailable", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 502, message = "Server error", response = Boolean.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 503, message = "Missing implementation", response = Boolean.class) })
+    public Response includes(@ApiParam(value = "Candidate super classifier",required=true) @QueryParam("sup") String sup
+,@ApiParam(value = "Candidate sub classifier",required=true) @QueryParam("sub") String sub
+,@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
+)
+    throws NotFoundException {
+        return delegate.includes(sup,sub,kg);
+    }
+    @GET
     @Path("/search")
     
     @Produces({ "application/json" })
@@ -282,8 +338,9 @@ public class KnowledgeServiceApi  {
 ,@ApiParam(value = "Attribute to search by, either an annotation or a data property", defaultValue="rdfs:label") @DefaultValue("rdfs:label") @QueryParam("attribute") String attribute
 ,@ApiParam(value = "Narrow search to a specific knowledge type", allowableValues="CONCEPT, RELATION, ATTRIBUTE, ENTITY, FRAME, GRAPH, STATEMENT, CONCEPTUALSLOT, RELATIONALSLOT, ATTRIBUTIVESLOT") @QueryParam("ktype") KnowledgeType ktype
 ,@ApiParam(value = "Details to be returned: e.g. for predicates: FULL=full hierarchy, SUMMARY=direct super\\subordinates, IDENTIFIER=id only", allowableValues="SUPERPREDICATES, SUBPREDICATES, DISJOINTPREDICATES, ALL, NONE", defaultValue="NONE") @DefaultValue("NONE") @QueryParam("details") ConceptualDetails details
+,@ApiParam(value = "The KG id (opt)") @QueryParam("kg") String kg
 )
     throws NotFoundException {
-        return delegate.search(query,attribute,ktype,details);
+        return delegate.search(query,attribute,ktype,details,kg);
     }
 }

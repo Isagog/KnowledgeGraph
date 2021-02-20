@@ -57,6 +57,7 @@ com\isagog\kg\model\QueryResponse.class
 com\isagog\kg\api\ApiResponseMessage.class
 com\isagog\kg\model\RelationalSlot.class
 com\isagog\kg\model\Slot.class
+com\isagog\kg\model\AnnotationType.class
 com\isagog\kg\model\IssueResponse.class
 com\isagog\kg\model\MetaclassAnnotation.class
 com\isagog\kg\model\DataFormat.class

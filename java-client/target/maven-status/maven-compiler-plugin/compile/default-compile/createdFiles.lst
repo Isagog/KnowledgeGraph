@@ -12,6 +12,7 @@ com\isagog\kg\model\Sentence.class
 com\isagog\kg\model\Comparator.class
 com\isagog\kg\model\PredicativeRoles$Adapter.class
 com\isagog\kg\model\Query.class
+com\isagog\kg\api\KnowledgeServiceApi$22.class
 com\isagog\kg\model\InteractType$Adapter.class
 com\isagog\kg\model\ResponseRow.class
 com\isagog\kg\api\LinguisticServiceApi$3.class
@@ -53,7 +54,9 @@ com\isagog\kg\JSON$DateTypeAdapter.class
 com\isagog\kg\model\Entity.class
 com\isagog\kg\model\QueryResponse.class
 com\isagog\kg\model\Task$Adapter.class
+com\isagog\kg\api\KnowledgeServiceApi$24.class
 com\isagog\kg\Configuration.class
+com\isagog\kg\model\AnnotationType.class
 com\isagog\kg\api\KnowledgeServiceApi$17.class
 com\isagog\kg\auth\ApiKeyAuth.class
 com\isagog\kg\model\IssueResponse.class
@@ -70,6 +73,7 @@ com\isagog\kg\model\SemanticRelation.class
 com\isagog\kg\ServerVariable.class
 com\isagog\kg\ApiClient$4.class
 com\isagog\kg\api\LinguisticServiceApi$2.class
+com\isagog\kg\api\KnowledgeServiceApi$23.class
 com\isagog\kg\api\DataServiceApi$7.class
 com\isagog\kg\api\KnowledgeServiceApi$8.class
 com\isagog\kg\ProgressRequestBody$1.class
@@ -82,6 +86,7 @@ com\isagog\kg\JSON$LocalDateTypeAdapter.class
 com\isagog\kg\model\QueryExpression.class
 com\isagog\kg\api\KnowledgeServiceApi$1.class
 com\isagog\kg\api\DataServiceApi.class
+com\isagog\kg\model\AnnotationType$Adapter.class
 com\isagog\kg\model\GrammarFeature.class
 com\isagog\kg\ProgressRequestBody.class
 com\isagog\kg\model\EntityDetails$Adapter.class
@@ -115,6 +120,7 @@ com\isagog\kg\JSON$OffsetDateTimeTypeAdapter.class
 com\isagog\kg\api\LinguisticServiceApi$4.class
 com\isagog\kg\model\SentenceRanking.class
 com\isagog\kg\model\TokenAnnotation.class
+com\isagog\kg\api\KnowledgeServiceApi$21.class
 com\isagog\kg\api\InteractionServiceApi.class
 com\isagog\kg\model\KnowledgeGraph.class
 com\isagog\kg\ApiClient$2.class

@@ -23,8 +23,12 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T21:02:10.526+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-20T08:52:28.994+01:00[Europe/Berlin]")
 public abstract class KnowledgeServiceApiService {
+    public abstract Response disjoint(String first
+ ,String second
+ ,String kg
+ ) throws NotFoundException;
     public abstract Response getAllAttributes(String kg
  ) throws NotFoundException;
     public abstract Response getAllConcepts(String kg
@@ -49,9 +53,14 @@ public abstract class KnowledgeServiceApiService {
  ,String kg
  ,ConceptualDetails details
  ) throws NotFoundException;
+    public abstract Response includes(String sup
+ ,String sub
+ ,String kg
+ ) throws NotFoundException;
     public abstract Response search(String query
  ,String attribute
  ,KnowledgeType ktype
  ,ConceptualDetails details
+ ,String kg
  ) throws NotFoundException;
 }

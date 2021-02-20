@@ -59,7 +59,7 @@ paths:
     description: >
       Atomic concepts are primitive non relational concepts in the Knowledge Graph ontology
     get:
-      summary: Get all the atomic concepts in the Knowledge Graph
+      summary: Get all the concepts in the Knowledge Graph
       description: Get all the atomic concepts in the Knowledge Graph
       operationId: getAllConcepts
       parameters:
@@ -435,6 +435,107 @@ paths:
 #      tags:
 #        - KnowledgeService
 
+  /axioms/inclusion:
+    get:
+      summary: Tells about inclusion dependencies
+      operationId: includes
+      parameters:
+        - name: sup
+          in: query
+          description: Candidate super classifier
+          required: true
+          schema:
+            type: string
+            format: id
+        - name: sub
+          in: query
+          description: Candidate sub classifier
+          required: true
+          schema:
+            type: string
+            format: id
+        - name: kg
+          in: query
+          description: The KG id (opt)
+          required: false
+          schema:
+            type: string
+            format: id
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: boolean
+        401:
+          description: No results
+        402:
+          description: Invalid argument pair
+        403:
+          description: Unknown superclass
+        404:
+         description: Unwnown subclass
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+        - KnowledgeService
+
+  /axioms/disjontness:
+    get:
+      summary: Tells about disjointess
+      operationId: disjoint
+      parameters:
+        - name: first
+          in: query
+          description: Candidate classifier
+          required: true
+          schema:
+            type: string
+            format: id
+        - name: second
+          in: query
+          description: Candidate classifier
+          required: true
+          schema:
+            type: string
+            format: id
+        - name: kg
+          in: query
+          description: The KG id (opt)
+          required: false
+          schema:
+            type: string
+            format: id
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: boolean
+        401:
+          description: No results
+        402:
+          description: Invalid argument pair
+        403:
+          description: Unknown first
+        404:
+          description: Unwnown second
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+        - KnowledgeService
+
+
   /search:
    get:
     summary: Knowledge search
@@ -467,29 +568,36 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/ConceptualDetails'
+      - name: kg
+        in: query
+        description: The KG id (opt)
+        required: false
+        schema:
+         type: string
+         format: id
     responses:
-      200:
-        description: Successful operation
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/ElementRanking'
-      401:
-        description: No results
-      402:
-        description: Invalid query
-      403:
-        description: Invalid attribute
-      501:
-        description: Service unavailable
-      502:
-        description: Server error
-      503:
-        description: Missing implementation
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ElementRanking'
+        401:
+          description: No results
+        402:
+          description: Invalid query
+        403:
+          description: Invalid attribute
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
     tags:
-      - KnowledgeService
+        - KnowledgeService
 
 
 #  /evaluate/{id}:
@@ -582,17 +690,6 @@ components:
           RELATIONALSLOT:      '#/components/schemas/RelationalSlot'
           ATTRIBUTIVESLOT:     '#/components/schemas/AttributiveSlot'
 
-#          KnowledgeGraph:      '#/components/schemas/KnowledgeGraph'
-#          Concept:             '#/components/schemas/Concept'
-#          Relation:            '#/components/schemas/Relation'
-#          Attribute:           '#/components/schemas/Attribute'
-#          Entity:              '#/components/schemas/Entity'
-#          Statement:           '#/components/schemas/Statement'
-#          Frame:               '#/components/schemas/Frame'
-#          ConceptualSlot:      '#/components/schemas/ConceptualSlot'
-#          RelationalSlot:      '#/components/schemas/RelationalSlot'
-#          AttributiveSlot:     '#/components/schemas/AttributiveSlot'
-
 
     ElementRanking:
       description: Ranking record
@@ -616,17 +713,22 @@ components:
         atype:
           description: Annotation type, should be aligned to the subclass name
           type: string
-          format: classname
         label:
           description: Annotation label (opt)
           type: string
       discriminator:
         propertyName: atype
         mapping:
-          LanguageAnnotation:  '#/components/schemas/LanguageAnnotation'
-          MetaclassAnnotation:   '#/components/schemas/MetaclassAnnotation'
-          InformativeAnnotation: '#/components/schemas/InformativeAnnotation'
+          LANGANNOTATION:  '#/components/schemas/LanguageAnnotation'
+          METANNOTATION:   '#/components/schemas/MetaclassAnnotation'
+          INFOANNOTATION: '#/components/schemas/InformativeAnnotation'
 
+    AnnotationType:
+      type: string
+      enum:
+        - LANGANNOTATION
+        - METANNOTATION
+        - INFOANNOTATION
 
     LanguageAnnotation:
       description: Linguistic attachment to knowledge elements
@@ -740,17 +842,6 @@ components:
           $ref: '#/components/schemas/Comparator'
 
 
-#    RelationalConcept:
-#      description: Unary relational classifier
-#      allOf:
-#        - $ref: '#/components/schemas/Concept'
-#      type: object
-#      required:
-#        - relation
-#        - quantifier
-#      properties:
-
-
     Quantifier:
       type: string
       enum:
@@ -758,20 +849,6 @@ components:
         - ALL
         - ATLEAST1
         - ATMOST1
-
-#    AttributiveConcept:
-#      description: Unary attributive classifier
-#      allOf:
-#        - $ref: '#/components/schemas/Concept'
-#      type: object
-#      required:
-#        - attribute
-#      properties:
-#        attribute:
-#          type: string
-#          format: id
-
-
 
     Relation:
       description: Binary classifier
@@ -844,6 +921,7 @@ components:
         value:
           description: Object entity id or attribute value
           type: string
+          format: utf-8
         provenance:
           type: string
         support:
@@ -859,25 +937,21 @@ components:
       type: object
       properties:
         conceptualSlots:
-          description: Conceptual elements, up to 128
+          description: Conceptual elements
           type: array
           items:
              $ref: '#/components/schemas/ConceptualSlot'
         relationalSlots:
-          description: Relational elements, up to 128
+          description: Relational elements
           type: array
           items:
             $ref: '#/components/schemas/RelationalSlot'
         attributiveSlots:
-          description: Attributive elements, up to 128
+          description: Attributive elements
           type: array
           items:
             $ref: '#/components/schemas/AttributiveSlot'
-#        individualSlots:
-#          description: Value elements, up to 128
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/IndividualSlot'
+
 
     Slot:
       description: Framed conceptual element
@@ -999,29 +1073,6 @@ components:
         - NONE
       default: NONE
 
-#    ValueSlot:
-#      allOf:
-#        - $ref: '#/components/schemas/Slot'
-#      type: object
-#      description: A slot bound to a data item
-#      properties:
-#        value:
-#          description: Constant data value (opt)
-#          type: string
-#          format: utf8
-
-#    SlotReference:
-#      type: object
-#      description: Reference to a slot
-#      properties:
-#        frame:
-#          description: Frame identifier
-#          type: string
-#        slot:
-#          description: Slot identifier
-#          type: integer
-#          minimum: 0
-#          maximum: 128
 
 
 

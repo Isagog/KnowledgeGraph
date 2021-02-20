@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Ranking record
  */
 @ApiModel(description = "Ranking record")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T21:02:10.526+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-20T08:52:28.994+01:00[Europe/Berlin]")
 public class ElementRanking   {
   @JsonProperty("element")
   private KnowledgeElement element;

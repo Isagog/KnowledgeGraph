@@ -23,8 +23,16 @@ import org.wso2.msf4j.formparam.FileInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T21:02:10.526+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-20T08:52:28.994+01:00[Europe/Berlin]")
 public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
+    @Override
+    public Response disjoint(String first
+, String second
+, String kg
+ ) throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+    }
     @Override
     public Response getAllAttributes(String kg
  ) throws NotFoundException {
@@ -86,10 +94,19 @@ public class KnowledgeServiceApiServiceImpl extends KnowledgeServiceApiService {
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
     @Override
+    public Response includes(String sup
+, String sub
+, String kg
+ ) throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+    }
+    @Override
     public Response search(String query
 , String attribute
 , KnowledgeType ktype
 , ConceptualDetails details
+, String kg
  ) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();

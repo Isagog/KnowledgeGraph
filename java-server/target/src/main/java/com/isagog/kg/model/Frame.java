@@ -17,7 +17,7 @@ import java.util.List;
  * Conceptual pattern, e.g. a query or a form
  */
 @ApiModel(description = "Conceptual pattern, e.g. a query or a form")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-18T21:02:10.526+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-20T08:52:28.994+01:00[Europe/Berlin]")
 public class Frame extends KnowledgeElement  {
   @JsonProperty("conceptualSlots")
   private List<ConceptualSlot> conceptualSlots = null;
@@ -42,10 +42,10 @@ public class Frame extends KnowledgeElement  {
   }
 
    /**
-   * Conceptual elements, up to 128
+   * Conceptual elements
    * @return conceptualSlots
   **/
-  @ApiModelProperty(value = "Conceptual elements, up to 128")
+  @ApiModelProperty(value = "Conceptual elements")
   public List<ConceptualSlot> getConceptualSlots() {
     return conceptualSlots;
   }
@@ -68,10 +68,10 @@ public class Frame extends KnowledgeElement  {
   }
 
    /**
-   * Relational elements, up to 128
+   * Relational elements
    * @return relationalSlots
   **/
-  @ApiModelProperty(value = "Relational elements, up to 128")
+  @ApiModelProperty(value = "Relational elements")
   public List<RelationalSlot> getRelationalSlots() {
     return relationalSlots;
   }
@@ -94,10 +94,10 @@ public class Frame extends KnowledgeElement  {
   }
 
    /**
-   * Attributive elements, up to 128
+   * Attributive elements
    * @return attributiveSlots
   **/
-  @ApiModelProperty(value = "Attributive elements, up to 128")
+  @ApiModelProperty(value = "Attributive elements")
   public List<AttributiveSlot> getAttributiveSlots() {
     return attributiveSlots;
   }
