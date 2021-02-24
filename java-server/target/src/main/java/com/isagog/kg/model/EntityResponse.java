@@ -14,7 +14,7 @@ import java.util.List;
  * Entity lookup response
  */
 @ApiModel(description = "Entity lookup response")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-20T08:52:28.322+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-24T12:57:04.746+01:00[Europe/Berlin]")
 public class EntityResponse   {
   @JsonProperty("entity")
   private Entity entity;

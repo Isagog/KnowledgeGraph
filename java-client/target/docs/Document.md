@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **title** | **String** | Document title |  [optional]
 **body** | **String** | Document body | 
+**lang** | **Language** |  |  [optional]
 
 
 

@@ -23,7 +23,7 @@ tags:
 
 paths:
 
-  /analyze:
+  /sentence/analyze:
     post:
       summary: Sentence analysis
       description: Provides an annotation of the supplied text object
@@ -35,8 +35,9 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Task'
-      operationId: analyze
+              $ref: '#/components/schemas/AnalysisTask'
+
+      operationId: sentenceAnalysis
       responses:
         200:
           description: Success
@@ -65,28 +66,25 @@ paths:
       tags:
         - LinguisticService
 
-  /extract:
+  /document/analyze:
     post:
       summary: Sentence extraction
-      description: Extract sentences from a text
+      description: Extract and analyze sentences from a text
       parameters:
         - name: mode
           in: query
           required: false
           schema:
-            type: string
-            enum:
-                - SUMMARY
-                - PASSAGES
-                - FULL
-            default: FULL
-        - name: limit
+            $ref: '#/components/schemas/ExtractionMode'
+        - name: tasks
           in: query
           required: false
           schema:
-            type: integer
+            type: array
+            items:
+              $ref: '#/components/schemas/AnalysisTask'
 
-      operationId: extract
+      operationId: documentAnalysis
       responses:
         200:
           description: Success
@@ -95,7 +93,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Sentence'
+                  $ref: '#/components/schemas/SentenceAnnotation'
         401:
           description: Unknown graph
         402:
@@ -119,6 +117,16 @@ paths:
 components:
   schemas:
 
+
+    ExtractionMode:
+      description: Sentence extraction modes
+      type: string
+      enum:
+          - SUMMARY
+          - PASSAGES
+          - FULL
+      default: FULL
+
     Language:
       description: language codes
       type: string
@@ -129,7 +137,7 @@ components:
       - it
       - de
 
-    Task:
+    AnalysisTask:
       description: NLP Tasks
       type: string
       enum:
@@ -454,3 +462,5 @@ components:
           description: Document body
           type: string
           format: utf-8
+        lang:
+          $ref: '#/components/schemas/Language'

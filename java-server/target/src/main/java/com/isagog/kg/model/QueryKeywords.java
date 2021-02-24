@@ -14,7 +14,7 @@ import java.util.List;
  * Keyword-based query (search)
  */
 @ApiModel(description = "Keyword-based query (search)")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-20T08:52:28.322+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-24T12:57:04.746+01:00[Europe/Berlin]")
 public class QueryKeywords extends Query  {
   @JsonProperty("keys")
   private List<String> keys = new ArrayList<String>();

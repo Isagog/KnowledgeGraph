@@ -3,6 +3,7 @@ package com.isagog.kg.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.isagog.kg.model.Language;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -10,13 +11,16 @@ import io.swagger.annotations.ApiModelProperty;
  * Textual object
  */
 @ApiModel(description = "Textual object")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-20T08:52:28.798+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-24T12:57:05.326+01:00[Europe/Berlin]")
 public class Document   {
   @JsonProperty("title")
   private String title;
 
   @JsonProperty("body")
   private String body;
+
+  @JsonProperty("lang")
+  private Language lang;
 
   public Document title(String title) {
     this.title = title;
@@ -54,6 +58,24 @@ public class Document   {
     this.body = body;
   }
 
+  public Document lang(Language lang) {
+    this.lang = lang;
+    return this;
+  }
+
+   /**
+   * Get lang
+   * @return lang
+  **/
+  @ApiModelProperty(value = "")
+  public Language getLang() {
+    return lang;
+  }
+
+  public void setLang(Language lang) {
+    this.lang = lang;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -65,12 +87,13 @@ public class Document   {
     }
     Document document = (Document) o;
     return Objects.equals(this.title, document.title) &&
-        Objects.equals(this.body, document.body);
+        Objects.equals(this.body, document.body) &&
+        Objects.equals(this.lang, document.lang);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, body);
+    return Objects.hash(title, body, lang);
   }
 
   @Override
@@ -80,6 +103,7 @@ public class Document   {
     
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    body: ").append(toIndentedString(body)).append("\n");
+    sb.append("    lang: ").append(toIndentedString(lang)).append("\n");
     sb.append("}");
     return sb.toString();
   }

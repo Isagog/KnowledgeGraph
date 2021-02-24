@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Base class for token annotations, should be abstract
  */
 @ApiModel(description = "Base class for token annotations, should be abstract")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-20T08:52:28.798+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaMSF4JServerCodegen", date = "2021-02-24T12:57:05.326+01:00[Europe/Berlin]")
 public class TokenAnnotation   {
   @JsonProperty("ttype")
   private String ttype;

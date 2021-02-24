@@ -32,6 +32,7 @@ com\isagog\kg\model\UploadForm.class
 com\isagog\kg\model\ResponseType.class
 com\isagog\kg\model\DependencyAnnotation.class
 com\isagog\kg\model\TokenAnnotation.class
+com\isagog\kg\model\AnalysisTask.class
 com\isagog\kg\model\EntityDetails.class
 com\isagog\kg\api\factories\DataServiceApiServiceFactory.class
 com\isagog\kg\api\impl\DataServiceApiServiceImpl.class
@@ -70,7 +71,6 @@ com\isagog\kg\model\SearchOperator.class
 com\isagog\kg\model\StatementResponse.class
 com\isagog\kg\model\ConceptualSlot.class
 com\isagog\kg\model\SemanticRelation.class
-com\isagog\kg\model\Task.class
 com\isagog\kg\model\Classifier.class
 com\isagog\kg\model\Quantifier.class
 com\isagog\kg\api\NotFoundException.class
@@ -78,6 +78,7 @@ com\isagog\kg\model\CompletionResponse.class
 com\isagog\kg\model\QueryKind.class
 com\isagog\kg\api\factories\InteractionServiceApiServiceFactory.class
 com\isagog\kg\api\DataServiceApiService.class
+com\isagog\kg\model\ExtractionMode.class
 com\isagog\kg\model\SyntacticDependency.class
 com\isagog\kg\model\Classification.class
 com\isagog\kg\model\Statement.class
