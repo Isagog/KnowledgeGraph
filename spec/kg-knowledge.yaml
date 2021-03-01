@@ -10,7 +10,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-  - url: localhost:8030
+  - url: http://localhost:8030
     variables:
       port:
         default: '8030'
@@ -396,44 +396,6 @@ paths:
       tags:
         - KnowledgeService
         
-#  /frames/extract:
-#    post:
-#      summary: Frame extraction from sentences
-#      description: Extract frames from an annotated sentence
-#      parameters:
-#        - name: limit
-#          in: query
-#          required: false
-#          description: Limits the number of returned frame candidates to the supplied value
-#          schema:
-#            type: integer
-#            minimum: 1
-#            maximum: 100
-#      operationId: extractFrames
-#      responses:
-#        200:
-#          description: Frame span
-#          content:
-#            application/json:
-#              schema:
-#                type: array
-#                items:
-#                  $ref: '#/components/schemas/Frame'
-#        402:
-#          description: Insufficient data mapping
-#        501:
-#          description: Service unavailable
-#        502:
-#          description: Server error
-#        503:
-#          description: Missing implementation
-#      requestBody:
-#        content:
-#          application/json:
-#            schema:
-#              $ref: kg-language.yaml#/components/schemas/SentenceAnnotation
-#      tags:
-#        - KnowledgeService
 
   /axioms/inclusion:
     get:
@@ -536,7 +498,7 @@ paths:
         - KnowledgeService
 
 
-  /search:
+  /knowledge/search:
    get:
     summary: Knowledge search
     description: Search knowledge items
@@ -583,7 +545,8 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ElementRanking'
+                   $ref: '#/components/schemas/KnowledgeElement'
+
         401:
           description: No results
         402:
@@ -599,63 +562,9 @@ paths:
     tags:
         - KnowledgeService
 
-
-#  /evaluate/{id}:
-#    get:
-#      summary: Entity evaluation
-#      description: Evaluates an entity as a filer of a frame.
-#        Deductive evaluation should evaluate asserted and implied entity classes.
-#        Abductive evaluation should rank the most plausible entity classes.
-#      parameters:
-#        - name: id
-#          in: path
-#          description: Entity identifier
-#          required: true
-#          schema:
-#            type: string
-#            format: id
-#        - name: frame
-#          in: query
-#          required: true
-#          schema:
-#            $ref: '#/components/schemas/Frame'
-#          description: The frame
-#        - name: method
-#          in: query
-#          required: false
-#          schema:
-#            $ref: '#/components/schemas/EvaluationMethod'
-#          description: Inference method to be used
-#          allowEmptyValue: true
-#      operationId: evaluateEntity
-#      responses:
-#        200:
-#          description: Success
-#          content:
-#            application/json:
-#              schema:
-#                type: array
-#                items:
-#                  $ref: '#/components/schemas/ElementRanking'
-#        401:
-#          description: Not found
-#        402:
-#          description: Unknown graph
-#        403:
-#          description: Invalid arguments
-#        405:
-#          description: Unsupported method
-#        501:
-#          description: Service unavailable
-#        502:
-#          description: Server error
-#        503:
-#          description: Missing implementation
-#      tags:
-#        - KnowledgeService
-
 components:
   schemas:
+
 
     KnowledgeElement:
       description: Managed knowledge element (should be abstract)
@@ -690,20 +599,19 @@ components:
           RELATIONALSLOT:      '#/components/schemas/RelationalSlot'
           ATTRIBUTIVESLOT:     '#/components/schemas/AttributiveSlot'
 
-
-    ElementRanking:
-      description: Ranking record
-      type: object
-      required:
-        - element
-      properties:
-        element:
-          $ref: '#/components/schemas/KnowledgeElement'
-        support:
-          type: number
-          format: double
-          minimum: 0.0
-          maximum: 1.0
+#    ElementRanking:
+#      description: Ranking record
+#      type: object
+#      required:
+#        - element
+#      properties:
+#        element:
+#          $ref: '#/components/schemas/KnowledgeElement'
+#        support:
+#          type: number
+#          format: double
+#          minimum: 0.0
+#          maximum: 1.0
 
     KnowledgeAnnotation:
       description: Base class for knowledge annotations
@@ -897,12 +805,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
-      required:
-        - id
-      properties:
-        id:
-          type: string
-          format: id
+
 
     Statement:
       description: Knowledge statement
@@ -980,7 +883,7 @@ components:
         - $ref: '#/components/schemas/Slot'
       properties:
 
-       isIndividual:
+       individual:
          description: Tells if reference points to an individual
          type: boolean
          default: false

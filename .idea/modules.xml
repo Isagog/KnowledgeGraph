@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/java-client/java-client.iml" filepath="$PROJECT_DIR$/java-client/java-client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/java-server/java-server.iml" filepath="$PROJECT_DIR$/java-server/java-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java-server/kg-service.iml" filepath="$PROJECT_DIR$/java-server/kg-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/spec/spec.iml" filepath="$PROJECT_DIR$/spec/spec.iml" />
     </modules>
   </component>

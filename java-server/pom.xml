@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.isagog</groupId>
+    <groupId>${group.id}</groupId>
     <artifactId>${artifact.id}</artifactId>
     <version>${artifact.ver}</version>
     <packaging>jar</packaging>
@@ -46,9 +46,129 @@
 
 
     <build>
-        <sourceDirectory>${project.build.directory}/src</sourceDirectory>
+
         <plugins>
+
             <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>5.1.0-SNAPSHOT</version>
+                <executions>
+                    <!-- openapi -->
+                    <execution>
+                        <id>language</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>../spec/kg-language.yaml</inputSpec>
+                            <generatorName>${generator-language}</generatorName>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>${openapi.supportfile}</generateSupportingFiles>
+                            <configOptions>
+                                <sourceFolder>src/main/java</sourceFolder>
+                                <java8>false</java8>
+                                <useTags>true</useTags>
+                                <booleanGetterPrefix>is</booleanGetterPrefix>
+                            </configOptions>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <output>${project.build.directory}</output>
+                            <groupId>${group.id}</groupId>
+                            <artifactId>${artifact.id}</artifactId>
+                            <artifactVersion>${artifact.ver}</artifactVersion>
+                            <apiPackage>${artifact.pack}</apiPackage>
+                            <modelPackage>${model.pack}</modelPackage>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>data</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>../spec/kg-data.yaml</inputSpec>
+                            <generatorName>${generator-language}</generatorName>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>${openapi.supportfile}</generateSupportingFiles>
+                            <configOptions>
+                                <sourceFolder>src/main/java</sourceFolder>
+                                <java8>false</java8>
+                                <useTags>true</useTags>
+                                <booleanGetterPrefix>is</booleanGetterPrefix>
+                            </configOptions>
+                            <output>${project.build.directory}</output>
+                            <groupId>${group.id}</groupId>
+                            <artifactId>${artifact.id}</artifactId>
+                            <artifactVersion>${artifact.ver}</artifactVersion>
+                            <apiPackage>${artifact.pack}</apiPackage>
+                            <modelPackage>${model.pack}</modelPackage>
+
+                        </configuration>
+
+                    </execution>
+                    <execution>
+                        <id>knowledge</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>../spec/kg-knowledge.yaml</inputSpec>
+                            <generatorName>${generator-language}</generatorName>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>${openapi.supportfile}</generateSupportingFiles>
+                            <configOptions>
+                                <sourceFolder>src/main/java</sourceFolder>
+                                <java8>false</java8>
+                                <useTags>true</useTags>
+                                <booleanGetterPrefix>is</booleanGetterPrefix>
+                            </configOptions>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <output>${project.build.directory}</output>
+                            <groupId>${group.id}</groupId>
+                            <artifactId>${artifact.id}</artifactId>
+                            <artifactVersion>${artifact.ver}</artifactVersion>
+                            <apiPackage>${artifact.pack}</apiPackage>
+                            <modelPackage>${model.pack}</modelPackage>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>interact</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>../spec/kg-interact.yaml</inputSpec>
+                            <generatorName>${generator-language}</generatorName>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>${openapi.supportfile}</generateSupportingFiles>
+                            <configOptions>
+                                <sourceFolder>src/main/java</sourceFolder>
+                                <java8>false</java8>
+                                <useTags>true</useTags>
+                                <booleanGetterPrefix>is</booleanGetterPrefix>
+                            </configOptions>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <output>${project.build.directory}</output>
+                            <groupId>${group.id}</groupId>
+                            <artifactId>${artifact.id}</artifactId>
+                            <artifactVersion>${artifact.ver}</artifactVersion>
+                            <apiPackage>${artifact.pack}</apiPackage>
+                            <modelPackage>${model.pack}</modelPackage>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+<!-- get rid of useless plugins
+     < plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
@@ -72,7 +192,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>src/gen/java</source>
+                                <source>target/src/main/java</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -80,113 +200,28 @@
             </plugin>
 
             <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>5.0.0-SNAPSHOT</version>
-                <executions>
-                    <!-- openapi -->
-                    <execution>
-                        <id>data</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>../spec/kg-data.yaml</inputSpec>
-                            <generatorName>${generator-language}</generatorName>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModelTests>false</generateModelTests>
-                            <generateSupportingFiles>${openapi.supportfile}</generateSupportingFiles>
-                            <configOptions>
-                                <sourceFolder>src/main/java</sourceFolder>
-                                <useTags>true</useTags>
-                            </configOptions>
-                            <output>${project.build.directory}</output>
-                            <groupId>com.isagog</groupId>
-                            <artifactId>${artifact.id}</artifactId>
-                            <artifactVersion>${artifact.ver}</artifactVersion>
-                            <apiPackage>com.isagog.kg.api</apiPackage>
-                            <modelPackage>com.isagog.kg.model</modelPackage>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
+            </plugin>
 
-                        </configuration>
-
-                    </execution>
-                    <execution>
-                        <id>language</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>../spec/kg-language.yaml</inputSpec>
-                            <generatorName>${generator-language}</generatorName>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModelTests>false</generateModelTests>
-                            <generateSupportingFiles>${openapi.supportfile}</generateSupportingFiles>
-                            <configOptions>
-                                <sourceFolder>src/main/java</sourceFolder>
-                                <useTags>true</useTags>
-                            </configOptions>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModelTests>false</generateModelTests>
-                            <output>${project.build.directory}</output>
-                            <groupId>com.isagog</groupId>
-                            <artifactId>${artifact.id}</artifactId>
-                            <artifactVersion>${artifact.ver}</artifactVersion>
-                            <apiPackage>com.isagog.kg.api</apiPackage>
-                            <modelPackage>com.isagog.kg.model</modelPackage>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>knowledge</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>../spec/kg-knowledge.yaml</inputSpec>
-                            <generatorName>${generator-language}</generatorName>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModelTests>false</generateModelTests>
-                            <generateSupportingFiles>${openapi.supportfile}</generateSupportingFiles>
-                            <configOptions>
-                                <sourceFolder>src/main/java</sourceFolder>
-                                <useTags>true</useTags>
-                            </configOptions>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModelTests>false</generateModelTests>
-                            <output>${project.build.directory}</output>
-                            <groupId>com.isagog</groupId>
-                            <artifactId>${artifact.id}</artifactId>
-                            <artifactVersion>${artifact.ver}</artifactVersion>
-                            <apiPackage>com.isagog.kg.api</apiPackage>
-                            <modelPackage>com.isagog.kg.model</modelPackage>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>interact</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>../spec/kg-interact.yaml</inputSpec>
-                            <generatorName>${generator-language}</generatorName>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModelTests>false</generateModelTests>
-                            <generateSupportingFiles>${openapi.supportfile}</generateSupportingFiles>
-                            <configOptions>
-                                <sourceFolder>src/main/java</sourceFolder>
-                                <useTags>true</useTags>
-                            </configOptions>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModelTests>false</generateModelTests>
-                            <output>${project.build.directory}</output>
-                            <groupId>com.isagog</groupId>
-                            <artifactId>${artifact.id}</artifactId>
-                            <artifactVersion>${artifact.ver}</artifactVersion>
-                            <apiPackage>com.isagog.kg.api</apiPackage>
-                            <modelPackage>com.isagog.kg.model</modelPackage>
-                        </configuration>
-                    </execution>
-                       <!--  openapi generation -->
-                </executions>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>11</release>
+                    <fork>true</fork>
+                    <meminitial>128m</meminitial>
+                    <maxmem>512m</maxmem>
+                    <compilerArgs>
+                        <arg>-Xlint:all</arg>
+                        <arg>-J-Xss4m</arg>
+                    </compilerArgs>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -203,6 +238,7 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -254,7 +290,7 @@
                 </executions>
             </plugin>
 
-            <!-- attach test jar -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -270,7 +306,7 @@
                 </configuration>
             </plugin>
 
-            <plugin>
+
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>1.10</version>
@@ -304,7 +340,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -337,6 +373,7 @@
                     </execution>
                 </executions>
             </plugin>
+   get rid of useless plugins         -->
         </plugins>
     </build>
     <dependencies>
@@ -355,11 +392,19 @@
             <artifactId>jackson-datatype-joda</artifactId>
             <version>${jackson-version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
             <artifactId>jackson-jaxrs-json-provider</artifactId>
             <version>${jackson-version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.12.1</version>
+        </dependency>
+
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
@@ -368,18 +413,29 @@
         </dependency>
 
 
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
+
     </dependencies>
+
 
     <properties>
         <msf4j.ver>2.7.7</msf4j.ver>
+        <group.id>com.isagog</group.id>
         <artifact.id>kg-service</artifact.id>
+        <artifact.pack>com.isagog.kg.service</artifact.pack>
+        <model.pack>com.isagog.kg.model</model.pack>
         <artifact.ver>1.0.0-SNAPSHOT</artifact.ver>
         <generator-language>java-msf4j</generator-language>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <servlet-api-version>2.5</servlet-api-version>
-        <jackson-version>2.8.9</jackson-version>
+        <jackson-version>2.12.0</jackson-version>
         <javax-annotation-version>1.3.2</javax-annotation-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <openapi.supportfile>true</openapi.supportfile>

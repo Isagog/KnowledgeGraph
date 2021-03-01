@@ -7,15 +7,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="java-client" />
-        <module name="java-server" />
+        <module name="kg-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="java-client" target="1.8" />
+      <module name="java-client" target="11" />
       <module name="java-server" target="1.8" />
       <module name="kg-client" target="1.8" />
       <module name="kg-server" target="1.8" />
       <module name="kg-service" target="1.8" />
+      <module name="kg-service-stub" target="1.8" />
+      <module name="kg-service-stub (1)" target="1.8" />
+      <module name="kg-service-stub (2)" target="1.8" />
       <module name="KnowledgeGraph" target="1.5" />
     </bytecodeTargetLevel>
   </component>
@@ -24,7 +27,9 @@
       <module name="java-client" options="-Xlint:all -J-Xss4m" />
       <module name="java-server" options="-Xlint:all -J-Xss4m" />
       <module name="kg-client" options="-Xlint:all -J-Xss4m" />
-      <module name="kg-service" options="-Xlint:all -J-Xss4m" />
+      <module name="kg-service" options="" />
+      <module name="kg-service-stub" options="" />
+      <module name="kg-service-stub (1)" options="-Xlint:all -J-Xss4m" />
     </option>
   </component>
 </project>

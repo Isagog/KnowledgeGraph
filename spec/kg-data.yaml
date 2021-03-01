@@ -24,6 +24,49 @@ paths:
 
 
   /entities:
+    get:
+      summary: Entity access
+      description: Returns knowledge about an entity
+      operationId: getEntity
+      parameters:
+        - name: id
+          description: Entity identifier
+          in: query
+          required: true
+          schema:
+            type: string
+            format: id
+        - name: details
+          description: Details to fetch
+          required: false
+          in: query
+          schema:
+            $ref: '#/components/schemas/EntityDetails'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: kg-knowledge.yaml#/components/schemas/Statement
+        401:
+          description: Element not found
+        402:
+          description: Not authorized
+        403:
+          description: Invalid element
+        405:
+          description: Protected element
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+        - DataService
     post:
       summary: Entity creation
       description: Creates a new entity uri and related statements
@@ -82,48 +125,48 @@ paths:
       tags:
         - DataService
 
-  /entities/{id}:
-    get:
-      summary: Entity access
-      description: Returns an Entity
-      operationId: getEntity
-      parameters:
-        - name: id
-          description: Entity identifier
-          in: path
-          required: true
-          schema:
-            type: string
-            format: id
-        - name: details
-          description: Details to fetch
-          required: false
-          in: query
-          schema:
-            $ref: '#/components/schemas/EntityDetails'
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EntityResponse'
-        401:
-          description: Element not found
-        402:
-          description: Not authorized
-        403:
-          description: Invalid element
-        405:
-          description: Protected element
-        501:
-          description: Service unavailable
-        502:
-          description: Server error
-        503:
-          description: Missing implementation
-      tags:
-        - DataService
+#  /entities/{id}:
+#    get:
+#      summary: Entity access
+#      description: Returns an Entity
+#      operationId: getEntity
+#      parameters:
+#        - name: id
+#          description: Entity identifier
+#          in: path
+#          required: true
+#          schema:
+#            type: string
+#            format: id
+#        - name: details
+#          description: Details to fetch
+#          required: false
+#          in: query
+#          schema:
+#            $ref: '#/components/schemas/EntityDetails'
+#      responses:
+#        200:
+#          description: Success
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/EntityRecord'
+#        401:
+#          description: Element not found
+#        402:
+#          description: Not authorized
+#        403:
+#          description: Invalid element
+#        405:
+#          description: Protected element
+#        501:
+#          description: Service unavailable
+#        502:
+#          description: Server error
+#        503:
+#          description: Missing implementation
+#      tags:
+#        - DataService
 
   /statements:
     get:
@@ -158,7 +201,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StatementResponse'
+                type: array
+                items:
+                  $ref: kg-knowledge.yaml#/components/schemas/Statement
+
         403:
           description: Invalid element
         405:
@@ -410,9 +456,16 @@ components:
       discriminator:
         propertyName: qtype
         mapping:
-          QueryFrame: '#/components/schemas/QueryFrame'
-          QueryExpression: '#/components/schemas/QueryExpression'
-          QueryKeywords: '#/components/schemas/QueryKeywords'
+          QUERYFRAME:      '#/components/schemas/QueryFrame'
+          QUERYEXPRESSION: '#/components/schemas/QueryExpression'
+          QUERYKEYWORDS:   '#/components/schemas/QueryKeywords'
+
+    QueryType:
+      type: string
+      enum:
+        - QUERYFRAME
+        - QUERYEXPRESSION
+        - QUERYKEYWORDS
 
     QueryExpression:
       description: Query string in a specific query language
@@ -555,38 +608,19 @@ components:
           maximum: 1.0
           default: 1.0
 
-    EntityResponse:
-      description: Entity lookup response
-      type: object
-      required:
-        - statements
-      properties:
-        entity:
-           $ref: kg-knowledge.yaml#/components/schemas/Entity
-        statements:
-          type: array
-          items:
-            $ref: kg-knowledge.yaml#/components/schemas/Statement
+#    EntityRecord:
+#      description: Entity lookup response
+#      type: object
+#      properties:
+#        entity:
+#           type: string
+#           format: id
+#        statements:
+#          type: array
+#          items:
+#            $ref: kg-knowledge.yaml#/components/schemas/Statement
 
-    StatementResponse:
-      type: object
-      required:
-        - statements
-      properties:
-        statements:
-          type: array
-          items:
-            $ref: kg-knowledge.yaml#/components/schemas/Statement
 
-    UpdateResponse:
-      description: Update response
-      type: object
-      required:
-        - report
-      properties:
-        report:
-          description: Report
-          type: string
 
     Upload:
       type: object

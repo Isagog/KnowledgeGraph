@@ -10,7 +10,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-  - url: http://api.isagog.com
+  - url: http://localhost:8030
     variables:
       port:
         default: '8030'
@@ -68,15 +68,15 @@ paths:
 
   /document/analyze:
     post:
-      summary: Sentence extraction
+      summary: Document analysis
       description: Extract and analyze sentences from a text
       parameters:
-        - name: mode
+        - name: extract
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/ExtractionMode'
-        - name: tasks
+            $ref: '#/components/schemas/ExtractionTask'
+        - name: analyze
           in: query
           required: false
           schema:
@@ -118,7 +118,7 @@ components:
   schemas:
 
 
-    ExtractionMode:
+    ExtractionTask:
       description: Sentence extraction modes
       type: string
       enum:
@@ -173,6 +173,7 @@ components:
         properties:
           classifier:
             type: string
+            format: id
           support:
             type: number
             format: double
