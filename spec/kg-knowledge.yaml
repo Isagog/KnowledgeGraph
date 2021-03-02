@@ -884,7 +884,7 @@ components:
       properties:
 
        individual:
-         description: Tells if reference points to an individual
+         description: True if references an entity, false (default) if references a concept
          type: boolean
          default: false
        constraints:
