@@ -6,39 +6,40 @@ The Isagog platform for Knowledge Graphs consists in the following logical modul
 - [interaction](spec/kg-interact.yaml): user interaction interfaces
 - [knowledge](spec/kg-knowledge.yaml): concept-level methods and structures
 - [language](spec/kg-language.yaml): natural language processing methods and structures
-- [data](spec/kg-openapi.yaml): instance-level manipulation, search and query methods
+- [data](spec/kg-data.yaml): instance-level manipulation, search and query methods
 
 
 Each module is tagged and features a specific root path.
 
-The supplied [maven pom file](java-client/pom.xml) produces a java client and may be modified to generate any resource by [openapi tools](https://github.com/OpenAPITools/openapi-generator)
+To generate the client API, move to the directory [java-client](java-client) and use the supplied [maven pom file](java-client/pom.xml).
+```
+mvn [package | install] 
 
-The supplied [maven pom file](java-server/pom.xml) produces a java server stub and may be modified to generate any resource by [openapi tools](https://github.com/OpenAPITools/openapi-generator)
+```
 
+To generate the server stub, move to the directory [java-server](java-server) and use the supplied [maven pom file](java-server/pom.xml) 
 
-Here is a high-level sketch of the platform's architecture featuring two main use cases:
+```
+mvn [package | install] 
 
-![User interaction](doc/kg-user-interact.PNG)
+```
 
-This picture shows how a user utterance should be processed.
-1. The utterance (raw text) is received by the interaction service and forwarded to the language service.
-2. The language service gives back an annotation structure over the given sentence, or a rebuttal message.
-3. The interaction service sends the annotated sentence to the knowledge service, which tries to build conceptual frames upon it (here is most of the magic!).
-4. The interaction service selects the best frame candidate ans sends it to the user to review.
-5. The interaction service dispatches the curated frame to the data service, based on its type, i.e. Query or Update. Users' frame curation may feed a continuous learning process. 
-6. The data service result flows to the interaction service and then to the user.
+Code generation can be configured generate any supplementary resource, refer to [openapi tools](https://github.com/OpenAPITools/openapi-generator) for details.
 
 
+Here is a high-level sketch of the platform's architecture:
 
-![Data ingestion](doc/kg-data-ingest.PNG)
+![User interaction](doc/kg-overview.png)
 
-Here is a sketch of the data ingestion, i.e. texts such as documents or mails, or rdf files previously prepared.
-1. The ingestion service discriminates the file type: it sends texts to the language service for content analysis, and structured data (e.g. csv) to the knowledge service for conceptualization.
-2. The ingestion service pulls the textual content in the document store, and possibly the extracted triples in the data store.
+Service's functionalities are provided by 3 micro-services:
 
+1. Data Service: CRUD and QUERY operations on the data layer
+2. Knowledge Service: QUERY operations on the data conceptual schema (ontologies)
+3. Language Service: NLP wrapper (document-level and sentence-level analysis)
 
+For interactive use cases (e.g. query answering), the front-end uses a 
+4. Interaction Service: Supports dynamic query building with autocomplete 
 
- 
 
 
 
