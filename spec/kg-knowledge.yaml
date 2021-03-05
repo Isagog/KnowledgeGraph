@@ -567,19 +567,22 @@ components:
 
 
     KnowledgeElement:
-      description: Managed knowledge element (should be abstract)
+      description: Element in a Knowledge Graph (abstract)
       type: object
       required:
         - id
         - ktype
       properties:
         id:
-          description: Element identifier (uri)
+          description: Element identifier
           type: string
-          format: id
         ktype:
           description: Knowledge element type, MUST be one of KnowledgeType enum
           type: string
+        graph:
+          description: Knowledge Graph id (opt)
+          type: string
+          format: id
         annotations:
           description: Knowledge annotations
           type: array
@@ -588,7 +591,6 @@ components:
       discriminator:
         propertyName: ktype
         mapping:
-          GRAPH:               '#/components/schemas/KnowledgeGraph'
           CONCEPT:             '#/components/schemas/Concept'
           RELATION:            '#/components/schemas/Relation'
           ATTRIBUTE:           '#/components/schemas/Attribute'
@@ -598,20 +600,6 @@ components:
           CONCEPTUALSLOT:      '#/components/schemas/ConceptualSlot'
           RELATIONALSLOT:      '#/components/schemas/RelationalSlot'
           ATTRIBUTIVESLOT:     '#/components/schemas/AttributiveSlot'
-
-#    ElementRanking:
-#      description: Ranking record
-#      type: object
-#      required:
-#        - element
-#      properties:
-#        element:
-#          $ref: '#/components/schemas/KnowledgeElement'
-#        support:
-#          type: number
-#          format: double
-#          minimum: 0.0
-#          maximum: 1.0
 
     KnowledgeAnnotation:
       description: Base class for knowledge annotations
@@ -673,16 +661,23 @@ components:
 
     KnowledgeGraph:
       description: Knowledge Graph
-      allOf:
-        - $ref: '#/components/schemas/KnowledgeElement'
       type: object
       required:
         - id
+        - source
       properties:
         id:
-          description: Graph identifier (uri)
+          description: Graph identifier
           type: string
           format: id
+        source:
+          description: Graph source identifier (uri)
+          type: string
+          format: iri
+        dimension:
+          description: Number of predicates
+          type: integer
+          minimum: 0
 
     KnowledgeType:
       type: string
@@ -692,7 +687,6 @@ components:
         - ATTRIBUTE
         - ENTITY
         - FRAME
-        - GRAPH
         - STATEMENT
         - CONCEPTUALSLOT
         - RELATIONALSLOT
