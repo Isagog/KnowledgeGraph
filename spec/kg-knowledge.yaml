@@ -1,8 +1,8 @@
 openapi: 3.0.2
 info:
-  title: Isagog Knowledge Graph Knowledge Service
+  title: Isagog Knowledge Service
   version: 1.0.0
-  description: Isagog Knowledge Graph Knowledge module
+  description: Isagog Knowledge Graph Ontology service
   contact:
     name: Isagog Srl
     email: ks-api@isagog.com
@@ -22,50 +22,50 @@ tags:
 
 paths:
 
-  /graphs:
-    summary: Knowledge graphs
+  /ontologies:
+    summary: Ontologies
     description: >
-      A Knowledge Graph (KG) is a set of statements (assertions) based on unary or binary predicates defined in some ontology
+      An ontology is a set of predicates, individuals, and axioms
     get:
       summary: Get KGs
-      description: Get all the known KGs
-      operationId: getAllGraphs
+      description: Get all the known ontologies
+      operationId: getAllOntologies
       responses:
-         200:
+        200:
           description: Successful operation
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/KnowledgeGraph'
-         401:
+                  $ref: '#/components/schemas/Ontology'
+        401:
           description: No results
-         402:
+        402:
           description: Invalid query
-         403:
+        403:
           description: Invalid attribute
-         501:
+        501:
           description: Service unavailable
-         502:
+        502:
           description: Server error
-         503:
+        503:
           description: Missing implementation
       tags:
         - KnowledgeService
 
   /concepts:
-    summary: Atomic concepts of KGs ontologies
+    summary: Atomic concepts
     description: >
-      Atomic concepts are primitive non relational concepts in the Knowledge Graph ontology
+      Atomic concepts are named non relational concepts
     get:
       summary: Get all the concepts in the Knowledge Graph
       description: Get all the atomic concepts in the Knowledge Graph
       operationId: getAllConcepts
       parameters:
-        - name: kg
+        - name: ns
           in: query
-          description: The KG id (opt)
+          description: Concept's namespace (opt)
           required: false
           schema:
             type: string
@@ -100,9 +100,9 @@ paths:
       description: Gets a relation
       operationId: getAllRelations
       parameters:
-        - name: kg
+        - name: ns
           in: query
-          description: The KG id (opt)
+          description: Relation's namespace (opt)
           required: false
           schema:
             type: string
@@ -137,9 +137,9 @@ paths:
       description: Gets an attirbute
       operationId: getAllAttributes
       parameters:
-        - name: kg
+        - name: ns
           in: query
-          description: The KG id (opt)
+          description: Attribute's namespace (opt)
           required: false
           schema:
             type: string
@@ -170,13 +170,13 @@ paths:
         
   /frames:
     get:
-      summary: Gets all the frames in the Knowledge Graph ontology
+      summary: Gets all the frames
       description: Gets a frame
       operationId: getAllFrames
       parameters:
-        - name: kg
+        - name: ns
           in: query
-          description: The KG id (opt)
+          description: The frame's namespace (opt)
           required: false
           schema:
             type: string
@@ -205,7 +205,7 @@ paths:
       tags:
         - KnowledgeService
         
-  /concepts/{id}:
+  /concepts/{uri}:
     summary: Gets a concept
     description: >
       This resource represents an individual concept in the Knowledge Graph ontology. Each concept is identified by a unique string `id`.
@@ -214,24 +214,17 @@ paths:
       description: Gets a concept
       operationId: getConcept
       parameters:
-        - name: id
+        - name: uri
           in: path
-          description: The concept's id
+          description: The concept's uri
           required: true
           schema:
             type: string
-            format: id
-        - name: kg
-          in: query
-          description: The KG id
-          required: true
-          schema:
-            type: string
-            format: id
+            format: uri
         - name: details
           description: Details to be fetched (opt), defaults to any
-          in: path
-          required: true
+          in: query
+          required: false
           schema:
              $ref: '#/components/schemas/ConceptualDetails'
       responses:
@@ -256,30 +249,23 @@ paths:
       tags:
         - KnowledgeService
         
-  /relations/{id}:
+  /relations/{uri}:
     get:
       summary: Gets a relation
       description: Gets a relation
       operationId: getRelation
       parameters:
-        - name: id
+        - name: uri
           in: path
           required: true
-          description: The relation's id
+          description: The relation's uri
           schema:
             type: string
-            format: id
-        - name: kg
-          in: query
-          description: The KG id (opt)
-          required: true
-          schema:
-            type: string
-            format: id
+            format: uri
         - name: details
           description: Details to be fetched (opt), defaults to any
-          in: path
-          required: true
+          in: query
+          required: false
           schema:
               $ref: '#/components/schemas/ConceptualDetails'
       responses:
@@ -304,30 +290,23 @@ paths:
       tags:
         - KnowledgeService
         
-  /attributes/{id}:
+  /attributes/{uri}:
       get:
         summary: Gets an attribute
         description: Gets an attirbute
         operationId: getAttribute
         parameters:
-          - name: id
+          - name: uri
             in: path
             required: true
-            description: The attribute's id
+            description: The attribute's uri
             schema:
               type: string
-              format: id
-          - name: kg
-            in: query
-            description: The KG id (opt)
-            required: true
-            schema:
-              type: string
-              format: id
+              format: uri
           - name: details
             description: Details to be fetched (opt), defaults to any
-            in: path
-            required: true
+            in: query
+            required: false
             schema:
                $ref: '#/components/schemas/ConceptualDetails'
         responses:
@@ -354,26 +333,19 @@ paths:
           
 
     
-  /frames/{id}:
+  /frames/{uri}:
     get:
       summary: Gets a frame
       description: Gets a frame
       operationId: getFrame
       parameters:
-        - name: id
+        - name: uri
           in: path
           required: true
           description: The frame's id
           schema:
             type: string
-            format: id
-        - name: kg
-          in: query
-          description: The KG id (opt)
-          required: false
-          schema:
-            type: string
-            format: id
+            format: uri
       responses:
         200:
           description: Successful operation
@@ -399,7 +371,7 @@ paths:
 
   /axioms/inclusion:
     get:
-      summary: Tells about inclusion dependencies
+      summary: True if the first classifier is broader than the second
       operationId: includes
       parameters:
         - name: sup
@@ -408,21 +380,14 @@ paths:
           required: true
           schema:
             type: string
-            format: id
+            format: uri
         - name: sub
           in: query
           description: Candidate sub classifier
           required: true
           schema:
             type: string
-            format: id
-        - name: kg
-          in: query
-          description: The KG id (opt)
-          required: false
-          schema:
-            type: string
-            format: id
+            format: uri
       responses:
         200:
           description: Successful operation
@@ -449,7 +414,7 @@ paths:
 
   /axioms/disjontness:
     get:
-      summary: Tells about disjointess
+      summary: True if the first classifier is disjoint from the second
       operationId: disjoint
       parameters:
         - name: first
@@ -458,21 +423,14 @@ paths:
           required: true
           schema:
             type: string
-            format: id
+            format: uri
         - name: second
           in: query
           description: Candidate classifier
           required: true
           schema:
             type: string
-            format: id
-        - name: kg
-          in: query
-          description: The KG id (opt)
-          required: false
-          schema:
-            type: string
-            format: id
+            format: uri
       responses:
         200:
           description: Successful operation
@@ -530,9 +488,9 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/ConceptualDetails'
-      - name: kg
+      - name: ns
         in: query
-        description: The KG id (opt)
+        description: The namespace to search by (opt)
         required: false
         schema:
          type: string
@@ -565,12 +523,73 @@ paths:
 components:
   schemas:
 
-
-    KnowledgeElement:
-      description: Element in a Knowledge Graph (abstract)
+    KnowledgeContainer:
+      description: Container of knowledge elements
       type: object
       required:
         - id
+        - source
+      properties:
+        id:
+          description: Ontology identifier (uri)
+          type: string
+          format: uri
+        source:
+          description: Graph source (document url)
+          type: string
+          format: uri
+        size:
+          description: Number of contained entities
+          type: integer
+          minimum: 0
+
+
+    Ontology:
+      description: Knowledge conceptual schema
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/KnowledgeContainer'
+      properties:
+        namespaces:
+          description: Referred namespaces
+          type: array
+          items:
+            type: string
+        base:
+          description: Base namespace
+          type: string
+        classifiers:
+          description: Referred classifier names (clases, object and data properties)
+          type: array
+          items:
+            type: string
+            format: uri
+        entities:
+          description: Entity names
+          type: array
+          items:
+            type: string
+            format: uri
+
+
+    KnowledgeType:
+      type: string
+      enum:
+        - CONCEPT
+        - RELATION
+        - ATTRIBUTE
+        - ENTITY
+        - FRAME
+        - STATEMENT
+        - CONCEPTUALSLOT
+        - RELATIONALSLOT
+        - ATTRIBUTIVESLOT
+
+
+    KnowledgeElement:
+      description: Named knowledge element
+      type: object
+      required:
         - ktype
       properties:
         id:
@@ -579,10 +598,6 @@ components:
         ktype:
           description: Knowledge element type, MUST be one of KnowledgeType enum
           type: string
-        graph:
-          description: Knowledge Graph id (opt)
-          type: string
-          format: id
         annotations:
           description: Knowledge annotations
           type: array
@@ -659,38 +674,6 @@ components:
         - label
 
 
-    KnowledgeGraph:
-      description: Knowledge Graph
-      type: object
-      required:
-        - id
-        - source
-      properties:
-        id:
-          description: Graph identifier
-          type: string
-          format: id
-        source:
-          description: Graph source identifier (uri)
-          type: string
-          format: iri
-        dimension:
-          description: Number of predicates
-          type: integer
-          minimum: 0
-
-    KnowledgeType:
-      type: string
-      enum:
-        - CONCEPT
-        - RELATION
-        - ATTRIBUTE
-        - ENTITY
-        - FRAME
-        - STATEMENT
-        - CONCEPTUALSLOT
-        - RELATIONALSLOT
-        - ATTRIBUTIVESLOT
 
     EvaluationMethod:
       type: string
@@ -703,22 +686,31 @@ components:
       description: Classifying predicate
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
+      required:
+        - ns
+        - id
       properties:
+        ns:
+          description: Namespace
+          type: string
         superclasses:
+          description: Broader classifiers
           type: array
           items:
             type: string
-            format: id
+            format: uri
         subclasses:
+          description: Narrower classifiers
           type: array
           items:
             type: string
-            format: id
+            format: uri
         disjointclasses:
+          description: Disjoint classifiers
           type: array
           items:
             type: string
-            format: id
+            format: uri
 
     Concept:
       description: Unary classifier, can be atomic, or defined as a restriction on Relation or Attributes
@@ -727,13 +719,13 @@ components:
       type: object
       properties:
         property:
-          description: For concept defined as a restricion, the Relation or Attribute identifier (opt)
+          description: For relationsl concepts, the relation or attribute identifier (opt)
           type: string
-          format: id
+          format: uri
         related:
           description: For relational concepts, the restriction concept (opt)
           type: string
-          format: id
+          format: uri
         quantifier:
           $ref: '#/components/schemas/Quantifier'
         value:
@@ -799,6 +791,12 @@ components:
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
+      required:
+        - ns
+      properties:
+        ns:
+          description: Namespace
+          type: string
 
 
     Statement:
@@ -806,6 +804,10 @@ components:
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
+      required:
+        - subject
+        - predicate
+        - value
       properties:
         subject:
           description: Subject id
@@ -821,6 +823,7 @@ components:
           format: utf-8
         provenance:
           type: string
+          format: uri
         support:
           type: number
           format: double
@@ -832,6 +835,8 @@ components:
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
+      required:
+        - id
       properties:
         conceptualSlots:
           description: Conceptual elements
@@ -855,6 +860,8 @@ components:
       allOf:
         - $ref: '#/components/schemas/KnowledgeElement'
       type: object
+      required:
+        - id
       properties:
         reference:
           description: Conceptual element

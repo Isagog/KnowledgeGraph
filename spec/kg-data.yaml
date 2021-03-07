@@ -125,48 +125,6 @@ paths:
       tags:
         - DataService
 
-#  /entities/{id}:
-#    get:
-#      summary: Entity access
-#      description: Returns an Entity
-#      operationId: getEntity
-#      parameters:
-#        - name: id
-#          description: Entity identifier
-#          in: path
-#          required: true
-#          schema:
-#            type: string
-#            format: id
-#        - name: details
-#          description: Details to fetch
-#          required: false
-#          in: query
-#          schema:
-#            $ref: '#/components/schemas/EntityDetails'
-#      responses:
-#        200:
-#          description: Success
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/EntityRecord'
-#        401:
-#          description: Element not found
-#        402:
-#          description: Not authorized
-#        403:
-#          description: Invalid element
-#        405:
-#          description: Protected element
-#        501:
-#          description: Service unavailable
-#        502:
-#          description: Server error
-#        503:
-#          description: Missing implementation
-#      tags:
-#        - DataService
 
   /statements:
     get:
@@ -435,6 +393,13 @@ paths:
 
 components:
   schemas:
+
+    KnowledgeGraph:
+      description: A container of interlinked entities
+      type: object
+      allOf:
+        - $ref: kg-knowledge.yaml#/components/schemas/KnowledgeContainer
+
     Query:
       description: Data query
       type: object
