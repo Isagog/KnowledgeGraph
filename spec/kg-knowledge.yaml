@@ -754,13 +754,13 @@ components:
           type: array
           items:
             type: string
-            format: id
+            format: uri
         range:
           description: Range restrictions
           type: array
           items:
             type: string
-            format: id
+            format: uri
 
 
     Attribute:
@@ -773,7 +773,7 @@ components:
           type: array
           items:
             type: string
-            format: id
+            format: uri
         range:
           $ref: '#/components/schemas/AttributeRange'
 
@@ -812,11 +812,11 @@ components:
         subject:
           description: Subject id
           type: string
-          format: id
+          format: uri
         predicate:
           description: Ontology relation or attribute
           type: string
-          format: id
+          format: uri
         value:
           description: Object entity id or attribute value
           type: string
@@ -864,9 +864,9 @@ components:
         - id
       properties:
         reference:
-          description: Conceptual element
+          description: Classifier id, should be a concept, a relation or an attribute
           type: string
-          format: id
+          format: uri
         required:
           description: Tells if the slot should be instantiated in order for the frame to be processed
           type: boolean
@@ -893,7 +893,7 @@ components:
          type: array
          items:
            type: string
-           format: id
+           format: uri
        root:
          description: Distinguished root slot
          type: boolean
@@ -910,23 +910,23 @@ components:
         subjectBinding:
           description: Slot's subject binding
           type: string
-          format: id
+
         objectBinding:
           description: Slot's object binding
           type: string
-          format: id
+
         subjectConstraints :
           description: Domain constraints
           type: array
           items:
             type: string
-            format: id
+            format: uri
         objectConstraints:
           description: Range constraints
           type: array
           items:
             type: string
-            format: id
+            format: uri
 
 
 
@@ -947,7 +947,7 @@ components:
           type: array
           items:
             type: string
-            format: id
+            format: uri
         value:
           description: Constant data value (opt)
           type: string
@@ -967,12 +967,14 @@ components:
       default: EQUAL
 
     ConceptualDetails:
-      description: Conceptual hierarchy details (inclusion axioms)
+      description: Conceptual details
       type: string
       enum:
         - SUPERPREDICATES
         - SUBPREDICATES
         - DISJOINTPREDICATES
+        - DOMAINRESTRICTION
+        - RANGERESTRICTION
         - ALL
         - NONE
       default: NONE
