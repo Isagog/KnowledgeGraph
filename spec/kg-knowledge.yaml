@@ -27,7 +27,7 @@ paths:
     description: >
       An ontology is a set of predicates, individuals, and axioms
     get:
-      summary: Get KGs
+      summary: Get ontologies
       description: Get all the known ontologies
       operationId: getAllOntologies
       responses:
@@ -542,6 +542,11 @@ components:
           description: Number of contained entities
           type: integer
           minimum: 0
+        annotations:
+          description:
+          type: array
+          items:
+            $ref: '#/components/schemas/KnowledgeAnnotation'
 
 
     Ontology:
@@ -620,58 +625,26 @@ components:
       description: Base class for knowledge annotations
       required:
         - atype
+        - key
       properties:
         atype:
-          description: Annotation type, should be aligned to the subclass name
+          $ref: '#/components/schemas/AnnotationType'
+        key:
+          description: Annotation key
           type: string
-        label:
-          description: Annotation label (opt)
+        value:
+          description: Annotation value
           type: string
-      discriminator:
-        propertyName: atype
-        mapping:
-          LANGANNOTATION:  '#/components/schemas/LanguageAnnotation'
-          METANNOTATION:   '#/components/schemas/MetaclassAnnotation'
-          INFOANNOTATION: '#/components/schemas/InformativeAnnotation'
 
     AnnotationType:
+      description: Annotation type
       type: string
       enum:
-        - LANGANNOTATION
-        - METANNOTATION
-        - INFOANNOTATION
-
-    LanguageAnnotation:
-      description: Linguistic attachment to knowledge elements
-      allOf:
-        - $ref: '#/components/schemas/KnowledgeAnnotation'
-      required:
-         - form
-      properties:
-        lang:
-          $ref: kg-language.yaml#/components/schemas/Language
-        pos:
-          $ref: kg-language.yaml#/components/schemas/PartOfSpeech
-        form:
-          description: Linguistic rendering (base form)
-          type: string
-        regex:
-          description: Regular expression to match occurrences (opt)
-          type: string
-
-    MetaclassAnnotation:
-      description: Metaclass annotation
-      allOf:
-        - $ref: '#/components/schemas/KnowledgeAnnotation'
-      required:
-        - label
-
-    InformativeAnnotation:
-      description: Informative annotation
-      allOf:
-        - $ref: '#/components/schemas/KnowledgeAnnotation'
-      required:
-        - label
+        - LEXICAL
+        - META
+        - INFO
+        - LABEL
+      default: INFO
 
 
 
@@ -797,6 +770,12 @@ components:
         ns:
           description: Namespace
           type: string
+        statements:
+          description: Statements about the entity
+          type: array
+          items:
+            $ref: '#/components/schemas/Statement'
+
 
 
     Statement:

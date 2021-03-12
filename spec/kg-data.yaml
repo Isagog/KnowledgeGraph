@@ -22,6 +22,43 @@ tags:
 
 paths:
 
+  /graphs:
+    get:
+      summary: Managed KGs
+      description: Lista all known Knowledge Graphs
+      operationId: getGraphs
+      parameters:
+        - name: update
+          description: Last update (Seconds since Unix Epoch)
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnowledgeGraph'
+        401:
+          description: Element not found
+        402:
+          description: Not authorized
+        403:
+          description: Invalid element
+        405:
+          description: Protected element
+        501:
+          description: Service unavailable
+        502:
+          description: Server error
+        503:
+          description: Missing implementation
+      tags:
+          - DataService
 
   /entities:
     get:
@@ -48,9 +85,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: kg-knowledge.yaml#/components/schemas/Statement
+                $ref: kg-knowledge.yaml#/components/schemas/Entity
         401:
           description: Element not found
         402:
@@ -402,6 +437,7 @@ components:
       allOf:
         - $ref: kg-knowledge.yaml#/components/schemas/KnowledgeContainer
 
+
     Query:
       description: Data query
       type: object
@@ -574,18 +610,6 @@ components:
           minimum: 0.0
           maximum: 1.0
           default: 1.0
-
-#    EntityRecord:
-#      description: Entity lookup response
-#      type: object
-#      properties:
-#        entity:
-#           type: string
-#           format: id
-#        statements:
-#          type: array
-#          items:
-#            $ref: kg-knowledge.yaml#/components/schemas/Statement
 
 
 
