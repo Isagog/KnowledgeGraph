@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <option name="USE_RELEASE_OPTION" value="false" />
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -11,25 +12,14 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="java-client" target="11" />
-      <module name="java-server" target="1.8" />
-      <module name="kg-client" target="1.8" />
-      <module name="kg-server" target="1.8" />
+      <module name="java-client" target="1.8" />
       <module name="kg-service" target="1.8" />
-      <module name="kg-service-stub" target="1.8" />
-      <module name="kg-service-stub (1)" target="1.8" />
-      <module name="kg-service-stub (2)" target="1.8" />
-      <module name="KnowledgeGraph" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="java-client" options="" />
-      <module name="java-server" options="-Xlint:all -J-Xss4m" />
-      <module name="kg-client" options="-Xlint:all -J-Xss4m" />
       <module name="kg-service" options="" />
-      <module name="kg-service-stub" options="" />
-      <module name="kg-service-stub (1)" options="-Xlint:all -J-Xss4m" />
     </option>
   </component>
 </project>

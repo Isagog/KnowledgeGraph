@@ -59,7 +59,6 @@
                             <generatorName>${generator-language}</generatorName>
                             <configOptions>
                                 <sourceFolder>src/main/java</sourceFolder>
-                                <java8>false</java8>
                                 <dateLibrary>${date-library}</dateLibrary>
                                 <library>${generator-library}</library>
                                 <booleanGetterPrefix>is</booleanGetterPrefix>
@@ -86,7 +85,6 @@
                             <generatorName>${generator-language}</generatorName>
                             <configOptions>
                                 <sourceFolder>src/main/java</sourceFolder>
-                                <java8>false</java8>
                                 <dateLibrary>${date-library}</dateLibrary>
                                 <library>${generator-library}</library>
                                 <booleanGetterPrefix>is</booleanGetterPrefix>
@@ -111,7 +109,7 @@
                             <generatorName>${generator-language}</generatorName>
                             <configOptions>
                                 <sourceFolder>src/main/java</sourceFolder>
-                                <java8>false</java8>
+                                
                                 <dateLibrary>${date-library}</dateLibrary>
                                 <library>${generator-library}</library>
                                 <booleanGetterPrefix>is</booleanGetterPrefix>
@@ -136,7 +134,7 @@
                             <generatorName>${generator-language}</generatorName>
                             <configOptions>
                                 <sourceFolder>src/main/java</sourceFolder>
-                                <java8>false</java8>
+                                
                                 <dateLibrary>${date-library}</dateLibrary>
                                 <library>${generator-library}</library>
                                 <booleanGetterPrefix>is</booleanGetterPrefix>
@@ -153,168 +151,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- end openapi code gen -->
-            <!-- other non necessary pluginns
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <generateBackupPoms>false</generateBackupPoms>
-                </configuration>
-            </plugin>
-
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <fork>true</fork>
-                    <meminitial>128m</meminitial>
-                    <maxmem>512m</maxmem>
-                    <compilerArgs>
-                        <arg>-Xlint:all</arg>
-                        <arg>-J-Xss4m</arg>
-                    </compilerArgs>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M1</version>
-                <executions>
-                    <execution>
-                        <id>enforce-maven</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <version>2.2.0</version>
-                                </requireMavenVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M4</version>
-                <configuration>
-                    <systemProperties>
-                        <property>
-                            <name>loggerPath</name>
-                            <value>conf/log4j.properties</value>
-                        </property>
-                    </systemProperties>
-                    <argLine>-Xms512m -Xmx1500m</argLine>
-                    <parallel>methods</parallel>
-                    <threadCount>10</threadCount>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.10</version>
-                <executions>
-                    <execution>
-                        <id>add_sources</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>add_test_sources</id>
-                        <phase>generate-test-sources</phase>
-                        <goals>
-                            <goal>add-test-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/test/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <doclint>none</doclint>
-                    <tags>
-                        <tag>
-                            <name>http.response.details</name>
-                            <placement>a</placement>
-                            <head>Http Response Details:</head>
-                        </tag>
-                    </tags>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <-      non necessary plugins          -->
         </plugins>
     </build>
     <dependencies>
@@ -417,6 +253,22 @@
             <version>${swagger-core-version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp-version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>logging-interceptor</artifactId>
+            <version>${okhttp-version}</version>
+        </dependency>
+
+
+
 
     </dependencies>
 
@@ -427,16 +279,15 @@
         <model.pack>com.isagog.kg.model</model.pack>
         <artifact.ver>1.0.0-SNAPSHOT</artifact.ver>
         <generator-language>java</generator-language>
-
-        <generator-library>native</generator-library>
-        <java.version>11</java.version>
+        <generator-library>okhttp-gson</generator-library>
+        <okhttp-version>3.14.9</okhttp-version>
+        <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <gson-fire-version>1.8.5</gson-fire-version>
         <jackson.version>2.12.0</jackson.version>
         <swagger-core-version>1.6.2</swagger-core-version>
         <date-library>java8</date-library>
-
         <gson-version>2.8.6</gson-version>
         <commons-lang3-version>3.10</commons-lang3-version>
         <threetenbp-version>1.5.0</threetenbp-version>
