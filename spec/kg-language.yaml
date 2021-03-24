@@ -26,16 +26,16 @@ paths:
   /sentence/analyze:
     post:
       summary: Sentence analysis
-      description: Provides an annotation of the supplied text object
+      description: Provides an annotation of the supplied sentence
       parameters:
         - name: tasks
-          description: Tasks to be executed, all available if missing
+          description: Tasks to be executed, all suitable if missing
           in: query
           required: false
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/AnalysisTask'
+              $ref: '#/components/schemas/Task'
 
       operationId: sentenceAnalysis
       responses:
@@ -44,7 +44,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SentenceAnnotation'
+                $ref: '#/components/schemas/AnnotatedSentence'
 
         401:
           description: Unknown graph
@@ -69,20 +69,16 @@ paths:
   /document/analyze:
     post:
       summary: Document analysis
-      description: Extract and analyze sentences from a text
+      description: Extract and analyze sentences from a document
       parameters:
-        - name: extract
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/ExtractionTask'
-        - name: analyze
+        - name: tasks
+          description: Tasks to be executed, all suitable if missing
           in: query
           required: false
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/AnalysisTask'
+              $ref: '#/components/schemas/Task'
 
       operationId: documentAnalysis
       responses:
@@ -93,7 +89,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/SentenceAnnotation'
+                  $ref: '#/components/schemas/AnnotatedDocument'
         401:
           description: Unknown graph
         402:
@@ -118,14 +114,19 @@ components:
   schemas:
 
 
-    ExtractionTask:
-      description: Sentence extraction modes
+    Task:
+      description: NLP Tasks
       type: string
       enum:
-          - SUMMARY
-          - PASSAGES
-          - FULL
-      default: FULL
+          - TOKENIZATION
+          - LEMMATIZATION
+          - ENTITY_EXTRACTION
+          - RELATION_ANALYSIS
+          - KEYWORD_EXTRACTION
+          - DOCUMENT_ANALYSIS
+          - DOCUMENT_SUMMARY
+          - DOCUMENT_PASSAGES
+
 
     Language:
       description: language codes
@@ -137,15 +138,6 @@ components:
       - it
       - de
 
-    AnalysisTask:
-      description: NLP Tasks
-      type: string
-      enum:
-        - TOKENIZATION
-        - LEMMATIZATION
-        - ENTITY_EXTRACTION
-        - RELATION_ANALYSIS
-        - KEYWORD_EXTRACTION
 
     Sentence:
       description: A single sentence
@@ -181,9 +173,23 @@ components:
             maximum: 1.0
 
 
-    SentenceAnnotation:
+    AnnotatedDocument:
+      description: Document annotation
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Document'
+      properties:
+        sentences:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnnotatedSentence'
+
+
+    AnnotatedSentence:
         description: Text annotation
         type: object
+        allOf:
+          - $ref: '#/components/schemas/Sentence'
         properties:
           classes:
             description: Text classification
@@ -210,8 +216,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/DependencyAnnotation'
-          sentence:
-              $ref: '#/components/schemas/Sentence'
 
 
     TokenAnnotation:
@@ -453,12 +457,20 @@ components:
       description: Textual object
       type: object
       required:
-        - body
+        - id
       properties:
+        id:
+          description: Document identifier (uri)
+          type: string
+          format: uri
         title:
           description: Document title
           type: string
           format: utf-8
+        source:
+          description: Document source (uri)
+          type: string
+          format: uri
         body:
           description: Document body
           type: string
