@@ -167,6 +167,18 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                       <configuration>
+                            <excludes>
+                                <exclude>src/main/java/com/isagog/kg/service/Application.java</exclude>
+                                <!-- exclude>${project.build.directory}/src/main/java/com/isagog/kg/service/Application.java</exclude -->
+                            </excludes>
+                        </configuration>
+
+            </plugin>
+
         </plugins>
     </build>
     <dependencies>

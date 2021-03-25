@@ -155,6 +155,14 @@ components:
           description: Textual context (opt)
           type: string
           format: utf-8
+        annotated:
+          description: Is annotated
+          type: string
+          default: "false"
+      discriminator:
+        propertyName: annotated
+        mapping:
+          true:  '#/components/schemas/AnnotatedSentence'
 
 
     Classification:
@@ -477,3 +485,11 @@ components:
           format: utf-8
         lang:
           $ref: '#/components/schemas/Language'
+        annotated:
+          description: Is annotated
+          type: string
+          default: "false"
+      discriminator:
+          propertyName: annotated
+          mapping:
+            true: '#/components/schemas/AnnotatedDocument'
