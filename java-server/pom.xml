@@ -52,7 +52,7 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>5.1.0-SNAPSHOT</version>
+                <version>${generator-version}</version>
                 <executions>
                     <!-- openapi -->
                     <execution>
@@ -236,6 +236,7 @@
         <artifact.pack>com.isagog.kg.service</artifact.pack>
         <model.pack>com.isagog.kg.model</model.pack>
         <artifact.ver>1.0.0-SNAPSHOT</artifact.ver>
+        <generator-version>5.0.1</generator-version>
         <generator-language>java-msf4j</generator-language>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>

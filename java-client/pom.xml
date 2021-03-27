@@ -47,7 +47,7 @@
                 <!-- openapi code gen -->
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>5.0.0-SNAPSHOT</version>
+                <version>${generator-version}</version>
                 <executions>
                     <execution>
                         <id>data</id>
@@ -278,6 +278,7 @@
         <artifact.pack>com.isagog.kg.api</artifact.pack>
         <model.pack>com.isagog.kg.model</model.pack>
         <artifact.ver>1.0.0-SNAPSHOT</artifact.ver>
+        <generator-version>5.0.1</generator-version>
         <generator-language>java</generator-language>
         <generator-library>okhttp-gson</generator-library>
         <okhttp-version>3.14.9</okhttp-version>

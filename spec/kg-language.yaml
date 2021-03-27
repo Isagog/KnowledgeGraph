@@ -29,9 +29,9 @@ paths:
       description: Provides an annotation of the supplied sentence
       parameters:
         - name: tasks
-          description: Tasks to be executed, all suitable if missing
+          description: Tasks to be executed
           in: query
-          required: false
+          required: true
           schema:
             type: array
             items:
@@ -72,9 +72,9 @@ paths:
       description: Extract and analyze sentences from a document
       parameters:
         - name: tasks
-          description: Tasks to be executed, all suitable if missing
+          description: Tasks to be executed
           in: query
-          required: false
+          required: true
           schema:
             type: array
             items:
@@ -87,9 +87,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AnnotatedDocument'
+                 $ref: '#/components/schemas/AnnotatedDocument'
         401:
           description: Unknown graph
         402:
@@ -123,30 +121,25 @@ components:
           - ENTITY_EXTRACTION
           - RELATION_ANALYSIS
           - KEYWORD_EXTRACTION
-          - DOCUMENT_ANALYSIS
+          - SENTENCE_EXTRACTION
           - DOCUMENT_SUMMARY
-          - DOCUMENT_PASSAGES
-
-
-    Language:
-      description: language codes
-      type: string
-      enum:
-      - en
-      - es
-      - fr
-      - it
-      - de
-
-
+          - SENTENCE_CLASSIFICATION
+          - DOCUMENT_CLASSIFICATION
     Sentence:
-      description: A single sentence
+      description: Complete word sequence
       type: object
       required:
+        - stype
         - verbatim
       properties:
+        stype:
+          description: Sentence type
+          type: string
         lang:
-          $ref: '#/components/schemas/Language'
+          description: Sentence language (ISO 639-1)
+          type: string
+          minLength: 2
+          maxLength: 2
         verbatim:
           description: Textual content
           type: string
@@ -155,14 +148,12 @@ components:
           description: Textual context (opt)
           type: string
           format: utf-8
-        annotated:
-          description: Is annotated
-          type: string
-          default: "false"
+
       discriminator:
-        propertyName: annotated
+        propertyName: stype
         mapping:
-          true:  '#/components/schemas/AnnotatedSentence'
+          Sentence: '#/components/schemas/Sentence'
+          AnnotatedSentence:  '#/components/schemas/AnnotatedSentence'
 
 
     Classification:
@@ -173,7 +164,6 @@ components:
         properties:
           classifier:
             type: string
-            format: id
           support:
             type: number
             format: double
@@ -187,6 +177,11 @@ components:
       allOf:
         - $ref: '#/components/schemas/Document'
       properties:
+        classes:
+          description: Text classification
+          type: array
+          items:
+            $ref: '#/components/schemas/Classification'
         sentences:
           type: array
           items:
@@ -465,8 +460,12 @@ components:
       description: Textual object
       type: object
       required:
+        - dtpe
         - id
       properties:
+        dtype:
+          description: Document type
+          type: string
         id:
           description: Document identifier (uri)
           type: string
@@ -484,12 +483,12 @@ components:
           type: string
           format: utf-8
         lang:
-          $ref: '#/components/schemas/Language'
-        annotated:
-          description: Is annotated
+          description: Sentence language (ISO 639-1)
           type: string
-          default: "false"
+          minLength: 2
+          maxLength: 2
       discriminator:
-          propertyName: annotated
+          propertyName: dtype
           mapping:
-            true: '#/components/schemas/AnnotatedDocument'
+            Document: '#/components/schemas/Document'
+            AnnotatedDocument: '#/components/schemas/AnnotatedDocument'
