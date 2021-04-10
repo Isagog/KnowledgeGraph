@@ -111,7 +111,6 @@ paths:
 components:
   schemas:
 
-
     Task:
       description: NLP Tasks
       type: string
@@ -125,50 +124,77 @@ components:
           - DOCUMENT_SUMMARY
           - SENTENCE_CLASSIFICATION
           - DOCUMENT_CLASSIFICATION
-    Sentence:
-      description: Complete word sequence
+
+    Text:
+      description: Textual object
       type: object
       required:
-        - stype
-        - verbatim
+        - ttype
+        - body
       properties:
-        stype:
-          description: Sentence type
+        ttype:
+          description: Textual object type
           type: string
+        body:
+          description: Document body
+          type: string
+          format: utf-8
         lang:
           description: Sentence language (ISO 639-1)
           type: string
           minLength: 2
           maxLength: 2
-        verbatim:
-          description: Textual content
+      discriminator:
+        propertyName: ttype
+        mapping:
+          Document: '#/components/schemas/Document'
+          AnnotatedDocument: '#/components/schemas/AnnotatedDocument'
+          Sentence: '#/components/schemas/Sentence'
+          AnnotatedSentence: '#/components/schemas/AnnotatedSentence'
+
+
+    Document:
+      description: Textual object
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Text'
+      required:
+         - id
+      properties:
+        id:
+          description: Document identifier (uri)
+          type: string
+          format: uri
+        title:
+          description: Document title
           type: string
           format: utf-8
+        source:
+          description: Document source (uri)
+          type: string
+          format: uri
+      discriminator:
+        propertyName: ttype
+        mapping:
+          Document: '#/components/schemas/Document'
+          AnnotatedDocument: '#/components/schemas/AnnotatedDocument'
+
+
+    Sentence:
+      description: Complete word sequence
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Text'
+      properties:
         context:
           description: Textual context (opt)
           type: string
           format: utf-8
-
       discriminator:
-        propertyName: stype
+        propertyName: ttype
         mapping:
           Sentence: '#/components/schemas/Sentence'
           AnnotatedSentence:  '#/components/schemas/AnnotatedSentence'
-
-
-    Classification:
-        description: Text general classification (e.g. intent or sentiment)
-        type: object
-        required:
-          - classifier
-        properties:
-          classifier:
-            type: string
-          support:
-            type: number
-            format: double
-            minimum: 0.0
-            maximum: 1.0
 
 
     AnnotatedDocument:
@@ -186,6 +212,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AnnotatedSentence'
+        entities:
+          description: Entity annotation
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityAnnotation'
+        keywords:
+          description: Keyword annotation
+          type: array
+          items:
+            $ref: '#/components/schemas/KeywordAnnotation'
 
 
     AnnotatedSentence:
@@ -220,6 +256,20 @@ components:
             items:
               $ref: '#/components/schemas/DependencyAnnotation'
 
+
+    Classification:
+      description: Text general classification (e.g. intent or sentiment)
+      type: object
+      required:
+        - classifier
+      properties:
+        classifier:
+          type: string
+        support:
+          type: number
+          format: double
+          minimum: 0.0
+          maximum: 1.0
 
     TokenAnnotation:
       description: Base class for token annotations, should be abstract
@@ -440,55 +490,19 @@ components:
         value:
           type: string
 
-    SentenceRanking:
-      description: Sentence ranking record
-      type: object
-      required:
-        - sentence
-      properties:
-        sentence:
-          $ref: '#/components/schemas/Sentence'
-        support:
-          type: number
-          format: double
-          minimum: 0.0
-          maximum: 1.0
+#    SentenceRanking:
+#      description: Sentence ranking record
+#      type: object
+#      required:
+#        - sentence
+#      properties:
+#        sentence:
+#          $ref: '#/components/schemas/Sentence'
+#        support:
+#          type: number
+#          format: double
+#          minimum: 0.0
+#          maximum: 1.0
 
 
 
-    Document:
-      description: Textual object
-      type: object
-      required:
-        - dtpe
-        - id
-      properties:
-        dtype:
-          description: Document type
-          type: string
-        id:
-          description: Document identifier (uri)
-          type: string
-          format: uri
-        title:
-          description: Document title
-          type: string
-          format: utf-8
-        source:
-          description: Document source (uri)
-          type: string
-          format: uri
-        body:
-          description: Document body
-          type: string
-          format: utf-8
-        lang:
-          description: Sentence language (ISO 639-1)
-          type: string
-          minLength: 2
-          maxLength: 2
-      discriminator:
-          propertyName: dtype
-          mapping:
-            Document: '#/components/schemas/Document'
-            AnnotatedDocument: '#/components/schemas/AnnotatedDocument'
