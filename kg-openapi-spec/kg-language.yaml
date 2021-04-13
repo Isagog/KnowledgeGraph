@@ -211,12 +211,16 @@ components:
         sentences:
           type: array
           items:
-            $ref: '#/components/schemas/AnnotatedSentence'
+            $ref: '#/components/schemas/Sentence'
         entities:
           description: Entity annotation
           type: array
           items:
             $ref: '#/components/schemas/EntityAnnotation'
+        summary:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sentence'
         keywords:
           description: Keyword annotation
           type: array
@@ -235,7 +239,7 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Classification'
-          tokens:
+          lemmas:
             description: Basic token annotation
             type: array
             items:

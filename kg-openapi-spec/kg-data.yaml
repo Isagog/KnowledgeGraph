@@ -214,8 +214,8 @@ paths:
         - DataService
 
     post:
-      summary: Entity statement creation
-      description: Creates a new entity statement
+      summary: Statement creation
+      description: Creates a new statement
       operationId: createStatement
       responses:
         200:
@@ -480,13 +480,13 @@ components:
         - body
       properties:
         lang:
-         $ref: '#/components/schemas/QueryLanguages'
+         $ref: '#/components/schemas/QueryLanguage'
         query:
           type: string
           format: utf-8
           description: Query string
 
-    QueryLanguages:
+    QueryLanguage:
       description: Query languages
       type: string
       enum:

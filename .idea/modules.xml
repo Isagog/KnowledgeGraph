@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/java-client/java-client.iml" filepath="$PROJECT_DIR$/java-client/java-client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/java-server/kg-service.iml" filepath="$PROJECT_DIR$/java-server/kg-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spec/spec.iml" filepath="$PROJECT_DIR$/spec/spec.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kg-java-client/kg-java-client.iml" filepath="$PROJECT_DIR$/kg-java-client/kg-java-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kg-msf4j-server/kg-msf4j-server.iml" filepath="$PROJECT_DIR$/kg-msf4j-server/kg-msf4j-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kg-openapi-spec/kg-openapi-spec.iml" filepath="$PROJECT_DIR$/kg-openapi-spec/kg-openapi-spec.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kg-service/kg-service.iml" filepath="$PROJECT_DIR$/kg-service/kg-service.iml" />
     </modules>
   </component>
 </project>
