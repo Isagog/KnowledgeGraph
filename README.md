@@ -11,34 +11,41 @@ The Isagog platform for Knowledge Graphs consists in the following logical modul
 
 Each module is tagged and features a specific root path.
 
-To generate the client API, move to the directory [java-client](java-client) and use the supplied [maven pom file](java-client/pom.xml).
+To generate the client API, move to the directory [kg-client](kg-java-client) and use the supplied [maven pom file](kg-java-client/pom.xml).
 ```
 mvn [package | install] 
 
 ```
 
-To generate the server stub, move to the directory [java-server](java-server) and use the supplied [maven pom file](java-server/pom.xml) 
+To generate the server stub, move to the directory [kg-server](kg-msf4j-server) and use the supplied [maven pom file](kg-msf4j-server/pom.xml) 
 
 ```
 mvn [package | install] 
 
 ```
+
+To generate the service executable jar, move to the directory [kg-service](kg-service) and use the supplied [maven pom file](kg-service/pom.xml)
+
+```
+mvn [package] 
+
+```
+
+You can also use the supplied [build script](build.sh)
 
 Code generation can be configured generate any supplementary resource, refer to [openapi tools](https://github.com/OpenAPITools/openapi-generator) for details.
 
 
 Here is a high-level sketch of the platform's architecture:
 
-![User interaction](doc/kg-overview.png)
+![User interaction](doc/KnowledgeGraphServOverview.jpg)
 
-Service's functionalities are provided by 3 micro-services:
+Service's functionalities are provided by 4 micro-services:
 
 1. Data Service: CRUD and QUERY operations on the data layer
 2. Knowledge Service: QUERY operations on the data conceptual schema (ontologies)
-3. Language Service: NLP wrapper (document-level and sentence-level analysis)
-
-For interactive use cases (e.g. query answering), the front-end uses a 
-4. Interaction Service: Supports dynamic query building with autocomplete 
+3. Language Service: NLP functionalities (document-level and sentence-level analysis)
+4. Interaction Service: User interactions (e.g. dynamic query building) 
 
 
 
