@@ -12,5 +12,4 @@ mvn package
 echo "SERVICE PACKAGED"
 cd ../
 echo "DONE"
-sleep 3
 

@@ -172,7 +172,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                        <configuration>
                             <excludes>
-                                <exclude>target/src/main/java/com/isagog/kg/service/Application.java</exclude>
+                                <exclude>com/isagog/kg/service/Application.java</exclude>
                                 <!-- exclude>${project.build.directory}/src/main/java/com/isagog/kg/service/Application.java</exclude -->
                             </excludes>
                         </configuration>
