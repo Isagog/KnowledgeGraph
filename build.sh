@@ -8,7 +8,7 @@ mvn clean compile
 mvn install -Dmaven.main.skip=true
 echo "SERVER STUB INSTALLED"
 cd ../kg-service || exit 1
-mvn package
+mvn clean package
 echo "SERVICE PACKAGED"
 cd ../
 echo "DONE"
