@@ -1,0 +1,356 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: ks-api@isagog.com
+    name: Isagog Srl
+  description: Isagog Knowledge Graph Interaction module
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Isagog Knowledge Graph Interaction Service
+  version: 1.0.0
+servers:
+- url: http://localhost:8030
+  variables:
+    port:
+      default: "8030"
+    basePath:
+      default: /interact
+tags:
+- name: InteractionService
+paths:
+  /issue:
+    post:
+      description: Sends list of interaction records to be processed
+      operationId: issue
+      parameters:
+      - description: Issuing target (opt)
+        explode: true
+        in: query
+        name: kg
+        required: false
+        schema:
+          format: id
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/InteractRecord'
+              type: array
+        description: Interaction record array
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueResponse'
+          description: Success
+        "401":
+          description: Unknown graph
+        "402":
+          description: Malformed frame
+        "501":
+          description: Service unavailable
+        "502":
+          description: Server error
+        "503":
+          description: Missing implementation
+      summary: Sends an interaction sequence for processing
+      tags:
+      - InteractionService
+      x-contentType: application/json
+      x-accepts: application/json
+  /complete:
+    get:
+      description: Provides a list of candidate completions to the provided input
+        (hook)
+      operationId: complete
+      parameters:
+      - description: String to search by
+        explode: true
+        in: query
+        name: hook
+        required: true
+        schema:
+          format: utf-8
+          type: string
+        style: form
+      - description: Conceptual type restriction (opt)
+        explode: true
+        in: query
+        name: itype
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletionResponse'
+          description: List of suitable completions
+        "402":
+          description: Illegal hook
+        "501":
+          description: Service unavailable
+        "502":
+          description: Server error
+        "503":
+          description: Missing implementation
+      summary: Suggets completions
+      tags:
+      - InteractionService
+      x-accepts: application/json
+    post:
+      description: Provides completion to the provided hook wrt a frame
+      operationId: completeInContext
+      parameters:
+      - description: String to search by
+        explode: true
+        in: query
+        name: hook
+        required: true
+        schema:
+          format: utf-8
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/InteractRecord'
+              type: array
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletionResponse'
+          description: List of suitable completions
+        "402":
+          description: Illegal hook
+        "501":
+          description: Service unavailable
+        "502":
+          description: Server error
+        "503":
+          description: Missing implementation
+      summary: Suggets completions
+      tags:
+      - InteractionService
+      x-contentType: application/json
+      x-accepts: application/json
+components:
+  schemas:
+    UploadForm:
+      description: Upload form
+      properties:
+        format:
+          description: Serialization format
+          enum:
+          - turtle
+          - rdf-xml
+          - rdf-json
+          - json-ld
+          - txt
+          - csv
+          type: string
+        content:
+          description: Serialized content
+          format: binary
+          type: string
+      required:
+      - content
+      type: object
+    InteractType:
+      description: Interaction conceptual types
+      enum:
+      - EXPRESSION
+      - VALUE
+      - ENTITY
+      - CONCEPT
+      - RELATION
+      - ATTRIBUTE
+      - FRAME
+      - CONNECTIVE
+      type: string
+    ResponseType:
+      description: Interaction response type
+      enum:
+      - QUERY_ANSWER
+      - SEARCH_ANSWER
+      - UPDATE_ACKNOWLEDGE
+      - ERROR
+      type: string
+    InteractRecord:
+      description: Interaction record
+      example:
+        kitem: kitem
+        value: value
+        constraints:
+        - constraints
+        - constraints
+        slotref: slotref
+      properties:
+        itype:
+          $ref: '#/components/schemas/InteractType'
+        value:
+          description: Interaction content
+          format: utf-8
+          type: string
+        kitem:
+          description: Knowlege item (opt)
+          format: id
+          type: string
+        constraints:
+          description: Knowledge constraints (opt)
+          items:
+            type: string
+          type: array
+        slotref:
+          description: Reference to a frame slot <frame id>.<slot id> (opt)
+          type: string
+      required:
+      - itype
+      - value
+      type: object
+    CompletionResponse:
+      description: Completion array
+      example:
+        suggestions:
+        - kitem: kitem
+          value: value
+          constraints:
+          - constraints
+          - constraints
+          slotref: slotref
+        - kitem: kitem
+          value: value
+          constraints:
+          - constraints
+          - constraints
+          slotref: slotref
+      properties:
+        suggestions:
+          description: Suggested interactions, should be sorted by type (itype)
+          items:
+            $ref: '#/components/schemas/InteractRecord'
+          type: array
+      type: object
+    IssueResponse:
+      description: Response to issuing an interation
+      example:
+        qanswer:
+          size: 6
+          header:
+          - name: name
+          - name: name
+          handle: 0
+          rows:
+          - values:
+            - values
+            - values
+            support: 0.14658129805029452
+          - values:
+            - values
+            - values
+            support: 0.14658129805029452
+        message: message
+      properties:
+        rtype:
+          $ref: '#/components/schemas/ResponseType'
+        qanswer:
+          $ref: '#/components/schemas/QueryResponse'
+        message:
+          type: string
+      required:
+      - rtype
+      type: object
+    QueryResponse:
+      description: Query result set
+      example:
+        size: 6
+        header:
+        - name: name
+        - name: name
+        handle: 0
+        rows:
+        - values:
+          - values
+          - values
+          support: 0.14658129805029452
+        - values:
+          - values
+          - values
+          support: 0.14658129805029452
+      properties:
+        handle:
+          description: Handle to the query result for paging (opt)
+          format: int64
+          type: integer
+        size:
+          description: Total availabe results
+          format: int32
+          type: integer
+        header:
+          description: Result set description
+          items:
+            $ref: '#/components/schemas/ResponseHeader'
+          type: array
+        rows:
+          description: Result items
+          items:
+            $ref: '#/components/schemas/ResponseRow'
+          type: array
+      required:
+      - header
+      type: object
+    ResponseHeader:
+      description: Query result set header
+      example:
+        name: name
+      properties:
+        name:
+          type: string
+        dtype:
+          $ref: '#/components/schemas/ValueType'
+      required:
+      - name
+      type: object
+    ValueType:
+      enum:
+      - URI
+      - BOOLEAN
+      - INTEGER
+      - DOUBLE
+      - STRING
+      type: string
+    ResponseRow:
+      description: Query result set row
+      example:
+        values:
+        - values
+        - values
+        support: 0.14658129805029452
+      properties:
+        values:
+          items:
+            format: utf-8
+            type: string
+          type: array
+        support:
+          default: 1.0
+          format: double
+          maximum: 1.0
+          minimum: 0.0
+          type: number
+      required:
+      - values
+      type: object
+
