@@ -25,7 +25,7 @@ paths:
   /issue:
       post:
         summary: Sends an interaction sequence for processing
-        description: Sends list of interaction records, to be processed according to the service's buisiness logic
+        description: Sends list of interaction records to be processed
         parameters:
           - name: kg
             in: query
@@ -168,13 +168,14 @@ components:
       description: Interaction conceptual types
       type: string
       enum:
+        - EXPRESSION
         - VALUE
         - ENTITY
         - CONCEPT
         - RELATION
         - ATTRIBUTE
         - FRAME
-        - SYNTAGM
+        - CONNECTIVE
 
     ResponseType:
       description: Interaction response type
